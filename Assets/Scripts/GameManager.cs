@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public float levelStarDelay = 2f;
-    public float turnDelay = 0.1f;
+    //public float levelStarDelay = 2f;
+    //public float turnDelay = 0.1f;
     public static GameManager instance = null;
     public BoardManager boardScript;
+    public LevelGeneration levelGenerationScript;
+    public Player player;
     public Enemy enemy;
 
     private int level = 1;
     private bool doingSetup;
+
+    //instantiate prefabs
+    public GameObject ini_Player;
+    public GameObject ini_Enemy;
+
 
 
     // Start is called before the first frame update
@@ -26,8 +33,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        boardScript = GetComponent<BoardManager>();
-        enemy = /*GameObject.FindGameObjectWithTag("Enemy");*/  // add instanciar enemy
+        //boardScript = GetComponent<BoardManager>();
+        levelGenerationScript = GetComponent<LevelGeneration>();
+
+        Instantiate(player, ini_Player.transform.position, Quaternion.identity);
+        enemy = Instantiate(enemy, ini_Enemy.transform.position, Quaternion.identity);
         //healthManager = GetComponent<HealthManager>();
         InitGame();
     }
@@ -36,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         doingSetup = true;
 
-        boardScript.SetupScene(level);
+        //boardScript.SetupScene(level);
         //healthManager.SetupHealth();
     }
 
@@ -47,11 +57,11 @@ public class GameManager : MonoBehaviour
         //healthManager.UpdateUI();
     }
 
-    void takeDamage( string colliderTag)
+    public void takeDamage( string colliderTag)
     {
-        if (enemy.tag == colliderTag)
+        if (enemy.tag == colliderTag && (!enemy.checkIsInmune()))
         {
-            enemy.tak
+            enemy.TakeDamage(1);// TODO: weaponDagame
         }
     }
 }

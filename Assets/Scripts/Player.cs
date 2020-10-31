@@ -67,9 +67,10 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy"  && !playerInmune)
         {
+            GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
-            SetPlayerHealth(-1);
+            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
             UpdatePlayerHealth();
             passingTime = 0;
         }
@@ -79,9 +80,10 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" && !playerInmune)
         {
+            GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
-            SetPlayerHealth(-1);
+            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
             UpdatePlayerHealth();
             passingTime = 0;
         }

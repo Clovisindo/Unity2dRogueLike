@@ -114,6 +114,65 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sobrecarga para crear una habitacion instancia a una posicion determinada
+    /// </summary>
+    /// <param name="gridRoomLevelPosition"></param>
+   public void BoardSetup(Vector3 gridRoomLevelPosition)
+    {
+        //Instantiate Board and set gridRoomLevelPosition to its transform.
+        GameObject boardLevel = Instantiate(new GameObject("Board"), gridRoomLevelPosition, Quaternion.identity);
+        boardHolder = boardLevel.transform;
+
+        //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
+        for (int x = -1; x < columns + 1; x++)
+        {
+            //Loop along y axis, starting from -1 to place floor or outerwall tiles.
+            for (int y = -1; y < rows + 1; y++)
+            {
+                //Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
+                GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+
+                if (x == -1 && y == -1)// WallCorners
+                {
+                    toInstantiate = wallCornerBottomLeft;
+                }
+                if (x == -1 && y == rows)
+                {
+                    toInstantiate = wallCornerTopLeft;
+                }
+                if (x == columns && y == -1)
+                {
+                    toInstantiate = wallCornerBottomRight;
+                }
+                if (x == columns && y == rows)
+                {
+                    toInstantiate = wallCornerTopRight;
+                }
+                if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
+                {
+                    toInstantiate = outerWallFrontTiles[Random.Range(0, outerWallFrontTiles.Length)];
+                }
+
+                if ((x == -1) && !(x == -1 && y == -1) && !(x == -1 && y == rows))//collumns y que no sea esquina de columna
+                {
+                    toInstantiate = outerWallSideLeftTiles;
+                }
+                if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna
+                {
+                    toInstantiate = outerWallSideRightTiles;
+                }
+
+                //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+                GameObject instance =
+                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+                instance.transform.SetParent(boardHolder);
+            }
+        }
+    }
+
     //RandomPosition returns a random position from our list gridPositions.
     Vector3 RandomPosition()
     {

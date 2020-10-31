@@ -168,6 +168,7 @@ MonoBehaviour:
   moveX: 0
   moveY: 0
   MOVEMENT_BASE_SPEED: 5
+  playerHealth: 3
 --- !u!1001 &7700966862235103482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,6 +180,10 @@ PrefabInstance:
       propertyPath: startTimeBtwAttack
       value: 0.833
       objectReference: {fileID: 0}
+    - target: {fileID: 767179637201030223, guid: f864b2fc5edd8ae4d82762b0f52a8043, type: 3}
+      propertyPath: weaponSwin
+      value: 
+      objectReference: {fileID: 8300000, guid: 7bd41e246129c96409f6fb62fef20d9c, type: 3}
     - target: {fileID: 1640855196496400984, guid: f864b2fc5edd8ae4d82762b0f52a8043, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

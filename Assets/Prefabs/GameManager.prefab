@@ -47,6 +47,10 @@ MonoBehaviour:
   levelStarDelay: 2
   turnDelay: 0.1
   boardScript: {fileID: 0}
+  player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
+  enemy: {fileID: 3807060254654909609, guid: 19b7a97344d2f374a985db7edb1ef379, type: 3}
+  ini_Player: {fileID: 1464220604559105159, guid: 5bec2355441d70148b5ecd00086138eb, type: 3}
+  ini_Enemy: {fileID: 6166336049006571560, guid: 6bde3eded51ad4748b242092d94bc370, type: 3}
 --- !u!114 &9138923659496423887
 MonoBehaviour:
   m_ObjectHideFlags: 0
