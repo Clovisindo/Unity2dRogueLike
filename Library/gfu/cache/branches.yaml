@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 2
-  lastUpdatedAtString: 2020-10-31T12:57:43.634+01:00
-  initializedAtString: 2020-10-31T12:57:43.604+01:00
-  localBranches: []
+  lastUpdatedAtString: 2020-11-17T23:48:44.572+01:00
+  initializedAtString: 2020-11-17T23:48:44.091+01:00
+  localBranches:
+  - name: LevelGenerationManager
+    tracking: 
   remoteBranches:
   - name: origin/master
     tracking: '[None]'
@@ -28,8 +30,14 @@ MonoBehaviour:
     function: 0
     token: 
   localConfigBranches:
-    keys: []
-    values: []
+    keys:
+    - LevelGenerationManager
+    values:
+    - name: LevelGenerationManager
+      remote:
+        name: 
+        url: 
+      trackingBranch: 
   remoteConfigBranches:
     keys:
     - origin

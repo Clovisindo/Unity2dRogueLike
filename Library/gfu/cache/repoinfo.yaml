@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2020-10-31T12:57:42.366+01:00
-  initializedAtString: 2020-10-31T12:57:42.366+01:00
+  lastUpdatedAtString: 2020-11-17T23:48:44.017+01:00
+  initializedAtString: 2020-11-17T23:19:15.562+01:00
   currentGitRemote:
     name: origin
     url: https://github.com/Clovisindo/Unity2dRogueLike.git
@@ -24,14 +24,14 @@ MonoBehaviour:
     function: 0
     token: 
   currentGitBranch:
-    name: master
-    tracking: origin/master
+    name: LevelGenerationManager
+    tracking: 
   currentConfigBranch:
-    name: master
+    name: LevelGenerationManager
     remote:
-      name: origin
-      url: https://github.com/Clovisindo/Unity2dRogueLike.git
-    trackingBranch: master
+      name: 
+      url: 
+    trackingBranch: 
   currentConfigRemote:
     name: origin
     url: https://github.com/Clovisindo/Unity2dRogueLike.git

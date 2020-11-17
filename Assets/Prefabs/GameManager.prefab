@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4547605144249555642}
   - component: {fileID: 4884799697277178399}
   - component: {fileID: 9138923659496423887}
+  - component: {fileID: 1212537152}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,11 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9429ad1c5184a9a48b0652f48318bcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelStarDelay: 2
-  turnDelay: 0.1
   boardScript: {fileID: 0}
+  levelGenerationScript: {fileID: 0}
   player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
   enemy: {fileID: 3807060254654909609, guid: 19b7a97344d2f374a985db7edb1ef379, type: 3}
+  gameCamera: {fileID: 0}
   ini_Player: {fileID: 1464220604559105159, guid: 5bec2355441d70148b5ecd00086138eb, type: 3}
   ini_Enemy: {fileID: 6166336049006571560, guid: 6bde3eded51ad4748b242092d94bc370, type: 3}
 --- !u!114 &9138923659496423887
@@ -79,7 +80,45 @@ MonoBehaviour:
   - {fileID: 7831596654504530038, guid: fe34d2cc9d90ab94d829fbdd0bba2c3d, type: 3}
   outerWallSideLeftTiles: {fileID: 1545862704536438702, guid: ec537b35c1e9033468c19ee74f3a8f61, type: 3}
   outerWallSideRightTiles: {fileID: 2474303581910531322, guid: a1713df3e45dd8e4e87d180d311c4f0a, type: 3}
+  exitTiles: []
+  rightChangeRoomCollider: {fileID: 6223185180155930022, guid: e809cb2be4873f1489a0ba90d0806e0d, type: 3}
   wallCornerTopLeft: {fileID: 6660753506950693226, guid: 1ae61f88f675bc244ae0e94f9bfd5472, type: 3}
   wallCornerTopRight: {fileID: 3297531888238195791, guid: 2bf73bfc895b8674ebd1d881f4b6f5b5, type: 3}
   wallCornerBottomRight: {fileID: 778436437792382701, guid: d8562b0ba3adc0341a65256206a9a781, type: 3}
   wallCornerBottomLeft: {fileID: 8377274554508819579, guid: 769a0414dd5e4a042a9e65ab40b11317, type: 3}
+--- !u!114 &1212537152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217760998152101640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a336c73e9610d0642a0e11628c8c0061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPositions:
+  - {fileID: 8070552759448154379, guid: de86ed9672175184eaec9fd2d99ef30d, type: 3}
+  - {fileID: 8442475516855479100, guid: 532a79fddd6fcb54db2da35a69732694, type: 3}
+  - {fileID: 4485401011316558304, guid: e0b18d5d44d0ccc40bea0c063b7a24cd, type: 3}
+  - {fileID: 6853666926479447112, guid: 25de736601bd80244af9a6f137c1228a, type: 3}
+  - {fileID: 969193868667047368, guid: 0499f0eaa9bc6514395bbb2f4760359a, type: 3}
+  - {fileID: 9070505743918241310, guid: efcb9537c0f30fe409b2f6beeebda6ed, type: 3}
+  - {fileID: 2695912687847069250, guid: fedf0a2834a567d4080a9a232abe323c, type: 3}
+  - {fileID: 5180064684793764640, guid: 156b3b6c5106a6d4ebd3b003f09affaf, type: 3}
+  - {fileID: 6797197657267103236, guid: c117f51cb9a71074fb6061e7723b685b, type: 3}
+  - {fileID: 8861409121369920299, guid: cfd0a25583e777d4cb6262769f2aadb4, type: 3}
+  - {fileID: 6910506424376059030, guid: 968de2ce127d6064d9e1a81229a344bb, type: 3}
+  - {fileID: 4137793295771866553, guid: 791525d4ab5786a498ab43100c3e6b10, type: 3}
+  - {fileID: 9051282067606449163, guid: 67edec520021d5f48a7c3f9bc4f19d84, type: 3}
+  - {fileID: 7164464610657466421, guid: 1ca549355281ac54db9a2dc1ea442b72, type: 3}
+  - {fileID: 723358776175256134, guid: b69d7b7034d767141a3dfec5845b770f, type: 3}
+  - {fileID: 7046546046221796652, guid: dcd904271e9830545a188c3d2964e701, type: 3}
+  rooms: []
+  moveAmountX: 18
+  moveAmountY: 10
+  startTimeBTwRoom: 0.25
+  minX: -1.5
+  maxX: 54
+  maxY: -30

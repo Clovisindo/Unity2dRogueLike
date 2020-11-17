@@ -13,39 +13,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 6
-  lastUpdatedAtString: 2020-10-31T13:05:57.002+01:00
-  initializedAtString: 2020-10-31T12:57:42.988+01:00
+  lastUpdatedAtString: 2020-11-17T23:48:46.866+01:00
+  initializedAtString: 2020-11-17T23:19:16.176+01:00
   entries:
-  - path: .vs\RogueLike project\v15\.suo
-    fullPath: F:\Unity Projects\RogueLike project\.vs\RogueLike project\v15\.suo
-    projectPath: .vs\RogueLike project\v15\.suo
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: .vs\RogueLike project\v15\Server\sqlite3\storage.ide
-    fullPath: F:\Unity Projects\RogueLike project\.vs\RogueLike project\v15\Server\sqlite3\storage.ide
-    projectPath: .vs\RogueLike project\v15\Server\sqlite3\storage.ide
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: .vs\RogueLike project\v15\Server\sqlite3\storage.ide-shm
-    fullPath: F:\Unity Projects\RogueLike project\.vs\RogueLike project\v15\Server\sqlite3\storage.ide-shm
-    projectPath: .vs\RogueLike project\v15\Server\sqlite3\storage.ide-shm
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: .vs\RogueLike project\v15\Server\sqlite3\storage.ide-wal
-    fullPath: F:\Unity Projects\RogueLike project\.vs\RogueLike project\v15\Server\sqlite3\storage.ide-wal
-    projectPath: .vs\RogueLike project\v15\Server\sqlite3\storage.ide-wal
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: .vs\RogueLike project\v16\.suo
     fullPath: F:\Unity Projects\RogueLike project\.vs\RogueLike project\v16\.suo
     projectPath: .vs\RogueLike project\v16\.suo
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assembly-CSharp.csproj
     fullPath: F:\Unity Projects\RogueLike project\Assembly-CSharp.csproj
     projectPath: Assembly-CSharp.csproj
@@ -64,87 +40,27 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Assets\Sounds.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Assets\Sounds.meta
-    projectPath: Assets\Assets\Sounds.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Assets\Sounds\SFX.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Assets\Sounds\SFX.meta
-    projectPath: Assets\Assets\Sounds\SFX.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Assets\Sounds\SFX\swing.wav
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Assets\Sounds\SFX\swing.wav
-    projectPath: Assets\Assets\Sounds\SFX\swing.wav
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Assets\Sounds\SFX\swing.wav.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Assets\Sounds\SFX\swing.wav.meta
-    projectPath: Assets\Assets\Sounds\SFX\swing.wav.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Plugins\GitHub\Editor\GitHub.Api.45.dll.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Plugins\GitHub\Editor\GitHub.Api.45.dll.meta
-    projectPath: Assets\Plugins\GitHub\Editor\GitHub.Api.45.dll.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Plugins\GitHub\Editor\GitHub.Unity.45.dll.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Plugins\GitHub\Editor\GitHub.Unity.45.dll.meta
-    projectPath: Assets\Plugins\GitHub\Editor\GitHub.Unity.45.dll.meta
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Assets\Prefabs\Enemies\Goblin\Goblin.prefab
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\Enemies\Goblin\Goblin.prefab
-    projectPath: Assets\Prefabs\Enemies\Goblin\Goblin.prefab
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Prefabs\GameManager.prefab
     fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\GameManager.prefab
     projectPath: Assets\Prefabs\GameManager.prefab
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Prefabs\GoblinRespawn.prefab
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\GoblinRespawn.prefab
-    projectPath: Assets\Prefabs\GoblinRespawn.prefab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Prefabs\GoblinRespawn.prefab.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\GoblinRespawn.prefab.meta
-    projectPath: Assets\Prefabs\GoblinRespawn.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Assets\Prefabs\Player\Player.prefab
     fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\Player\Player.prefab
     projectPath: Assets\Prefabs\Player\Player.prefab
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Prefabs\PlayerRespawn.prefab
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\PlayerRespawn.prefab
-    projectPath: Assets\Prefabs\PlayerRespawn.prefab
+  - path: Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\Prefabs\PlayerRespawn.prefab.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\PlayerRespawn.prefab.meta
-    projectPath: Assets\Prefabs\PlayerRespawn.prefab.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Prefabs\RoomSpawnsPosition.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition.meta
-    projectPath: Assets\Prefabs\RoomSpawnsPosition.meta
+  - path: Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\ChangeRoomEventCollider.prefab.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -152,11 +68,89 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition.prefab
     projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition.prefab
     originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab
+    originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition.prefab.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition.prefab.meta
-    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition.prefab.meta
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition10.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition11.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition12.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition13.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition14.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition15.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition16.prefab.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -164,23 +158,95 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition2.prefab
     projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition2.prefab
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition2.prefab.meta
     fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition2.prefab.meta
     projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition2.prefab.meta
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Prefabs\SoundManager.prefab
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\SoundManager.prefab
-    projectPath: Assets\Prefabs\SoundManager.prefab
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Assets\Prefabs\SoundManager.prefab.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\SoundManager.prefab.meta
-    projectPath: Assets\Prefabs\SoundManager.prefab.meta
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition3.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition4.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition5.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition6.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition7.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition8.prefab.meta
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab.meta
+    fullPath: F:\Unity Projects\RogueLike project\Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab.meta
+    projectPath: Assets\Prefabs\RoomSpawnsPosition\RoomPosition9.prefab.meta
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -196,39 +262,15 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scripts\Enemy.cs
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\Enemy.cs
-    projectPath: Assets\Scripts\Enemy.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Scripts\GameManager.cs
     fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\GameManager.cs
     projectPath: Assets\Scripts\GameManager.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scripts\HealthManager.cs
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\HealthManager.cs
-    projectPath: Assets\Scripts\HealthManager.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Assets\Scripts\LevelGeneration.cs
     fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\LevelGeneration.cs
     projectPath: Assets\Scripts\LevelGeneration.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scripts\LevelGeneration.cs.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\LevelGeneration.cs.meta
-    projectPath: Assets\Scripts\LevelGeneration.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scripts\Loader.cs
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\Loader.cs
-    projectPath: Assets\Scripts\Loader.cs
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -238,45 +280,15 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Assets\Scripts\SoundManager.cs
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\SoundManager.cs
-    projectPath: Assets\Scripts\SoundManager.cs
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scripts\SoundManager.cs.meta
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\SoundManager.cs.meta
-    projectPath: Assets\Scripts\SoundManager.cs.meta
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Assets\Scripts\Weapon.cs
-    fullPath: F:\Unity Projects\RogueLike project\Assets\Scripts\Weapon.cs
-    projectPath: Assets\Scripts\Weapon.cs
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: Library\APIUpdater\project-dependencies.graph
-    fullPath: F:\Unity Projects\RogueLike project\Library\APIUpdater\project-dependencies.graph
-    projectPath: Library\APIUpdater\project-dependencies.graph
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
   - path: Library\ArtifactDB
     fullPath: F:\Unity Projects\RogueLike project\Library\ArtifactDB
     projectPath: Library\ArtifactDB
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\Artifacts\01\01424c2609c96de672b43cd60794f55f
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\01\01424c2609c96de672b43cd60794f55f
-    projectPath: Library\Artifacts\01\01424c2609c96de672b43cd60794f55f
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\04\04282c6218d1414dffe27083aa606950
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\04\04282c6218d1414dffe27083aa606950
-    projectPath: Library\Artifacts\04\04282c6218d1414dffe27083aa606950
+  - path: Library\Artifacts\04\04a8596dbe7b0adcc97406cdbcf816cb
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\04\04a8596dbe7b0adcc97406cdbcf816cb
+    projectPath: Library\Artifacts\04\04a8596dbe7b0adcc97406cdbcf816cb
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -284,77 +296,83 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\05\059570cd0c0cd83ff9f08a43e2ab2805
     projectPath: Library\Artifacts\05\059570cd0c0cd83ff9f08a43e2ab2805
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\09\09af81bb14ea9f79548054a4cf23de7e
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\09\09af81bb14ea9f79548054a4cf23de7e
-    projectPath: Library\Artifacts\09\09af81bb14ea9f79548054a4cf23de7e
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
-  - path: Library\Artifacts\0e\0ef08b8ae780de4feaa9dd2bec682c42
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\0e\0ef08b8ae780de4feaa9dd2bec682c42
-    projectPath: Library\Artifacts\0e\0ef08b8ae780de4feaa9dd2bec682c42
+  - path: Library\Artifacts\09\09aad11263a64aab957b0e146a142a40
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\09\09aad11263a64aab957b0e146a142a40
+    projectPath: Library\Artifacts\09\09aad11263a64aab957b0e146a142a40
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\1f\1fa8b9a010b2fbe0e7063e6385fbed79
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\1f\1fa8b9a010b2fbe0e7063e6385fbed79
-    projectPath: Library\Artifacts\1f\1fa8b9a010b2fbe0e7063e6385fbed79
+  - path: Library\Artifacts\10\10c400b90bc98c6cfbd43b6e2a25f85c
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\10\10c400b90bc98c6cfbd43b6e2a25f85c
+    projectPath: Library\Artifacts\10\10c400b90bc98c6cfbd43b6e2a25f85c
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\13\13545da5c999e8346aa7029192290cf4
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\13\13545da5c999e8346aa7029192290cf4
+    projectPath: Library\Artifacts\13\13545da5c999e8346aa7029192290cf4
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\14\143aac6fa423bff58c51b795c34c2399
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\14\143aac6fa423bff58c51b795c34c2399
+    projectPath: Library\Artifacts\14\143aac6fa423bff58c51b795c34c2399
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\17\17bf3c701b2c8b46ba36a7fa858c7502
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\17\17bf3c701b2c8b46ba36a7fa858c7502
+    projectPath: Library\Artifacts\17\17bf3c701b2c8b46ba36a7fa858c7502
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\Artifacts\23\23fae346c5f41af74afa5823557e63c5
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\23\23fae346c5f41af74afa5823557e63c5
     projectPath: Library\Artifacts\23\23fae346c5f41af74afa5823557e63c5
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\25\2592f3310cd23a52bc4997a6d8d1ed3e
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\25\2592f3310cd23a52bc4997a6d8d1ed3e
-    projectPath: Library\Artifacts\25\2592f3310cd23a52bc4997a6d8d1ed3e
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
-  - path: Library\Artifacts\29\299fb3b1cd591fb43f18ac1c355e3b06
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\29\299fb3b1cd591fb43f18ac1c355e3b06
-    projectPath: Library\Artifacts\29\299fb3b1cd591fb43f18ac1c355e3b06
+  - path: Library\Artifacts\26\26f1d6cec3d4893a734c9d21f70f1379
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\26\26f1d6cec3d4893a734c9d21f70f1379
+    projectPath: Library\Artifacts\26\26f1d6cec3d4893a734c9d21f70f1379
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\2a\2afb11c37c07def724bf15cc6e120211
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\2a\2afb11c37c07def724bf15cc6e120211
-    projectPath: Library\Artifacts\2a\2afb11c37c07def724bf15cc6e120211
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\3a\3a6bbfc955ac4b1e4b5130010a3a389d
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\3a\3a6bbfc955ac4b1e4b5130010a3a389d
-    projectPath: Library\Artifacts\3a\3a6bbfc955ac4b1e4b5130010a3a389d
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\52\5255fa98643da369c7bca41a8c55d23e
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\52\5255fa98643da369c7bca41a8c55d23e
-    projectPath: Library\Artifacts\52\5255fa98643da369c7bca41a8c55d23e
+  - path: Library\Artifacts\2a\2abc994bdefd8fc9492edd63db267249
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\2a\2abc994bdefd8fc9492edd63db267249
+    projectPath: Library\Artifacts\2a\2abc994bdefd8fc9492edd63db267249
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\53\539b15c2dd3c2da1ddbe22f116c60598
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\53\539b15c2dd3c2da1ddbe22f116c60598
-    projectPath: Library\Artifacts\53\539b15c2dd3c2da1ddbe22f116c60598
+  - path: Library\Artifacts\48\484fa4c6356386b1c0aa4b52e4ba0610
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\48\484fa4c6356386b1c0aa4b52e4ba0610
+    projectPath: Library\Artifacts\48\484fa4c6356386b1c0aa4b52e4ba0610
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\70\709618fc353ae7c1f01f77a180f235a2
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\70\709618fc353ae7c1f01f77a180f235a2
-    projectPath: Library\Artifacts\70\709618fc353ae7c1f01f77a180f235a2
+  - path: Library\Artifacts\52\52995e2be506d09a8ef30a3ad7990566
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\52\52995e2be506d09a8ef30a3ad7990566
+    projectPath: Library\Artifacts\52\52995e2be506d09a8ef30a3ad7990566
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\74\74ad66154b8f689535bfbf172f1fd51c
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\74\74ad66154b8f689535bfbf172f1fd51c
-    projectPath: Library\Artifacts\74\74ad66154b8f689535bfbf172f1fd51c
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\5e\5e92df834edaddb3d85b136ba6cbec71
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\5e\5e92df834edaddb3d85b136ba6cbec71
+    projectPath: Library\Artifacts\5e\5e92df834edaddb3d85b136ba6cbec71
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\63\6364d257360cf8df56ccc8d4c41cdb47
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\63\6364d257360cf8df56ccc8d4c41cdb47
+    projectPath: Library\Artifacts\63\6364d257360cf8df56ccc8d4c41cdb47
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\6c\6c04d2a7ba961d610761c908f138318e
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\6c\6c04d2a7ba961d610761c908f138318e
+    projectPath: Library\Artifacts\6c\6c04d2a7ba961d610761c908f138318e
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -362,200 +380,158 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\79\790a195d65b0b2a521a1d654166efa8d
     projectPath: Library\Artifacts\79\790a195d65b0b2a521a1d654166efa8d
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\79\79f2fad85d36747e7881dc0e4a4220de
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\79\79f2fad85d36747e7881dc0e4a4220de
-    projectPath: Library\Artifacts\79\79f2fad85d36747e7881dc0e4a4220de
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
+  - path: Library\Artifacts\7a\7aebeaf3e3dd3a4b93636409b0bcd544
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\7a\7aebeaf3e3dd3a4b93636409b0bcd544
+    projectPath: Library\Artifacts\7a\7aebeaf3e3dd3a4b93636409b0bcd544
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\Artifacts\7c\7cfd2dc4e7a84776d34a32f9a7595560
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\7c\7cfd2dc4e7a84776d34a32f9a7595560
     projectPath: Library\Artifacts\7c\7cfd2dc4e7a84776d34a32f9a7595560
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\80\800169a615988dc10373a6443ffc0312
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\80\800169a615988dc10373a6443ffc0312
-    projectPath: Library\Artifacts\80\800169a615988dc10373a6443ffc0312
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
-  - path: Library\Artifacts\80\80cbabf107fcef6951d119221590e322
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\80\80cbabf107fcef6951d119221590e322
-    projectPath: Library\Artifacts\80\80cbabf107fcef6951d119221590e322
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\85\85167e4c26a1189e4a70d1f12737d94e
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\85\85167e4c26a1189e4a70d1f12737d94e
-    projectPath: Library\Artifacts\85\85167e4c26a1189e4a70d1f12737d94e
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: Library\Artifacts\8a\8a0141b696618924fe4dc00730f4c280
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\8a\8a0141b696618924fe4dc00730f4c280
     projectPath: Library\Artifacts\8a\8a0141b696618924fe4dc00730f4c280
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\8b\8b3010ab30aed98ec3f0e05c33f2d459
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\8b\8b3010ab30aed98ec3f0e05c33f2d459
-    projectPath: Library\Artifacts\8b\8b3010ab30aed98ec3f0e05c33f2d459
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 5
   - path: Library\Artifacts\8b\8b3abad310d3164a7411c41d9fd0c66e
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\8b\8b3abad310d3164a7411c41d9fd0c66e
     projectPath: Library\Artifacts\8b\8b3abad310d3164a7411c41d9fd0c66e
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 5
   - path: Library\Artifacts\8c\8cdaf84e6c59f15955c5ea7d0406edba
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\8c\8cdaf84e6c59f15955c5ea7d0406edba
     projectPath: Library\Artifacts\8c\8cdaf84e6c59f15955c5ea7d0406edba
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\8e\8e6e0287dbf51ac2b44850f560cbb34c
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\8e\8e6e0287dbf51ac2b44850f560cbb34c
-    projectPath: Library\Artifacts\8e\8e6e0287dbf51ac2b44850f560cbb34c
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\96\964b3db90cdf8d1f29c147891e3277da
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\96\964b3db90cdf8d1f29c147891e3277da
-    projectPath: Library\Artifacts\96\964b3db90cdf8d1f29c147891e3277da
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
+  - path: Library\Artifacts\91\91f8c274f0cac8742d415e1877a90b17
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\91\91f8c274f0cac8742d415e1877a90b17
+    projectPath: Library\Artifacts\91\91f8c274f0cac8742d415e1877a90b17
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\92\92556b3308560a9037326b0cfc0bc4be
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\92\92556b3308560a9037326b0cfc0bc4be
+    projectPath: Library\Artifacts\92\92556b3308560a9037326b0cfc0bc4be
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\9e\9e92b5888d7a8b24e7fe61093f717f6a
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\9e\9e92b5888d7a8b24e7fe61093f717f6a
+    projectPath: Library\Artifacts\9e\9e92b5888d7a8b24e7fe61093f717f6a
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\Artifacts\a0\a05303f22d99d1e4ffdb916faca597fc
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\a0\a05303f22d99d1e4ffdb916faca597fc
     projectPath: Library\Artifacts\a0\a05303f22d99d1e4ffdb916faca597fc
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\a4\a41ad4663fbde785dad4ddc90ae5beab
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\a4\a41ad4663fbde785dad4ddc90ae5beab
-    projectPath: Library\Artifacts\a4\a41ad4663fbde785dad4ddc90ae5beab
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\ab\ab6d417cae0058abdbbd8bec193bb4be
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ab\ab6d417cae0058abdbbd8bec193bb4be
-    projectPath: Library\Artifacts\ab\ab6d417cae0058abdbbd8bec193bb4be
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
-  - path: Library\Artifacts\af\afc0dea5997f461170b1e6cb8da28f0e
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\af\afc0dea5997f461170b1e6cb8da28f0e
-    projectPath: Library\Artifacts\af\afc0dea5997f461170b1e6cb8da28f0e
+  - path: Library\Artifacts\a5\a580b2eda352bb91e01a1220b5c246ea
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\a5\a580b2eda352bb91e01a1220b5c246ea
+    projectPath: Library\Artifacts\a5\a580b2eda352bb91e01a1220b5c246ea
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\b1\b11aeed917bb5c7c1e3624011c4be7eb
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\b1\b11aeed917bb5c7c1e3624011c4be7eb
-    projectPath: Library\Artifacts\b1\b11aeed917bb5c7c1e3624011c4be7eb
+  - path: Library\Artifacts\aa\aa96c2ee348b492e121d15e0d6696d0f
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\aa\aa96c2ee348b492e121d15e0d6696d0f
+    projectPath: Library\Artifacts\aa\aa96c2ee348b492e121d15e0d6696d0f
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\b5\b529fca75a3b8d5cd607d059ef4dd57c
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\b5\b529fca75a3b8d5cd607d059ef4dd57c
-    projectPath: Library\Artifacts\b5\b529fca75a3b8d5cd607d059ef4dd57c
+  - path: Library\Artifacts\af\af694f2b973d47b601884845d601c6e8
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\af\af694f2b973d47b601884845d601c6e8
+    projectPath: Library\Artifacts\af\af694f2b973d47b601884845d601c6e8
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\bb\bb04de614f2d45b38466b86b3b50e099
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\bb\bb04de614f2d45b38466b86b3b50e099
-    projectPath: Library\Artifacts\bb\bb04de614f2d45b38466b86b3b50e099
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\b1\b1bf116bbb9bcb929b52dc4e744420c0
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\b1\b1bf116bbb9bcb929b52dc4e744420c0
+    projectPath: Library\Artifacts\b1\b1bf116bbb9bcb929b52dc4e744420c0
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\Artifacts\bd\bdc257fe70a00c7d431e0eaa6755823e
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\bd\bdc257fe70a00c7d431e0eaa6755823e
     projectPath: Library\Artifacts\bd\bdc257fe70a00c7d431e0eaa6755823e
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c3\c359a046bd2684cfa74a7222def71927
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\c3\c359a046bd2684cfa74a7222def71927
-    projectPath: Library\Artifacts\c3\c359a046bd2684cfa74a7222def71927
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\c8\c8708f58fc515fc01f4c1762ea3964b8
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\c8\c8708f58fc515fc01f4c1762ea3964b8
-    projectPath: Library\Artifacts\c8\c8708f58fc515fc01f4c1762ea3964b8
-    originalPath: 
     indexStatus: 0
     workTreeStatus: 5
-  - path: Library\Artifacts\cb\cb6151b30b32b75e6773b5b66532c8ca
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\cb\cb6151b30b32b75e6773b5b66532c8ca
-    projectPath: Library\Artifacts\cb\cb6151b30b32b75e6773b5b66532c8ca
+  - path: Library\Artifacts\bf\bf0a5c716d39ea3bcb40cca2d2d29126
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\bf\bf0a5c716d39ea3bcb40cca2d2d29126
+    projectPath: Library\Artifacts\bf\bf0a5c716d39ea3bcb40cca2d2d29126
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\d0\d0ce0fba1eee154d5c8e7f29c2224cab
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\d0\d0ce0fba1eee154d5c8e7f29c2224cab
-    projectPath: Library\Artifacts\d0\d0ce0fba1eee154d5c8e7f29c2224cab
+  - path: Library\Artifacts\d8\d8ae2670ba6744eecf68849e03ec275c
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\d8\d8ae2670ba6744eecf68849e03ec275c
+    projectPath: Library\Artifacts\d8\d8ae2670ba6744eecf68849e03ec275c
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\d1\d1f2d75318a648c6a0eb1eb738ef5374
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\d1\d1f2d75318a648c6a0eb1eb738ef5374
-    projectPath: Library\Artifacts\d1\d1f2d75318a648c6a0eb1eb738ef5374
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\Artifacts\d7\d76b701220928a49fc1ff99008f025f8
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\d7\d76b701220928a49fc1ff99008f025f8
-    projectPath: Library\Artifacts\d7\d76b701220928a49fc1ff99008f025f8
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
   - path: Library\Artifacts\da\da3335d8c7f92b518f4a0ca7a7e8756e
     fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\da\da3335d8c7f92b518f4a0ca7a7e8756e
     projectPath: Library\Artifacts\da\da3335d8c7f92b518f4a0ca7a7e8756e
     originalPath: 
+    indexStatus: 0
+    workTreeStatus: 5
+  - path: Library\Artifacts\e0\e0419cac12f5e0fe444deadda6cb865f
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\e0\e0419cac12f5e0fe444deadda6cb865f
+    projectPath: Library\Artifacts\e0\e0419cac12f5e0fe444deadda6cb865f
+    originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\db\dbec8b0d5e7e784f2303ccb9cb41a7bb
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\db\dbec8b0d5e7e784f2303ccb9cb41a7bb
-    projectPath: Library\Artifacts\db\dbec8b0d5e7e784f2303ccb9cb41a7bb
+  - path: Library\Artifacts\e7\e7d3f826873f04c087fbcc40ddf490d7
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\e7\e7d3f826873f04c087fbcc40ddf490d7
+    projectPath: Library\Artifacts\e7\e7d3f826873f04c087fbcc40ddf490d7
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\Artifacts\df\dfea54752a985d1753d7f616f662375c
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\df\dfea54752a985d1753d7f616f662375c
-    projectPath: Library\Artifacts\df\dfea54752a985d1753d7f616f662375c
+  - path: Library\Artifacts\ea\ea9cacc0b95004d964a5590b963b8ffb
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ea\ea9cacc0b95004d964a5590b963b8ffb
+    projectPath: Library\Artifacts\ea\ea9cacc0b95004d964a5590b963b8ffb
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\ef\ef915d9b1d5bb717aba7de05d8f08ecd
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ef\ef915d9b1d5bb717aba7de05d8f08ecd
-    projectPath: Library\Artifacts\ef\ef915d9b1d5bb717aba7de05d8f08ecd
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\eb\eb8cb5964762c3b91fbde39bc4809219
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\eb\eb8cb5964762c3b91fbde39bc4809219
+    projectPath: Library\Artifacts\eb\eb8cb5964762c3b91fbde39bc4809219
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\f9\f9bcc8f7db3500fc3b381d9707f5dcbb
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\f9\f9bcc8f7db3500fc3b381d9707f5dcbb
-    projectPath: Library\Artifacts\f9\f9bcc8f7db3500fc3b381d9707f5dcbb
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\f2\f2e0218a8df661131bdc2374a3142edb
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\f2\f2e0218a8df661131bdc2374a3142edb
+    projectPath: Library\Artifacts\f2\f2e0218a8df661131bdc2374a3142edb
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\ff\ff08ce55c73650afaf5b0c85b6bf6a39
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ff\ff08ce55c73650afaf5b0c85b6bf6a39
-    projectPath: Library\Artifacts\ff\ff08ce55c73650afaf5b0c85b6bf6a39
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\f9\f9a141db471a61fadf0d722f71f5aeb4
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\f9\f9a141db471a61fadf0d722f71f5aeb4
+    projectPath: Library\Artifacts\f9\f9a141db471a61fadf0d722f71f5aeb4
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
-  - path: Library\Artifacts\ff\ff5357d9384065650e933d9fa3cfd46f
-    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ff\ff5357d9384065650e933d9fa3cfd46f
-    projectPath: Library\Artifacts\ff\ff5357d9384065650e933d9fa3cfd46f
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\fa\fa4f1c13ac24225f3e3a084844b68e84
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\fa\fa4f1c13ac24225f3e3a084844b68e84
+    projectPath: Library\Artifacts\fa\fa4f1c13ac24225f3e3a084844b68e84
     originalPath: 
-    indexStatus: 0
-    workTreeStatus: 5
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\Artifacts\ff\ffda0b4f61b4a3bf0f677700a81cd7de
+    fullPath: F:\Unity Projects\RogueLike project\Library\Artifacts\ff\ffda0b4f61b4a3bf0f677700a81cd7de
+    projectPath: Library\Artifacts\ff\ffda0b4f61b4a3bf0f677700a81cd7de
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
   - path: Library\CurrentLayout-default.dwlt
     fullPath: F:\Unity Projects\RogueLike project\Library\CurrentLayout-default.dwlt
     projectPath: Library\CurrentLayout-default.dwlt
@@ -565,12 +541,6 @@ MonoBehaviour:
   - path: Library\EditorInstance.json
     fullPath: F:\Unity Projects\RogueLike project\Library\EditorInstance.json
     projectPath: Library\EditorInstance.json
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\EditorSnapSettings.asset
-    fullPath: F:\Unity Projects\RogueLike project\Library\EditorSnapSettings.asset
-    projectPath: Library\EditorSnapSettings.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
@@ -584,38 +554,38 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\branches.yaml
     projectPath: Library\gfu\cache\branches.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\gitlocks.yaml
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\gitlocks.yaml
     projectPath: Library\gfu\cache\gitlocks.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\gitlog.yaml
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\gitlog.yaml
     projectPath: Library\gfu\cache\gitlog.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 5
   - path: Library\gfu\cache\gitstatusentries.yaml
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\gitstatusentries.yaml
     projectPath: Library\gfu\cache\gitstatusentries.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\gittrackingstatus.yaml
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\gittrackingstatus.yaml
     projectPath: Library\gfu\cache\gittrackingstatus.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\gfu\cache\repoinfo.yaml
     fullPath: F:\Unity Projects\RogueLike project\Library\gfu\cache\repoinfo.yaml
     projectPath: Library\gfu\cache\repoinfo.yaml
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\InspectorExpandedItems.asset
     fullPath: F:\Unity Projects\RogueLike project\Library\InspectorExpandedItems.asset
     projectPath: Library\InspectorExpandedItems.asset
@@ -632,20 +602,14 @@ MonoBehaviour:
     fullPath: F:\Unity Projects\RogueLike project\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\ScriptAssemblies\Assembly-CSharp.pdb
     fullPath: F:\Unity Projects\RogueLike project\Library\ScriptAssemblies\Assembly-CSharp.pdb
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.pdb
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Library\ScriptAssemblies\BuiltinAssemblies.stamp
-    fullPath: F:\Unity Projects\RogueLike project\Library\ScriptAssemblies\BuiltinAssemblies.stamp
-    projectPath: Library\ScriptAssemblies\BuiltinAssemblies.stamp
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3
   - path: Library\shadercompiler-UnityShaderCompiler.exe0.log
     fullPath: F:\Unity Projects\RogueLike project\Library\shadercompiler-UnityShaderCompiler.exe0.log
     projectPath: Library\shadercompiler-UnityShaderCompiler.exe0.log
@@ -664,33 +628,57 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\StateCache\PrefabStageHierarchy\03\03fd820b2d59c710089b53470859ac97.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\03\03fd820b2d59c710089b53470859ac97.json
-    projectPath: Library\StateCache\PrefabStageHierarchy\03\03fd820b2d59c710089b53470859ac97.json
+  - path: Library\StateCache\PrefabStageHierarchy\27\27c4fab027af03604a1379bc9dddeaf0.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\27\27c4fab027af03604a1379bc9dddeaf0.json
+    projectPath: Library\StateCache\PrefabStageHierarchy\27\27c4fab027af03604a1379bc9dddeaf0.json
+    originalPath: 
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: Library\StateCache\PrefabStageHierarchy\57\576d8bd356d058e7e28e22a2ad22ee90.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\57\576d8bd356d058e7e28e22a2ad22ee90.json
+    projectPath: Library\StateCache\PrefabStageHierarchy\57\576d8bd356d058e7e28e22a2ad22ee90.json
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\StateCache\PrefabStageHierarchy\63\63034accb1f05df8299af9fd23f71320.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\63\63034accb1f05df8299af9fd23f71320.json
-    projectPath: Library\StateCache\PrefabStageHierarchy\63\63034accb1f05df8299af9fd23f71320.json
+  - path: Library\StateCache\PrefabStageHierarchy\6a\6a04bbc3deb130f6fa48edf07e7d6333.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\6a\6a04bbc3deb130f6fa48edf07e7d6333.json
+    projectPath: Library\StateCache\PrefabStageHierarchy\6a\6a04bbc3deb130f6fa48edf07e7d6333.json
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\StateCache\PrefabStageHierarchy\88\88df220cd2761507357d6173c9410f17.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\88\88df220cd2761507357d6173c9410f17.json
-    projectPath: Library\StateCache\PrefabStageHierarchy\88\88df220cd2761507357d6173c9410f17.json
+  - path: Library\StateCache\PrefabStageHierarchy\6f\6f618c3a1043865bf0ebdf26c48f42b9.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\6f\6f618c3a1043865bf0ebdf26c48f42b9.json
+    projectPath: Library\StateCache\PrefabStageHierarchy\6f\6f618c3a1043865bf0ebdf26c48f42b9.json
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\StateCache\SceneView\1b\1bf9af2633f11194114bff433eaff82c.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\1b\1bf9af2633f11194114bff433eaff82c.json
-    projectPath: Library\StateCache\SceneView\1b\1bf9af2633f11194114bff433eaff82c.json
+  - path: Library\StateCache\PrefabStageHierarchy\cd\cd9184905576f373c34f697665a1c215.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\PrefabStageHierarchy\cd\cd9184905576f373c34f697665a1c215.json
+    projectPath: Library\StateCache\PrefabStageHierarchy\cd\cd9184905576f373c34f697665a1c215.json
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
-  - path: Library\StateCache\SceneView\7a\7a721233c460751861f7ba5eed045dae.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\7a\7a721233c460751861f7ba5eed045dae.json
-    projectPath: Library\StateCache\SceneView\7a\7a721233c460751861f7ba5eed045dae.json
+  - path: Library\StateCache\SceneView\1f\1fe222f30dc8d0fccd0f32d7959cf3b0.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\1f\1fe222f30dc8d0fccd0f32d7959cf3b0.json
+    projectPath: Library\StateCache\SceneView\1f\1fe222f30dc8d0fccd0f32d7959cf3b0.json
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\StateCache\SceneView\71\71034e758709bc0b12165f95f11a3833.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\71\71034e758709bc0b12165f95f11a3833.json
+    projectPath: Library\StateCache\SceneView\71\71034e758709bc0b12165f95f11a3833.json
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\StateCache\SceneView\72\72231f480ad232d571ef92b75cfb98d8.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\72\72231f480ad232d571ef92b75cfb98d8.json
+    projectPath: Library\StateCache\SceneView\72\72231f480ad232d571ef92b75cfb98d8.json
+    originalPath: 
+    indexStatus: 1
+    workTreeStatus: 1
+  - path: Library\StateCache\SceneView\c3\c3116881568e29d56f0162008af38718.json
+    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\c3\c3116881568e29d56f0162008af38718.json
+    projectPath: Library\StateCache\SceneView\c3\c3116881568e29d56f0162008af38718.json
     originalPath: 
     indexStatus: 1
     workTreeStatus: 1
@@ -700,123 +688,21 @@ MonoBehaviour:
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Library\StateCache\SceneView\f2\f2c1ceb4f4e3f6179c75f98044f809f0.json
-    fullPath: F:\Unity Projects\RogueLike project\Library\StateCache\SceneView\f2\f2c1ceb4f4e3f6179c75f98044f809f0.json
-    projectPath: Library\StateCache\SceneView\f2\f2c1ceb4f4e3f6179c75f98044f809f0.json
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    projectPath: obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
-    projectPath: obj\Debug\Assembly-CSharp.csproj.FileListAbsolute.txt
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    projectPath: obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.dll
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.dll
-    projectPath: obj\Debug\Assembly-CSharp.dll
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.pdb
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.pdb
-    projectPath: obj\Debug\Assembly-CSharp.pdb
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.Player.csproj.CopyComplete
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.Player.csproj.CopyComplete
-    projectPath: obj\Debug\Assembly-CSharp.Player.csproj.CopyComplete
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp.Player.csproj.CoreCompileInputs.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.Player.csproj.CoreCompileInputs.cache
-    projectPath: obj\Debug\Assembly-CSharp.Player.csproj.CoreCompileInputs.cache
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp.Player.csproj.FileListAbsolute.txt
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.Player.csproj.FileListAbsolute.txt
-    projectPath: obj\Debug\Assembly-CSharp.Player.csproj.FileListAbsolute.txt
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp.Player.csprojAssemblyReference.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp.Player.csprojAssemblyReference.cache
-    projectPath: obj\Debug\Assembly-CSharp.Player.csprojAssemblyReference.cache
-    originalPath: 
-    indexStatus: 0
-    workTreeStatus: 3
-  - path: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CopyComplete
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CopyComplete
-    projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CopyComplete
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CoreCompileInputs.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CoreCompileInputs.cache
-    projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.CoreCompileInputs.cache
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.FileListAbsolute.txt
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.FileListAbsolute.txt
-    projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.csproj.FileListAbsolute.txt
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
   - path: obj\Debug\Assembly-CSharp-Editor-firstpass.csprojAssemblyReference.cache
     fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.csprojAssemblyReference.cache
     projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.csprojAssemblyReference.cache
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp-Editor-firstpass.dll
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.dll
-    projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.dll
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
-    projectPath: obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
-    fullPath: F:\Unity Projects\RogueLike project\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
-    projectPath: obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache
+    indexStatus: 0
+    workTreeStatus: 3
+  - path: ProjectSettings\TagManager.asset
+    fullPath: F:\Unity Projects\RogueLike project\ProjectSettings\TagManager.asset
+    projectPath: ProjectSettings\TagManager.asset
     originalPath: 
     indexStatus: 0
     workTreeStatus: 3
-  - path: Temp\__Backupscenes\0.backup
-    fullPath: F:\Unity Projects\RogueLike project\Temp\__Backupscenes\0.backup
-    projectPath: Temp\__Backupscenes\0.backup
+  - path: UserSettings\EditorUserSettings.asset
+    fullPath: F:\Unity Projects\RogueLike project\UserSettings\EditorUserSettings.asset
+    projectPath: UserSettings\EditorUserSettings.asset
     originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Temp\UnityLockfile
-    fullPath: F:\Unity Projects\RogueLike project\Temp\UnityLockfile
-    projectPath: Temp\UnityLockfile
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
-  - path: Temp\UnityTempFile-2b10d8975049ee842bd0b2ae87161fad
-    fullPath: F:\Unity Projects\RogueLike project\Temp\UnityTempFile-2b10d8975049ee842bd0b2ae87161fad
-    projectPath: Temp\UnityTempFile-2b10d8975049ee842bd0b2ae87161fad
-    originalPath: 
-    indexStatus: 1
-    workTreeStatus: 1
+    indexStatus: 0
+    workTreeStatus: 3

@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic; 		//Allows us to use Lists.
 using Random = UnityEngine.Random;
+using static LevelGeneration;
+using System.Linq;
 
 public class BoardManager : MonoBehaviour
 {
@@ -31,6 +33,9 @@ public class BoardManager : MonoBehaviour
     public GameObject outerWallSideLeftTiles;                             //Array of outer tile prefabs.
     public GameObject outerWallSideRightTiles;                             //Array of outer tile prefabs.
     //public GameObject[] outerWallTopTiles;                             //Array of outer tile prefabs.
+    public List<GameObject> exitTiles = new List<GameObject>();
+    public GameObject rightChangeRoomCollider;
+
 
     public GameObject wallCornerTopLeft;                                // prefab corner wall
     public GameObject wallCornerTopRight;                                // prefab corner wall
@@ -40,6 +45,13 @@ public class BoardManager : MonoBehaviour
 
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();	//A list of possible locations to place tiles.
+    private Quaternion angleExitCollider;
+
+
+    private bool isEntrance = false;                                //mark is a exit tile
+    private bool isCreatedEntrance = false;
+    private bool isExit = false;                                //mark is a exit tile
+    private bool isCreatedExit = false;
 
     //Clears our list gridPositions and prepares it to generate a new board.
     void InitialiseList()
@@ -60,69 +72,71 @@ public class BoardManager : MonoBehaviour
     }
 
     //Sets up the outer walls and floor (background) of the game board.
-    void BoardSetup()
-    {
-        //Instantiate Board and set boardHolder to its transform.
-        boardHolder = new GameObject("Board").transform;
+    /// <summary>
+    /// DEPRECATED
+    /// </summary>
+    //public void BoardSetup()
+    //{
+    //    //Instantiate Board and set boardHolder to its transform.
+    //    boardHolder = new GameObject("Board").transform;
 
-        //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
-        for (int x = -1; x < columns + 1; x++)
-        {
-            //Loop along y axis, starting from -1 to place floor or outerwall tiles.
-            for (int y = -1; y < rows + 1; y++)
-            {
-                //Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
-                GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
+    //    //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
+    //    for (int x = -1; x < columns + 1; x++)
+    //    {
+    //        //Loop along y axis, starting from -1 to place floor or outerwall tiles.
+    //        for (int y = -1; y < rows + 1; y++)
+    //        {
+    //            //Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
+    //            GameObject toInstantiate = floorTiles[Random.Range(0, floorTiles.Length)];
 
-                if (x == -1 && y == -1)// WallCorners
-                {
-                    toInstantiate = wallCornerBottomLeft;
-                }
-                if (x == -1 && y == rows)
-                {
-                    toInstantiate = wallCornerTopLeft;
-                }
-                if (x == columns && y == -1)
-                {
-                    toInstantiate = wallCornerBottomRight;
-                }
-                if (x == columns && y == rows)
-                {
-                    toInstantiate = wallCornerTopRight;
-                }
-                if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
-                {
-                    toInstantiate = outerWallFrontTiles[Random.Range(0, outerWallFrontTiles.Length)];
-                }
+    //            if (x == -1 && y == -1)// WallCorners
+    //            {
+    //                toInstantiate = wallCornerBottomLeft;
+    //            }
+    //            if (x == -1 && y == rows)
+    //            {
+    //                toInstantiate = wallCornerTopLeft;
+    //            }
+    //            if (x == columns && y == -1)
+    //            {
+    //                toInstantiate = wallCornerBottomRight;
+    //            }
+    //            if (x == columns && y == rows)
+    //            {
+    //                toInstantiate = wallCornerTopRight;
+    //            }
+    //            if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
+    //            {
+    //                toInstantiate = outerWallFrontTiles[Random.Range(0, outerWallFrontTiles.Length)];
+    //            }
 
-                if ( (x == -1) && !(x == -1 && y == -1)  && !(x == -1 && y == rows))//collumns y que no sea esquina de columna
-                {
-                    toInstantiate = outerWallSideLeftTiles;
-                }
-                if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna
-                {
-                    toInstantiate = outerWallSideRightTiles;
-                }
+    //            if ( (x == -1) && !(x == -1 && y == -1)  && !(x == -1 && y == rows))//collumns y que no sea esquina de columna
+    //            {
+    //                toInstantiate = outerWallSideLeftTiles;
+    //            }
+    //            if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna
+    //            {
+    //                toInstantiate = outerWallSideRightTiles;
+    //            }
 
-                //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-                GameObject instance =
-                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+    //            //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+    //            GameObject instance =
+    //                Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-                //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-                instance.transform.SetParent(boardHolder);
-            }
-        }
-    }
+    //            //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+    //            instance.transform.SetParent(boardHolder);
+    //        }
+    //    }
+    //}
 
     /// <summary>
     /// Sobrecarga para crear una habitacion instancia a una posicion determinada
     /// </summary>
     /// <param name="gridRoomLevelPosition"></param>
-   public void BoardSetup(Vector3 gridRoomLevelPosition)
+   public void BoardSetup(Vector3 gridRoomLevelPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor )
     {
-        //Instantiate Board and set gridRoomLevelPosition to its transform.
-        GameObject boardLevel = Instantiate(new GameObject("Board"), gridRoomLevelPosition, Quaternion.identity);
-        boardHolder = boardLevel.transform;
+        //Instantiate Board and set boardHolder to its transform.
+        GameObject board = new GameObject("Board");
 
         //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
         for (int x = -1; x < columns + 1; x++)
@@ -151,26 +165,110 @@ public class BoardManager : MonoBehaviour
                 }
                 if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
                 {
-                    toInstantiate = outerWallFrontTiles[Random.Range(0, outerWallFrontTiles.Length)];
+                    if ((x == 7 || x == 8) && y == -1 && (nextSideDoor == doorDirection.down || previousSideRoom == doorDirection.down))
+                    {
+                        if (nextSideDoor == doorDirection.down)
+                        {
+                            isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                        }
+                        else if (previousSideRoom == doorDirection.down)
+                        {
+                            isEntrance = true;
+                        }
+                        angleExitCollider = Quaternion.AngleAxis(90, Vector3.right);
+                    }
+                    else if ((x == 7 || x == 8) && y == rows && (nextSideDoor == doorDirection.up || previousSideRoom == doorDirection.up))
+                    {
+                        if (nextSideDoor == doorDirection.up)
+                        {
+                            isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                        }
+                        else if (previousSideRoom == doorDirection.up)
+                        {
+                            isEntrance = true;
+                        }
+                        angleExitCollider = Quaternion.AngleAxis(90, Vector3.left);
+                    }
+                    else
+                    {
+                        toInstantiate = outerWallFrontTiles[Random.Range(0, outerWallFrontTiles.Length)];
+                    }
                 }
-
-                if ((x == -1) && !(x == -1 && y == -1) && !(x == -1 && y == rows))//collumns y que no sea esquina de columna
+                if ((x == -1) && !(x == -1 && y == -1) && !(x == -1 && y == rows))//collumns y que no sea esquina de columna LADO IZQUIERDO
                 {
-                    toInstantiate = outerWallSideLeftTiles;
+                    if ((y == 3 || y == 4) && (nextSideDoor == doorDirection.left || previousSideRoom == doorDirection.left))// doors leftSide
+                    {
+                        if (nextSideDoor == doorDirection.left)
+                        {
+                            isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                        }
+                        else if (previousSideRoom == doorDirection.left)
+                        {
+                            isEntrance = true;
+                        }
+                        angleExitCollider = Quaternion.identity;
+                    }
+                    else
+                    {
+                        toInstantiate = outerWallSideLeftTiles;
+                    }
                 }
-                if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna
+                if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna LADO DERECHO
                 {
-                    toInstantiate = outerWallSideRightTiles;
+                    if ((y == 3 || y ==4) && (nextSideDoor == doorDirection.right || previousSideRoom == doorDirection.right) )// doors rightSide
+                    {
+                        if (nextSideDoor == doorDirection.right)
+                        {
+                            isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                        }
+                        else if (previousSideRoom == doorDirection.right)
+                        {
+                            isEntrance = true;
+                        }
+                        angleExitCollider = Quaternion.identity;
+                    }
+                    else
+                    {
+                        toInstantiate = outerWallSideRightTiles;
+                    }
                 }
 
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                if (isExit && !isCreatedExit)
+                {
+                    GameObject colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x, y + 0.5f, 0f), angleExitCollider) as GameObject;
+                    colliderExit.tag = "Exit";
+                    isExit = false;
+                    isCreatedExit = true;
+                    colliderExit.transform.SetParent(board.transform);
+                }
+                if (isEntrance && !isCreatedEntrance)
+                {
+                    GameObject colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x, y + 0.5f, 0f), angleExitCollider) as GameObject;
+                    colliderEntrance.tag = "Entrance";
+                    isEntrance = false;
+                    isCreatedEntrance = true;
+                    colliderEntrance.transform.SetParent(board.transform);
+                }
 
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
-                instance.transform.SetParent(boardHolder);
+                instance.transform.SetParent(board.transform);
+                
             }
         }
+        board.transform.position = gridRoomLevelPosition;
+    }
+
+    /// <summary>
+    /// DEPRECATED
+    /// </summary>
+    /// <param name="roomSpawnPosition"></param>
+    /// <returns></returns>
+    private Vector3 worldToPivot(Vector3 roomSpawnPosition)
+    {
+        return new Vector3(roomSpawnPosition.x - (roomSpawnPosition.x /2), roomSpawnPosition.y - (roomSpawnPosition.y / 2 ));
     }
 
     //RandomPosition returns a random position from our list gridPositions.
@@ -211,13 +309,13 @@ public class BoardManager : MonoBehaviour
     }
 
     //SetupScene initializes our level and calls the previous functions to lay out the game board
-    public void SetupScene(int level)
+    public void SetupScene(int level)//DEPRECATED
     {
         //Creates the outer walls and floor.
-        BoardSetup();
+        //BoardSetup();
 
         //Reset our list of gridpositions.
-        InitialiseList();
+        //InitialiseList();
 
         //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
         //LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
@@ -226,7 +324,7 @@ public class BoardManager : MonoBehaviour
         //LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
 
         //Determine number of enemies based on current level number, based on a logarithmic progression
-        int enemyCount = (int)Mathf.Log(level, 2f);
+        //int enemyCount = (int)Mathf.Log(level, 2f);
 
         //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
         //LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);

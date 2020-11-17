@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private Animator animator;
+    private Transform transform;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -18,6 +19,8 @@ public class Player : MonoBehaviour
     private const float inmuneTime = 2.0f;
     private float passingTime = inmuneTime;
     private bool playerInmune = false;
+    public bool playerExitCollision = false;
+    public bool playerEntranceCollision = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        transform = GetComponent<Transform>();
     }
 
     void FixedUpdate()
@@ -89,6 +93,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        //Check if the tag of the trigger collided with is Exit.
+        if (other.tag == "Exit" && playerExitCollision == false)
+        {
+            playerExitCollision = true;
+            GameManager.instance.ChangeLevel();
+            
+        }
+
+        //Check if the tag of the trigger collided with is Exit.
+        if (other.tag == "Entrance" && playerExitCollision == false)
+        {
+            playerExitCollision = true;
+            GameManager.instance.ChangeLevel();
+
+        }
+    }
+
     private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
@@ -97,6 +120,12 @@ public class Player : MonoBehaviour
     public void UpdatePlayerHealth()
     {
        HealthManager.instance.UpdateUI(playerHealth);
+    }
+
+    public void UpdatePositionlevel(float moveDistance)
+    {
+        transform.position = new Vector2( transform.position.x + moveDistance, transform.position.y);
+        playerExitCollision = false;
     }
 
 

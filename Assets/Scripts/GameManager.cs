@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     private int level = 1;
     private bool doingSetup;
 
+    public GameObject gameCamera;
+
     //instantiate prefabs
     public GameObject ini_Player;
     public GameObject ini_Enemy;
@@ -33,13 +35,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        //boardScript = GetComponent<BoardManager>();
+        boardScript = GetComponent<BoardManager>();
         levelGenerationScript = GetComponent<LevelGeneration>();
+        gameCamera = GameObject.FindGameObjectWithTag("MainCamera");
 
-        Instantiate(player, ini_Player.transform.position, Quaternion.identity);
+        player = Instantiate(player, ini_Player.transform.position, Quaternion.identity);
         enemy = Instantiate(enemy, ini_Enemy.transform.position, Quaternion.identity);
         //healthManager = GetComponent<HealthManager>();
         InitGame();
+        
     }
 
     void InitGame()
@@ -55,6 +59,14 @@ public class GameManager : MonoBehaviour
     {
         //healthManager.health = player.UpdatePlayerHealth();
         //healthManager.UpdateUI();
+    }
+
+    public void ChangeLevel()
+    {
+        //ToDo: gestionar la camara en funcion de la direccion de la habitacion , entrada o salida,etc
+        gameCamera.transform.position = new Vector3( gameCamera.transform.position.x +  levelGenerationScript.moveAmountX,
+        gameCamera.transform.position.y +  levelGenerationScript.moveAmountY, gameCamera.transform.position.z);
+        GameManager.instance.player.UpdatePositionlevel(4);//ToDo: como gestionar el personaje moviendose de habitacion en habitacion
     }
 
     public void takeDamage( string colliderTag)
