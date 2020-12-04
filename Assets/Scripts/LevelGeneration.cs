@@ -39,17 +39,12 @@ public class LevelGeneration : MonoBehaviour
     {
         int randStartingPos = Random.Range(0, 3);
         transform.position = startingPositions[0].position;//ToDo Random
-        GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor);// TODO: arreglar que no inicie en estatico la primera habitacion
+        BoardRoom initialBoardRoom = GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor);// TODO: arreglar que no inicie en estatico la primera habitacion
+
+        GameManager.instance.SetCurrentRoomBoard(initialBoardRoom);
 
         previousRoomDirection = 3;
         nextRoomDirection = 1;
-
-        //creamos la habitacion en cada respawn
-        //foreach (var roomStartPosition in startingPositions)
-        //{
-        //    GameManager.instance.boardScript.BoardSetup(roomStartPosition.position, doorDirection.right);//
-        //}
-
     }
 
      void Update()
@@ -79,7 +74,6 @@ public class LevelGeneration : MonoBehaviour
 
                 if (!ListRoomsCreated.ContainsKey(transform.position))
                 {
-                    
                     do
                     {
                         nextRoomDirection = Random.Range(1, 6);// al moverse a la derecha, que no sea posible girar a la izquierda de nuevo
@@ -105,27 +99,7 @@ public class LevelGeneration : MonoBehaviour
                 nextRoomDirection = 5;
                 previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                 generateRoomTurn = true;
-                //if (transform.position.y > maxY)
-                //{
-                //    direction = 5;
-
-                //    Vector2 newPos = new Vector2(transform.position.x, transform.position.y - moveAmountY);
-                //    transform.position = newPos;
-
-                //    if (!ListRoomsCreated.ContainsKey(transform.position))
-                //    {
-                //        GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(direction));
-                //        ListRoomsCreated.Add(transform.position, true);
-                //    }
-
-                //    direction = Random.Range(1, 6);
-                //}
-                //else
-                //{
-                //    stopGeneration = true;
-                //}
             }
-            
         }
         else if ((nextRoomDirection == 3 || nextRoomDirection == 4) && generateRoomTurn == false)//move LEFT
         {
@@ -153,25 +127,6 @@ public class LevelGeneration : MonoBehaviour
                 nextRoomDirection = 5;
                 previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                 generateRoomTurn = true;
-                //if (transform.position.y > maxY)
-                //{
-                //    direction = 5;
-                //    Vector2 newPos = new Vector2(transform.position.x, transform.position.y - moveAmountY);
-                //    transform.position = newPos;
-
-                //    if (!ListRoomsCreated.ContainsKey(transform.position))
-                //    {
-                //        GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(direction));
-                //        ListRoomsCreated.Add(transform.position, true);
-                //    }
-
-                //    direction = Random.Range(1, 6);
-                //}
-                //else
-                //{
-                //    stopGeneration = true;
-                //}
-
             }
         }
         else if (nextRoomDirection == 5 && generateRoomTurn == false)//move DOWN
@@ -200,16 +155,8 @@ public class LevelGeneration : MonoBehaviour
                 stopGeneration = true;
             }
         }
-    }
-
-    private void UpdatemoveDirectionDoorCamera( doorDirection direction)
-    {
-        //switch (direction == doorDirection.left)
-        //{
-        //    move
-        //    default:
-        //        break;
-        //}
+        prevDirectionDoor = (doorDirection)GetDoorDirectionRandom(previousRoomDirection);
+        nextDirectionDoor = (doorDirection)GetDoorDirectionRandom(nextRoomDirection);
     }
 
     private bool CheckNextRoomValid( Transform originalPositionRoom, int nextDirecionRoom)
@@ -236,8 +183,6 @@ public class LevelGeneration : MonoBehaviour
         }
         return false;
     }
-
-
 
     private doorDirection? GetDoorDirectionRandom(int randomNumber)
     {
@@ -276,5 +221,10 @@ public class LevelGeneration : MonoBehaviour
         }
 
         return null;
+    }
+
+    public doorDirection GetNextDoorDirection()
+    {
+        return prevDirectionDoor;//en este momento la direcion que nos interesa esta guarda en PREV
     }
 }

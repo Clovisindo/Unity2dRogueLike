@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Exit" && playerExitCollision == false)
         {
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel();
+            GameManager.instance.ChangeLevel(false);
             
         }
 
@@ -107,12 +107,29 @@ public class Player : MonoBehaviour
         if (other.tag == "Entrance" && playerExitCollision == false)
         {
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel();
+            GameManager.instance.ChangeLevel(true);
 
         }
     }
 
-    private void SetPlayerHealth(int modifyHealth)
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        //Check if the tag of the trigger collided with is Exit.
+        if (other.tag == "Exit" )
+        {
+            //GameManager.instance.currentRoom.EnableChangeEventColliderExitRoom();
+            playerExitCollision = false;
+        }
+
+        //Check if the tag of the trigger collided with is Exit.
+        if (other.tag == "Entrance" )
+        {
+            //GameManager.instance.currentRoom.EnableChangeEventColliderEntranceRoom();
+            playerExitCollision = false;
+        }
+    }
+
+        private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
     }
@@ -122,10 +139,10 @@ public class Player : MonoBehaviour
        HealthManager.instance.UpdateUI(playerHealth);
     }
 
-    public void UpdatePositionlevel(float moveDistance)
+    public void UpdatePositionlevel(Vector2 respawnPosition)
     {
-        transform.position = new Vector2( transform.position.x + moveDistance, transform.position.y);
-        playerExitCollision = false;
+        transform.position = respawnPosition;
+        //playerExitCollision = false;
     }
 
 

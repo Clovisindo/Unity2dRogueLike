@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4884799697277178399}
   - component: {fileID: 9138923659496423887}
   - component: {fileID: 1212537152}
+  - component: {fileID: 2032361823}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,6 +53,7 @@ MonoBehaviour:
   gameCamera: {fileID: 0}
   ini_Player: {fileID: 1464220604559105159, guid: 5bec2355441d70148b5ecd00086138eb, type: 3}
   ini_Enemy: {fileID: 6166336049006571560, guid: 6bde3eded51ad4748b242092d94bc370, type: 3}
+  currentRoom: {fileID: 0}
 --- !u!114 &9138923659496423887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,6 +88,8 @@ MonoBehaviour:
   wallCornerTopRight: {fileID: 3297531888238195791, guid: 2bf73bfc895b8674ebd1d881f4b6f5b5, type: 3}
   wallCornerBottomRight: {fileID: 778436437792382701, guid: d8562b0ba3adc0341a65256206a9a781, type: 3}
   wallCornerBottomLeft: {fileID: 8377274554508819579, guid: 769a0414dd5e4a042a9e65ab40b11317, type: 3}
+  prefabBoardRoom: {fileID: 1298217483989259380, guid: 76ddd723753a69b439bc05b78e40bc14, type: 3}
+  prefabRoomCollider: {fileID: 625974624356211910, guid: 81505525bff1fa5499195ed2c51fb653, type: 3}
 --- !u!114 &1212537152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +126,17 @@ MonoBehaviour:
   minX: -1.5
   maxX: 54
   maxY: -30
+--- !u!114 &2032361823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217760998152101640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165fd06f299a29c4eb399bbec9ca66d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entranceDirection: 0
+  exitDirection: 0
