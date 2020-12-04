@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7122026578067257506}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.07, y: 1.04, z: 0}
+  m_LocalPosition: {x: 9.07, y: 1.04, z: 0}
   m_LocalScale: {x: 6.25, y: 6.25, z: 1}
   m_Children:
   - {fileID: 4689436307282179065}
@@ -168,6 +168,8 @@ MonoBehaviour:
   moveX: 0
   moveY: 0
   MOVEMENT_BASE_SPEED: 5
+  playerHealth: 3
+  playerExitCollision: 0
 --- !u!1001 &7700966862235103482
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,6 +181,10 @@ PrefabInstance:
       propertyPath: startTimeBtwAttack
       value: 0.833
       objectReference: {fileID: 0}
+    - target: {fileID: 767179637201030223, guid: f864b2fc5edd8ae4d82762b0f52a8043, type: 3}
+      propertyPath: weaponSwin
+      value: 
+      objectReference: {fileID: 8300000, guid: 7bd41e246129c96409f6fb62fef20d9c, type: 3}
     - target: {fileID: 1640855196496400984, guid: f864b2fc5edd8ae4d82762b0f52a8043, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

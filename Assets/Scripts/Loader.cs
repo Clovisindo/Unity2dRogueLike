@@ -6,7 +6,8 @@ public class Loader : MonoBehaviour
 {
     public GameObject gameManager;
     public GameObject healthManager;
-    
+    public GameObject soundManager;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -18,6 +19,10 @@ public class Loader : MonoBehaviour
         if (HealthManager.instance == null)
         {
             Instantiate(healthManager);
+        }
+        if (SoundManager.instance == null)
+        {
+            Instantiate(soundManager);
         }
 
     }

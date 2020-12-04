@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Weapon
+  - Exit
+  - Entrance
+  - RoomCollider
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - 
   - BlockingLayer
   - Wall
-  - 
+  - ColliderRoomDetector
   - 
   - 
   - 

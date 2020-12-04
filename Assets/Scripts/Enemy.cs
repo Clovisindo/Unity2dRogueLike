@@ -16,15 +16,23 @@ public class Enemy : MonoBehaviour
     
 
     //health
-    public int enemyMaxHealth = 3;
+    public int enemyMaxHealth;
     public int enemyCurrentHealth;
     public HealthBar healthBar;
+
+    //Attack
+    public const int enemyAttack = 1;
 
     //movement
     public float MOVEMENT_BASE_SPEED = 3.0f;
     private bool isMoving = false;
     private float moveX;
     private float moveY;
+
+    //const stats
+    private const float inmuneTime = 2.0f;
+    private float passingTime = inmuneTime;
+    private bool enemyInmune = false;
 
     void Start()
     {
@@ -50,6 +58,16 @@ public class Enemy : MonoBehaviour
             //goRespawn();
         }
 
+        if (passingTime < inmuneTime)
+        {
+            passingTime += Time.deltaTime;
+            enemyInmune = true;
+        }
+        else
+        {
+            enemyInmune = false;
+        }
+
     }
 
     public void FollowPlayer()
@@ -64,7 +82,7 @@ public class Enemy : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, home)
     }
 
-    private bool CheckIsDeath()
+    public bool CheckIsDeath()
     {
         if (enemyCurrentHealth <= 0)
         {
@@ -76,15 +94,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public int GetAttack()
     {
-
+        return enemyAttack;
     }
     public void TakeDamage(int damage)
     {
+        //TODO: animator trigger HURT
         enemyCurrentHealth -= damage;
-
         healthBar.SetHealth(enemyCurrentHealth);
+        passingTime = 0;
+    }
+    public bool checkIsInmune()
+    {
+        if (enemyInmune){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
 }

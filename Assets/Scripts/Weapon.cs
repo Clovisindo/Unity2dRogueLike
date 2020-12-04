@@ -2,7 +2,6 @@
 
 public class Weapon : MonoBehaviour
 {
-
     private GameObject weapon;
     private Animator weaponAnimator;
     private SpriteRenderer weaponRenderer;
@@ -13,6 +12,7 @@ public class Weapon : MonoBehaviour
 
     private bool isAttacking = false;
 
+    public AudioClip weaponSwin;
     public float timeBtwAttack;
     public float startTimeBtwAttack;
 
@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
         weaponCollider = weapon.GetComponent<BoxCollider2D>();
         weaponAnimator = weapon.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
@@ -39,9 +40,13 @@ public class Weapon : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            GameObject enemy = other.gameObject;
-            enemy.gameObject.
-            //Destroy(other.gameObject);
+            GameObject enemyColl = other.gameObject;
+            GameManager.instance.takeDamage(other.tag);
+            if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
+            {
+                Destroy(enemyColl);
+            }
+
         }
     }
 
@@ -53,6 +58,7 @@ public class Weapon : MonoBehaviour
             setDirectionAttack();
             if (Input.GetKey(KeyCode.Space))
             {
+                SoundManager.instance.PlaySingle(weaponSwin);
                 isAttacking = true;
                 resetWeapon();
                 weaponAnimator.SetTrigger("Attacking");
@@ -65,12 +71,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Se llama desde el gestor de animaciones
+    /// </summary>
     void EndAnimation()
     {
         isAttacking = false;
         resetWeapon();
         weaponAnimator.SetTrigger("Attacking");
-        
+
     }
 
     /// <summary>

@@ -99,10 +99,10 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    public void SetupHealth()
-    {
-        Init();
-    }
+    //public void SetupHealth()
+    //{
+    //    Init();
+    //}
 
     public void UpdateUI(int _health)
     {
