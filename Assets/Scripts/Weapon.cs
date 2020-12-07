@@ -1,32 +1,32 @@
 ﻿using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
-    private GameObject weapon;
-    private Animator weaponAnimator;
-    private SpriteRenderer weaponRenderer;
-    private BoxCollider2D weaponCollider;
+    protected GameObject weapon;
+    protected Animator weaponAnimator;
+    protected SpriteRenderer weaponRenderer;
+    protected BoxCollider2D weaponCollider;
 
-    private GameObject player;
-    private Animator playerAnimator;
+    protected GameObject player;
+    protected Animator playerAnimator;
 
-    private bool isAttacking = false;
+    protected bool isAttacking = false;
 
     public AudioClip weaponSwin;
-    public float timeBtwAttack;
-    public float startTimeBtwAttack;
+    [SerializeField]public float timeBtwAttack;
+    [SerializeField] public float startTimeBtwAttack;
 
     public float moveX;
     public float moveY;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
-        weapon = GameObject.FindGameObjectWithTag("Weapon");
+        //weapon = GameObject.FindGameObjectWithTag("Weapon");
         player = GameObject.FindGameObjectWithTag("Player");
-        weaponRenderer = weapon.GetComponent<SpriteRenderer>();
-        weaponCollider = weapon.GetComponent<BoxCollider2D>();
-        weaponAnimator = weapon.GetComponent<Animator>();
+        //weaponRenderer = weapon.GetComponent<SpriteRenderer>();
+        //weaponCollider = weapon.GetComponent<BoxCollider2D>();
+        //weaponAnimator = weapon.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
 
     }
@@ -36,7 +36,7 @@ public class Weapon : MonoBehaviour
     {
         ProcessInputs();
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
@@ -85,27 +85,27 @@ public class Weapon : MonoBehaviour
     /// <summary>
     /// Semaforo de activar o desactivar el arma
     /// </summary>
-    void resetWeapon()
+   protected void resetWeapon()
     {
         if (isAttacking)
         {
             weaponCollider.isTrigger = true;
             weaponCollider.enabled = true;
-            weaponRenderer.enabled = true;
+            //weaponRenderer.enabled = true;
         }
         else
         {
             weaponCollider.isTrigger = false;
             weaponCollider.enabled = false;
-            weaponRenderer.enabled = false;
-            weapon.transform.rotation = new Quaternion(0,0,0,0);
+            //weaponRenderer.enabled = false;
+            //weapon.transform.rotation = new Quaternion(0,0,0,0);//ToDo: creo que esto quedó como parche de algo mal generado en las animaciones
         }
     }
 
     /// <summary>
     /// Carga las variables para el arbol de animaciones de los ataques
     /// </summary>
-    void setDirectionAttack()
+    protected void setDirectionAttack()
     {
         moveX = playerAnimator.GetFloat("moveX");
         moveY = playerAnimator.GetFloat("moveY");

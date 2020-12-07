@@ -9,6 +9,7 @@ TagManager:
   - Exit
   - Entrance
   - RoomCollider
+  - GreatHammer
   layers:
   - Default
   - TransparentFX
