@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour
     protected bool isAttacking = false;
 
     public AudioClip weaponSwin;
-    [SerializeField]public float timeBtwAttack;
+    [SerializeField] public float timeBtwAttack;
     [SerializeField] public float startTimeBtwAttack;
 
     public float moveX;
@@ -85,7 +85,7 @@ public abstract class Weapon : MonoBehaviour
     /// <summary>
     /// Semaforo de activar o desactivar el arma
     /// </summary>
-   protected void resetWeapon()
+    protected void resetWeapon()
     {
         if (isAttacking)
         {
@@ -113,4 +113,11 @@ public abstract class Weapon : MonoBehaviour
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
     }
+
+    public virtual void SpecialAttack()
+    {
+        Debug.Log(" ataque especial por defecto.");
+    }
 }
+
+ 

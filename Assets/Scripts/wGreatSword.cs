@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class wGreatHammer : Weapon
+public class wGreatSword : Weapon
 {
-    int damage = 2;
-    
 
-    public wGreatHammer()
+    int damage = 2;
+
+
+    public wGreatSword()
     {
-        startTimeBtwAttack = 1.383f;
+        startTimeBtwAttack = 0.83f;
     }
 
-      void Start()
+    void Start()
     {
-        weapon = GameObject.FindGameObjectWithTag("GreatHammer");
+        weapon = GameObject.FindGameObjectWithTag("GreatSword");
         weaponRenderer = weapon.GetComponent<SpriteRenderer>();
         weaponCollider = weapon.GetComponent<BoxCollider2D>();
         weaponAnimator = weapon.GetComponent<Animator>();
@@ -23,9 +24,9 @@ public class wGreatHammer : Weapon
         playerAnimator = player.GetComponent<Animator>();
     }
 
-    public override void SpecialAttack()
-    {
-        Debug.Log("ataque especial martillo.");
-        weaponAnimator.SetTrigger("SpecialAttack");
-    }
+    //public override void SpecialAttack()
+    //{
+    //    Debug.Log("ataque especial martillo.");
+    //    weaponAnimator.SetTrigger("SpecialAttack");
+    //}
 }
