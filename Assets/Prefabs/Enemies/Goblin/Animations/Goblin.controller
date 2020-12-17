@@ -139,32 +139,6 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 2
---- !u!1102 &3911781272244837904
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Goblin_run_anim
-  m_Speed: 0.5
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e4849daf37f17ab4ab1fbccde49bb724, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1107 &4314290844937590055
 AnimatorStateMachine:
   serializedVersion: 5
@@ -178,9 +152,6 @@ AnimatorStateMachine:
     m_State: {fileID: 4847331632777021743}
     m_Position: {x: 270, y: -10, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 3911781272244837904}
-    m_Position: {x: 280, y: -100, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -5831331933631118864}
     m_Position: {x: 580, y: 0, z: 0}
   m_ChildStateMachines: []
@@ -190,7 +161,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 40, y: 0, z: 0}
   m_EntryPosition: {x: 290, y: 90, z: 0}
-  m_ExitPosition: {x: 290, y: 160, z: 0}
+  m_ExitPosition: {x: 300, y: 150, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 4847331632777021743}
 --- !u!1102 &4847331632777021743

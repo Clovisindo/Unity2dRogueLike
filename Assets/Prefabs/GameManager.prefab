@@ -49,7 +49,7 @@ MonoBehaviour:
   boardScript: {fileID: 0}
   levelGenerationScript: {fileID: 0}
   player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
-  enemy: {fileID: 3807060254654909609, guid: 19b7a97344d2f374a985db7edb1ef379, type: 3}
+  enemy: {fileID: 5672024257481452828, guid: 093e39509b582734595b433c2a2cf6c3, type: 3}
   gameCamera: {fileID: 0}
   ini_Player: {fileID: 1464220604559105159, guid: 5bec2355441d70148b5ecd00086138eb, type: 3}
   ini_Enemy: {fileID: 6166336049006571560, guid: 6bde3eded51ad4748b242092d94bc370, type: 3}
@@ -140,3 +140,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entranceDirection: 0
   exitDirection: 0
+  respawnUp: {fileID: 0}
+  respawnDown: {fileID: 0}
+  respawnLeft: {fileID: 0}
+  respawnRight: {fileID: 0}
+  colliderDetector: {fileID: 0}
+  entranceDoor: 0
+  exitDoor: 0
