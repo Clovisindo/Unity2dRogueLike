@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Utilities 
@@ -25,6 +27,33 @@ public static class Utilities
             }
         }
         return null;
+    }
+
+    public static  List<T> getAllChildsObject<T> (Transform parent) where T : Component
+    {
+        List<T> listChilds = new List<T>();
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            listChilds.Add(child.GetComponent<T>());
+        }
+        if (listChilds.Count != 0)
+        {
+            return listChilds;
+        }
+        else
+        {
+            return null;
+        }
+        
+    }
+
+    public static class EnumUtil
+    {
+        public static IEnumerable<T> GetValues<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
+        }
     }
 }
 

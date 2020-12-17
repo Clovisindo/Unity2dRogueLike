@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class Player : MonoBehaviour
 {
@@ -8,6 +11,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb2D;
     private Animator animator;
     private Transform transform;
+    private List<Weapon> playerWeapons;
+    private Weapon currentWeapon;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -22,6 +27,9 @@ public class Player : MonoBehaviour
     public bool playerExitCollision = false;
     public bool playerEntranceCollision = false;
 
+    private float timeBtwChangeWeapon;
+    private float startTimeBtwChangeWeapon = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +37,38 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
+        playerWeapons = GetWeapons();
+        SetCurrentWeapon(EnumWeapons.GreatSword);
+        currentWeapon.gameObject.SetActive(true);
+    }
+
+    private void SetCurrentWeapon(EnumWeapons _enumWeapon)
+    {
+        //no casteamos el arma en concreto hasta asignarla en currentWeapon
+        switch (_enumWeapon)
+        {
+            case EnumWeapons.GreatSword:
+                currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
+                break;
+            case EnumWeapons.GreatHammer:
+                currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
+                break;
+            default:
+                break;
+        }
+        Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
+    }
+
+    private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
+    {
+        foreach (var weapon in playerWeapons)
+        {
+            if (weapon.tag == _enumWeapon.ToString())
+            {
+                return weapon.GetComponent<Weapon>();
+            }
+        }
+        return null;
     }
 
     void FixedUpdate()
@@ -40,8 +80,8 @@ public class Player : MonoBehaviour
 
     void ProcessInputs()
     {
-       moveX = Input.GetAxisRaw("Horizontal");
-       moveY = Input.GetAxisRaw("Vertical");
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveY = Input.GetAxisRaw("Vertical");
         movementDirection = new Vector2(moveX, moveY);
 
         animator.SetFloat("moveX", moveX);
@@ -59,7 +99,20 @@ public class Player : MonoBehaviour
         {
             playerInmune = false;
         }
-        
+
+        if (timeBtwChangeWeapon <= 0)
+        {
+            //change weapon
+            if (Input.GetKey(KeyCode.T))
+            {
+                ChangeWeapon();
+                timeBtwChangeWeapon = startTimeBtwChangeWeapon;
+            }
+        }
+        else
+        {
+            timeBtwChangeWeapon -= Time.deltaTime;
+        }
     }
 
     protected void Move()
@@ -129,9 +182,86 @@ public class Player : MonoBehaviour
         }
     }
 
-        private void SetPlayerHealth(int modifyHealth)
+    private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
+    }
+
+    private List<Weapon> GetWeapons()
+    {
+        List<Weapon> tempWeapons = Utilities.getAllChildsObject<Weapon>(this.transform);
+        List<Weapon> equipedWeapons = new List<Weapon>();
+
+        foreach (var tWeapon in tempWeapons)
+        {
+            if (CheckIsWeapon(tWeapon))
+            {
+                equipedWeapons.Add(tWeapon);
+            }
+        }
+        return equipedWeapons;
+    }
+
+    private bool CheckIsWeapon(Weapon item)
+    {
+        var _enumWeapons = Utilities.EnumUtil.GetValues<EnumWeapons>();
+        foreach (var _enumWeapon in _enumWeapons)
+        {
+            if (_enumWeapon.ToString() == item.tag)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void ChangeWeapon()
+    {
+        // current weapon disable
+        currentWeapon.gameObject.SetActive(false);
+        //Get next weapon
+        var nextWeapon = GetNextWeapon(currentWeapon.tag);
+        SetCurrentWeapon(GetEnumWeaponByTag(nextWeapon.tag));
+        //enable current weapon
+        currentWeapon.gameObject.SetActive(true);
+    }
+
+    private EnumWeapons GetEnumWeaponByTag(string weaponTag)
+    {
+        EnumWeapons _enumWeapon;
+        switch (weaponTag)
+        {
+            case "GreatSword":
+                _enumWeapon = EnumWeapons.GreatSword;
+                break;
+            case "GreatHammer":
+                _enumWeapon = EnumWeapons.GreatHammer;
+                break;
+            default:
+                _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos
+                break;
+        }
+        return _enumWeapon;
+    }
+
+    private Weapon GetNextWeapon(string currentWeaponTag)
+    {
+        for (int i = 0; i < playerWeapons.Count; i++)
+        {
+            if (playerWeapons[i].tag == currentWeaponTag)
+            {
+                if ((i + 1) >= playerWeapons.Count)
+                {
+                    return playerWeapons[0].GetComponent<Weapon>();
+                }
+                else
+                {
+                    return playerWeapons[i + 1].GetComponent<Weapon>();//controlar esto para que de la vuelta
+                }
+               
+            }
+        }
+        return null;
     }
 
     public void UpdatePlayerHealth()
@@ -144,6 +274,8 @@ public class Player : MonoBehaviour
         transform.position = respawnPosition;
         //playerExitCollision = false;
     }
+
+
 
 
 
