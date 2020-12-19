@@ -6,35 +6,37 @@ public class Enemy : MonoBehaviour
 {
     private Animator animator;
     private Transform target;
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float minRange;
-    [SerializeField]
-    private float maxRange;
 
-    
+    //Override properties
+    [HideInInspector]
+    protected float speed;
+    [HideInInspector]
+    protected float minRange;
+    [HideInInspector]
+    protected  float maxRange;
 
     //health
-    public int enemyMaxHealth;
-    public int enemyCurrentHealth;
-    public HealthBar healthBar;
+    [SerializeField]
+    protected int enemyMaxHealth;
+    [SerializeField]
+    protected int enemyCurrentHealth;
+    [SerializeField]
+    protected HealthBar healthBar;
 
     //Attack
-    public const int enemyAttack = 1;
+    protected  int enemyAttack;
 
     //movement
-    public float MOVEMENT_BASE_SPEED = 3.0f;
-    private bool isMoving = false;
-    private float moveX;
-    private float moveY;
+    protected bool isMoving = false;
+    protected float moveX;
+    protected float moveY;
 
     //const stats
-    private const float inmuneTime = 2.0f;
-    private float passingTime = inmuneTime;
-    private bool enemyInmune = false;
+    protected const float inmuneTime = 2.0f;
+    protected float passingTime = inmuneTime;
+    protected bool enemyInmune = false;
 
-    void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         target = FindObjectOfType<Player>().transform;
@@ -43,7 +45,7 @@ public class Enemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (Vector3.Distance(target.position , transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
         {
@@ -70,7 +72,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void FollowPlayer()
+    protected virtual void FollowPlayer()
     {
         animator.SetFloat("moveX", (target.position.x - transform.position.x));// esto para devolver a la animacion donde mirar??
         animator.SetFloat("moveY", (target.position.y - transform.position.y));

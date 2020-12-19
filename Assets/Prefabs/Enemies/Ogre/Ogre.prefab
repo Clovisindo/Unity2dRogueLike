@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 5672024257481452831}
   - component: {fileID: 5672024257481452830}
   - component: {fileID: 5672024257481452829}
-  - component: {fileID: 5672024257481452828}
   - component: {fileID: 5672024257481452835}
   - component: {fileID: 5672024257481452834}
-  m_Layer: 0
+  - component: {fileID: 9130473941715043762}
+  m_Layer: 8
   m_Name: Ogre
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,25 +106,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5672024257481452828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5672024257481452833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d23e5594e6fdd447bd9f0594059e5d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  minRange: 2
-  maxRange: 10
-  enemyMaxHealth: 5
-  enemyCurrentHealth: 5
-  healthBar: {fileID: 4926788827814056705}
-  MOVEMENT_BASE_SPEED: 3
 --- !u!61 &5672024257481452835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +119,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0010206103, y: -0.04796946}
+  m_Offset: {x: -0.0024017692, y: -0.04566741}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -149,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.20364851, y: 0.22406107}
+  m_Size: {x: 0.17510343, y: 0.21209055}
   m_EdgeRadius: 0
 --- !u!50 &5672024257481452834
 Rigidbody2D:
@@ -172,6 +153,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &9130473941715043762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5672024257481452833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 822bd0430d37e2946acf3cf5959946f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMaxHealth: 8
+  enemyCurrentHealth: 8
+  healthBar: {fileID: 4926788827814056705}
+  speed: 2
+  minRange: 2
+  maxRange: 5
 --- !u!1 &5672024258352006236
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +183,7 @@ GameObject:
   - component: {fileID: 5672024258352006232}
   - component: {fileID: 5672024258352006239}
   - component: {fileID: 5672024258352006238}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
