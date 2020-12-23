@@ -264,12 +264,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4672d46e3739ae6438cdd2c12513b731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
+  minRange: 3
+  maxRange: 8
   enemyMaxHealth: 3
   enemyCurrentHealth: 3
   healthBar: {fileID: 3571478172382010570}
-  speed: 3
-  minRange: 3
-  maxRange: 5
+  enemyAttack: 1
 --- !u!1001 &4285206033137218125
 PrefabInstance:
   m_ObjectHideFlags: 0

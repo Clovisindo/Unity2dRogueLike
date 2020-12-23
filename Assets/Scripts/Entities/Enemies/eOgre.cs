@@ -1,39 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 namespace Assets.Scripts.Entities.Enemies
 {
     public class eOgre : Enemy
     {
-        private Animator animator;
-        private Transform target;
-
-        //Override properties
         [SerializeField]
-        private new float speed;
+        protected float minAtkRange;
         [SerializeField]
-        private new float minRange;
-        [SerializeField]
-        private new float maxRange;
+        protected float maxAtkRange;
 
-        //Attackw
-        private const int ogreAttack = 2;
-
-        //movement
-        private new bool isMoving = false;
+        private float timeBtwAttacks;
+        private float startTimeBtwAttacks = 2f;
+        CircleCollider2D attackCollider;
 
         protected override void Start()
         {
             animator = GetComponent<Animator>();
             target = FindObjectOfType<Player>().transform;
-            enemyAttack = ogreAttack;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
-
+            //attackCollider = Utilities.FindObjectWithTag(this.transform, "EnemyAttackRange");
+            attackCollider = GetComponent<CircleCollider2D>();
         }
 
-        protected override void FixedUpdate() // patron distinto al goblin y con ataque
+        protected override void FixedUpdate()
         {
             if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
             {
@@ -48,6 +41,21 @@ namespace Assets.Scripts.Entities.Enemies
                 //goRespawn();
             }
 
+            //ataque especial si esta cerca
+            if (Vector3.Distance(target.position, transform.position) <= maxAtkRange && Vector3.Distance(target.position, transform.position) >= minAtkRange)
+            {
+                if (timeBtwAttacks <= 0)
+                {
+                    attackOgre();
+                    timeBtwAttacks = startTimeBtwAttacks;
+                }
+                else
+                {
+                    timeBtwAttacks -= Time.deltaTime;
+                }
+                
+            }
+
             if (passingTime < inmuneTime)
             {
                 passingTime += Time.deltaTime;
@@ -59,17 +67,40 @@ namespace Assets.Scripts.Entities.Enemies
             }
         }
 
-        protected override void FollowPlayer()
+        private void attackOgre()
         {
-            animator.SetFloat("moveX", (target.position.x - transform.position.x));// esto para devolver a la animacion donde mirar??
-            animator.SetFloat("moveY", (target.position.y - transform.position.y));
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            //1º desactivamos el collider del ogro
+            attackCollider.gameObject.SetActive(true);
+            //ataque especial del ogro
+            Debug.Log("Entra en area del Ogro.");
+
+            //animacion ataque
+            //animator.SetTrigger("AttackOgre");
+
+           
         }
 
-        //public override void SpecialAttack()
-        //{
-        //    Debug.Log("ataque especial martillo.");
-        //    weaponAnimator.SetTrigger("SpecialAttack");
-        //}
+        //colision de ataque especial
+        protected void OnTriggerEnter2D(CircleCollider2D other)
+        {
+            if (other.tag == "Player")
+            {
+                //restamos vida al jugador
+                GameObject enemyColl = other.gameObject;
+                GameManager.instance.player.TakeDamage(enemyAttack);
+                //ataque especial del ogro
+                Debug.Log("Ataque en area del Ogro.");
+
+                //2º desactivamos el collider del ataque especial
+                attackCollider.gameObject.SetActive(false);
+            }
+        }
+
+        void OnDrawGizmos()
+        {
+            Handles.color = Color.green;
+            Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
+        }
+
     }
 }

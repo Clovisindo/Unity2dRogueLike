@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
-    private Animator animator;
-    private Transform target;
+    protected Animator animator;
+    protected Transform target;
 
     //Override properties
-    [HideInInspector]
+    [SerializeField]
     protected float speed;
-    [HideInInspector]
+    [SerializeField]
     protected float minRange;
-    [HideInInspector]
+    [SerializeField]
     protected  float maxRange;
 
     //health
@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     protected HealthBar healthBar;
 
     //Attack
+    [SerializeField]
     protected  int enemyAttack;
 
     //movement
@@ -36,41 +37,10 @@ public class Enemy : MonoBehaviour
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
 
-    protected virtual void Start()
-    {
-        animator = GetComponent<Animator>();
-        target = FindObjectOfType<Player>().transform;
-        enemyCurrentHealth = enemyMaxHealth;
-        healthBar.SetMaxHealth(enemyMaxHealth);
-    }
+    protected abstract void Start();
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
-    {
-        if (Vector3.Distance(target.position , transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
-        {
-            FollowPlayer();
-            isMoving = true;
-            animator.SetBool("isMoving", isMoving);
-        }
-        else 
-        {
-            isMoving = false;
-            animator.SetBool("isMoving", isMoving);
-            //goRespawn();
-        }
-
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            enemyInmune = true;
-        }
-        else
-        {
-            enemyInmune = false;
-        }
-
-    }
+    protected abstract void FixedUpdate();
 
     protected virtual void FollowPlayer()
     {
