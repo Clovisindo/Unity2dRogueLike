@@ -14,7 +14,12 @@ namespace Assets.Scripts.Entities.Enemies
 
         private float timeBtwAttacks;
         private float startTimeBtwAttacks = 2f;
-        CircleCollider2D attackCollider;
+        private GameObject attackCollider;
+        private CircleCollider2D rangeAttackCollider;
+
+        private bool specialAttacking = false;
+
+
 
         protected override void Start()
         {
@@ -22,8 +27,8 @@ namespace Assets.Scripts.Entities.Enemies
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
-            //attackCollider = Utilities.FindObjectWithTag(this.transform, "EnemyAttackRange");
-            attackCollider = GetComponent<CircleCollider2D>();
+            attackCollider = Utilities.FindObjectWithTag(this.transform,"EnemyAttackRange");
+            rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
         }
 
         protected override void FixedUpdate()
@@ -44,17 +49,28 @@ namespace Assets.Scripts.Entities.Enemies
             //ataque especial si esta cerca
             if (Vector3.Distance(target.position, transform.position) <= maxAtkRange && Vector3.Distance(target.position, transform.position) >= minAtkRange)
             {
-                if (timeBtwAttacks <= 0)
+                if (timeBtwAttacks <= 0 && specialAttacking == false)
                 {
+                    specialAttacking = true;
                     attackOgre();
                     timeBtwAttacks = startTimeBtwAttacks;
+                    //specialAttacking = false;
                 }
                 else
                 {
                     timeBtwAttacks -= Time.deltaTime;
                 }
-                
             }
+            else if(specialAttacking)
+            {
+                timeBtwAttacks -= Time.deltaTime;
+                if (timeBtwAttacks <= 0)
+                {
+                    specialAttacking = false;
+                }
+            }
+
+            
 
             if (passingTime < inmuneTime)
             {
@@ -69,19 +85,19 @@ namespace Assets.Scripts.Entities.Enemies
 
         private void attackOgre()
         {
-            //1º desactivamos el collider del ogro
-            attackCollider.gameObject.SetActive(true);
+            rangeAttackCollider.enabled = true;
             //ataque especial del ogro
             Debug.Log("Entra en area del Ogro.");
 
             //animacion ataque
             //animator.SetTrigger("AttackOgre");
 
-           
+
+            //attackCollider.gameObject.SetActive(false);
         }
 
         //colision de ataque especial
-        protected void OnTriggerEnter2D(CircleCollider2D other)
+        protected void OnTriggerStay2D(Collider2D other)
         {
             if (other.tag == "Player")
             {
@@ -92,7 +108,7 @@ namespace Assets.Scripts.Entities.Enemies
                 Debug.Log("Ataque en area del Ogro.");
 
                 //2º desactivamos el collider del ataque especial
-                attackCollider.gameObject.SetActive(false);
+                rangeAttackCollider.enabled = false;
             }
         }
 

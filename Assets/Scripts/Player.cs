@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            UpdatePlayerHealth();
+            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            UpdatePlayerHealth();
+            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -196,11 +196,13 @@ public class Player : MonoBehaviour
     private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
+        UpdatePlayerHealth();
     }
 
     public void TakeDamage(int _damage)
     {
         SetPlayerHealth(-_damage);
+        UpdatePlayerHealth();
     }
 
     private List<Weapon> GetWeapons()
