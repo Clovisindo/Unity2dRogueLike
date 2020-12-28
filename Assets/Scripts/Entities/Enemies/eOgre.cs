@@ -17,6 +17,7 @@ namespace Assets.Scripts.Entities.Enemies
         private GameObject attackCollider;
         private CircleCollider2D rangeAttackCollider;
 
+        public AudioClip orcSpecialAtk;
         private bool specialAttacking = false;
 
 
@@ -59,6 +60,10 @@ namespace Assets.Scripts.Entities.Enemies
                 else
                 {
                     timeBtwAttacks -= Time.deltaTime;
+                    if (timeBtwAttacks <= 0)
+                    {
+                        specialAttacking = false;
+                    }
                 }
             }
             else if(specialAttacking)
@@ -69,8 +74,6 @@ namespace Assets.Scripts.Entities.Enemies
                     specialAttacking = false;
                 }
             }
-
-            
 
             if (passingTime < inmuneTime)
             {
@@ -87,13 +90,10 @@ namespace Assets.Scripts.Entities.Enemies
         {
             rangeAttackCollider.enabled = true;
             //ataque especial del ogro
-            Debug.Log("Entra en area del Ogro.");
+            SoundManager.instance.PlaySingle(orcSpecialAtk);
 
             //animacion ataque
             //animator.SetTrigger("AttackOgre");
-
-
-            //attackCollider.gameObject.SetActive(false);
         }
 
         //colision de ataque especial
@@ -114,8 +114,11 @@ namespace Assets.Scripts.Entities.Enemies
 
         void OnDrawGizmos()
         {
-            Handles.color = Color.green;
-            Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
+            if (specialAttacking)
+            {
+                Handles.color = Color.green;
+                Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
+            }
         }
 
     }

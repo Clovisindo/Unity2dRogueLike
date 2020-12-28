@@ -175,6 +175,7 @@ MonoBehaviour:
   enemyAttack: 2
   minAtkRange: 1
   maxAtkRange: 3
+  orcSpecialAtk: {fileID: 8300000, guid: 3fa3fe5dff1e5774580d9106abb205e2, type: 3}
 --- !u!1 &5672024258352006236
 GameObject:
   m_ObjectHideFlags: 0
