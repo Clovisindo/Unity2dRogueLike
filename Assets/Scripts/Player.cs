@@ -128,7 +128,7 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            UpdatePlayerHealth();
+            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -141,12 +141,23 @@ public class Player : MonoBehaviour
             animator.SetTrigger("Hurt");
             //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            UpdatePlayerHealth();
+            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionStay2D(CircleCollider2D other)
+    {
+        if (other.gameObject.tag == "Enemy" && !playerInmune)
+        {
+            //ataque especial del ogro
+            Debug.Log("Ataque en area del Ogro.");
+        }
+    }
+
+
+
+        private void OnTriggerEnter2D(Collider2D other)
     {
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" && playerExitCollision == false)
@@ -185,6 +196,13 @@ public class Player : MonoBehaviour
     private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
+        UpdatePlayerHealth();
+    }
+
+    public void TakeDamage(int _damage)
+    {
+        SetPlayerHealth(-_damage);
+        UpdatePlayerHealth();
     }
 
     private List<Weapon> GetWeapons()
