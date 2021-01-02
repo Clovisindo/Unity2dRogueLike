@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private Transform transform;
     private List<Weapon> playerWeapons;
     private Weapon currentWeapon;
+    private Weapon currentShield;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -30,6 +31,9 @@ public class Player : MonoBehaviour
     private float timeBtwChangeWeapon;
     private float startTimeBtwChangeWeapon = 0.5f;
 
+    private float timeBtwBlocks;
+    private float startTimeBtwBlocks = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,7 @@ public class Player : MonoBehaviour
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
         SetCurrentWeapon(EnumWeapons.GreatSword);
+        SetCurrentWeapon
         currentWeapon.gameObject.SetActive(true);
     }
 
@@ -52,6 +57,9 @@ public class Player : MonoBehaviour
                 break;
             case EnumWeapons.GreatHammer:
                 currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
+                break;
+            case EnumWeapons.KnightSword:
+                currentWeapon = (wKnightSword)GetWeaponByTag(_enumWeapon);
                 break;
             default:
                 break;
@@ -100,6 +108,7 @@ public class Player : MonoBehaviour
             playerInmune = false;
         }
 
+        //cambiar de arma
         if (timeBtwChangeWeapon <= 0)
         {
             //change weapon
@@ -113,7 +122,24 @@ public class Player : MonoBehaviour
         {
             timeBtwChangeWeapon -= Time.deltaTime;
         }
+
+        //activar bloqueo del escudo
+        if (timeBtwBlocks <= 0)
+        {
+            //change weapon
+            if (Input.GetKey(KeyCode.Q))
+            {
+                EquipShieldBlock();
+                timeBtwBlocks = startTimeBtwBlocks;
+            }
+        }
+        else
+        {
+            timeBtwBlocks -= Time.deltaTime;
+        }
     }
+
+   
 
     protected void Move()
     {
@@ -244,6 +270,20 @@ public class Player : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
     }
 
+    private void EquipShieldBlock()
+    {
+       //1º activar gameobject escudo
+
+       // esto se queda activo durante unos segundos y se llama al desequipar escudo
+    }
+
+    private void UnEquipShieldBlock()
+    {
+        //1º Desactivar el gameobject del escudo
+
+        
+    }
+
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)
     {
         EnumWeapons _enumWeapon;
@@ -254,6 +294,9 @@ public class Player : MonoBehaviour
                 break;
             case "GreatHammer":
                 _enumWeapon = EnumWeapons.GreatHammer;
+                break;
+            case "KnightSword":
+                _enumWeapon = EnumWeapons.KnightSword;
                 break;
             default:
                 _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos

@@ -12,6 +12,8 @@ TagManager:
   - GreatHammer
   - GreatSword
   - EnemyAttackRange
+  - KnightSword
+  - KnightShield
   layers:
   - Default
   - TransparentFX

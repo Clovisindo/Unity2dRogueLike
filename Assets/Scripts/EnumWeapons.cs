@@ -5,5 +5,7 @@ using UnityEngine;
 public enum EnumWeapons 
 {
    GreatSword,
-   GreatHammer
+   GreatHammer,
+   KnightSword,
+   KnightShield
 }
