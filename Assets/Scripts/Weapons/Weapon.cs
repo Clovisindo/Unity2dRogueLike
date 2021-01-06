@@ -11,6 +11,7 @@ public abstract class Weapon : MonoBehaviour
     protected Animator playerAnimator;
 
     protected bool isAttacking = false;
+    protected bool specialParryAttack = false;
 
     public AudioClip weaponSwin;
     [SerializeField] public float timeBtwAttack;
@@ -20,7 +21,7 @@ public abstract class Weapon : MonoBehaviour
     public float moveY;
 
     // Start is called before the first frame update
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         //weapon = GameObject.FindGameObjectWithTag("Weapon");
         player = GameObject.FindGameObjectWithTag("Player");
@@ -36,7 +37,7 @@ public abstract class Weapon : MonoBehaviour
     {
         ProcessInputs();
     }
-    protected void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
@@ -50,7 +51,7 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    void ProcessInputs()
+    protected virtual void  ProcessInputs()
     {
         //Cooldown entre ataques para permitir spamear
         if (timeBtwAttack <= 0)
@@ -58,11 +59,27 @@ public abstract class Weapon : MonoBehaviour
             setDirectionAttack();
             if (Input.GetKey(KeyCode.Space))
             {
-                SoundManager.instance.PlaySingle(weaponSwin);
-                isAttacking = true;
-                resetWeapon();
-                weaponAnimator.SetTrigger("Attacking");
-                timeBtwAttack = startTimeBtwAttack;
+                if (specialParryAttack)
+                {
+                    SoundManager.instance.PlaySingle(weaponSwin);
+                    isAttacking = true;
+                    resetWeapon();
+                    weaponAnimator.SetTrigger("Attacking");
+                    timeBtwAttack = startTimeBtwAttack;
+                    //Debug.Log("ataque arma!");
+                    SpecialAttack();
+                    specialParryAttack = false;
+                }
+                else
+                {
+                    SoundManager.instance.PlaySingle(weaponSwin);
+                    isAttacking = true;
+                    resetWeapon();
+                    weaponAnimator.SetTrigger("Attacking");
+                    timeBtwAttack = startTimeBtwAttack;
+                    Debug.Log("ataque arma!");
+                }
+               
             }
         }
         else
@@ -81,6 +98,8 @@ public abstract class Weapon : MonoBehaviour
         weaponAnimator.SetTrigger("Attacking");
 
     }
+
+    internal abstract void ActiveSpecialParryAtk();
 
     /// <summary>
     /// Semaforo de activar o desactivar el arma
@@ -105,13 +124,18 @@ public abstract class Weapon : MonoBehaviour
     /// <summary>
     /// Carga las variables para el arbol de animaciones de los ataques
     /// </summary>
-    protected void setDirectionAttack()
+    protected virtual void setDirectionAttack()
     {
         moveX = playerAnimator.GetFloat("moveX");
         moveY = playerAnimator.GetFloat("moveY");
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
+    }
+
+    public virtual void setIsAttacking()
+    {
+        isAttacking = true;
     }
 
     public virtual void SpecialAttack()
