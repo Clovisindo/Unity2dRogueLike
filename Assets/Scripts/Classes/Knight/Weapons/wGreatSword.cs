@@ -24,9 +24,14 @@ public class wGreatSword : Weapon
         playerAnimator = player.GetComponent<Animator>();
     }
 
-    //public override void SpecialAttack()
-    //{
-    //    Debug.Log("ataque especial martillo.");
-    //    weaponAnimator.SetTrigger("SpecialAttack");
-    //}
+    public override void SpecialAttack()
+    {
+        Debug.Log("ataque especial espadón.");
+        weaponAnimator.SetTrigger("SpecialAttack");
+    }
+
+    internal override void ActiveSpecialParryAtk()
+    {
+        specialParryAttack = true;
+    }
 }

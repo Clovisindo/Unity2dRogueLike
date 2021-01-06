@@ -29,4 +29,9 @@ public class wKnightSword : Weapon
         Debug.Log("ataque especial espada de caballero.");
         weaponAnimator.SetTrigger("SpecialAttack");
     }
+
+    internal override void ActiveSpecialParryAtk()
+    {
+        specialParryAttack = true;
+    }
 }

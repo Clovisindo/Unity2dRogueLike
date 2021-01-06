@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
 
     private float timeBtwBlocks;
     private float startTimeBtwBlocks = 1f;
+    private bool specialParryAttack = false;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
         SetCurrentWeapon(EnumWeapons.GreatSword);
-        SetCurrentWeapon
+        //SetCurrentWeapon(EnumWeapons.KnightShield);
         currentWeapon.gameObject.SetActive(true);
     }
 
@@ -61,10 +62,19 @@ public class Player : MonoBehaviour
             case EnumWeapons.KnightSword:
                 currentWeapon = (wKnightSword)GetWeaponByTag(_enumWeapon);
                 break;
+            case EnumWeapons.KnightShield:
+                currentShield = (wKnightShield)GetWeaponByTag(_enumWeapon);
+                break;
             default:
                 break;
         }
         Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
+    }
+
+    internal void ActiveSpecialParryAtk()
+    {
+        currentWeapon.ActiveSpecialParryAtk();
+        //se activa la bandera para que el proximo ataque sea el counter del parry
     }
 
     private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
@@ -73,6 +83,10 @@ public class Player : MonoBehaviour
         {
             if (weapon.tag == _enumWeapon.ToString())
             {
+                if (weapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+                {
+                    continue;
+                }
                 return weapon.GetComponent<Weapon>();
             }
         }
@@ -236,11 +250,16 @@ public class Player : MonoBehaviour
         List<Weapon> tempWeapons = Utilities.getAllChildsObject<Weapon>(this.transform);
         List<Weapon> equipedWeapons = new List<Weapon>();
 
+
         foreach (var tWeapon in tempWeapons)
         {
             if (CheckIsWeapon(tWeapon))
             {
                 equipedWeapons.Add(tWeapon);
+            }
+            if (tWeapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            {
+                currentShield = tWeapon;
             }
         }
         return equipedWeapons;
@@ -251,8 +270,13 @@ public class Player : MonoBehaviour
         var _enumWeapons = Utilities.EnumUtil.GetValues<EnumWeapons>();
         foreach (var _enumWeapon in _enumWeapons)
         {
+            if (item.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            {
+                continue;
+            }
             if (_enumWeapon.ToString() == item.tag)
             {
+                
                 return true;
             }
         }
@@ -272,16 +296,18 @@ public class Player : MonoBehaviour
 
     private void EquipShieldBlock()
     {
-       //1º activar gameobject escudo
-
-       // esto se queda activo durante unos segundos y se llama al desequipar escudo
+        //1º activar gameobject escudo
+        currentShield.gameObject.SetActive(true);
+        currentShield.setIsAttacking();
+        // esto se queda activo durante unos segundos y se llama al desequipar escudo
+        //usamos la animacion y se invoca al acabar el UnEquip
     }
 
-    private void UnEquipShieldBlock()
+    public void UnEquipShieldBlock()
     {
         //1º Desactivar el gameobject del escudo
+        currentShield.gameObject.SetActive(false);
 
-        
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)
@@ -297,6 +323,9 @@ public class Player : MonoBehaviour
                 break;
             case "KnightSword":
                 _enumWeapon = EnumWeapons.KnightSword;
+                break;
+            case "KnightShield":
+                _enumWeapon = EnumWeapons.KnightShield;
                 break;
             default:
                 _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos

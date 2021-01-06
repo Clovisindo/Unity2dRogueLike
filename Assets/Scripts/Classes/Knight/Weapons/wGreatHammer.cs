@@ -28,4 +28,9 @@ public class wGreatHammer : Weapon
         Debug.Log("ataque especial martillo.");
         weaponAnimator.SetTrigger("SpecialAttack");
     }
+
+    internal override void ActiveSpecialParryAtk()
+    {
+        specialParryAttack = true;
+    }
 }
