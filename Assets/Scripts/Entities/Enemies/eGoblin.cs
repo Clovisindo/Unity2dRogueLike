@@ -7,7 +7,7 @@ namespace Assets.Scripts.Entities.Enemies
     class eGoblin : Enemy
     {
 
-        protected override void Start()
+        protected override void Awake()
         {
             animator = GetComponent<Animator>();
             target = FindObjectOfType<Player>().transform;
