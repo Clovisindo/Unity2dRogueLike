@@ -6,10 +6,11 @@ public class wKnightShield : Weapon
 {
     int damage = 0;
     Player playerClass;
-    protected new bool isAttacking = false;
+    
 
     public wKnightShield()
     {
+        isAttacking = false;
         startTimeBtwAttack = 1.383f;
     }
 
