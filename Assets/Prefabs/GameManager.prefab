@@ -49,7 +49,7 @@ MonoBehaviour:
   boardScript: {fileID: 0}
   levelGenerationScript: {fileID: 0}
   player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
-  enemy: {fileID: 6382684585103001407, guid: 4c3038f19ce7a3644947f9aac5499f75, type: 3}
+  enemy: {fileID: 3549069607504243530, guid: de19d66477bf9814cb418a215497fbcd, type: 3}
   gameCamera: {fileID: 0}
   ini_Player: {fileID: 1464220604559105159, guid: 5bec2355441d70148b5ecd00086138eb, type: 3}
   ini_Enemy: {fileID: 6166336049006571560, guid: 6bde3eded51ad4748b242092d94bc370, type: 3}

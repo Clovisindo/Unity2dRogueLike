@@ -37,7 +37,7 @@ public abstract class Enemy : MonoBehaviour
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
 
-    protected abstract void Start();
+    protected abstract void Awake();
 
     // Update is called once per frame
     protected abstract void FixedUpdate();

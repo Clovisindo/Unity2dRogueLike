@@ -197,14 +197,14 @@ public class Player : MonoBehaviour
 
 
 
-        private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" && playerExitCollision == false)
         {
             playerExitCollision = true;
             GameManager.instance.ChangeLevel(false);
-            
+
         }
 
         //Check if the tag of the trigger collided with is Exit.

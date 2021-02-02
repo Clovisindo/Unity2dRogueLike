@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         gameCamera = GameObject.FindGameObjectWithTag("MainCamera");
         layer_mask_wall = LayerMask.GetMask("ColliderRoomDetector");
 
-
         player = Instantiate(player, ini_Player.transform.position, Quaternion.identity);
         enemy = Instantiate(enemy, ini_Enemy.transform.position, Quaternion.identity);
         InitGame();
@@ -99,6 +98,14 @@ public class GameManager : MonoBehaviour
         GameManager.instance.player.UpdatePositionlevel(currentRoom.GetRespawnPositionPlayer(currentRoom.entranceDoor));//camino en direcion original
 
     }
+
+    internal void CheckInsideBoundaries(Vector3 nextPosition)//ToDo:
+    {
+       // hacemos un raycast desde el centro de la habitacion hasta el punto
+
+        //comprobamos que esté 
+    }
+
     public void takeDamage( string colliderTag)
     {
         if (enemy.tag == colliderTag && (!enemy.checkIsInmune()))

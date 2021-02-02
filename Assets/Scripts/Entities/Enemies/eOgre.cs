@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 
 namespace Assets.Scripts.Entities.Enemies
@@ -22,7 +20,7 @@ namespace Assets.Scripts.Entities.Enemies
 
 
 
-        protected override void Start()
+        protected override void Awake()
         {
             animator = GetComponent<Animator>();
             target = FindObjectOfType<Player>().transform;
