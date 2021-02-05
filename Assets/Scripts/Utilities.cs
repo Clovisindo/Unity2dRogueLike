@@ -23,7 +23,7 @@ public static class Utilities
             }
             if (child.childCount > 0)
             {
-                GetChildObject(child, _tag);
+                return GetChildObject(child, _tag);
             }
         }
         return null;
