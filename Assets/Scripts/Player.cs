@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
     private float startTimeBtwBlocks = 1f;
     private bool specialParryAttack = false;
 
+    private bool falling = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,9 +97,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        ProcessInputs();
-        animator.SetFloat("movementSpeed", movementSpeed);
-        Move();
+        if (!falling)// no permitir control jugador si esta cayendo
+        {
+            ProcessInputs();
+            animator.SetFloat("movementSpeed", movementSpeed);
+            Move();
+        }
     }
 
     void ProcessInputs()
@@ -244,6 +249,37 @@ public class Player : MonoBehaviour
         SetPlayerHealth(-_damage);
         UpdatePlayerHealth();
     }
+    public void UpdatePlayerHealth()
+    {
+        HealthManager.instance.UpdateUI(playerHealth);
+    }
+
+    public void UpdatePositionlevel(Vector2 respawnPosition)
+    {
+        transform.position = respawnPosition;
+        //playerExitCollision = false;
+    }
+
+    public void PlayerStartFalling()
+    {
+        if (!falling)
+        {
+            falling = true;
+            animator.SetTrigger("falling");
+        }
+    }
+
+    public void EndFallinPlayerAnim()
+    {
+        if (falling)
+        {
+            falling = false;
+            //reseteamos la posicion inicial del jugador
+            this.transform.position = GameManager.instance.ini_Player.transform.position;
+            this.TakeDamage(1);
+        }
+       
+    }
 
     private List<Weapon> GetWeapons()
     {
@@ -354,16 +390,7 @@ public class Player : MonoBehaviour
         return null;
     }
 
-    public void UpdatePlayerHealth()
-    {
-       HealthManager.instance.UpdateUI(playerHealth);
-    }
-
-    public void UpdatePositionlevel(Vector2 respawnPosition)
-    {
-        transform.position = respawnPosition;
-        //playerExitCollision = false;
-    }
+   
 
 
 

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class fFloorMechanic : MonoBehaviour
 {
     protected Animator animator;
-    protected AudioClip trapSound;
+    [SerializeField] protected AudioClip trapSound;
 
     protected const float rechargeTime = 2.0f;
     protected float passingTime = rechargeTime;
@@ -43,7 +43,7 @@ public abstract class fFloorMechanic : MonoBehaviour
 
     protected abstract void ActivateMechanic();
 
-    void EndAnimation()
+    protected virtual void EndAnimation()
     {
         passingTime = rechargeTime;
         animator.SetTrigger("Activate");
