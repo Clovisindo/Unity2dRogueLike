@@ -109,4 +109,16 @@ public class HealthManager : MonoBehaviour
         health = _health;
         //Init();
     }
+
+    public bool IsMaxHealth()
+    {
+        if (health ==numOfHearts)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
