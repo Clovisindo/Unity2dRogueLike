@@ -498,6 +498,7 @@ MonoBehaviour:
   speed: 1
   minRange: 1
   maxRange: 5
+  typeEnemy: 3
   enemyMaxHealth: 2
   enemyCurrentHealth: 2
   healthBar: {fileID: 2492183457719030734}

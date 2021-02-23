@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         //comprobamos que esté 
     }
 
-    public void takeDamage( string colliderTag)
+    public void takeDamage( string colliderTag, Enemy enemy)
     {
         if (enemy.tag == colliderTag && (!enemy.checkIsInmune()))
         {

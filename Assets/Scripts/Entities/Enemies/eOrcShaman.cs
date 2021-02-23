@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class eOrcShaman : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         timeBtwShots = startTimeBtwShots;
+        TypeEnemy = EnumTypeEnemies.mid;
     }
 
     protected override void FixedUpdate()

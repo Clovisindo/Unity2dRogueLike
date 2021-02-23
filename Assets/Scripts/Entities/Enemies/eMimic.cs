@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class eMimic : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         HPBarobject = Utilities.GetChildObject(this.transform, "healthBar");
+        TypeEnemy = EnumTypeEnemies.strong;
     }
 
     protected override void FixedUpdate()

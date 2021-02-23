@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 namespace Assets.Scripts.Entities.Enemies
 {
@@ -28,6 +30,7 @@ namespace Assets.Scripts.Entities.Enemies
             healthBar.SetMaxHealth(enemyMaxHealth);
             attackCollider = Utilities.FindObjectWithTag(this.transform,"EnemyAttackRange");
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
+            TypeEnemy = EnumTypeEnemies.weak;
         }
 
         protected override void FixedUpdate()
@@ -114,8 +117,10 @@ namespace Assets.Scripts.Entities.Enemies
         {
             if (specialAttacking)
             {
+#if UNITY_EDITOR
                 Handles.color = Color.green;
                 Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
+#endif
             }
         }
 

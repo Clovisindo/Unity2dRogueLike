@@ -42,7 +42,7 @@ public abstract class Weapon : MonoBehaviour
         if (other.tag == "Enemy")
         {
             GameObject enemyColl = other.gameObject;
-            GameManager.instance.takeDamage(other.tag);
+            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>());
             if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
             {
                 Destroy(enemyColl);

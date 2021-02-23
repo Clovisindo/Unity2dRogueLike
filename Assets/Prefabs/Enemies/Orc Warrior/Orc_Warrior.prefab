@@ -267,6 +267,7 @@ MonoBehaviour:
   speed: 2
   minRange: 2
   maxRange: 7
+  typeEnemy: 3
   enemyMaxHealth: 3
   enemyCurrentHealth: 3
   healthBar: {fileID: 7431429041753606744}
@@ -274,10 +275,11 @@ MonoBehaviour:
   timeBtwCharge: 4
   startTimeBtwCharge: 0
   attackRange: 5
-  ChargeForce: 6
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 256
+  isCharging: 0
+  directionCharge: {x: 0, y: 0, z: 0}
 --- !u!1001 &7911084019563619551
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public abstract class Enemy : MonoBehaviour
     protected float minRange;
     [SerializeField]
     protected  float maxRange;
+    [SerializeField]
+    private EnumTypeEnemies typeEnemy;
+
 
     //health
     [SerializeField]
@@ -36,6 +40,10 @@ public abstract class Enemy : MonoBehaviour
     protected const float inmuneTime = 2.0f;
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
+
+    //Enemigos habitacion
+    public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
+    
 
     protected abstract void Awake();
 

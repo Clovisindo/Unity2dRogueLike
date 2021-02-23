@@ -13,6 +13,7 @@ namespace Assets.Scripts.Entities.Enemies
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
+            TypeEnemy = EnumTypeEnemies.weak;
         }
 
         protected override void FixedUpdate()

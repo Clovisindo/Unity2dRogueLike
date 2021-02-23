@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoardRoom : MonoBehaviour
@@ -17,11 +19,33 @@ public class BoardRoom : MonoBehaviour
     private BoxCollider2D changeRoomEventColliderEntrance;
     private BoxCollider2D changeRoomEventColliderExit;
 
+    public List<Enemy> enemiesRoom;
+
+    
+
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
 
+    internal void PauseRoom()
+    {
+        // en bucle repasar todos los enemigos y poner el bool de paused
+
+        //implementar algo de puzzles
+        throw new NotImplementedException();
+    }
+
+    internal void ReStartRoom()
+    {
+        // en bucle repasar todos los enemigos y quitar el bool de paused
+
+        //implementar algo de puzzles
+        throw new NotImplementedException();
+    }
+
     public  LevelGeneration.doorDirection entranceDoor;
     public  LevelGeneration.doorDirection exitDoor;
+
+    
 
 
     // Start is called before the first frame update
@@ -80,6 +104,27 @@ public class BoardRoom : MonoBehaviour
         }
         return respawnPosition;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="initPositionsEnemy">array de posiciones de spawn</param>
+    /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
+    internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
+    {
+        //recorremos la lista de enemigos e instanciamos y añadimos a la clase 
+        int i = 0;
+        foreach (var enemy in enemies)
+        {
+            enemiesRoom.Add(Instantiate(enemy, initPositionsEnemy[i].transform.position, Quaternion.identity));
+            i++;
+        }
+    }
+
+    //public void SetCurrentEnemies(List<Enemy> _enemies)
+    //{
+    //    enemiesRoom = _enemies;
+        
+    //}
 
     public void DisableColliderRoom()
     {

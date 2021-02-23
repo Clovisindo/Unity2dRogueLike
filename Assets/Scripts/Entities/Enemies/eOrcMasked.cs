@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using Assets.Scripts;
 using UnityEngine;
 
 public class eOrcMasked : Enemy
@@ -19,6 +22,7 @@ public class eOrcMasked : Enemy
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
+        TypeEnemy = EnumTypeEnemies.mid;
     }
 
     // Update is called once per frame
@@ -87,9 +91,11 @@ public class eOrcMasked : Enemy
 
     void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         //debug dibujar las fintas y direccion del muñeco
         Handles.color = Color.green;
         Handles.DrawLine(transform.position, playerPosition);
+#endif
     }
 
     private void CheckNextPositionBoundary( Vector3 _nextPosition)

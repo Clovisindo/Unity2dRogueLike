@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class eOrcWarrior : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         layerMaskWall = LayerMask.NameToLayer("Wall");
+        TypeEnemy = EnumTypeEnemies.strong;
     }
 
     // Update is called once per frame
