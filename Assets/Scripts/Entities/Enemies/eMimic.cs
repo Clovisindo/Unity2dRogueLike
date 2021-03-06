@@ -16,9 +16,10 @@ public class eMimic : Enemy
         healthBar.SetMaxHealth(enemyMaxHealth);
         HPBarobject = Utilities.GetChildObject(this.transform, "healthBar");
         TypeEnemy = EnumTypeEnemies.strong;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (mimicActivated)
         {
@@ -35,15 +36,15 @@ public class eMimic : Enemy
                 //goRespawn();
             }
 
-            if (passingTime < inmuneTime)
-            {
-                passingTime += Time.deltaTime;
-                enemyInmune = true;
-            }
-            else
-            {
-                enemyInmune = false;
-            }
+            //if (passingTime < inmuneTime)
+            //{
+            //    passingTime += Time.deltaTime;
+            //    enemyInmune = true;
+            //}
+            //else
+            //{
+            //    enemyInmune = false;
+            //}
         }
     }
 

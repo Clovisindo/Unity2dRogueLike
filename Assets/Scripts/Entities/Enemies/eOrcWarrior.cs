@@ -25,10 +25,11 @@ public class eOrcWarrior : Enemy
         healthBar.SetMaxHealth(enemyMaxHealth);
         layerMaskWall = LayerMask.NameToLayer("Wall");
         TypeEnemy = EnumTypeEnemies.strong;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange && !isCharging)
         {
@@ -43,15 +44,15 @@ public class eOrcWarrior : Enemy
             //goRespawn();
         }
 
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            enemyInmune = true;
-        }
-        else
-        {
-            enemyInmune = false;
-        }
+        //if (passingTime < inmuneTime)
+        //{
+        //    passingTime += Time.deltaTime;
+        //    enemyInmune = true;
+        //}
+        //else
+        //{
+        //    enemyInmune = false;
+        //}
 
         //cd de la carga
         if (timeBtwCharge <= 0 && !isCharging)

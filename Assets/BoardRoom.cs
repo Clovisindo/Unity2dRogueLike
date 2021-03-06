@@ -19,6 +19,8 @@ public class BoardRoom : MonoBehaviour
     private BoxCollider2D changeRoomEventColliderEntrance;
     private BoxCollider2D changeRoomEventColliderExit;
 
+    private FRoomDoor[] roomDoor;
+
     public List<Enemy> enemiesRoom;
 
     
@@ -31,7 +33,10 @@ public class BoardRoom : MonoBehaviour
         // en bucle repasar todos los enemigos y poner el bool de paused
 
         //implementar algo de puzzles
-        throw new NotImplementedException();
+        foreach (var enemy in enemiesRoom)
+        {
+            enemy.IsPaused = true;
+        }
     }
 
     internal void ReStartRoom()
@@ -39,7 +44,10 @@ public class BoardRoom : MonoBehaviour
         // en bucle repasar todos los enemigos y quitar el bool de paused
 
         //implementar algo de puzzles
-        throw new NotImplementedException();
+        foreach (var enemy in enemiesRoom)
+        {
+            enemy.IsPaused = false;
+        }
     }
 
     public  LevelGeneration.doorDirection entranceDoor;
@@ -53,8 +61,36 @@ public class BoardRoom : MonoBehaviour
     {
         changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject,"Entrance");
         changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
+        //roomDoor = Helper.FindComponentInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
+        roomDoor = Helper.FindComponentsInChildWithTag <FRoomDoor>(this.transform.gameObject, "FRoomDoor");// GameObject.FindGameObjectWithTag("FRoomDoor").GetComponent<FRoomDoor>();
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
 
+    }
+
+    internal void OpenDoor()
+    {
+        foreach (var door in roomDoor)
+        {
+            door.OpenDoor();
+        }
+        
+    }
+
+    internal void CloseDoor()
+    {
+        foreach (var door in roomDoor)
+        {
+            door.CloseDoor();
+        }
+
+    }
+    /// <summary>
+    /// Return clossed == true
+    /// </summary>
+    /// <returns></returns>
+    internal bool CheckDoorStatus()//debug
+    {
+       return roomDoor[0].CheckDoorIsClosed();
     }
 
     // Update is called once per frame
@@ -115,16 +151,12 @@ public class BoardRoom : MonoBehaviour
         int i = 0;
         foreach (var enemy in enemies)
         {
-            enemiesRoom.Add(Instantiate(enemy, initPositionsEnemy[i].transform.position, Quaternion.identity));
+            Enemy currentEnemy = Instantiate(enemy, initPositionsEnemy[i].transform.position, Quaternion.identity);
+            enemiesRoom.Add(currentEnemy);
+            currentEnemy.transform.SetParent(this.transform);
             i++;
         }
     }
-
-    //public void SetCurrentEnemies(List<Enemy> _enemies)
-    //{
-    //    enemiesRoom = _enemies;
-        
-    //}
 
     public void DisableColliderRoom()
     {

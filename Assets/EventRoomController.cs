@@ -42,9 +42,7 @@ public class EventRoomController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         currentRoom = GameManager.instance.currentRoom;
 
-        TypeQtyEnemies.Add(EnumTypeEnemies.weak.ToString(),2);//ToDo: como hacer mejor?
-        TypeQtyEnemies.Add(EnumTypeEnemies.mid.ToString(), 2);
-        TypeQtyEnemies.Add(EnumTypeEnemies.strong.ToString(), 1);
+       
         InitRoom();//ToDo: DEBUG
     }
 
@@ -53,7 +51,7 @@ public class EventRoomController : MonoBehaviour
     /// </summary>
     public void InitRoom()
     {
-        currentRoom = GameManager.instance.currentRoom;//ToDo: revisar si hacer aqui
+        currentRoom = GameManager.instance.currentRoom;
         currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
         SetTypeCurrentRoom();//ToDo:
 
@@ -87,11 +85,12 @@ public class EventRoomController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void SetSpawnEnemies()//añadir a cada enemigo una categoria del tier
+    private void SetSpawnEnemies()
     {
-        //quemandolos restandolo de la quantity
-        //asignando metiendo un random por cada tier
         //var typesMonster = Assembly.GetAssembly(typeof(EnumTypeEnemies)).GetTypes().Where(currentType => currentType.IsSubclassOf(typeof(EnumTypeEnemies)));
+
+        //asignar cantidad de enemigos
+        SetQtyEnemies();
 
         //recorrer bucle por tipo de enemigo
         foreach (var typeEnemy in Enum.GetNames(typeof(EnumTypeEnemies)))
@@ -104,8 +103,14 @@ public class EventRoomController : MonoBehaviour
            
         }
         //primero elegir la cantidad de enemigos en la formula y luego buscar el array de posiciones que coincida con esa cantidad y sus variantes
-        //currentRoom.SetCurrentEnemies(enemies);
         currentRoom.InvokeEnemies(currentInitPositionsEnemy, enemies);//ToDo: gestionar cantidad de enemigos y el array de posiciones previamente e incluso el tipo de enemigos
+    }
+
+    private void SetQtyEnemies()//ToDo: hacer dinamico
+    {
+        TypeQtyEnemies.Add(EnumTypeEnemies.weak.ToString(), 2);
+        TypeQtyEnemies.Add(EnumTypeEnemies.mid.ToString(), 2);
+        TypeQtyEnemies.Add(EnumTypeEnemies.strong.ToString(), 1);
     }
 
     private void SpawnTypeEnemies(string _typeEnemy)

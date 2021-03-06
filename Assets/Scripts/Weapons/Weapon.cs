@@ -39,14 +39,20 @@ public abstract class Weapon : MonoBehaviour
     }
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Enemy" && (!other.gameObject.GetComponent<Enemy>().checkIsInmune()))
         {
             GameObject enemyColl = other.gameObject;
+            other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>());
-            if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
-            {
-                Destroy(enemyColl);
-            }
+            //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
+            //{
+            //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());
+                
+            //}
+            //else
+            //{
+            //    //other.gameObject.GetComponent<BoxCollider2D>().enabled = true;
+            //}
 
         }
     }

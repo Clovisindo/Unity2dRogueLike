@@ -23,10 +23,11 @@ public class eOrcMasked : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         TypeEnemy = EnumTypeEnemies.mid;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
         {
@@ -41,15 +42,15 @@ public class eOrcMasked : Enemy
             //goRespawn();
         }
 
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            enemyInmune = true;
-        }
-        else
-        {
-            enemyInmune = false;
-        }
+        //if (passingTime < inmuneTime)
+        //{
+        //    passingTime += Time.deltaTime;
+        //    enemyInmune = true;
+        //}
+        //else
+        //{
+        //    enemyInmune = false;
+        //}
 
         //Fintar a los lados ToDo:
         if (passingTimeFollowing < totalTimeFollowing)

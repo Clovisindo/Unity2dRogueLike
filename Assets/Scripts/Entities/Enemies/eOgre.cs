@@ -31,9 +31,10 @@ namespace Assets.Scripts.Entities.Enemies
             attackCollider = Utilities.FindObjectWithTag(this.transform,"EnemyAttackRange");
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
             TypeEnemy = EnumTypeEnemies.weak;
+            collider = this.GetComponent<BoxCollider2D>();
         }
 
-        protected override void FixedUpdate()
+        protected override void EnemyBehaviour()
         {
             if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
             {
@@ -76,15 +77,15 @@ namespace Assets.Scripts.Entities.Enemies
                 }
             }
 
-            if (passingTime < inmuneTime)
-            {
-                passingTime += Time.deltaTime;
-                enemyInmune = true;
-            }
-            else
-            {
-                enemyInmune = false;
-            }
+            //if (passingTime < inmuneTime)
+            //{
+            //    passingTime += Time.deltaTime;
+            //    enemyInmune = true;
+            //}
+            //else
+            //{
+            //    enemyInmune = false;
+            //}
         }
 
         private void attackOgre()

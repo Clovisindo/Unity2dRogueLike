@@ -35,6 +35,9 @@ public class BoardManager : MonoBehaviour
     //public GameObject[] outerWallTopTiles;                             //Array of outer tile prefabs.
     public List<GameObject> exitTiles = new List<GameObject>();
     public GameObject rightChangeRoomCollider;
+    public GameObject roomDoorLeftRight;
+    public GameObject roomDoorUpDown;
+    private GameObject roomDoor;
 
 
     public GameObject wallCornerTopLeft;                                // prefab corner wall
@@ -46,6 +49,7 @@ public class BoardManager : MonoBehaviour
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();	//A list of possible locations to place tiles.
     private Quaternion angleExitCollider;
+    private Quaternion angleExitDoor;
 
     public BoardRoom prefabBoardRoom;
     private BoardRoom generatedBoardRoom;
@@ -200,6 +204,8 @@ public class BoardManager : MonoBehaviour
                         movColliderX = 0.5f;
                         movColliderY = -0.3f;
                         angleExitCollider = Quaternion.AngleAxis(90, Vector3.back);
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorUpDown;
                     }
                     else if ((x == 7 || x == 8) && y == rows && (nextSideDoor == doorDirection.up || previousSideRoom == doorDirection.up))
                     {
@@ -214,6 +220,8 @@ public class BoardManager : MonoBehaviour
                         movColliderX = 0.5f;
                         movColliderY = 0.3f;
                         angleExitCollider = Quaternion.AngleAxis(90, Vector3.back);
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorUpDown;
                     }
                     else
                     {
@@ -235,6 +243,8 @@ public class BoardManager : MonoBehaviour
                         movColliderX = -0.3f;
                         movColliderY = 0.5f;
                         angleExitCollider = Quaternion.identity;
+                        angleExitDoor = Quaternion.AngleAxis(180, Vector3.back); ;
+                        roomDoor = roomDoorLeftRight;
                     }
                     else
                     {
@@ -256,6 +266,8 @@ public class BoardManager : MonoBehaviour
                         movColliderX = 0.3f;
                         movColliderY = 0.5f;
                         angleExitCollider = Quaternion.identity;
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorLeftRight;
                     }
                     else
                     {
@@ -264,24 +276,43 @@ public class BoardManager : MonoBehaviour
                 }
 
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+                
+                if (isExit)
+                {
+                    if (isCreatedExit)
+                    {
+                        GameObject colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        colliderExit.tag = "Exit";
+                        isCreatedExit = true;
+                        colliderExit.transform.SetParent(generatedBoardRoom.transform);
+                    }
+                    //girar si es de izquierdas o de derechas
+                    GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x , y , 0f), angleExitDoor) as GameObject;
+                    isExit = false;
+                    exitRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                }
+                if (isEntrance)
+                {
+                    if (isCreatedEntrance)
+                    {
+                        GameObject colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        //GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        colliderEntrance.tag = "Entrance";
+                        isCreatedEntrance = true;
+                        colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
+                    }
+                    GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
+                    isEntrance = false;
+                    entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                }
+
+                if (isExit)
+                {
+                    toInstantiate = roomDoor;
+                    isExit = false;
+                }
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-                if (isExit && !isCreatedExit)
-                {
-                    GameObject colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f ), angleExitCollider) as GameObject;
-                    colliderExit.tag = "Exit";
-                    isExit = false;
-                    isCreatedExit = true;
-                    colliderExit.transform.SetParent(generatedBoardRoom.transform);
-                }
-                if (isEntrance && !isCreatedEntrance)
-                {
-                    GameObject colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
-                    colliderEntrance.tag = "Entrance";
-                    isEntrance = false;
-                    isCreatedEntrance = true;
-                    colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
-                }
 
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(generatedBoardRoom.transform);

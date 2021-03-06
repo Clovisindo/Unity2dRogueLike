@@ -136,6 +136,7 @@ public class Player : MonoBehaviour
                 ChangeWeapon();
                 timeBtwChangeWeapon = startTimeBtwChangeWeapon;
             }
+           
         }
         else
         {

@@ -14,9 +14,10 @@ namespace Assets.Scripts.Entities.Enemies
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
             TypeEnemy = EnumTypeEnemies.weak;
+            collider = this.GetComponent<BoxCollider2D>();
         }
 
-        protected override void FixedUpdate()
+        protected override void EnemyBehaviour()
         {
             if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
             {
@@ -31,15 +32,16 @@ namespace Assets.Scripts.Entities.Enemies
                 //goRespawn();
             }
 
-            if (passingTime < inmuneTime)
-            {
-                passingTime += Time.deltaTime;
-                enemyInmune = true;
-            }
-            else
-            {
-                enemyInmune = false;
-            }
+            //if (passingTime < inmuneTime)
+            //{
+            //    passingTime += Time.deltaTime;
+            //    enemyInmune = true;
+
+            //}
+            //else
+            //{
+            //    enemyInmune = false;
+            //}
 
         }
 

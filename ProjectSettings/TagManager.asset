@@ -15,6 +15,8 @@ TagManager:
   - KnightSword
   - KnightShield
   - healthBar
+  - Door
+  - FRoomDoor
   layers:
   - Default
   - TransparentFX

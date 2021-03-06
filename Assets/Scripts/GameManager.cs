@@ -53,6 +53,33 @@ public class GameManager : MonoBehaviour
         InitGame();
     }
 
+    /// <summary>
+    /// Destruimos al enemigo muerto y comprobamos que no queden mas enemigos
+    /// </summary>
+    /// <param name="enemy"></param>
+    //internal void DestroyEnemy(Enemy enemy)
+    //{
+    //    currentRoom.enemiesRoom.Remove(enemy.GetComponent<Enemy>());
+    //    Destroy(enemy);
+    //    if (CheckLastEnemyRoom())
+    //    {
+    //        currentRoom.OpenDoor();
+    //    }
+       
+    //}
+
+    public bool CheckLastEnemyRoom()
+    {
+        if (currentRoom.enemiesRoom.Count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     void InitGame()
     {
         doingSetup = true;
@@ -83,6 +110,9 @@ public class GameManager : MonoBehaviour
     {
         currentRoom.SetEntranceExitDoor(backwards);
 
+        //pausamos los enemigos de la habitacion
+        currentRoom.PauseRoom();
+
         //gestionar la camara en funcion de la direccion de la habitacion , entrada o salida,etc
         gameCamera.transform.position = ChangeCameraByDoorDirection(currentRoom.exitDoor);
 
@@ -91,11 +121,16 @@ public class GameManager : MonoBehaviour
         //1ºHacemos el RayCast en la direccion hacia la que es la puerta (pendiente modificar el metodo
         UpdateCurrentRoom(GameManager.instance.player, currentRoom.exitDoor, backwards);
 
+        
+
         //2º con la nueva habitacion actualizada primero, le decimos de donde venimos y cargamos el respawn
         //desactivar el ChangeRoomCollider de la entrada de esta habitacion
         //currentRoom.DisableChangeEventColliderEntranceRoom();
         //actualizamos la posicion del jugador
         GameManager.instance.player.UpdatePositionlevel(currentRoom.GetRespawnPositionPlayer(currentRoom.entranceDoor));//camino en direcion original
+
+        //arrancamos los enemigos en esta habitacion
+        currentRoom.ReStartRoom();
 
     }
 
