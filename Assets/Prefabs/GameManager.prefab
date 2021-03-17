@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9138923659496423887}
   - component: {fileID: 1212537152}
   - component: {fileID: 2032361823}
+  - component: {fileID: -5785441729688871315}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
   levelGenerationScript: {fileID: 0}
+  eventRoomController: {fileID: 0}
   player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
   enemy: {fileID: 2812248238616750533, guid: de8c398fb81a20d4cb4faeaded00c045, type: 3}
   gameCamera: {fileID: 0}
@@ -150,3 +152,28 @@ MonoBehaviour:
   enemiesRoom: []
   entranceDoor: 0
   exitDoor: 0
+--- !u!114 &-5785441729688871315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217760998152101640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6037552f13f464f9c94ac5587ad4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitPositionsEnemy:
+  - {fileID: 1930063888734939225, guid: b4f1a5bb1faf96c4d9531eb5df6da495, type: 3}
+  InitPositionsPuzzle: []
+  enemiesPrefab:
+  - {fileID: 2617656629967610419, guid: 19b7a97344d2f374a985db7edb1ef379, type: 3}
+  - {fileID: 2812248238616750533, guid: de8c398fb81a20d4cb4faeaded00c045, type: 3}
+  - {fileID: 9130473941715043762, guid: 093e39509b582734595b433c2a2cf6c3, type: 3}
+  - {fileID: 6382684585103001407, guid: 4c3038f19ce7a3644947f9aac5499f75, type: 3}
+  - {fileID: 5521768628887793396, guid: 2f7cac3ae5e317942af4227367138e6b, type: 3}
+  - {fileID: 3549069607504243530, guid: de19d66477bf9814cb418a215497fbcd, type: 3}
+  puzzles: []
+  currentTypeRoom: 0
+  currentRoom: {fileID: 0}

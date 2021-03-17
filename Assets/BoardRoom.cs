@@ -64,7 +64,6 @@ public class BoardRoom : MonoBehaviour
         //roomDoor = Helper.FindComponentInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         roomDoor = Helper.FindComponentsInChildWithTag <FRoomDoor>(this.transform.gameObject, "FRoomDoor");// GameObject.FindGameObjectWithTag("FRoomDoor").GetComponent<FRoomDoor>();
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
-
     }
 
     internal void OpenDoor()
@@ -147,11 +146,18 @@ public class BoardRoom : MonoBehaviour
     /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
     internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
     {
+        //Transform[] arrayPositions = initPositionsEnemy.ToArray();
+        //GameObject emptyObject = Instantiate(new GameObject(), this.transform.position, Quaternion.identity);
         //recorremos la lista de enemigos e instanciamos y añadimos a la clase 
         int i = 0;
+
         foreach (var enemy in enemies)
         {
-            Enemy currentEnemy = Instantiate(enemy, initPositionsEnemy[i].transform.position, Quaternion.identity);
+            //emptyObject.transform.SetParent(this.transform);
+            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
+            positionEnemy.SetParent(this.transform);
+            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
+            Enemy currentEnemy = Instantiate(enemy, positionEnemy.transform.position, Quaternion.identity);
             enemiesRoom.Add(currentEnemy);
             currentEnemy.transform.SetParent(this.transform);
             i++;

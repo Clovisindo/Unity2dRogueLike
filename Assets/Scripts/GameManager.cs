@@ -11,8 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public BoardManager boardScript;
     public LevelGeneration levelGenerationScript;
+    public EventRoomController eventRoomController;
     public Player player;
     public Enemy enemy;
+    private BoardRoom[] boardRooms;
 
     private int level = 1;
     private bool doingSetup;
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
     int layer_mask_wall;
     private LevelGeneration.doorDirection tempEntrance;
     private LevelGeneration.doorDirection tempExit;
+
+    public BoardRoom[] BoardRooms { get => boardRooms; set => boardRooms = value; }
 
 
 
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         levelGenerationScript = GetComponent<LevelGeneration>();
+        eventRoomController = GetComponent<EventRoomController>();
         gameCamera = GameObject.FindGameObjectWithTag("MainCamera");
         layer_mask_wall = LayerMask.GetMask("ColliderRoomDetector");
 
@@ -65,8 +70,12 @@ public class GameManager : MonoBehaviour
     //    {
     //        currentRoom.OpenDoor();
     //    }
-       
     //}
+
+    public void AddRooms(BoardRoom[] arrayRooms)
+    {
+        BoardRooms = arrayRooms;
+    }
 
     public bool CheckLastEnemyRoom()
     {
@@ -203,6 +212,9 @@ public class GameManager : MonoBehaviour
             currentRoom.EnableColliderRoom();
             currentRoom = roomCollider.transform.parent.gameObject.GetComponent<BoardRoom>();
             currentRoom.SetEntranceExitDoor(backwards);
+
+            ////prueba
+            //eventRoomController.InitRoom();
         }
     }
 

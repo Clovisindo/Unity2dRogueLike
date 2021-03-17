@@ -40,18 +40,30 @@ public class EventRoomController : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
-        currentRoom = GameManager.instance.currentRoom;
+        //currentRoom = GameManager.instance.currentRoom;
+        //InitRoom();//ToDo: DEBUG
+    }
 
-       
-        InitRoom();//ToDo: DEBUG
+    public void InitRoomsDungeonLevel(BoardRoom[] listRooms)
+    {
+        foreach (var room in listRooms)
+        {
+            InitRoom(room);
+            room.PauseRoom();
+        }
+
+
+        // asignar la primera habitacion como inicial
+        currentRoom = listRooms[0];
+        currentRoom.ReStartRoom();
     }
 
     /// <summary>
     /// Se inicializa una habitacion
     /// </summary>
-    public void InitRoom()
+    private void InitRoom(BoardRoom currentRoom)
     {
-        currentRoom = GameManager.instance.currentRoom;
+        //currentRoom = GameManager.instance.currentRoom;
         currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
         SetTypeCurrentRoom();//ToDo:
 
@@ -62,7 +74,7 @@ public class EventRoomController : MonoBehaviour
                 break;
             case TypesRoom.battle:
                 //set posiciones enemigos para el nivel
-                SetSpawnEnemies();
+                SetSpawnEnemies(currentRoom);
                 break;
             case TypesRoom.puzzzle:
                 //set posiciones objetos puzzle/diseño
@@ -85,12 +97,12 @@ public class EventRoomController : MonoBehaviour
         throw new NotImplementedException();
     }
 
-    private void SetSpawnEnemies()
+    private void SetSpawnEnemies(BoardRoom currentRoom)
     {
         //var typesMonster = Assembly.GetAssembly(typeof(EnumTypeEnemies)).GetTypes().Where(currentType => currentType.IsSubclassOf(typeof(EnumTypeEnemies)));
-
         //asignar cantidad de enemigos
         SetQtyEnemies();
+        enemies.Clear();
 
         //recorrer bucle por tipo de enemigo
         foreach (var typeEnemy in Enum.GetNames(typeof(EnumTypeEnemies)))
@@ -108,13 +120,19 @@ public class EventRoomController : MonoBehaviour
 
     private void SetQtyEnemies()//ToDo: hacer dinamico
     {
-        TypeQtyEnemies.Add(EnumTypeEnemies.weak.ToString(), 2);
-        TypeQtyEnemies.Add(EnumTypeEnemies.mid.ToString(), 2);
-        TypeQtyEnemies.Add(EnumTypeEnemies.strong.ToString(), 1);
+        //ToDo: esto es temporal, hacer dinamico
+        if (TypeQtyEnemies.Count == 0)
+        {
+            TypeQtyEnemies.Add(EnumTypeEnemies.weak.ToString(), 2);
+            TypeQtyEnemies.Add(EnumTypeEnemies.mid.ToString(), 2);
+            TypeQtyEnemies.Add(EnumTypeEnemies.strong.ToString(), 1);
+        }
+        
     }
 
     private void SpawnTypeEnemies(string _typeEnemy)
     {
+       
         int _quantityTypeEnem = TypeQtyEnemies[_typeEnemy];//asignamos la cantidad segun el tipo de monstruo
 
         var listCurrentTypeEnemies = enemiesPrefab.Where(e => e.TypeEnemy.ToString() == _typeEnemy.ToString()).ToList();

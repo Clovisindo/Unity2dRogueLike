@@ -10,7 +10,7 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
     public Transform[] startingPositions;// respawn positions habitaciones x16
-    public GameObject[] rooms;//
+    public List<BoardRoom> rooms = new List<BoardRoom>();//
 
     private Dictionary<Vector3, bool> ListRoomsCreated = new Dictionary<Vector3, bool>();
 
@@ -33,6 +33,7 @@ public class LevelGeneration : MonoBehaviour
     public float maxX;
     public float maxY;
     private bool stopGeneration = false;
+    private bool addRoomsGameManager = false;
     private bool generateRoomTurn = false;
 
     void Awake()
@@ -40,7 +41,7 @@ public class LevelGeneration : MonoBehaviour
         int randStartingPos = Random.Range(0, 3);
         transform.position = startingPositions[0].position;//ToDo Random
         BoardRoom initialBoardRoom = GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor);// TODO: arreglar que no inicie en estatico la primera habitacion
-
+        rooms.Add(initialBoardRoom);
         GameManager.instance.SetCurrentRoomBoard(initialBoardRoom);
 
         previousRoomDirection = 3;
@@ -58,8 +59,15 @@ public class LevelGeneration : MonoBehaviour
         else
         {
             timeBtwRoom -= Time.deltaTime;
+           
         }
-       
+        if (stopGeneration && !addRoomsGameManager)
+        {
+            GameManager.instance.AddRooms(rooms.ToArray());
+            addRoomsGameManager = true;
+            //arrancamos el iniciar todas las habitaciones
+            GameManager.instance.eventRoomController.InitRoomsDungeonLevel(GameManager.instance.BoardRooms);
+        }
     }
 
     private void Move()
@@ -88,7 +96,7 @@ public class LevelGeneration : MonoBehaviour
                         numberTries++;
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
-                    GameManager.instance.boardScript.BoardSetup(transform.position,GetDoorDirectionRandom(previousRoomDirection) , GetDoorDirectionRandom(nextRoomDirection));
+                    rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position,GetDoorDirectionRandom(previousRoomDirection) , GetDoorDirectionRandom(nextRoomDirection)));
                     ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
@@ -116,7 +124,7 @@ public class LevelGeneration : MonoBehaviour
                         numberTries++;
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
-                    GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection));
+                    rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection)));
                     ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); 
                     generateRoomTurn = true;
@@ -144,7 +152,7 @@ public class LevelGeneration : MonoBehaviour
                         numberTries++;
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
-                    GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection));
+                    rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection)));
                     ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
