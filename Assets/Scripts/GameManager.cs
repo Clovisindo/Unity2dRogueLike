@@ -127,10 +127,17 @@ public class GameManager : MonoBehaviour
 
         //desactivar el collider de la habitacion actual
         currentRoom.DisableColliderRoom();
+        currentRoom.DisableChangeEventColliderEntranceRoom();
+        currentRoom.DisableChangeEventColliderExitRoom();
         //1ºHacemos el RayCast en la direccion hacia la que es la puerta (pendiente modificar el metodo
         UpdateCurrentRoom(GameManager.instance.player, currentRoom.exitDoor, backwards);
 
-        
+        if (currentRoom.RoomComplete)
+        {
+            currentRoom.EnableChangeEventColliderEntranceRoom();
+            currentRoom.EnableChangeEventColliderExitRoom();
+        }
+      
 
         //2º con la nueva habitacion actualizada primero, le decimos de donde venimos y cargamos el respawn
         //desactivar el ChangeRoomCollider de la entrada de esta habitacion
@@ -212,9 +219,6 @@ public class GameManager : MonoBehaviour
             currentRoom.EnableColliderRoom();
             currentRoom = roomCollider.transform.parent.gameObject.GetComponent<BoardRoom>();
             currentRoom.SetEntranceExitDoor(backwards);
-
-            ////prueba
-            //eventRoomController.InitRoom();
         }
     }
 

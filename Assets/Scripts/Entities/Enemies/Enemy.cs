@@ -73,6 +73,7 @@ public abstract class Enemy : MonoBehaviour
         if (GameManager.instance.CheckLastEnemyRoom())
         {
             GameManager.instance.currentRoom.OpenDoor();
+            GameManager.instance.currentRoom.RoomComplete = true;
         }
         Destroy(gameObject);
     }

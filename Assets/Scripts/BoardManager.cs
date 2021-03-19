@@ -315,11 +315,17 @@ public class BoardManager : MonoBehaviour
                     entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
                 }
 
-                if (isExit)
-                {
-                    toInstantiate = roomDoor;
-                    isExit = false;
-                }
+                //if (isExit)
+                //{
+                //    toInstantiate = roomDoor;
+                //    isExit = false;
+                //}
+                //if (isEntrance)
+                //{
+                //    toInstantiate = roomDoor;
+                //    isEntrance = false;
+                //}
+
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
@@ -335,6 +341,9 @@ public class BoardManager : MonoBehaviour
         {
             generatedBoardRoom.InitialEntranceDirection = (doorDirection)previousSideRoom;
         }
+
+        //Asignamos las variables necesarios
+        generatedBoardRoom.SetParametersRoom();
 
         return generatedBoardRoom;
     }

@@ -27,6 +27,7 @@ public class BoardRoom : MonoBehaviour
 
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
+    public bool RoomComplete { get; internal set; }
 
     internal void PauseRoom()
     {
@@ -59,10 +60,16 @@ public class BoardRoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject,"Entrance");
+        RoomComplete = false;
+    }
+
+    internal void SetParametersRoom()
+    {
+        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Entrance");
         changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
-        //roomDoor = Helper.FindComponentInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
-        roomDoor = Helper.FindComponentsInChildWithTag <FRoomDoor>(this.transform.gameObject, "FRoomDoor");// GameObject.FindGameObjectWithTag("FRoomDoor").GetComponent<FRoomDoor>();
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        changeRoomEventColliderExit.enabled = false;
+        roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
     }
 
@@ -72,7 +79,9 @@ public class BoardRoom : MonoBehaviour
         {
             door.OpenDoor();
         }
-        
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
+        changeRoomEventColliderExit.enabled = true;
+
     }
 
     internal void CloseDoor()
@@ -81,6 +90,8 @@ public class BoardRoom : MonoBehaviour
         {
             door.CloseDoor();
         }
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        changeRoomEventColliderExit.enabled = false;
 
     }
     /// <summary>
@@ -175,7 +186,7 @@ public class BoardRoom : MonoBehaviour
 
     public void DisableChangeEventColliderEntranceRoom()
     {
-        changeRoomEventColliderEntrance.enabled = false;
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
     }
 
     public void DisableChangeEventColliderExitRoom()
@@ -185,7 +196,7 @@ public class BoardRoom : MonoBehaviour
 
     public void EnableChangeEventColliderEntranceRoom()
     {
-        changeRoomEventColliderEntrance.enabled = true;
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
     }
 
     public void EnableChangeEventColliderExitRoom()
@@ -193,4 +204,5 @@ public class BoardRoom : MonoBehaviour
         changeRoomEventColliderExit.enabled = true;
     }
 
+   
 }
