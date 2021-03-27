@@ -44,46 +44,13 @@ Repositorio juego unity2d Roguelike project
 
 
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
 
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- Sobre el proyecto -->
+## Sobre el proyecto
 
 Como proyecto personal de aprendizaje en unity, inicio este proyecto con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego.
 El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma practica.
-
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
 
 
 <!-- Diagrama de clases -->
@@ -151,21 +118,42 @@ generar los enemigos o puzzles en cada habitación
 cambio de habitación al cruzar puertas( cambia la camara , mueve al jugador , activa los enemigos o eventos de esa habitación.
 Comprueba cuando han muerto todos los enemigos y abre las puertas de la habitación.
 
-<!-- GameManager.cs -->
-### GameManager.cs
+<!-- LevelGeneration.cs -->
+### LevelGeneration.cs
+Genera las habitaciones del nivel de forma aleatoria.
+Al ir generando cada habitación, se asigna en que dirección va a estar la siguiente, y se le pasa esa información al BoardManager para instanciar cada caso.
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
-
+<!-- SoundManager.cs -->
+### SoundManager.cs
+Clase para con los metodos necesarios para implementar sonidos y musica al juego.
 
 
-<!-- LICENSE -->
-## License
+<!-- Utilities.cs -->
+### Utilities.cs
+Libreria con varios metodos para facilitar el trabajo en el proyecto(busqueda por tag, busqueda de hijos,obtener enumerables de objetos de tipo generico,etc).
 
-Distributed under the MIT License. See `LICENSE` for more information.
+<!-- BoardRoom.cs -->
+### BoardRoom.cs
+Cuando se instancia una habitacion en el BoardManager, se genera una instancia de esta clase.
+Gestiona y controla todo lo que incluye la habitación.
+Pausar o empezar las rutinas de los enemigos.
+Controlar cuando se completa la habitación para abrir las puertas.
+Asignacion de entrada y salida segun el sentido en el que este moviendose el jugador.
+Invocar los enemigos.
+Dar la posicion donde aparece el jugador.
+
+<!-- EventRoomController.cs -->
+### EventRoomController.cs
+Se asigna para cada habitación, que tipo de desafio se encontrará el jugador , bien enemigos , o algun tipo de desafio de puzzle.
+En caso de enemigos , se asigna dinamicamente una cantidad de enemigos por dificultad .
+En caso de puzzle, se asigna de forma dinamica algunos de los diseños pregenerados anteriormente.
+Actualmente en desarrollo.
+
+
+<!-- HealthManager.cs -->
+### HealthManager.cs
+Gestión de comunicar los distintos sistemas que provocan cambios en la vida del jugador y enemigos, y traducirlo en cambios en la UI.
 
 
 
@@ -173,8 +161,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact
 
 Clovis - [@Clovisindo](https://twitter.com/clovisindo) 
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
 
 
 
