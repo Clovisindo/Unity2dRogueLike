@@ -1,5 +1,5 @@
 # Unity2dRogueLike
-Repositorio juego unity2d Roguelike project
+Repositorio juego unity2d Roguelike 
 
 
 <!--
@@ -49,8 +49,8 @@ Repositorio juego unity2d Roguelike project
 <!-- Sobre el proyecto -->
 ## Sobre el proyecto
 
-Como proyecto personal de aprendizaje en unity, inicio este proyecto con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego.
-El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma practica.
+Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego.
+El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
 
 <!-- Diagrama de clases -->
@@ -69,12 +69,6 @@ Gestion de cuando el jugador es invulnerable tras un golpe
 Gestión de colisiones con los enemigos y comunicar al resto de sistemas el daño recibido.
 Gestion de colisiones con las salidas/entradas de las habitaciones, y comunicacion con los demas sistemas para cambiar de habitación.
 Varios metodos para actualizar variables del jugador: vida, posicion de inicio en la habitacion, animación de caida, gestión de armas para cambiar.
-
-
-<!-- FfloorMechanic.cs -->
-### FfloorMechanic.cs
-Clase abstracta que implementa metodos de activar mecanismos genericos para los distintos objetos que se quieran implementar.
-Actualmente estan integrados palancas, botones, enemigos ocultos, pociones, fuentes curativas, trampas y casillas de caida al vacio.
 
 <!-- Weapon.cs -->
 ### Weapon.cs
@@ -123,16 +117,6 @@ Comprueba cuando han muerto todos los enemigos y abre las puertas de la habitaci
 Genera las habitaciones del nivel de forma aleatoria.
 Al ir generando cada habitación, se asigna en que dirección va a estar la siguiente, y se le pasa esa información al BoardManager para instanciar cada caso.
 
-
-<!-- SoundManager.cs -->
-### SoundManager.cs
-Clase para con los metodos necesarios para implementar sonidos y musica al juego.
-
-
-<!-- Utilities.cs -->
-### Utilities.cs
-Libreria con varios metodos para facilitar el trabajo en el proyecto(busqueda por tag, busqueda de hijos,obtener enumerables de objetos de tipo generico,etc).
-
 <!-- BoardRoom.cs -->
 ### BoardRoom.cs
 Cuando se instancia una habitacion en el BoardManager, se genera una instancia de esta clase.
@@ -150,6 +134,18 @@ En caso de enemigos , se asigna dinamicamente una cantidad de enemigos por dific
 En caso de puzzle, se asigna de forma dinamica algunos de los diseños pregenerados anteriormente.
 Actualmente en desarrollo.
 
+<!-- FfloorMechanic.cs -->
+### FfloorMechanic.cs
+Clase abstracta que implementa metodos de activar mecanismos genericos para los distintos objetos que se quieran implementar.
+Actualmente estan integrados palancas, botones, enemigos ocultos, pociones, fuentes curativas, trampas y casillas de caida al vacio.
+
+<!-- SoundManager.cs -->
+### SoundManager.cs
+Clase para con los metodos necesarios para implementar sonidos y musica al juego.
+
+<!-- Utilities.cs -->
+### Utilities.cs
+Libreria con varios metodos para facilitar el trabajo en el proyecto(busqueda por tag, busqueda de hijos,obtener enumerables de objetos de tipo generico,etc).
 
 <!-- HealthManager.cs -->
 ### HealthManager.cs
