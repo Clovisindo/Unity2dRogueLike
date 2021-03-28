@@ -172,8 +172,8 @@ Actualmente en desarrollo.
 ### FfloorMechanic.cs
 Clase abstracta que implementa metodos de activar mecanismos genericos para los distintos objetos que se quieran implementar.
 Actualmente estan integrados palancas, botones, enemigos ocultos, pociones, fuentes curativas, trampas y casillas de caida al vacio.
+
 ![image](https://user-images.githubusercontent.com/4136363/112749741-adf7eb00-8fc4-11eb-9dcc-922203c8a0a1.png)
-![image](https://user-images.githubusercontent.com/4136363/112749510-fca48580-8fc2-11eb-8618-954a922a8ef5.png)
 ![image](https://user-images.githubusercontent.com/4136363/112749608-ab48c600-8fc3-11eb-8829-72196f00b619.png)
 ![image](https://user-images.githubusercontent.com/4136363/112749614-c1568680-8fc3-11eb-9537-ff8a67b4695b.png)
 ![image](https://user-images.githubusercontent.com/4136363/112749638-e6e39000-8fc3-11eb-9175-81e52ecadcbc.png)
