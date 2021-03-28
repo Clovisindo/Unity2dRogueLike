@@ -80,7 +80,9 @@ Varios metodos para actualizar variables del jugador: vida, posicion de inicio e
 Clase abstracta que implementa metodos para implementar armas especificas.
 Controles de uso del arma, con ataque normal y especial.
 Ataque direcional.
+
 Armas implementadas: espadón, espada de caballero , escudo de caballero, martillo gigante.
+
 ![image](https://user-images.githubusercontent.com/4136363/112748203-90be1f00-8fba-11eb-8f0d-64bdd4e546d6.png)
 ![image](https://user-images.githubusercontent.com/4136363/112748211-9d427780-8fba-11eb-9600-c93a5e63c69c.png)
 ![image](https://user-images.githubusercontent.com/4136363/112748218-a59ab280-8fba-11eb-86ed-02dcf25ae237.png)
