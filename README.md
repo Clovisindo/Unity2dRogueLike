@@ -39,16 +39,16 @@
   <h3 align="center">Unity2dRogueLike</h3>
 
   <p align="center">
-    Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
+    Roguelike 2D en unity
     <br />
-    <a href="https://github.com/Clovisindo/Unity2dRogueLike"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike"><strong>Ver documentos »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Clovisindo/Unity2dRogueLike">View Demo</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike">Ver demo</a>
     ·
-    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Report Bug</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Reporta un error</a>
     ·
-    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Request Feature</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Solicita una funcionalidad</a>
   </p>
 </p>
 
@@ -56,102 +56,82 @@
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary><h2 style="display: inline-block">Tabla de contenidos</h2></summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#about-the-project">Sobre el proyecto</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#built-with">Instrucciones instalación</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
+      <a href="#getting-started">Como empezar</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#prerequisites">Prerequisitos</a></li>
+        <li><a href="#installation">Instalación</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#usage">Uso</a></li>
+    <li><a href="#roadmap">Hoja de ruta</a></li>
+    <li><a href="#contributing">Contribuir</a></li>
+    <li><a href="#license">Licencia</a></li>
+    <li><a href="#contact">Contacto</a></li>
+    <li><a href="#Agradecimientos">Acknowledgements</a></li>
   </ol>
 </details>
 
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## Sobre el projecto
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
+Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
 
-### Built With
+### Tecnologia usada:
 
-* []()
-* []()
-* []()
+*Unity
+* Visual Studio Community 2019
 
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- Como empezar -->
+## Como empezar
 
-To get a local copy up and running follow these simple steps.
+Guia paso a paso de como descargar el proyecto..
 
-### Prerequisites
+### Prerequisitos
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
-### Installation
+* Unity 2020
 
-1. Clone the repo
+### Instalacion
+
+1. Clona el repositorio.
    ```sh
    git clone https://github.com/Clovisindo/Unity2dRogueLike.git
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
+2. Añadir la solucion a Unity
+3. Recomendado instalar github para visual studio.
+
+
+<!-- Hoja de ruta -->
+## Hoja de ruta
+
+Revisa las [tareas abiertas](https://github.com/Clovisindo/Unity2dRogueLike/issues) para ver la lista de proximas funcionalidades (y fallos conocidos).
 
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+<!-- Contribuir -->
+## Contribuir
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/Clovisindo/Unity2dRogueLike/issues) for a list of proposed features (and known issues).
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Crea un Fork del proyecto
+2. crea una rama de tu funcionalidad (`git checkout -b feature/AmazingFeature`)
+3. Sube los cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Añadelos a la rama (`git push origin feature/AmazingFeature`)
+5. abre una "Pull request".
 
 
 
@@ -165,7 +145,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@Clovisindo](https://twitter.com/Clovisindo) - damianmgbamio@gmail.com
+Damian - [@Clovisindo](https://twitter.com/Clovisindo) - damianmgbamio@gmail.com
 
 Project Link: [https://github.com/Clovisindo/Unity2dRogueLike](https://github.com/Clovisindo/Unity2dRogueLike)
 
