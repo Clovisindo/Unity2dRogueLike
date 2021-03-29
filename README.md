@@ -23,7 +23,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MIT License][license-shield]][license-url]
 
 
 
@@ -177,6 +177,6 @@ Project Link: [https://github.com/Clovisindo/Unity2dRogueLike](https://github.co
 [issues-shield]: https://img.shields.io/github/issues/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
 [issues-url]: https://github.com/Clovisindo/Unity2dRogueLike/issues
 [license-shield]: https://img.shields.io/github/license/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
-[license-url]: https://github.com/Clovisindo/Unity2dRogueLike/blob/master/LICENSE.txt
+[license-url]: https://github.com/Clovisindo/Unity2dRogueLike/blob/master/license.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/Clovisindo
