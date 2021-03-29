@@ -101,7 +101,7 @@ El objetivo de funcionalidades finales es el siguiente:
 ![image](https://user-images.githubusercontent.com/4136363/112804714-04246700-9075-11eb-894d-f8910f82eaf0.png)
 
 
-Para mas información consulta el resto de la documentación.
+Para mas información consulta el resto de la [documentación](https://github.com/Clovisindo/Unity2dRogueLike/blob/master/contributing.md).
 
 ### Tecnologia usada:
 
