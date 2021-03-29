@@ -31,8 +31,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/
-           /Unity2dRogueLike">
+  <a href="https://github.com/Unity2dRogueLike">
     </a>
 
   <h3 align="center">Unity2dRogueLike</h3>
