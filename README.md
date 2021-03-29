@@ -31,23 +31,24 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/
+           /Unity2dRogueLike">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">project_title</h3>
+  <h3 align="center">Unity2dRogueLike</h3>
 
   <p align="center">
-    project_description
+    Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike">View Demo</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/Clovisindo/Unity2dRogueLike/issues">Request Feature</a>
   </p>
 </p>
 
@@ -116,7 +117,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/Clovisindo/Unity2dRogueLike.git
    ```
 2. Install NPM packages
    ```sh
@@ -137,7 +138,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/Clovisindo/Unity2dRogueLike/issues) for a list of proposed features (and known issues).
 
 
 
@@ -164,9 +165,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email
+Your Name - [@Clovisindo](https://twitter.com/Clovisindo) - damianmgbamio@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+Project Link: [https://github.com/Clovisindo/Unity2dRogueLike](https://github.com/Clovisindo/Unity2dRogueLike)
 
 
 
@@ -183,15 +184,15 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Clovisindo/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/Clovisindo/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Clovisindo/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/Clovisindo/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/Clovisindo/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/Clovisindo/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Clovisindo/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/Clovisindo/repo/issues
+[license-shield]: https://img.shields.io/github/license/Clovisindo/repo.svg?style=for-the-badge
+[license-url]: https://github.com/Clovisindo/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
+[linkedin-url]: https://linkedin.com/in/Clovisindo
