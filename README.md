@@ -76,7 +76,7 @@
     <li><a href="#contributing">Contribuir</a></li>
     <li><a href="#license">Licencia</a></li>
     <li><a href="#contact">Contacto</a></li>
-    <li><a href="#Agradecimientos">Acknowledgements</a></li>
+    <li><a href="#Agradecimientos">Agradecimientos</a></li>
   </ol>
 </details>
 
@@ -89,10 +89,27 @@
 
 Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
+Inspirando por juegos como Binding of Isaac, Spelunky y Hammerwatch, busco crear una pequeña experiencia 'roguelike' de aventuras en una mazmorra, el jugador debe enfrentarse a distintos desafios como monstruos y puzzles para llegar victorioso al final de su aventura.
+
+El objetivo de funcionalidades finales es el siguiente:
+* Un jugador con distintas clases, con al menos dos armas que le den habilidades distintas.
+* Combate cuerpo a cuerpo y a distancia.
+* Variedad de enemigos que impliquen distintos enfoques de desafio para el jugador.
+* Desafios sin combate a través de puzzles con palancas/botones.
+* Habitaciones y tesoros ocultos.
+* Generación dinámica y procedural de los niveles.
+* Dificultad adaptativa en función de las acciones del jugador.
+
+![image](https://user-images.githubusercontent.com/4136363/112804368-a4c65700-9074-11eb-8382-acc23d06def6.png)
+![image](https://user-images.githubusercontent.com/4136363/112804398-ac85fb80-9074-11eb-97af-b2f3846ede91.png)
+![image](https://user-images.githubusercontent.com/4136363/112804714-04246700-9075-11eb-894d-f8910f82eaf0.png)
+
+
+Para mas información consulta el resto de la documentación.
 
 ### Tecnologia usada:
 
-*Unity
+* Unity
 * Visual Studio Community 2019
 
 
@@ -103,7 +120,6 @@ Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar 
 Guia paso a paso de como descargar el proyecto..
 
 ### Prerequisitos
-
 
 * Unity 2020
 
@@ -135,31 +151,23 @@ Revisa las [tareas abiertas](https://github.com/Clovisindo/Unity2dRogueLike/issu
 
 
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
+<!-- LICENCIA -->
+## Licencia
+Distribuido bajo licencia MIT.
 
 
-<!-- CONTACT -->
-## Contact
+<!-- Contacto -->
+## Contacto
 
 Damian - [@Clovisindo](https://twitter.com/Clovisindo) - damianmgbamio@gmail.com
 
 Project Link: [https://github.com/Clovisindo/Unity2dRogueLike](https://github.com/Clovisindo/Unity2dRogueLike)
 
 
+<!-- Agradecimientos -->
+## Agradecimientos
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-* []()
-* []()
-* []()
-
-
-
+* [Assets creados por 0x72](https://0x72.itch.io/dungeontileset-ii)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
