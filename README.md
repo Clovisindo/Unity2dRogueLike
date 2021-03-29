@@ -23,7 +23,7 @@
 [![Contributors][contributors-shield]][contributors-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
@@ -168,15 +168,15 @@ Project Link: [https://github.com/Clovisindo/Unity2dRogueLike](https://github.co
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/Clovisindo/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/Clovisindo/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Clovisindo/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/Clovisindo/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/Clovisindo/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/Clovisindo/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Clovisindo/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/Clovisindo/repo/issues
-[license-shield]: https://img.shields.io/github/license/Clovisindo/repo.svg?style=for-the-badge
-[license-url]: https://github.com/Clovisindo/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
+[contributors-url]: https://github.com/Clovisindo/Unity2dRogueLike/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
+[forks-url]: https://github.com/Clovisindo/Unity2dRogueLike/network/members
+[stars-shield]: https://img.shields.io/github/stars/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
+[stars-url]: https://github.com/Clovisindo/Unity2dRogueLike/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
+[issues-url]: https://github.com/Clovisindo/Unity2dRogueLike/issues
+[license-shield]: https://img.shields.io/github/license/Clovisindo/Unity2dRogueLike.svg?style=for-the-badge
+[license-url]: https://github.com/Clovisindo/Unity2dRogueLike/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/Clovisindo
