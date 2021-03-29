@@ -33,8 +33,7 @@
 <p align="center">
   <a href="https://github.com/
            /Unity2dRogueLike">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
+    </a>
 
   <h3 align="center">Unity2dRogueLike</h3>
 
@@ -84,8 +83,6 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Sobre el projecto
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
