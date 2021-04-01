@@ -63,7 +63,6 @@ public class EventRoomController : MonoBehaviour
     /// </summary>
     private void InitRoom(BoardRoom currentRoom)
     {
-        //currentRoom = GameManager.instance.currentRoom;
         currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
         SetTypeCurrentRoom();//ToDo:
 

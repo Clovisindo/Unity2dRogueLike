@@ -147,7 +147,7 @@ public class BoardManager : MonoBehaviour
     /// Sobrecarga para crear una habitacion instancia a una posicion determinada
     /// </summary>
     /// <param name="gridRoomLevelPosition"></param>
-   public BoardRoom BoardSetup(Vector3 gridRoomLevelPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor )
+   public BoardRoom BoardSetup(Vector3 gridRoomLevelPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor , bool secretRoom)
     {
         //Instantiate Board and set boardHolder to its transform.
         //GameObject board = new GameObject("Board");

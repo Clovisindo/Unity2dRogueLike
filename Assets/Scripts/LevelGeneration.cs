@@ -39,8 +39,11 @@ public class LevelGeneration : MonoBehaviour
     void Awake()
     {
         int randStartingPos = Random.Range(0, 3);
+        InitDictionaryRooms();
         transform.position = startingPositions[0].position;//ToDo Random
         BoardRoom initialBoardRoom = GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor);// TODO: arreglar que no inicie en estatico la primera habitacion
+        ListRoomsCreated[transform.position] = true;
+        //ListRoomsCreated.Add(transform.position, true);
         rooms.Add(initialBoardRoom);
         GameManager.instance.SetCurrentRoomBoard(initialBoardRoom);
 
@@ -48,7 +51,18 @@ public class LevelGeneration : MonoBehaviour
         nextRoomDirection = 1;
     }
 
-     void Update()
+    /// <summary>
+    /// Crear diccionario con las posiciones de las habitaciones y si se han creado o no
+    /// </summary>
+    private void InitDictionaryRooms()
+    {
+        foreach (var startPosRoom in startingPositions)
+        {
+            ListRoomsCreated.Add(startPosRoom.position, false);
+        }
+    }
+
+    void Update()
     {
         if (timeBtwRoom <= 0 && stopGeneration == false)
         {
@@ -63,6 +77,7 @@ public class LevelGeneration : MonoBehaviour
         }
         if (stopGeneration && !addRoomsGameManager)
         {
+            InitOptinalRooms();
             GameManager.instance.AddRooms(rooms.ToArray());
             addRoomsGameManager = true;
             //arrancamos el iniciar todas las habitaciones
@@ -70,17 +85,33 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
+    private void InitOptinalRooms()
+    {
+        foreach (var room in ListRoomsCreated)
+        {
+            if (room.Value == false)
+            {
+                //ToDo: instanciar habitacion opcional
+                rooms.Add(GameManager.instance.boardScript.BoardSetup(room.Key, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection)));
+            }
+        }
+    }
+
     private void Move()
     {
         int numberTries = 0;
+       
+
         if ((nextRoomDirection == 1 || nextRoomDirection == 2) && generateRoomTurn == false) //move RIGHT
         {
             if (transform.position.x < maxX)
             {
                 Vector2 newPos = new Vector2(transform.position.x + moveAmountX, transform.position.y);
                 transform.position = newPos;
+                bool created = ListRoomsCreated[transform.position];
 
-                if (!ListRoomsCreated.ContainsKey(transform.position))
+
+                if (!created)
                 {
                     do
                     {
@@ -97,7 +128,8 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
                     rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position,GetDoorDirectionRandom(previousRoomDirection) , GetDoorDirectionRandom(nextRoomDirection)));
-                    ListRoomsCreated.Add(transform.position, true);
+                    ListRoomsCreated[transform.position] = true;
+                    //ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
@@ -115,8 +147,9 @@ public class LevelGeneration : MonoBehaviour
             {
                 Vector2 newPos = new Vector2(transform.position.x - moveAmountX, transform.position.y);
                 transform.position = newPos;
+                bool created = ListRoomsCreated[transform.position];
 
-                if (!ListRoomsCreated.ContainsKey(transform.position))
+                if (!created)
                 {
                     do
                     {
@@ -125,7 +158,8 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
                     rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection)));
-                    ListRoomsCreated.Add(transform.position, true);
+                    ListRoomsCreated[transform.position] = true;
+                    //ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); 
                     generateRoomTurn = true;
                 }
@@ -143,8 +177,9 @@ public class LevelGeneration : MonoBehaviour
             {
                 Vector2 newPos = new Vector2(transform.position.x, transform.position.y - moveAmountY);
                 transform.position = newPos;
+                bool created = ListRoomsCreated[transform.position];
 
-                if (!ListRoomsCreated.ContainsKey(transform.position))
+                if (!created)
                 {
                     do
                     {
@@ -153,7 +188,8 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection) && (numberTries < 5));
 
                     rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection)));
-                    ListRoomsCreated.Add(transform.position, true);
+                    ListRoomsCreated[transform.position] = true;
+                    //ListRoomsCreated.Add(transform.position, true);
                     previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
