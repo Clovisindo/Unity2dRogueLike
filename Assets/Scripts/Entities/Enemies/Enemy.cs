@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
+using System;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -14,6 +16,10 @@ public abstract class Enemy : MonoBehaviour
     protected float minRange;
     [SerializeField]
     protected  float maxRange;
+    [SerializeField]
+    private EnumTypeEnemies typeEnemy;
+    protected BoxCollider2D collider;
+
 
     //health
     [SerializeField]
@@ -36,11 +42,58 @@ public abstract class Enemy : MonoBehaviour
     protected const float inmuneTime = 2.0f;
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
+    private bool isPaused = false;
 
-    protected abstract void Awake();
+    //Enemigos habitacion
+    public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
+    public bool IsPaused { get => isPaused; set => isPaused = value; }
+
+    protected virtual void Awake()
+    {
+        collider = this.GetComponent<BoxCollider2D>();
+    }
 
     // Update is called once per frame
-    protected abstract void FixedUpdate();
+    protected virtual void FixedUpdate()
+    {
+        if (!isPaused)
+        {
+            EnemyBehaviour();
+            InmuneBehaviour();
+            if (CheckIsDeath())
+            {
+                DestroyEnemy(this);
+            }
+        }
+    }
+
+    internal void DestroyEnemy(Enemy enemy)
+    {
+        GameManager.instance.currentRoom.enemiesRoom.Remove(enemy.GetComponent<Enemy>());
+        if (GameManager.instance.CheckLastEnemyRoom())
+        {
+            GameManager.instance.currentRoom.OpenDoor();
+            GameManager.instance.currentRoom.RoomComplete = true;
+        }
+        Destroy(gameObject);
+    }
+
+    protected void InmuneBehaviour()
+    {
+        if (passingTime < inmuneTime)
+        {
+            passingTime += Time.deltaTime;
+            enemyInmune = true;
+            collider.enabled = false;
+        }
+        else
+        {
+            collider.enabled = true;
+            enemyInmune = false;
+        }
+    }
+
+    protected abstract void EnemyBehaviour();
 
     protected virtual void FollowPlayer()
     {

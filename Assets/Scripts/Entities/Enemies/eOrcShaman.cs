@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -24,9 +25,11 @@ public class eOrcShaman : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         timeBtwShots = startTimeBtwShots;
+        TypeEnemy = EnumTypeEnemies.mid;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
         {
@@ -41,15 +44,15 @@ public class eOrcShaman : Enemy
             //goRespawn();
         }
 
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            enemyInmune = true;
-        }
-        else
-        {
-            enemyInmune = false;
-        }
+        //if (passingTime < inmuneTime)
+        //{
+        //    passingTime += Time.deltaTime;
+        //    enemyInmune = true;
+        //}
+        //else
+        //{
+        //    enemyInmune = false;
+        //}
 
         // shooting enemy
         if (timeBtwShots <= 0)

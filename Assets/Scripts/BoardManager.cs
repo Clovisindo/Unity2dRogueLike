@@ -35,7 +35,11 @@ public class BoardManager : MonoBehaviour
     //public GameObject[] outerWallTopTiles;                             //Array of outer tile prefabs.
     public List<GameObject> exitTiles = new List<GameObject>();
     public GameObject rightChangeRoomCollider;
+    public GameObject roomDoorLeftRight;
+    public GameObject roomDoorUpDown;
+    private GameObject roomDoor;
 
+    private doorDirection? currentDirectionDoor = null;
 
     public GameObject wallCornerTopLeft;                                // prefab corner wall
     public GameObject wallCornerTopRight;                                // prefab corner wall
@@ -46,16 +50,20 @@ public class BoardManager : MonoBehaviour
     private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
     private List<Vector3> gridPositions = new List<Vector3>();	//A list of possible locations to place tiles.
     private Quaternion angleExitCollider;
+    private Quaternion angleExitDoor;
 
     public BoardRoom prefabBoardRoom;
     private BoardRoom generatedBoardRoom;
     public GameObject prefabRoomCollider;
     private GameObject roomCollider;
+    private GameObject colliderExit;
+    private GameObject colliderEntrance;
 
     private bool isEntrance = false;                                //mark is a exit tile
     private bool isCreatedEntrance = false;
     private bool isExit = false;                                //mark is a exit tile
     private bool isCreatedExit = false;
+    
     private int index = 1;
     private float movColliderX;
     private float movColliderY;
@@ -141,7 +149,7 @@ public class BoardManager : MonoBehaviour
     /// Sobrecarga para crear una habitacion instancia a una posicion determinada
     /// </summary>
     /// <param name="gridRoomLevelPosition"></param>
-   public BoardRoom BoardSetup(Vector3 gridRoomLevelPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor )
+   public BoardRoom BoardSetup(Vector3 gridRoomLevelPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor , bool secretRoom)
     {
         //Instantiate Board and set boardHolder to its transform.
         //GameObject board = new GameObject("Board");
@@ -192,28 +200,40 @@ public class BoardManager : MonoBehaviour
                         if (nextSideDoor == doorDirection.down)
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                            isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.down)
                         {
                             isEntrance = true;
+                            isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.5f;
                         movColliderY = -0.3f;
                         angleExitCollider = Quaternion.AngleAxis(90, Vector3.back);
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorUpDown;
                     }
                     else if ((x == 7 || x == 8) && y == rows && (nextSideDoor == doorDirection.up || previousSideRoom == doorDirection.up))
                     {
                         if (nextSideDoor == doorDirection.up)
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                            isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.up)
                         {
                             isEntrance = true;
+                            isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.5f;
                         movColliderY = 0.3f;
                         angleExitCollider = Quaternion.AngleAxis(90, Vector3.back);
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorUpDown;
                     }
                     else
                     {
@@ -227,14 +247,20 @@ public class BoardManager : MonoBehaviour
                         if (nextSideDoor == doorDirection.left)
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                            isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.left)
                         {
                             isEntrance = true;
+                            isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = -0.3f;
                         movColliderY = 0.5f;
                         angleExitCollider = Quaternion.identity;
+                        angleExitDoor = Quaternion.AngleAxis(180, Vector3.back); ;
+                        roomDoor = roomDoorLeftRight;
                     }
                     else
                     {
@@ -248,14 +274,20 @@ public class BoardManager : MonoBehaviour
                         if (nextSideDoor == doorDirection.right)
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
+                            isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.right)
                         {
                             isEntrance = true;
+                            isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.3f;
                         movColliderY = 0.5f;
                         angleExitCollider = Quaternion.identity;
+                        angleExitDoor = Quaternion.identity;
+                        roomDoor = roomDoorLeftRight;
                     }
                     else
                     {
@@ -264,35 +296,55 @@ public class BoardManager : MonoBehaviour
                 }
 
                 //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
+                
+                if (isExit)
+                {
+                    if (isCreatedExit && colliderExit == null)
+                    {
+                        colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        colliderExit.tag = "Exit";
+                        isCreatedExit = true;
+                        colliderExit.transform.SetParent(generatedBoardRoom.transform);
+                    }
+                    //girar si es de izquierdas o de derechas
+                    GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x , y , 0f), angleExitDoor) as GameObject;
+                    isExit = false;
+                    exitRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                    generatedBoardRoom.DctDoors1.Add(exitRoomDoor, currentDirectionDoor.Value);
+                }
+                if (isEntrance)
+                {
+                    if (isCreatedEntrance && colliderEntrance == null)
+                    {
+                        colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        colliderEntrance.tag = "Entrance";
+                        isCreatedEntrance = true;
+                        colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
+                    }
+                    GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
+                    isEntrance = false;
+                    entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                    generatedBoardRoom.DctDoors1.Add(entranceRoomDoor, currentDirectionDoor.Value);
+                }
+
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-                if (isExit && !isCreatedExit)
-                {
-                    GameObject colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f ), angleExitCollider) as GameObject;
-                    colliderExit.tag = "Exit";
-                    isExit = false;
-                    isCreatedExit = true;
-                    colliderExit.transform.SetParent(generatedBoardRoom.transform);
-                }
-                if (isEntrance && !isCreatedEntrance)
-                {
-                    GameObject colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
-                    colliderEntrance.tag = "Entrance";
-                    isEntrance = false;
-                    isCreatedEntrance = true;
-                    colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
-                }
 
                 //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(generatedBoardRoom.transform);
             }
         }
+        colliderEntrance = null;
+        colliderExit = null;
         generatedBoardRoom.transform.position = gridRoomLevelPosition;
         generatedBoardRoom.InitialExitDirection = (doorDirection)nextSideDoor;
         if (previousSideRoom != null)
         {
             generatedBoardRoom.InitialEntranceDirection = (doorDirection)previousSideRoom;
         }
+
+        //Asignamos las variables necesarios
+        generatedBoardRoom.SetParametersRoom();
 
         return generatedBoardRoom;
     }

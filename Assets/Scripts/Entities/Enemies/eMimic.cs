@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,11 @@ public class eMimic : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         HPBarobject = Utilities.GetChildObject(this.transform, "healthBar");
+        TypeEnemy = EnumTypeEnemies.strong;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (mimicActivated)
         {
@@ -33,15 +36,15 @@ public class eMimic : Enemy
                 //goRespawn();
             }
 
-            if (passingTime < inmuneTime)
-            {
-                passingTime += Time.deltaTime;
-                enemyInmune = true;
-            }
-            else
-            {
-                enemyInmune = false;
-            }
+            //if (passingTime < inmuneTime)
+            //{
+            //    passingTime += Time.deltaTime;
+            //    enemyInmune = true;
+            //}
+            //else
+            //{
+            //    enemyInmune = false;
+            //}
         }
     }
 

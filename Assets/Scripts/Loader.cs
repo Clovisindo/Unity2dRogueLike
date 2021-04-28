@@ -7,6 +7,7 @@ public class Loader : MonoBehaviour
     public GameObject gameManager;
     public GameObject healthManager;
     public GameObject soundManager;
+    public GameObject eventRoomControllerManager;
 
 
     // Start is called before the first frame update
@@ -23,6 +24,10 @@ public class Loader : MonoBehaviour
         if (SoundManager.instance == null)
         {
             Instantiate(soundManager);
+        }
+        if (EventRoomController.instance == null)
+        {
+            Instantiate(eventRoomControllerManager);
         }
 
     }

@@ -29,6 +29,20 @@ public static class Utilities
         return null;
     }
 
+    public static GameObject[] GetChildsObject(Transform parent, string _tag)
+    {
+        List<GameObject> listChilds = new List<GameObject>();
+        for (int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.tag == _tag)
+            {
+                listChilds.Add(child.gameObject);
+            }
+        }
+        return listChilds.ToArray();
+    }
+
     public static  List<T> getAllChildsObject<T> (Transform parent) where T : Component
     {
         List<T> listChilds = new List<T>();
@@ -77,5 +91,19 @@ public static class Helper
             }
         }
         return null;
+    }
+
+    public static T[] FindComponentsInChildWithTag<T>(this GameObject parent, string tag) where T : Component
+    {
+        List<T> arrayChildItems = new List<T>();
+        Transform t = parent.transform;
+        foreach (Transform tr in t)
+        {
+            if (tr.tag == tag)
+            {
+                arrayChildItems.Add(tr.GetComponent<T>());
+            }
+        }
+        return arrayChildItems.ToArray();
     }
 }

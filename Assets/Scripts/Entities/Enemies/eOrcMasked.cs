@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using Assets.Scripts;
 using UnityEngine;
 
 public class eOrcMasked : Enemy
@@ -19,10 +22,12 @@ public class eOrcMasked : Enemy
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
+        TypeEnemy = EnumTypeEnemies.mid;
+        collider = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    protected override void FixedUpdate()
+    protected override void EnemyBehaviour()
     {
         if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
         {
@@ -37,15 +42,15 @@ public class eOrcMasked : Enemy
             //goRespawn();
         }
 
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            enemyInmune = true;
-        }
-        else
-        {
-            enemyInmune = false;
-        }
+        //if (passingTime < inmuneTime)
+        //{
+        //    passingTime += Time.deltaTime;
+        //    enemyInmune = true;
+        //}
+        //else
+        //{
+        //    enemyInmune = false;
+        //}
 
         //Fintar a los lados ToDo:
         if (passingTimeFollowing < totalTimeFollowing)
@@ -87,9 +92,11 @@ public class eOrcMasked : Enemy
 
     void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         //debug dibujar las fintas y direccion del muñeco
         Handles.color = Color.green;
         Handles.DrawLine(transform.position, playerPosition);
+#endif
     }
 
     private void CheckNextPositionBoundary( Vector3 _nextPosition)

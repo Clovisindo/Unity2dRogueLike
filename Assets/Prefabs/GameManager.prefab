@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9138923659496423887}
   - component: {fileID: 1212537152}
   - component: {fileID: 2032361823}
+  - component: {fileID: -5785441729688871315}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardScript: {fileID: 0}
   levelGenerationScript: {fileID: 0}
+  eventRoomController: {fileID: 0}
   player: {fileID: 8714662718155701904, guid: 8905cda4f681f1c4da9ebf59a3ecf674, type: 3}
   enemy: {fileID: 2812248238616750533, guid: de8c398fb81a20d4cb4faeaded00c045, type: 3}
   gameCamera: {fileID: 0}
@@ -84,6 +86,10 @@ MonoBehaviour:
   outerWallSideRightTiles: {fileID: 2474303581910531322, guid: a1713df3e45dd8e4e87d180d311c4f0a, type: 3}
   exitTiles: []
   rightChangeRoomCollider: {fileID: 6223185180155930022, guid: e809cb2be4873f1489a0ba90d0806e0d, type: 3}
+  roomDoorLeftRight: {fileID: 724822624253237629, guid: f2140001de4b29e4d9f7d8fa7bb661ff, type: 3}
+  roomDoorUpDown: {fileID: 3196276114130933081, guid: e11268db266a8064cb47714a73663ef2, type: 3}
+  roomSecretDoorLeftRight: {fileID: 4074521679253195773, guid: 74ac178f0ab78294b9f85759c9ea1876, type: 3}
+  roomSecretDoorUpDown: {fileID: 8139811145568675067, guid: 42ef3a70bd2924144a7de0c745119bfd, type: 3}
   wallCornerTopLeft: {fileID: 6660753506950693226, guid: 1ae61f88f675bc244ae0e94f9bfd5472, type: 3}
   wallCornerTopRight: {fileID: 3297531888238195791, guid: 2bf73bfc895b8674ebd1d881f4b6f5b5, type: 3}
   wallCornerBottomRight: {fileID: 778436437792382701, guid: d8562b0ba3adc0341a65256206a9a781, type: 3}
@@ -145,5 +151,31 @@ MonoBehaviour:
   respawnLeft: {fileID: 0}
   respawnRight: {fileID: 0}
   colliderDetector: {fileID: 0}
+  enemiesRoom: []
   entranceDoor: 0
   exitDoor: 0
+--- !u!114 &-5785441729688871315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3217760998152101640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc6037552f13f464f9c94ac5587ad4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitPositionsEnemy:
+  - {fileID: 1930063888734939225, guid: b4f1a5bb1faf96c4d9531eb5df6da495, type: 3}
+  InitPositionsPuzzle: []
+  enemiesPrefab:
+  - {fileID: 2617656629967610419, guid: 19b7a97344d2f374a985db7edb1ef379, type: 3}
+  - {fileID: 2812248238616750533, guid: de8c398fb81a20d4cb4faeaded00c045, type: 3}
+  - {fileID: 9130473941715043762, guid: 093e39509b582734595b433c2a2cf6c3, type: 3}
+  - {fileID: 6382684585103001407, guid: 4c3038f19ce7a3644947f9aac5499f75, type: 3}
+  - {fileID: 5521768628887793396, guid: 2f7cac3ae5e317942af4227367138e6b, type: 3}
+  - {fileID: 3549069607504243530, guid: de19d66477bf9814cb418a215497fbcd, type: 3}
+  puzzles: []
+  currentTypeRoom: 0
+  currentRoom: {fileID: 0}

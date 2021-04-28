@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static LevelGeneration;
 
 public class BoardRoom : MonoBehaviour
 {
@@ -16,21 +19,142 @@ public class BoardRoom : MonoBehaviour
 
     private BoxCollider2D changeRoomEventColliderEntrance;
     private BoxCollider2D changeRoomEventColliderExit;
+    private BoxCollider2D changeRoomEventColliderSecretDoor1;
+    private BoxCollider2D changeRoomEventColliderSecretDoor2;
+
+    private FRoomDoor[] roomDoor;
+    private Dictionary<GameObject, doorDirection> DctDoors = new Dictionary<GameObject, doorDirection>();
+
+    public List<Enemy> enemiesRoom;
+
+    
 
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
+    public bool RoomComplete { get; internal set; }
+    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }
+
+    internal void PauseRoom()
+    {
+        // en bucle repasar todos los enemigos y poner el bool de paused
+
+        //implementar algo de puzzles
+        foreach (var enemy in enemiesRoom)
+        {
+            enemy.IsPaused = true;
+        }
+    }
+
+    internal void ReStartRoom()
+    {
+        // en bucle repasar todos los enemigos y quitar el bool de paused
+
+        //implementar algo de puzzles
+        foreach (var enemy in enemiesRoom)
+        {
+            enemy.IsPaused = false;
+        }
+    }
 
     public  LevelGeneration.doorDirection entranceDoor;
     public  LevelGeneration.doorDirection exitDoor;
+
+    
 
 
     // Start is called before the first frame update
     void Start()
     {
-        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject,"Entrance");
-        changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
-        //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+        RoomComplete = false;
+    }
 
+    internal void SetParametersRoom()
+    {
+        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Entrance");
+        changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        changeRoomEventColliderExit.enabled = false;
+
+        changeRoomEventColliderSecretDoor1 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor1");
+        if (changeRoomEventColliderSecretDoor1 != null) { changeRoomEventColliderSecretDoor1.enabled = false; }
+        changeRoomEventColliderSecretDoor2 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor2");
+        if (changeRoomEventColliderSecretDoor2 != null) { changeRoomEventColliderSecretDoor2.enabled = false; }
+
+        roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
+        //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+    }
+
+    public doorDirection GetDirectionByDoor( GameObject currentDoor)
+    {
+        return DctDoors1.Where(d => d.Key == currentDoor.transform.parent.gameObject).Select(d => d.Value).FirstOrDefault();
+    }
+
+    public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
+    {
+        return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
+    }
+
+    public FRoomDoor GetAdjacentSecretDoor(doorDirection currentDirection)
+    {
+        //buscamos la otra puerta todavia activa
+        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
+        d.Key.GetComponent<FRoomDoor>().IsClosed).Select(d => d.Key).FirstOrDefault();
+
+        if (secretDoor != null)
+        {
+            return secretDoor.GetComponent<FRoomDoor>();
+        }
+        else
+        {
+            Debug.Log(" No se encuentra la otra puerta secreta.");
+            return null;
+        }
+    }
+
+    public void OpenAdjSecretDoor(doorDirection currentDirection)
+    {
+        //buscamos la otra puerta todavia activa
+        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
+        d.Key.GetComponent<FRoomDoor>().IsClosed).Select( d => d.Key).FirstOrDefault();
+
+        if (secretDoor != null)
+        {
+            secretDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+        }
+        else
+        {
+            Debug.Log(" No se encuentra la otra puerta secreta.");
+        }
+    }
+
+    internal void OpenDoor()
+    {
+        foreach (var door in roomDoor)
+        {
+            door.OpenDoor();
+        }
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
+        changeRoomEventColliderExit.enabled = true;
+
+    }
+
+    internal void CloseDoor()
+    {
+        foreach (var door in roomDoor)
+        {
+            door.CloseDoor();
+        }
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        changeRoomEventColliderExit.enabled = false;
+
+    }
+    /// <summary>
+    /// Return clossed == true
+    /// </summary>
+    /// <returns></returns>
+    internal bool CheckDoorStatus()//debug
+    {
+       return roomDoor[0].CheckDoorIsClosed();
     }
 
     // Update is called once per frame
@@ -80,6 +204,30 @@ public class BoardRoom : MonoBehaviour
         }
         return respawnPosition;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="initPositionsEnemy">array de posiciones de spawn</param>
+    /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
+    internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
+    {
+        //Transform[] arrayPositions = initPositionsEnemy.ToArray();
+        //GameObject emptyObject = Instantiate(new GameObject(), this.transform.position, Quaternion.identity);
+        //recorremos la lista de enemigos e instanciamos y añadimos a la clase 
+        int i = 0;
+
+        foreach (var enemy in enemies)
+        {
+            //emptyObject.transform.SetParent(this.transform);
+            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
+            positionEnemy.SetParent(this.transform);
+            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
+            Enemy currentEnemy = Instantiate(enemy, positionEnemy.transform.position, Quaternion.identity);
+            enemiesRoom.Add(currentEnemy);
+            currentEnemy.transform.SetParent(this.transform);
+            i++;
+        }
+    }
 
     public void DisableColliderRoom()
     {
@@ -92,7 +240,7 @@ public class BoardRoom : MonoBehaviour
 
     public void DisableChangeEventColliderEntranceRoom()
     {
-        changeRoomEventColliderEntrance.enabled = false;
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
     }
 
     public void DisableChangeEventColliderExitRoom()
@@ -102,7 +250,7 @@ public class BoardRoom : MonoBehaviour
 
     public void EnableChangeEventColliderEntranceRoom()
     {
-        changeRoomEventColliderEntrance.enabled = true;
+        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
     }
 
     public void EnableChangeEventColliderExitRoom()
@@ -110,4 +258,5 @@ public class BoardRoom : MonoBehaviour
         changeRoomEventColliderExit.enabled = true;
     }
 
+   
 }
