@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static LevelGeneration;
 
 public class BoardRoom : MonoBehaviour
 {
@@ -18,8 +19,11 @@ public class BoardRoom : MonoBehaviour
 
     private BoxCollider2D changeRoomEventColliderEntrance;
     private BoxCollider2D changeRoomEventColliderExit;
+    private BoxCollider2D changeRoomEventColliderSecretDoor1;
+    private BoxCollider2D changeRoomEventColliderSecretDoor2;
 
     private FRoomDoor[] roomDoor;
+    private Dictionary<GameObject, doorDirection> DctDoors = new Dictionary<GameObject, doorDirection>();
 
     public List<Enemy> enemiesRoom;
 
@@ -28,6 +32,7 @@ public class BoardRoom : MonoBehaviour
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
+    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }
 
     internal void PauseRoom()
     {
@@ -69,8 +74,57 @@ public class BoardRoom : MonoBehaviour
         changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
         if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
         changeRoomEventColliderExit.enabled = false;
+
+        changeRoomEventColliderSecretDoor1 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor1");
+        if (changeRoomEventColliderSecretDoor1 != null) { changeRoomEventColliderSecretDoor1.enabled = false; }
+        changeRoomEventColliderSecretDoor2 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor2");
+        if (changeRoomEventColliderSecretDoor2 != null) { changeRoomEventColliderSecretDoor2.enabled = false; }
+
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+    }
+
+    public doorDirection GetDirectionByDoor( GameObject currentDoor)
+    {
+        return DctDoors1.Where(d => d.Key == currentDoor.transform.parent.gameObject).Select(d => d.Value).FirstOrDefault();
+    }
+
+    public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
+    {
+        return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
+    }
+
+    public FRoomDoor GetAdjacentSecretDoor(doorDirection currentDirection)
+    {
+        //buscamos la otra puerta todavia activa
+        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
+        d.Key.GetComponent<FRoomDoor>().IsClosed).Select(d => d.Key).FirstOrDefault();
+
+        if (secretDoor != null)
+        {
+            return secretDoor.GetComponent<FRoomDoor>();
+        }
+        else
+        {
+            Debug.Log(" No se encuentra la otra puerta secreta.");
+            return null;
+        }
+    }
+
+    public void OpenAdjSecretDoor(doorDirection currentDirection)
+    {
+        //buscamos la otra puerta todavia activa
+        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
+        d.Key.GetComponent<FRoomDoor>().IsClosed).Select( d => d.Key).FirstOrDefault();
+
+        if (secretDoor != null)
+        {
+            secretDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+        }
+        else
+        {
+            Debug.Log(" No se encuentra la otra puerta secreta.");
+        }
     }
 
     internal void OpenDoor()

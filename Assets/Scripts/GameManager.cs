@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         currentRoom = board;
     }
 
-    private LevelGeneration.doorDirection GetReversalDoorDirection(LevelGeneration.doorDirection doorDirection)
+    public LevelGeneration.doorDirection GetReversalDoorDirection(LevelGeneration.doorDirection doorDirection)
     {
         switch (doorDirection)
         {
@@ -188,6 +188,69 @@ public class GameManager : MonoBehaviour
                 break;
         }
         return doorDirection;
+    }
+
+    /// <summary>
+    /// Al descubrir una puerta secreta, se busca todas las puertas secretas adyacentes y se abren a la vez
+    /// </summary>
+    /// <param name="secretDoorobj"></param>
+    /// <param name="doorCollider"></param>
+    public void OpenSecretDoor(FRoomDoor secretDoorobj, Collider2D doorCollider)
+    {
+        //abrir la puerta con la colision y su adyacente
+        secretDoorobj.OpenSecretDoor();
+        var currentDirection = GameManager.instance.currentRoom.GetDirectionByDoor(doorCollider.gameObject);
+        
+
+        //localizamos la habitacion adyacente para abrir las puertas adyacentes
+        var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
+        adjSecretDoor.OpenSecretDoor();
+
+        //Se desactiva el collider de la habitacion actual para localizar la contigua
+        GameManager.instance.currentRoom.DisableColliderRoom();
+        var adjRoom = GameManager.instance.GetAdjacentRoom(secretDoorobj.transform, currentDirection);
+        GameManager.instance.currentRoom.EnableColliderRoom();
+        LevelGeneration.doorDirection adjDoorDirecion = GameManager.instance.GetReversalDoorDirection(currentDirection);
+        var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
+        foreach (var adDoor in adjDoors)
+        {
+            adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+        }
+
+        Debug.Log("Se ha abierto una puerta secreta.");
+    }
+    /// <summary>
+    /// devolvemos la habicacion contigua para trabajar con sus parametros por adelantado
+    /// </summary>
+    /// <param name="currentDoor"></param>
+    /// <param name="currentDoorDirection"></param>
+    public BoardRoom GetAdjacentRoom( Transform currentDoor, LevelGeneration.doorDirection currentDoorDirection)
+    {
+        Vector2 rayCastDirection = Vector2.zero;
+        switch (currentDoorDirection)
+        {
+            case LevelGeneration.doorDirection.down:
+                rayCastDirection = Vector2.down;
+                break;
+            case LevelGeneration.doorDirection.up:
+                rayCastDirection = Vector2.up;
+                break;
+            case LevelGeneration.doorDirection.left:
+                rayCastDirection = Vector2.left;
+                break;
+            case LevelGeneration.doorDirection.right:
+                rayCastDirection = Vector2.right;
+                break;
+        }
+        RaycastHit2D hit = Physics2D.Raycast(currentDoor.position, rayCastDirection, 4f, layer_mask_wall);
+        if (hit.collider.tag == "RoomCollider")
+        {
+
+            //1º devolver que habitacion es
+            GameObject roomCollider = hit.collider.gameObject;
+            return roomCollider.transform.parent.gameObject.GetComponent<BoardRoom>();
+        }
+            return null;
     }
 
     private void UpdateCurrentRoom( Player _player, LevelGeneration.doorDirection _doorDirection, bool backwards)

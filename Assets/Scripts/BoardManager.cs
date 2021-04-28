@@ -39,6 +39,7 @@ public class BoardManager : MonoBehaviour
     public GameObject roomDoorUpDown;
     private GameObject roomDoor;
 
+    private doorDirection? currentDirectionDoor = null;
 
     public GameObject wallCornerTopLeft;                                // prefab corner wall
     public GameObject wallCornerTopRight;                                // prefab corner wall
@@ -62,6 +63,7 @@ public class BoardManager : MonoBehaviour
     private bool isCreatedEntrance = false;
     private bool isExit = false;                                //mark is a exit tile
     private bool isCreatedExit = false;
+    
     private int index = 1;
     private float movColliderX;
     private float movColliderY;
@@ -199,11 +201,13 @@ public class BoardManager : MonoBehaviour
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
                             isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.down)
                         {
                             isEntrance = true;
                             isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.5f;
                         movColliderY = -0.3f;
@@ -217,11 +221,13 @@ public class BoardManager : MonoBehaviour
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
                             isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.up)
                         {
                             isEntrance = true;
                             isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.5f;
                         movColliderY = 0.3f;
@@ -242,11 +248,13 @@ public class BoardManager : MonoBehaviour
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
                             isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.left)
                         {
                             isEntrance = true;
                             isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = -0.3f;
                         movColliderY = 0.5f;
@@ -267,11 +275,13 @@ public class BoardManager : MonoBehaviour
                         {
                             isExit = true;//marcador para identificar salida y cambiar el tag del objeto
                             isCreatedExit = true;
+                            currentDirectionDoor = nextSideDoor;
                         }
                         else if (previousSideRoom == doorDirection.right)
                         {
                             isEntrance = true;
                             isCreatedEntrance = true;
+                            currentDirectionDoor = previousSideRoom;
                         }
                         movColliderX = 0.3f;
                         movColliderY = 0.5f;
@@ -300,6 +310,7 @@ public class BoardManager : MonoBehaviour
                     GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x , y , 0f), angleExitDoor) as GameObject;
                     isExit = false;
                     exitRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                    generatedBoardRoom.DctDoors1.Add(exitRoomDoor, currentDirectionDoor.Value);
                 }
                 if (isEntrance)
                 {
@@ -313,18 +324,8 @@ public class BoardManager : MonoBehaviour
                     GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     isEntrance = false;
                     entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                    generatedBoardRoom.DctDoors1.Add(entranceRoomDoor, currentDirectionDoor.Value);
                 }
-
-                //if (isExit)
-                //{
-                //    toInstantiate = roomDoor;
-                //    isExit = false;
-                //}
-                //if (isEntrance)
-                //{
-                //    toInstantiate = roomDoor;
-                //    isEntrance = false;
-                //}
 
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;

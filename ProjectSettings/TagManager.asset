@@ -17,6 +17,7 @@ TagManager:
   - healthBar
   - Door
   - FRoomDoor
+  - PickAxe
   layers:
   - Default
   - TransparentFX

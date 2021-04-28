@@ -93,6 +93,14 @@ public class LevelGeneration : MonoBehaviour
             {
                 //ToDo: instanciar habitacion opcional
                 rooms.Add(GameManager.instance.boardScript.BoardSetup(room.Key, GetDoorDirectionRandom(previousRoomDirection), GetDoorDirectionRandom(nextRoomDirection),false));
+                //metodo para convertir las puertas de la habitacion en puertas secretas
+
+                //como averiguamos que puertas toca poner secretas en esa habitacion, mirar que le cargamos aqui arriba
+
+                //despues buscar segun esas puertas , las habitaciones contiguas , y activar sus puertas secretas tambien
+
+                //ojo cuando se abra la puerta secreta de un lado, hay que abrirla del otro
+
             }
         }
     }

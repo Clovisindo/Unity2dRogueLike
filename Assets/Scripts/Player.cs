@@ -35,7 +35,12 @@ public class Player : MonoBehaviour
     private float startTimeBtwBlocks = 1f;
     private bool specialParryAttack = false;
 
+    private float timeBtwChangeUtility;
+    private float startTimeBtwChangeUtility = 2f;
+    private bool specialUtility = false;
+
     private bool falling = false;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -157,6 +162,22 @@ public class Player : MonoBehaviour
         {
             timeBtwBlocks -= Time.deltaTime;
         }
+
+        ////herramienta util
+        //if (timeBtwChangeUtility <= 0)
+        //{
+        //    //change weapon
+        //    if (Input.GetKey(KeyCode.C))
+        //    {
+        //        ChangeWeapon();
+        //        timeBtwChangeUtility = startTimeBtwChangeUtility;
+        //    }
+
+        //}
+        //else
+        //{
+        //    timeBtwChangeUtility -= Time.deltaTime;
+        //}
     }
 
    
