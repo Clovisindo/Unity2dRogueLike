@@ -58,15 +58,22 @@ public class BoardManager : MonoBehaviour
     private GameObject roomCollider;
     private GameObject colliderExit;
     private GameObject colliderEntrance;
+    private GameObject colliderExtraDoor;
 
     private bool isEntrance = false;                                //mark is a exit tile
     private bool isCreatedEntrance = false;
     private bool isExit = false;                                //mark is a exit tile
     private bool isCreatedExit = false;
+    private bool isExtraDoor = false;
+    private bool isCreatedExtraDoor = false;
     
+
+
     private int index = 1;
     private float movColliderX;
     private float movColliderY;
+   
+
 
 
     //Clears our list gridPositions and prepares it to generate a new board.
@@ -195,7 +202,7 @@ public class BoardManager : MonoBehaviour
                 }
                 if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
                 {
-                    if ((x == 7 || x == 8) && y == -1 && (nextSideDoor == doorDirection.down || previousSideRoom == doorDirection.down))
+                    if ((x == 7 || x == 8) && y == -1 )
                     {
                         if (nextSideDoor == doorDirection.down)
                         {
@@ -209,13 +216,20 @@ public class BoardManager : MonoBehaviour
                             isCreatedEntrance = true;
                             currentDirectionDoor = previousSideRoom;
                         }
+                        else
+                        {
+                            isExtraDoor = true;
+                            isCreatedExtraDoor = true;
+                            currentDirectionDoor = doorDirection.down;
+                        }
+
                         movColliderX = 0.5f;
                         movColliderY = -0.3f;
                         angleExitCollider = Quaternion.AngleAxis(90, Vector3.back);
                         angleExitDoor = Quaternion.identity;
                         roomDoor = roomDoorUpDown;
                     }
-                    else if ((x == 7 || x == 8) && y == rows && (nextSideDoor == doorDirection.up || previousSideRoom == doorDirection.up))
+                    else if ((x == 7 || x == 8) && y == rows )
                     {
                         if (nextSideDoor == doorDirection.up)
                         {
@@ -228,6 +242,12 @@ public class BoardManager : MonoBehaviour
                             isEntrance = true;
                             isCreatedEntrance = true;
                             currentDirectionDoor = previousSideRoom;
+                        }
+                        else
+                        {
+                            isExtraDoor = true;
+                            isCreatedExtraDoor = true;
+                            currentDirectionDoor = doorDirection.up;
                         }
                         movColliderX = 0.5f;
                         movColliderY = 0.3f;
@@ -242,7 +262,7 @@ public class BoardManager : MonoBehaviour
                 }
                 if ((x == -1) && !(x == -1 && y == -1) && !(x == -1 && y == rows))//collumns y que no sea esquina de columna LADO IZQUIERDO
                 {
-                    if ((y == 3 || y == 4) && (nextSideDoor == doorDirection.left || previousSideRoom == doorDirection.left))// doors leftSide
+                    if (y == 3 || y == 4) // doors leftSide
                     {
                         if (nextSideDoor == doorDirection.left)
                         {
@@ -256,10 +276,16 @@ public class BoardManager : MonoBehaviour
                             isCreatedEntrance = true;
                             currentDirectionDoor = previousSideRoom;
                         }
+                        else
+                        {
+                            isExtraDoor = true;
+                            isCreatedExtraDoor = true;
+                            currentDirectionDoor = doorDirection.left;
+                        }
                         movColliderX = -0.3f;
                         movColliderY = 0.5f;
                         angleExitCollider = Quaternion.identity;
-                        angleExitDoor = Quaternion.AngleAxis(180, Vector3.back); ;
+                        angleExitDoor = Quaternion.AngleAxis(180, Vector3.back);
                         roomDoor = roomDoorLeftRight;
                     }
                     else
@@ -269,7 +295,7 @@ public class BoardManager : MonoBehaviour
                 }
                 if ((x == columns) && !(x == columns && y == -1) && !(x == columns && y == rows))//collumns y que no sea esquina de columna LADO DERECHO
                 {
-                    if ((y == 3 || y ==4) && (nextSideDoor == doorDirection.right || previousSideRoom == doorDirection.right) )// doors rightSide
+                    if (y == 3 || y == 4) // doors rightSide
                     {
                         if (nextSideDoor == doorDirection.right)
                         {
@@ -282,6 +308,12 @@ public class BoardManager : MonoBehaviour
                             isEntrance = true;
                             isCreatedEntrance = true;
                             currentDirectionDoor = previousSideRoom;
+                        }
+                        else
+                        {
+                            isExtraDoor = true;
+                            isCreatedExtraDoor = true;
+                            currentDirectionDoor = doorDirection.right;
                         }
                         movColliderX = 0.3f;
                         movColliderY = 0.5f;
@@ -299,34 +331,56 @@ public class BoardManager : MonoBehaviour
                 
                 if (isExit)
                 {
+                    GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     if (isCreatedExit && colliderExit == null)
                     {
                         colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderExit.tag = "Exit";
                         isCreatedExit = true;
-                        colliderExit.transform.SetParent(generatedBoardRoom.transform);
+                        //colliderExit.transform.SetParent(generatedBoardRoom.transform);
+                        colliderExit.transform.SetParent(exitRoomDoor.transform);
                     }
                     //girar si es de izquierdas o de derechas
-                    GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x , y , 0f), angleExitDoor) as GameObject;
+                    
                     isExit = false;
                     exitRoomDoor.transform.SetParent(generatedBoardRoom.transform);
                     generatedBoardRoom.DctDoors1.Add(exitRoomDoor, currentDirectionDoor.Value);
                 }
                 if (isEntrance)
                 {
+                    GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     if (isCreatedEntrance && colliderEntrance == null)
                     {
                         colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderEntrance.tag = "Entrance";
                         isCreatedEntrance = true;
-                        colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
+                        //colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
+                        colliderEntrance.transform.SetParent(entranceRoomDoor.transform);
                     }
-                    GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     isEntrance = false;
                     entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
                     generatedBoardRoom.DctDoors1.Add(entranceRoomDoor, currentDirectionDoor.Value);
                 }
-
+                if (isExtraDoor)
+                {
+                    GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
+                    if (isCreatedExtraDoor && colliderExtraDoor == null)
+                    {
+                        colliderExtraDoor = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
+                        colliderExtraDoor.tag = "Entrance";
+                        isCreatedExtraDoor = true;
+                        //colliderExtraDoor.transform.SetParent(generatedBoardRoom.transform);
+                        colliderExtraDoor.transform.SetParent(entranceRoomDoor.transform);
+                    }
+                    isExtraDoor = false;
+                    entranceRoomDoor.transform.SetParent(generatedBoardRoom.transform);
+                    generatedBoardRoom.DctDoors1.Add(entranceRoomDoor, currentDirectionDoor.Value);
+                    if (y == 4 || x == 8 && colliderExtraDoor != null)
+                    {
+                        colliderExtraDoor = null;
+                    }
+                }
+                
                 GameObject instance =
                     Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 

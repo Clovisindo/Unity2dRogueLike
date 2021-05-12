@@ -89,6 +89,11 @@ public class FRoomDoor : MonoBehaviour
         }
     }
 
+    //public LevelGeneration.doorDirection GetDoorDirection()
+    //{
+    //    return _doors[0].doo
+    //}
+
     public bool CheckDoorIsClosed()
     {
         return _doors[0].activeSelf;

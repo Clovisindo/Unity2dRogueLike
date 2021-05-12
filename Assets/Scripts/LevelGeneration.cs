@@ -61,7 +61,11 @@ public class LevelGeneration : MonoBehaviour
             ListRoomsCreated.Add(startPosRoom.position, false);
         }
     }
-
+    /// <summary>
+    /// Primera vuelta genera el camino principal en Move()
+    /// Segunda vuelta crea las habitaciones adiconales InitOptionalRooms()
+    /// Finalmente activa los eventos de todas las habitaciones generadas
+    /// </summary>
     void Update()
     {
         if (timeBtwRoom <= 0 && stopGeneration == false)

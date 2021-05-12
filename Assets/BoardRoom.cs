@@ -73,7 +73,7 @@ public class BoardRoom : MonoBehaviour
         changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Entrance");
         changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
         if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        changeRoomEventColliderExit.enabled = false;
+        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
 
         changeRoomEventColliderSecretDoor1 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor1");
         if (changeRoomEventColliderSecretDoor1 != null) { changeRoomEventColliderSecretDoor1.enabled = false; }
@@ -86,7 +86,10 @@ public class BoardRoom : MonoBehaviour
 
     public doorDirection GetDirectionByDoor( GameObject currentDoor)
     {
-        return DctDoors1.Where(d => d.Key == currentDoor.transform.parent.gameObject).Select(d => d.Value).FirstOrDefault();
+        //ToDo: arreglar que le pasemos en la llamada el objeto directamente, no las transformaciones del parent, pues a veces venimos desde objetos distintos
+        var test = DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).ToList();
+
+        return DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).FirstOrDefault();
     }
 
     public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
@@ -134,7 +137,7 @@ public class BoardRoom : MonoBehaviour
             door.OpenDoor();
         }
         if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
-        changeRoomEventColliderExit.enabled = true;
+        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = true; }
 
     }
 
@@ -145,7 +148,7 @@ public class BoardRoom : MonoBehaviour
             door.CloseDoor();
         }
         if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        changeRoomEventColliderExit.enabled = false;
+        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
 
     }
     /// <summary>
@@ -245,7 +248,7 @@ public class BoardRoom : MonoBehaviour
 
     public void DisableChangeEventColliderExitRoom()
     {
-        changeRoomEventColliderExit.enabled = false;
+        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
     }
 
     public void EnableChangeEventColliderEntranceRoom()
@@ -255,7 +258,7 @@ public class BoardRoom : MonoBehaviour
 
     public void EnableChangeEventColliderExitRoom()
     {
-        changeRoomEventColliderExit.enabled = true;
+        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = true; }
     }
 
    
