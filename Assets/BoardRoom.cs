@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.EnumTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ public class BoardRoom : MonoBehaviour
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
-    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }
+    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }//Contiene los objetos FRoomDoor
 
     internal void PauseRoom()
     {
@@ -95,6 +96,36 @@ public class BoardRoom : MonoBehaviour
     public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
     {
         return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
+    }
+    /// <summary>
+    /// Se actualizan las puertas en funcion del tipo definido en los parametros
+    /// Si es normal no se hace nada
+    /// Si es secreta isSecret = true
+    /// Si es no existe(secundaria) active = false
+    /// </summary>
+    /// <param name="roomDoors"> Diccionario de direccion de puerta y tipo de puerta</param>
+    public void UpdateDoorsByParameters(Dictionary<doorDirection, EnumTypeDoor> roomDoors)
+    {
+        foreach (var paramDoor in roomDoors)
+        {
+            if (paramDoor.Value == EnumTypeDoor.secret)
+            {
+                var roomDoorsUpdt = this.GetDoorsByDirection(paramDoor.Key).ToList();
+                foreach (var roomDoorUpdt in roomDoorsUpdt)
+                {
+                    roomDoorUpdt.GetComponent<FRoomDoor>().IsSecretDoor = true;
+                }
+                
+            }
+            if (paramDoor.Value == EnumTypeDoor.none)
+            {
+                var roomDoorsUpdt = this.GetDoorsByDirection(paramDoor.Key).ToList();
+                foreach (var roomDoorUpdt in roomDoorsUpdt)
+                {
+                    roomDoorUpdt.GetComponent<FRoomDoor>().DisableDoor();
+                }
+            }
+        }
     }
 
     public FRoomDoor GetAdjacentSecretDoor(doorDirection currentDirection)

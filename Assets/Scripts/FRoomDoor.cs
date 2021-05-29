@@ -6,7 +6,7 @@ public class FRoomDoor : MonoBehaviour
 {
     [SerializeField] protected AudioClip doorSound;
 
-    private GameObject[] _doors;
+    private GameObject[] _doors;//cada FRoomDoor contiene 2 elementos puerta para hacer una unica agrupacion 
     public bool isSecretDoor = false;
     private bool isClosed = true;
     private BoxCollider2D colliderDoor;
@@ -86,6 +86,16 @@ public class FRoomDoor : MonoBehaviour
             }
             //sonido de puerta
             SoundManager.instance.PlaySingle(doorSound);
+        }
+    }
+    /// <summary>
+    /// Desactiva la puerta correspondiente
+    /// </summary>
+    public void DisableDoor()
+    {
+        foreach (var _door in _doors)
+        {
+            _door.SetActive(false);
         }
     }
 

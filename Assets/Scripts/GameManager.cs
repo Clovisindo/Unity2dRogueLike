@@ -163,7 +163,6 @@ public class GameManager : MonoBehaviour
     {
        // hacemos un raycast desde el centro de la habitacion hasta el punto
 
-        //comprobamos que esté 
     }
 
     public void takeDamage( string colliderTag, Enemy enemy)
