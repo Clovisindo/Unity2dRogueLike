@@ -18,10 +18,10 @@ public class BoardRoom : MonoBehaviour
 
     public BoxCollider2D colliderDetector;
 
-    private BoxCollider2D changeRoomEventColliderEntrance;
-    private BoxCollider2D changeRoomEventColliderExit;
-    private BoxCollider2D changeRoomEventColliderSecretDoor1;
-    private BoxCollider2D changeRoomEventColliderSecretDoor2;
+    private BoxCollider2D[] changeRoomsEventColliderEntrance;
+    private BoxCollider2D[] changeRoomsEventColliderExit;
+    private BoxCollider2D[] changeRoomsEventColliderSecretDoor;
+    private BoxCollider2D[] changeRoomsEventColliderSecondaryDoor;
 
     private FRoomDoor[] roomDoor;
     private Dictionary<GameObject, doorDirection> DctDoors = new Dictionary<GameObject, doorDirection>();
@@ -71,15 +71,15 @@ public class BoardRoom : MonoBehaviour
 
     internal void SetParametersRoom()
     {
-        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Entrance");
-        changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
+        changeRoomsEventColliderEntrance = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Entrance");
+        if (changeRoomsEventColliderEntrance != null){foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance){eventColliderEntrance.enabled = false;}}
+        changeRoomsEventColliderExit = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Exit");
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
 
-        changeRoomEventColliderSecretDoor1 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor1");
-        if (changeRoomEventColliderSecretDoor1 != null) { changeRoomEventColliderSecretDoor1.enabled = false; }
-        changeRoomEventColliderSecretDoor2 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor2");
-        if (changeRoomEventColliderSecretDoor2 != null) { changeRoomEventColliderSecretDoor2.enabled = false; }
+        changeRoomsEventColliderSecretDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor");
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
+        //changeRoomsEventColliderSecondaryDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor2");
+        //if (changeRoomsEventColliderSecondaryDoor != null) { changeRoomsEventColliderSecondaryDoor.enabled = false; }
 
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
@@ -87,8 +87,8 @@ public class BoardRoom : MonoBehaviour
 
     public doorDirection GetDirectionByDoor( GameObject currentDoor)
     {
-        //ToDo: arreglar que le pasemos en la llamada el objeto directamente, no las transformaciones del parent, pues a veces venimos desde objetos distintos
-        var test = DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).ToList();
+        ////ToDo: arreglar que le pasemos en la llamada el objeto directamente, no las transformaciones del parent, pues a veces venimos desde objetos distintos
+        //var test = DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).ToList();
 
         return DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).FirstOrDefault();
     }
@@ -122,7 +122,7 @@ public class BoardRoom : MonoBehaviour
                 var roomDoorsUpdt = this.GetDoorsByDirection(paramDoor.Key).ToList();
                 foreach (var roomDoorUpdt in roomDoorsUpdt)
                 {
-                    roomDoorUpdt.GetComponent<FRoomDoor>().DisableDoor();
+                    roomDoorUpdt.GetComponent<FRoomDoor>().isNotDoor = true;
                 }
             }
         }
@@ -167,9 +167,8 @@ public class BoardRoom : MonoBehaviour
         {
             door.OpenDoor();
         }
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
-        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = true; }
-
+        EnableChangeEventColliderEntranceRoom();
+        EnableChangeEventColliderExitRoom();
     }
 
     internal void CloseDoor()
@@ -178,9 +177,8 @@ public class BoardRoom : MonoBehaviour
         {
             door.CloseDoor();
         }
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
-
+        DisableChangeEventColliderEntranceRoom();
+        DisableChangeEventColliderExitRoom();
     }
     /// <summary>
     /// Return clossed == true
@@ -274,22 +272,22 @@ public class BoardRoom : MonoBehaviour
 
     public void DisableChangeEventColliderEntranceRoom()
     {
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        if (changeRoomsEventColliderEntrance != null) { foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance) { eventColliderEntrance.enabled = false; } }
     }
 
     public void DisableChangeEventColliderExitRoom()
     {
-        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = false; }
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false; } }
     }
 
     public void EnableChangeEventColliderEntranceRoom()
     {
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
+        if (changeRoomsEventColliderEntrance != null) { foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance) { eventColliderEntrance.enabled = true; } }
     }
 
     public void EnableChangeEventColliderExitRoom()
     {
-        if (changeRoomEventColliderExit != null) { changeRoomEventColliderExit.enabled = true; }
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = true; } }
     }
 
    

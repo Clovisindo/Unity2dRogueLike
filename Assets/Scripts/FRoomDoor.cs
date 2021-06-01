@@ -8,6 +8,7 @@ public class FRoomDoor : MonoBehaviour
 
     private GameObject[] _doors;//cada FRoomDoor contiene 2 elementos puerta para hacer una unica agrupacion 
     public bool isSecretDoor = false;
+    public bool isNotDoor = false;
     private bool isClosed = true;
     private BoxCollider2D colliderDoor;
 
@@ -33,7 +34,7 @@ public class FRoomDoor : MonoBehaviour
 
     public void OpenDoor()
     {
-        if (!IsSecretDoor)
+        if (!IsSecretDoor && !isNotDoor)
         {
             foreach (var _door in _doors)
             {
@@ -48,7 +49,7 @@ public class FRoomDoor : MonoBehaviour
 
     public void OpenSecretDoor()
     {
-        if (IsSecretDoor)
+        if (IsSecretDoor && !isNotDoor)
         {
             IsClosed = false;
             foreach (var _door in _doors)
@@ -64,7 +65,7 @@ public class FRoomDoor : MonoBehaviour
 
     public void CloseDoor()
     {
-        if (!IsSecretDoor)
+        if (!IsSecretDoor && !isNotDoor)
         {
             foreach (var _door in _doors)
             {
@@ -77,7 +78,7 @@ public class FRoomDoor : MonoBehaviour
 
     public void CloseSecretDoor()
     {
-        if (IsSecretDoor)
+        if (IsSecretDoor && !isNotDoor)
         {
             IsClosed = true;
             foreach (var _door in _doors)

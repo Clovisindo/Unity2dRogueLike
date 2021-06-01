@@ -367,7 +367,7 @@ public class BoardManager : MonoBehaviour
                     if (isCreatedExtraDoor && colliderExtraDoor == null)
                     {
                         colliderExtraDoor = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
-                        colliderExtraDoor.tag = "Entrance";
+                        colliderExtraDoor.tag = "NoDoor";
                         isCreatedExtraDoor = true;
                         //colliderExtraDoor.transform.SetParent(generatedBoardRoom.transform);
                         colliderExtraDoor.transform.SetParent(entranceRoomDoor.transform);
@@ -391,7 +391,10 @@ public class BoardManager : MonoBehaviour
         colliderEntrance = null;
         colliderExit = null;
         generatedBoardRoom.transform.position = gridRoomLevelPosition;
-        generatedBoardRoom.InitialExitDirection = (doorDirection)nextSideDoor;
+        if (nextSideDoor != null)
+        {
+            generatedBoardRoom.InitialExitDirection = (doorDirection)nextSideDoor;
+        }
         if (previousSideRoom != null)
         {
             generatedBoardRoom.InitialEntranceDirection = (doorDirection)previousSideRoom;

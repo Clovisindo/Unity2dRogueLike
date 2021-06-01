@@ -165,7 +165,7 @@ public class LevelGeneration : MonoBehaviour
                 generateRoomTurn = true;
             }
         }
-        else if ((nextRoomDirection == 3 || nextRoomDirection == 4) && generateRoomTurn == true)//move LEFT
+        else if ((nextRoomDirection == 3 || nextRoomDirection == 4) && generateRoomTurn == false)//move LEFT
         {
             if (transform.position.x > minX)
             {
@@ -243,9 +243,11 @@ public class LevelGeneration : MonoBehaviour
         if (nextSecDoorDirec != null)
         {
             var newSecRoom = CreateSecondaryRoom((doorDirection)nextSecDoorDirec);
-            ListRoomsCreated[newSecRoom.Item1] = newSecRoom.Item2;
-
-            //ListRoomsCreated.Add(newSecRoom.Item1, newSecRoom.Item2);
+            if ((ListRoomsCreated[newSecRoom.Item1].RoomGenerated == true && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Main)&&
+                (ListRoomsCreated[newSecRoom.Item1].RoomGenerated == false && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Secundary))
+            {
+                ListRoomsCreated[newSecRoom.Item1] = newSecRoom.Item2;
+            }
         }
 
         UpdateCurrentRoomParameters(ListRoomsCreated);
