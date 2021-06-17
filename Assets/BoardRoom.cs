@@ -20,6 +20,7 @@ public class BoardRoom : MonoBehaviour
 
     private BoxCollider2D[] changeRoomsEventColliderEntrance;
     private BoxCollider2D[] changeRoomsEventColliderExit;
+    private BoxCollider2D[] changeRoomsEventColliderNoDoor;
     private BoxCollider2D[] changeRoomsEventColliderSecretDoor;
     private BoxCollider2D[] changeRoomsEventColliderSecondaryDoor;
 
@@ -76,6 +77,9 @@ public class BoardRoom : MonoBehaviour
         changeRoomsEventColliderExit = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Exit");
         if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
 
+        changeRoomsEventColliderNoDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "NoDoor");
+        if (changeRoomsEventColliderNoDoor != null) { foreach (var eventColliderNoDoor in changeRoomsEventColliderNoDoor) { eventColliderNoDoor.enabled = false;}}
+
         changeRoomsEventColliderSecretDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor");
         if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
         //changeRoomsEventColliderSecondaryDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor2");
@@ -98,6 +102,44 @@ public class BoardRoom : MonoBehaviour
         return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
     }
     /// <summary>
+    /// Dada una direccion , localizamos la puerta y su collider y le asignamos el nuevo estado
+    /// </summary>
+    /// <param name="currentDoorDirection"></param>
+    public void UpdateColliderDoor ( doorDirection currentDoorDirection, EnumTypeDoor currentTypeDoor)
+    {
+        var doorsToUpdate = GetDoorsByDirection(currentDoorDirection);
+        foreach (var doorToUpdate in doorsToUpdate)
+        {
+          var doorCollider = doorToUpdate.GetComponentsInChildren<BoxCollider2D>().Where(t => t.tag != "Door").FirstOrDefault();
+            if (doorCollider != null)//en una de las puertas no hay collider
+            {
+                doorCollider.tag = GetTagDoorByType(currentTypeDoor);
+            }
+        }
+    }
+
+    public string GetTagDoorByType ( EnumTypeDoor typeDoor)
+    {
+        string tag = null;
+        switch (typeDoor)
+        {
+            case EnumTypeDoor.none:
+                tag = "NoDoor";
+                break;
+            case EnumTypeDoor.entrance:
+                tag = "Entrance";
+                break;
+            case EnumTypeDoor.exit:
+                tag = "Exit";
+                break;
+            case EnumTypeDoor.secret:
+                tag = "SecretDoor";
+                break;
+        }
+        return tag;
+    }
+    /// <summary>
+    /// Se actualizan los colliderRoom que hayan cambiado(todos)
     /// Se actualizan las puertas en funcion del tipo definido en los parametros
     /// Si es normal no se hace nada
     /// Si es secreta isSecret = true
@@ -106,6 +148,12 @@ public class BoardRoom : MonoBehaviour
     /// <param name="roomDoors"> Diccionario de direccion de puerta y tipo de puerta</param>
     public void UpdateDoorsByParameters(Dictionary<doorDirection, EnumTypeDoor> roomDoors)
     {
+        foreach (var roomDoor in roomDoors)
+        {
+            UpdateColliderDoor(roomDoor.Key, roomDoor.Value);
+        }
+        SetParametersRoom();
+
         foreach (var paramDoor in roomDoors)
         {
             if (paramDoor.Value == EnumTypeDoor.secret)

@@ -51,11 +51,12 @@ public class LevelGeneration : MonoBehaviour
         ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
         ListRoomsCreated[transform.position].RoomGenerated = true;
         ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirection(nextRoomDirection), EnumTypeDoor.entrance);
+        
 
         BoardRoom initialBoardRoom = GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor,false);// TODO: arreglar que no inicie en estatico la primera habitacion
-        
         //ListRoomsCreated.Add(transform.position, currentRoomParam);
         rooms.Add(initialBoardRoom);
+        UpdateCurrentRoomParameters(ListRoomsCreated);
         GameManager.instance.SetCurrentRoomBoard(initialBoardRoom);
 
        
@@ -243,10 +244,13 @@ public class LevelGeneration : MonoBehaviour
         if (nextSecDoorDirec != null)
         {
             var newSecRoom = CreateSecondaryRoom((doorDirection)nextSecDoorDirec);
-            if ((ListRoomsCreated[newSecRoom.Item1].RoomGenerated == true && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Main)&&
-                (ListRoomsCreated[newSecRoom.Item1].RoomGenerated == false && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Secundary))
+
+            if (ListRoomsCreated[newSecRoom.Item1].TypeRoom == EnumTypeRoom.none)//no se ha seteado
+            //if ((ListRoomsCreated[newSecRoom.Item1].RoomGenerated == true && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Main)&&
+            //    (ListRoomsCreated[newSecRoom.Item1].RoomGenerated == false && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Secundary))
             {
                 ListRoomsCreated[newSecRoom.Item1] = newSecRoom.Item2;
+                ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)nextSecDoorDirec, EnumTypeDoor.entrance);//entrada secundaria en habitacion actual
             }
         }
 
@@ -267,6 +271,7 @@ public class LevelGeneration : MonoBehaviour
         currentRoom.UpdateDoorsByParameters(currentRoomParameters.RoomDoors);
         
     }
+  
 
     /// <summary>
     /// Dada la habitacion actual generamos la nueva habitacion secundaria
@@ -276,20 +281,27 @@ public class LevelGeneration : MonoBehaviour
     /// <returns>
     /// Vector3,RoomParameters: transform y parametros de la nueva habitacion
     /// </returns>
-    private (Vector3,RoomParameters) CreateSecondaryRoom(doorDirection nextSecDirectionDoor)
+    private (Vector3,RoomParameters) CreateSecondaryRoom(doorDirection  nextSecDirectionDoor)
     {
         BoardRoom currentRoom = rooms[rooms.Count - 1];
+        var invnextSecIntDirectionDoor = GetReversalDoorDirection((int)GetIntByDoorDirection(nextSecDirectionDoor));
+        var invNextDirectionDoor = (doorDirection)GetDoorDirection((int)invnextSecIntDirectionDoor);
 
         Vector3 nextSecRoomPosition = GetNextPositionRoom(currentRoom.transform, nextSecDirectionDoor);
 
         //aqui decidimos si generamos secundaria o secret
         //ToDo: metodo para ir creando las habitaciones de forma aleatoria, pero asegurando un numero minimo 
         RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Secundary, false);
-        currentRoomParam.SetDoorTypeByDirection(nextSecDirectionDoor, EnumTypeDoor.entrance);
+        currentRoomParam.SetDoorTypeByDirection(invNextDirectionDoor, EnumTypeDoor.entrance);
 
         return (nextSecRoomPosition, currentRoomParam);
     }
-    ///
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <param name="nextDirectionDoor"></param>
+    /// <returns></returns>
     private Vector3 GetNextPositionRoom(Transform transform, doorDirection nextDirectionDoor)
     {
         Vector2 newPos = new Vector3();
@@ -451,6 +463,27 @@ public class LevelGeneration : MonoBehaviour
         else if (numberDoorDirecion == 6)
         {
             return doorDirection.up;
+        }
+        return null;
+    }
+
+    private int? GetIntByDoorDirection(doorDirection numberDoorDirecion)
+    {
+        if (numberDoorDirecion == doorDirection.right)
+        {
+            return 1 ;
+        }
+        else if (numberDoorDirecion == doorDirection.left)
+        {
+            return 3;
+        }
+        else if (numberDoorDirecion == doorDirection.down)
+        {
+            return 5;
+        }
+        else if (numberDoorDirecion == doorDirection.up)
+        {
+            return 6;
         }
         return null;
     }
