@@ -49,7 +49,7 @@ namespace Assets.Scripts.Weapons
                         resetWeapon();
                         weaponAnimator.SetTrigger("Attacking");
                         timeBtwAttack = startTimeBtwAttack;
-                        Debug.Log("ataque arma!");
+                        //Debug.Log("ataque arma!");
                     }
                 }
             }

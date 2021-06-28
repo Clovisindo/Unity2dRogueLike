@@ -229,18 +229,25 @@ public class Player : MonoBehaviour
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" && playerExitCollision == false)
         {
-            var froomdoor = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(froomdoor);
+            GameManager.instance.ChangeLevel(roomDirection);
 
         }
 
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Entrance" && playerExitCollision == false)
         {
-            var froomdoor = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);//no es la puerta es el collider
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);//no es la puerta es el collider
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(froomdoor);
+            GameManager.instance.ChangeLevel(roomDirection);
+
+        }
+        if (other.tag == "SecretDoor" && playerExitCollision == false)
+        {
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
+            playerExitCollision = true;
+            GameManager.instance.ChangeLevel(roomDirection);
 
         }
     }

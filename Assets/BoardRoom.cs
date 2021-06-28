@@ -29,8 +29,6 @@ public class BoardRoom : MonoBehaviour
 
     public List<Enemy> enemiesRoom;
 
-    
-
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
@@ -87,6 +85,24 @@ public class BoardRoom : MonoBehaviour
 
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+    }
+    /// <summary>
+    /// Log de la generacion de puertas
+    /// </summary>
+    public void LogCurrentRoom(RoomParameters roomParameters)
+    {
+        // tipo de habitacion y nombre
+        Debug.Log(" Habitación " + this.gameObject.name + " generada, de tipo : " + roomParameters.TypeRoom + ".");
+        //recorrer las puertas por direccion y tipo de puerta
+        foreach (var roomDoor in roomParameters.RoomDoors)
+        {
+            Debug.Log(" Puerta de direccion : "  + roomDoor.Key + " definida como tipo " + roomDoor.Value);
+        }
+        //Recorrer los colliders y FRoomDoor
+        //foreach (var door in roomDoor)
+        //{
+        //    Debug.Log(" Parametros de puerta" + door.name + door.IsSecretDoor + door.isNotDoor + door.tag);
+        //}
     }
 
     public doorDirection GetDirectionByDoor( GameObject currentDoor)
@@ -219,6 +235,13 @@ public class BoardRoom : MonoBehaviour
         EnableChangeEventColliderExitRoom();
     }
 
+    internal void OpenSecretDoor(FRoomDoor FroomDoor)
+    {
+        FroomDoor.OpenSecretDoor();
+
+        EnableChangeEventColliderSecretRoom();
+    }
+
     internal void CloseDoor()
     {
         foreach (var door in roomDoor)
@@ -228,6 +251,14 @@ public class BoardRoom : MonoBehaviour
         DisableChangeEventColliderEntranceRoom();
         DisableChangeEventColliderExitRoom();
     }
+
+    internal void CloseSecretDoor(FRoomDoor FroomDoor)
+    {
+        FroomDoor.CloseSecretDoor();
+
+        DisableChangeEventColliderSecretRoom();
+    }
+
     /// <summary>
     /// Return clossed == true
     /// </summary>
@@ -327,6 +358,10 @@ public class BoardRoom : MonoBehaviour
     {
         if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false; } }
     }
+    public void DisableChangeEventColliderSecretRoom()
+    {
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderSecret in changeRoomsEventColliderSecretDoor) { eventColliderSecret.enabled = false; } }
+    }
 
     public void EnableChangeEventColliderEntranceRoom()
     {
@@ -338,5 +373,10 @@ public class BoardRoom : MonoBehaviour
         if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = true; } }
     }
 
-   
+    public void EnableChangeEventColliderSecretRoom()
+    {
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderSecret in changeRoomsEventColliderSecretDoor) { eventColliderSecret.enabled = true; } }
+    }
+
+
 }

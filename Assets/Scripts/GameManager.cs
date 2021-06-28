@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Application.targetFrameRate = 60;
         if (instance == null)
         {
             instance = this;
@@ -206,13 +207,15 @@ public class GameManager : MonoBehaviour
     public void OpenSecretDoor(FRoomDoor secretDoorobj, Collider2D doorCollider)
     {
         //abrir la puerta con la colision y su adyacente
-        secretDoorobj.OpenSecretDoor();
+        currentRoom.OpenSecretDoor(secretDoorobj);
+        //secretDoorobj.OpenSecretDoor();
         var currentDirection = GameManager.instance.currentRoom.GetDirectionByDoor(doorCollider.transform.parent.gameObject);
         
 
         //localizamos la habitacion adyacente para abrir las puertas adyacentes
         var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
-        adjSecretDoor.OpenSecretDoor();
+        currentRoom.OpenSecretDoor(adjSecretDoor);
+        //adjSecretDoor.OpenSecretDoor();
 
         //Se desactiva el collider de la habitacion actual para localizar la contigua
         GameManager.instance.currentRoom.DisableColliderRoom();
@@ -222,7 +225,8 @@ public class GameManager : MonoBehaviour
         var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
         foreach (var adDoor in adjDoors)
         {
-            adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+            currentRoom.OpenSecretDoor(adDoor.GetComponent<FRoomDoor>());
+            //adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
         }
 
         Debug.Log("Se ha abierto una puerta secreta.");

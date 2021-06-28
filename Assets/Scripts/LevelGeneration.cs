@@ -34,6 +34,7 @@ public class LevelGeneration : MonoBehaviour
     //boundaries map generator
     public float minX;
     public float maxX;
+    public float minY;
     public float maxY;
     private bool stopGeneration = false;
     private bool addRoomsGameManager = false;
@@ -105,7 +106,7 @@ public class LevelGeneration : MonoBehaviour
     {
         foreach (var room in ListRoomsCreated)
         {
-            if (room.Value.RoomGenerated == false)
+            if (room.Value.RoomGenerated == false && room.Value.TypeRoom != EnumTypeRoom.none)
             {
                 rooms.Add(GameManager.instance.boardScript.BoardSetup(room.Key, null, null,false));
                 transform.position = room.Key;
@@ -269,6 +270,7 @@ public class LevelGeneration : MonoBehaviour
         var currentRoom = rooms[rooms.Count - 1];
 
         currentRoom.UpdateDoorsByParameters(currentRoomParameters.RoomDoors);
+        currentRoom.LogCurrentRoom(currentRoomParameters);
         
     }
   
@@ -419,7 +421,7 @@ public class LevelGeneration : MonoBehaviour
             else if (nextDirecionRoom == LevelGeneration.doorDirection.up)//move UP
             {
                 nextPositionRoom = new Vector2(transform.position.x, transform.position.y + moveAmountY);
-                if (nextPositionRoom.y <= maxY) { return true; }
+                if (nextPositionRoom.y <= minY) { return true; }
             }
         }
         return false;
