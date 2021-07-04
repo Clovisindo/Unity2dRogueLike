@@ -123,17 +123,25 @@ public class LevelGeneration : MonoBehaviour
 
         if ((nextRoomDirection == 1 || nextRoomDirection == 2) && generateRoomTurn == false) //move RIGHT
         {
-            if (transform.position.x < maxX)
+            Vector2 newPos = new Vector2(transform.position.x + moveAmountX, transform.position.y);
+            if (transform.position.x < maxX && ListRoomsCreated[newPos].RoomGenerated == false)
             {
-                Vector2 newPos = new Vector2(transform.position.x + moveAmountX, transform.position.y);
                 transform.position = newPos;
                 bool created = ListRoomsCreated[transform.position].RoomGenerated;
 
-
                 if (!created)
                 {
+                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); ;//la inversa al nextDireccion del paso anterior
                     do
                     {
+                        if (numberTries > 0)
+                        {
+                            if (nextRoomDirection == 5)//validar si al bajar la siguiente habitacion, es fin de generacion o no
+                            {
+                                stopGeneration = true;
+                                break;
+                            }
+                        }
                         nextRoomDirection = UnityEngine.Random.Range(1, 6);// al moverse a la derecha, que no sea posible girar a la izquierda de nuevo
                         if (nextRoomDirection == 3)
                         {
@@ -143,8 +151,12 @@ public class LevelGeneration : MonoBehaviour
                         {
                             nextRoomDirection = 5;
                         }
+                        else if (numberTries > 0)//  si ya hubo intentos, forzar bajar
+                        {
+                            nextRoomDirection = 5;
+                        }
                         numberTries++;
-                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false) && (numberTries < 5));
+                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
                     ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
@@ -156,7 +168,7 @@ public class LevelGeneration : MonoBehaviour
 
                     //ListRoomsCreated.Add(transform.position,currentRoomParam);
                     
-                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
+                    //previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
             }
@@ -169,19 +181,35 @@ public class LevelGeneration : MonoBehaviour
         }
         else if ((nextRoomDirection == 3 || nextRoomDirection == 4) && generateRoomTurn == false)//move LEFT
         {
-            if (transform.position.x > minX)
+            Vector2 newPos = new Vector2(transform.position.x - moveAmountX, transform.position.y);
+            if (transform.position.x > minX && ListRoomsCreated[newPos].RoomGenerated == false)
             {
-                Vector2 newPos = new Vector2(transform.position.x - moveAmountX, transform.position.y);
                 transform.position = newPos;
                 bool created = ListRoomsCreated[transform.position].RoomGenerated;
 
                 if (!created)
                 {
+                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); ;//la inversa al nextDireccion del paso anterior
                     do
                     {
-                        nextRoomDirection = UnityEngine.Random.Range(3, 6); //dont move right after left
-                        numberTries++;
-                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false) && (numberTries < 5));
+                        if (numberTries > 0)// solo puede ir izquierda o abajo, si hay intentos, es que izquierda no es posible, forzamos abajo
+                        {
+                            if (nextRoomDirection == 5)//validar si al bajar la siguiente habitacion, es fin de generacion o no
+                            {
+                                stopGeneration = true;
+                                break;
+                            }
+                            else
+                            {
+                                nextRoomDirection = 5;
+                            }
+                        }
+                        else
+                        {
+                            nextRoomDirection = UnityEngine.Random.Range(3, 6); //dont move right after left
+                            numberTries++;
+                        }
+                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
                     ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
@@ -193,7 +221,7 @@ public class LevelGeneration : MonoBehaviour
 
                     //ListRoomsCreated.Add(transform.position, currentRoomParam);
 
-                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); 
+                    //previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); 
                     generateRoomTurn = true;
                 }
             }
@@ -206,19 +234,20 @@ public class LevelGeneration : MonoBehaviour
         }
         else if (nextRoomDirection == 5 && generateRoomTurn == false)//move DOWN
         {
-            if (transform.position.y > maxY)
+            Vector2 newPos = new Vector2(transform.position.x, transform.position.y - moveAmountY);
+            if (transform.position.y > maxY && ListRoomsCreated[newPos].RoomGenerated == false)
             {
-                Vector2 newPos = new Vector2(transform.position.x, transform.position.y - moveAmountY);
                 transform.position = newPos;
                 bool created = ListRoomsCreated[transform.position].RoomGenerated;
 
                 if (!created)
                 {
+                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection); ;//la inversa al nextDireccion del paso anterior
                     do
                     {
                         nextRoomDirection = UnityEngine.Random.Range(1, 6);//despues de bajar que vaya donde quiera
                         numberTries++;
-                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false) && (numberTries < 5));
+                    } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
                     //RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Main, true);
@@ -231,7 +260,7 @@ public class LevelGeneration : MonoBehaviour
 
                     //ListRoomsCreated.Add(transform.position, currentRoomParam);
 
-                    previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
+                    //previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
             }
@@ -241,14 +270,12 @@ public class LevelGeneration : MonoBehaviour
             }
         }
         
-        var nextSecDoorDirec =  CheckNextSecundaryRoomValid(nextDirectionDoor, GetDoorDirection(previousRoomDirection));//ToDo:comprobar si este prevDoorDirec esta bien
+        var nextSecDoorDirec =  CheckNextSecundaryRoomValid(GetDoorDirectionRandom(nextRoomDirection), GetDoorDirectionRandom((int)GetReversalDoorDirection(previousRoomDirection)));//ToDo:comprobar si este prevDoorDirec esta bien
         if (nextSecDoorDirec != null)
         {
             var newSecRoom = CreateSecondaryRoom((doorDirection)nextSecDoorDirec);
 
             if (ListRoomsCreated[newSecRoom.Item1].TypeRoom == EnumTypeRoom.none)//no se ha seteado
-            //if ((ListRoomsCreated[newSecRoom.Item1].RoomGenerated == true && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Main)&&
-            //    (ListRoomsCreated[newSecRoom.Item1].RoomGenerated == false && ListRoomsCreated[newSecRoom.Item1].TypeRoom != EnumTypeRoom.Secundary))
             {
                 ListRoomsCreated[newSecRoom.Item1] = newSecRoom.Item2;
                 ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)nextSecDoorDirec, EnumTypeDoor.entrance);//entrada secundaria en habitacion actual
@@ -503,6 +530,10 @@ public class LevelGeneration : MonoBehaviour
         else if (randomNumber == 5)
         {
             return 6;//up
+        }
+        else if (randomNumber == 6)
+        {
+            return 5;
         }
 
         return null;
