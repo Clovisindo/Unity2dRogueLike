@@ -16,6 +16,8 @@ public class BoardRoom : MonoBehaviour
     public GameObject respawnLeft;
     public GameObject respawnRight;
 
+    private RoomParameters roomParameters;
+
     public BoxCollider2D colliderDetector;
 
     private BoxCollider2D[] changeRoomsEventColliderEntrance;
@@ -33,6 +35,7 @@ public class BoardRoom : MonoBehaviour
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
     public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }//Contiene los objetos FRoomDoor
+    public RoomParameters RoomParameters { get => roomParameters; set => roomParameters = value; }
 
     internal void PauseRoom()
     {
@@ -85,6 +88,7 @@ public class BoardRoom : MonoBehaviour
 
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+
     }
     /// <summary>
     /// Log de la generacion de puertas
@@ -231,6 +235,14 @@ public class BoardRoom : MonoBehaviour
         {
             door.OpenDoor();
         }
+        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        {
+            var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
+            foreach (var secretDoor in secretDoors)
+            {
+                OpenSecretDoor(secretDoor);
+            }
+        }
         EnableChangeEventColliderEntranceRoom();
         EnableChangeEventColliderExitRoom();
     }
@@ -247,6 +259,14 @@ public class BoardRoom : MonoBehaviour
         foreach (var door in roomDoor)
         {
             door.CloseDoor();
+        }
+        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        {
+            var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
+            foreach (var secretDoor in secretDoors)
+            {
+                CloseSecretDoor(secretDoor);
+            }
         }
         DisableChangeEventColliderEntranceRoom();
         DisableChangeEventColliderExitRoom();

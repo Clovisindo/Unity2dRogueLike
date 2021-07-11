@@ -6,6 +6,7 @@ namespace Assets.Scripts.Weapons
 {
     public class wPickAxe : Weapon
     {
+        public bool pickAxeCollision = false;
 
         public wPickAxe()
         {
@@ -65,8 +66,9 @@ namespace Assets.Scripts.Weapons
             {
                 FRoomDoor secretDoorobj = other.gameObject.GetComponentInParent<FRoomDoor>(true);
 
-                if (secretDoorobj.IsSecretDoor && secretDoorobj.IsClosed)
+                if (secretDoorobj.IsSecretDoor && secretDoorobj.IsClosed && !pickAxeCollision)
                 {
+                    pickAxeCollision = true;
                     GameManager.instance.OpenSecretDoor(secretDoorobj, other);
                 }
             }

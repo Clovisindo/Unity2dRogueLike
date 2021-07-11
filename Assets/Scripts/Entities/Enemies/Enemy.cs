@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts;
+using Assets.Scripts.EnumTypes;
 using System;
 
 public abstract class Enemy : MonoBehaviour

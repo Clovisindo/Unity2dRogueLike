@@ -273,12 +273,12 @@ public class LevelGeneration : MonoBehaviour
         var nextSecDoorDirec =  CheckNextSecundaryRoomValid(GetDoorDirectionRandom(nextRoomDirection), GetDoorDirectionRandom((int)GetReversalDoorDirection(previousRoomDirection)));//ToDo:comprobar si este prevDoorDirec esta bien
         if (nextSecDoorDirec != null)
         {
-            var newSecRoom = CreateSecondaryRoom((doorDirection)nextSecDoorDirec);
+            var newSecRoom = CreateSecretRoom((doorDirection)nextSecDoorDirec);
 
             if (ListRoomsCreated[newSecRoom.Item1].TypeRoom == EnumTypeRoom.none)//no se ha seteado
             {
                 ListRoomsCreated[newSecRoom.Item1] = newSecRoom.Item2;
-                ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)nextSecDoorDirec, EnumTypeDoor.entrance);//entrada secundaria en habitacion actual
+                ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)nextSecDoorDirec, EnumTypeDoor.secret);//entrada secundaria en habitacion actual
             }
         }
 
@@ -296,6 +296,7 @@ public class LevelGeneration : MonoBehaviour
         var currentRoomParameters = listRoomsCreated[transform.position];
         var currentRoom = rooms[rooms.Count - 1];
 
+        currentRoom.RoomParameters = currentRoomParameters;
         currentRoom.UpdateDoorsByParameters(currentRoomParameters.RoomDoors);
         currentRoom.LogCurrentRoom(currentRoomParameters);
         
@@ -324,6 +325,20 @@ public class LevelGeneration : MonoBehaviour
         currentRoomParam.SetDoorTypeByDirection(invNextDirectionDoor, EnumTypeDoor.entrance);
 
         return (nextSecRoomPosition, currentRoomParam);
+    }
+
+    private (Vector3, RoomParameters) CreateSecretRoom(doorDirection nextSecretDirectionDoor)
+    {
+        BoardRoom currentRoom = rooms[rooms.Count - 1];
+        var invnextSecretIntDirectionDoor = GetReversalDoorDirection((int)GetIntByDoorDirection(nextSecretDirectionDoor));
+        var invNextDirectionDoor = (doorDirection)GetDoorDirection((int)invnextSecretIntDirectionDoor);
+
+        Vector3 nextSecretRoomPosition = GetNextPositionRoom(currentRoom.transform, nextSecretDirectionDoor);
+
+        RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Secret, false);
+        currentRoomParam.SetDoorTypeByDirection(invNextDirectionDoor, EnumTypeDoor.secret);
+
+        return (nextSecretRoomPosition, currentRoomParam);
     }
     /// <summary>
     /// 

@@ -207,27 +207,30 @@ public class GameManager : MonoBehaviour
     public void OpenSecretDoor(FRoomDoor secretDoorobj, Collider2D doorCollider)
     {
         //abrir la puerta con la colision y su adyacente
-        currentRoom.OpenSecretDoor(secretDoorobj);
-        //secretDoorobj.OpenSecretDoor();
         var currentDirection = GameManager.instance.currentRoom.GetDirectionByDoor(doorCollider.transform.parent.gameObject);
-        
+        var currentRoomDoors = currentRoom.GetDoorsByDirection(currentDirection);
+        foreach (var currentRoomDoor in currentRoomDoors)
+        {
+            currentRoom.OpenSecretDoor(currentRoomDoor.GetComponent<FRoomDoor>());
+        }
 
-        //localizamos la habitacion adyacente para abrir las puertas adyacentes
-        var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
-        currentRoom.OpenSecretDoor(adjSecretDoor);
+        ////localizamos la habitacion adyacente para abrir las puertas adyacentes
+        //var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
+        //currentRoom.OpenSecretDoor(adjSecretDoor);
         //adjSecretDoor.OpenSecretDoor();
 
         //Se desactiva el collider de la habitacion actual para localizar la contigua
         GameManager.instance.currentRoom.DisableColliderRoom();
         var adjRoom = GameManager.instance.GetAdjacentRoom(secretDoorobj.transform, currentDirection);
         GameManager.instance.currentRoom.EnableColliderRoom();
-        LevelGeneration.doorDirection adjDoorDirecion = GameManager.instance.GetReversalDoorDirection(currentDirection);
-        var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
-        foreach (var adDoor in adjDoors)
-        {
-            currentRoom.OpenSecretDoor(adDoor.GetComponent<FRoomDoor>());
-            //adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
-        }
+
+        //LevelGeneration.doorDirection adjDoorDirecion = GameManager.instance.GetReversalDoorDirection(currentDirection);
+        //var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
+        //foreach (var adDoor in adjDoors)
+        //{
+        //    adjRoom.OpenSecretDoor(adDoor.GetComponent<FRoomDoor>());
+        //    //adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+        //}
 
         Debug.Log("Se ha abierto una puerta secreta.");
     }

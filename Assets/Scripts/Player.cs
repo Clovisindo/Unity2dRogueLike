@@ -257,14 +257,15 @@ public class Player : MonoBehaviour
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" )
         {
-            //GameManager.instance.currentRoom.EnableChangeEventColliderExitRoom();
             playerExitCollision = false;
         }
-
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Entrance" )
         {
-            //GameManager.instance.currentRoom.EnableChangeEventColliderEntranceRoom();
+            playerExitCollision = false;
+        }
+        if (other.tag == "SecretDoor")
+        {
             playerExitCollision = false;
         }
     }
