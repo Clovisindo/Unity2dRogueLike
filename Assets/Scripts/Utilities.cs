@@ -106,4 +106,21 @@ public static class Helper
         }
         return arrayChildItems.ToArray();
     }
+
+    public static T[] FindComponentsInChildsWithTag<T>(this GameObject[] parents, string tag) where T : Component
+    {
+        List<T> arrayChildItems = new List<T>();
+        foreach (var parent in parents)
+        {
+            Transform t = parent.transform;
+            foreach (Transform tr in t)
+            {
+                if (tr.tag == tag)
+                {
+                    arrayChildItems.Add(tr.GetComponent<T>());
+                }
+            }
+        }
+        return arrayChildItems.ToArray();
+    }
 }

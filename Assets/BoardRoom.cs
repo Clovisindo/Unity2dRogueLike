@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.EnumTypes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,24 +16,26 @@ public class BoardRoom : MonoBehaviour
     public GameObject respawnLeft;
     public GameObject respawnRight;
 
+    private RoomParameters roomParameters;
+
     public BoxCollider2D colliderDetector;
 
-    private BoxCollider2D changeRoomEventColliderEntrance;
-    private BoxCollider2D changeRoomEventColliderExit;
-    private BoxCollider2D changeRoomEventColliderSecretDoor1;
-    private BoxCollider2D changeRoomEventColliderSecretDoor2;
+    private BoxCollider2D[] changeRoomsEventColliderEntrance;
+    private BoxCollider2D[] changeRoomsEventColliderExit;
+    private BoxCollider2D[] changeRoomsEventColliderNoDoor;
+    private BoxCollider2D[] changeRoomsEventColliderSecretDoor;
+    private BoxCollider2D[] changeRoomsEventColliderSecondaryDoor;
 
     private FRoomDoor[] roomDoor;
     private Dictionary<GameObject, doorDirection> DctDoors = new Dictionary<GameObject, doorDirection>();
 
     public List<Enemy> enemiesRoom;
 
-    
-
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
-    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }
+    public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }//Contiene los objetos FRoomDoor
+    public RoomParameters RoomParameters { get => roomParameters; set => roomParameters = value; }
 
     internal void PauseRoom()
     {
@@ -70,28 +73,127 @@ public class BoardRoom : MonoBehaviour
 
     internal void SetParametersRoom()
     {
-        changeRoomEventColliderEntrance = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Entrance");
-        changeRoomEventColliderExit = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "Exit");
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        changeRoomEventColliderExit.enabled = false;
+        changeRoomsEventColliderEntrance = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Entrance");
+        if (changeRoomsEventColliderEntrance != null){foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance){eventColliderEntrance.enabled = false;}}
+        changeRoomsEventColliderExit = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Exit");
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
 
-        changeRoomEventColliderSecretDoor1 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor1");
-        if (changeRoomEventColliderSecretDoor1 != null) { changeRoomEventColliderSecretDoor1.enabled = false; }
-        changeRoomEventColliderSecretDoor2 = Helper.FindComponentInChildWithTag<BoxCollider2D>(this.transform.gameObject, "SecretDoor2");
-        if (changeRoomEventColliderSecretDoor2 != null) { changeRoomEventColliderSecretDoor2.enabled = false; }
+        changeRoomsEventColliderNoDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "NoDoor");
+        if (changeRoomsEventColliderNoDoor != null) { foreach (var eventColliderNoDoor in changeRoomsEventColliderNoDoor) { eventColliderNoDoor.enabled = false;}}
+
+        changeRoomsEventColliderSecretDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor");
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
+        //changeRoomsEventColliderSecondaryDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor2");
+        //if (changeRoomsEventColliderSecondaryDoor != null) { changeRoomsEventColliderSecondaryDoor.enabled = false; }
 
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
         //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
+
+    }
+    /// <summary>
+    /// Log de la generacion de puertas
+    /// </summary>
+    public void LogCurrentRoom(RoomParameters roomParameters)
+    {
+        // tipo de habitacion y nombre
+        Debug.Log(" Habitación " + this.gameObject.name + " generada, de tipo : " + roomParameters.TypeRoom + ".");
+        //recorrer las puertas por direccion y tipo de puerta
+        foreach (var roomDoor in roomParameters.RoomDoors)
+        {
+            Debug.Log(" Puerta de direccion : "  + roomDoor.Key + " definida como tipo " + roomDoor.Value);
+        }
+        //Recorrer los colliders y FRoomDoor
+        //foreach (var door in roomDoor)
+        //{
+        //    Debug.Log(" Parametros de puerta" + door.name + door.IsSecretDoor + door.isNotDoor + door.tag);
+        //}
     }
 
     public doorDirection GetDirectionByDoor( GameObject currentDoor)
     {
-        return DctDoors1.Where(d => d.Key == currentDoor.transform.parent.gameObject).Select(d => d.Value).FirstOrDefault();
+        ////ToDo: arreglar que le pasemos en la llamada el objeto directamente, no las transformaciones del parent, pues a veces venimos desde objetos distintos
+        //var test = DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).ToList();
+
+        return DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).FirstOrDefault();
     }
 
     public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
     {
         return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
+    }
+    /// <summary>
+    /// Dada una direccion , localizamos la puerta y su collider y le asignamos el nuevo estado
+    /// </summary>
+    /// <param name="currentDoorDirection"></param>
+    public void UpdateColliderDoor ( doorDirection currentDoorDirection, EnumTypeDoor currentTypeDoor)
+    {
+        var doorsToUpdate = GetDoorsByDirection(currentDoorDirection);
+        foreach (var doorToUpdate in doorsToUpdate)
+        {
+          var doorCollider = doorToUpdate.GetComponentsInChildren<BoxCollider2D>().Where(t => t.tag != "Door").FirstOrDefault();
+            if (doorCollider != null)//en una de las puertas no hay collider
+            {
+                doorCollider.tag = GetTagDoorByType(currentTypeDoor);
+            }
+        }
+    }
+
+    public string GetTagDoorByType ( EnumTypeDoor typeDoor)
+    {
+        string tag = null;
+        switch (typeDoor)
+        {
+            case EnumTypeDoor.none:
+                tag = "NoDoor";
+                break;
+            case EnumTypeDoor.entrance:
+                tag = "Entrance";
+                break;
+            case EnumTypeDoor.exit:
+                tag = "Exit";
+                break;
+            case EnumTypeDoor.secret:
+                tag = "SecretDoor";
+                break;
+        }
+        return tag;
+    }
+    /// <summary>
+    /// Se actualizan los colliderRoom que hayan cambiado(todos)
+    /// Se actualizan las puertas en funcion del tipo definido en los parametros
+    /// Si es normal no se hace nada
+    /// Si es secreta isSecret = true
+    /// Si es no existe(secundaria) active = false
+    /// </summary>
+    /// <param name="roomDoors"> Diccionario de direccion de puerta y tipo de puerta</param>
+    public void UpdateDoorsByParameters(Dictionary<doorDirection, EnumTypeDoor> roomDoors)
+    {
+        foreach (var roomDoor in roomDoors)
+        {
+            UpdateColliderDoor(roomDoor.Key, roomDoor.Value);
+        }
+        SetParametersRoom();
+
+        foreach (var paramDoor in roomDoors)
+        {
+            if (paramDoor.Value == EnumTypeDoor.secret)
+            {
+                var roomDoorsUpdt = this.GetDoorsByDirection(paramDoor.Key).ToList();
+                foreach (var roomDoorUpdt in roomDoorsUpdt)
+                {
+                    roomDoorUpdt.GetComponent<FRoomDoor>().IsSecretDoor = true;
+                }
+                
+            }
+            if (paramDoor.Value == EnumTypeDoor.none)
+            {
+                var roomDoorsUpdt = this.GetDoorsByDirection(paramDoor.Key).ToList();
+                foreach (var roomDoorUpdt in roomDoorsUpdt)
+                {
+                    roomDoorUpdt.GetComponent<FRoomDoor>().isNotDoor = true;
+                }
+            }
+        }
     }
 
     public FRoomDoor GetAdjacentSecretDoor(doorDirection currentDirection)
@@ -133,9 +235,23 @@ public class BoardRoom : MonoBehaviour
         {
             door.OpenDoor();
         }
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
-        changeRoomEventColliderExit.enabled = true;
+        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        {
+            var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
+            foreach (var secretDoor in secretDoors)
+            {
+                OpenSecretDoor(secretDoor);
+            }
+        }
+        EnableChangeEventColliderEntranceRoom();
+        EnableChangeEventColliderExitRoom();
+    }
 
+    internal void OpenSecretDoor(FRoomDoor FroomDoor)
+    {
+        FroomDoor.OpenSecretDoor();
+
+        EnableChangeEventColliderSecretRoom();
     }
 
     internal void CloseDoor()
@@ -144,10 +260,25 @@ public class BoardRoom : MonoBehaviour
         {
             door.CloseDoor();
         }
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
-        changeRoomEventColliderExit.enabled = false;
-
+        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        {
+            var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
+            foreach (var secretDoor in secretDoors)
+            {
+                CloseSecretDoor(secretDoor);
+            }
+        }
+        DisableChangeEventColliderEntranceRoom();
+        DisableChangeEventColliderExitRoom();
     }
+
+    internal void CloseSecretDoor(FRoomDoor FroomDoor)
+    {
+        FroomDoor.CloseSecretDoor();
+
+        DisableChangeEventColliderSecretRoom();
+    }
+
     /// <summary>
     /// Return clossed == true
     /// </summary>
@@ -240,23 +371,32 @@ public class BoardRoom : MonoBehaviour
 
     public void DisableChangeEventColliderEntranceRoom()
     {
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = false; }
+        if (changeRoomsEventColliderEntrance != null) { foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance) { eventColliderEntrance.enabled = false; } }
     }
 
     public void DisableChangeEventColliderExitRoom()
     {
-        changeRoomEventColliderExit.enabled = false;
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false; } }
+    }
+    public void DisableChangeEventColliderSecretRoom()
+    {
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderSecret in changeRoomsEventColliderSecretDoor) { eventColliderSecret.enabled = false; } }
     }
 
     public void EnableChangeEventColliderEntranceRoom()
     {
-        if (changeRoomEventColliderEntrance != null) { changeRoomEventColliderEntrance.enabled = true; }
+        if (changeRoomsEventColliderEntrance != null) { foreach (var eventColliderEntrance in changeRoomsEventColliderEntrance) { eventColliderEntrance.enabled = true; } }
     }
 
     public void EnableChangeEventColliderExitRoom()
     {
-        changeRoomEventColliderExit.enabled = true;
+        if (changeRoomsEventColliderExit != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = true; } }
     }
 
-   
+    public void EnableChangeEventColliderSecretRoom()
+    {
+        if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderSecret in changeRoomsEventColliderSecretDoor) { eventColliderSecret.enabled = true; } }
+    }
+
+
 }

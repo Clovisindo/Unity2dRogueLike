@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Application.targetFrameRate = 60;
         if (instance == null)
         {
             instance = this;
@@ -98,21 +99,30 @@ public class GameManager : MonoBehaviour
         void Update()
     {
     }
-
-    public void ChangeLevel()
+    /// <summary>
+    /// Tras contactar con un evento de cambio de habitacion, se le indica la direccion de la puerta para mover la camara
+    /// </summary>
+    public void ChangeLevel(LevelGeneration.doorDirection currentDirection)
     {
-        ////ToDo: gestionar la camara en funcion de la direccion de la habitacion , entrada o salida,etc
-        //gameCamera.transform.position = ChangeCameraByDoorDirection(currentRoom.exitDoor);
+        currentRoom.PauseRoom();
+        gameCamera.transform.position = ChangeCameraByDoorDirection(currentDirection);
 
-        ////desactivar el collider de la habitacion actual
-        //currentRoom.DisableColliderRoom();
-        ////1ºHacemos el RayCast en la direccion hacia la que es la puerta (pendiente modificar el metodo
-        //UpdateCurrentRoom(GameManager.instance.player,currentRoom.exitDoor);
+        currentRoom.DisableColliderRoom();
+        currentRoom.DisableChangeEventColliderEntranceRoom();
+        currentRoom.DisableChangeEventColliderExitRoom();
 
-        ////2º con la nueva habitacion actualizada primero, le decimos de donde venimos y cargamos el respawn
-        ////desactivar el ChangeRoomCollider de la entrada de esta habitacion
-        //currentRoom.DisableChangeEventColliderEntranceRoom();
-        //GameManager.instance.player.UpdatePositionlevel(currentRoom.GetRespawnPositionPlayer(currentRoom.entranceDoor));
+        UpdateCurrentRoom(GameManager.instance.player, currentDirection);
+
+
+        if (currentRoom.RoomComplete)
+        {
+            //ToDo:enable colliders todas las NO secret rooms
+            currentRoom.EnableChangeEventColliderEntranceRoom();
+            currentRoom.EnableChangeEventColliderExitRoom();
+        }
+        GameManager.instance.player.UpdatePositionlevel(currentRoom.GetRespawnPositionPlayer( GetReversalDoorDirection(currentDirection)));//camino en direcion original
+        //arrancamos los enemigos en esta habitacion
+        currentRoom.ReStartRoom();
     }
 
     public void ChangeLevel(bool backwards)
@@ -154,7 +164,6 @@ public class GameManager : MonoBehaviour
     {
        // hacemos un raycast desde el centro de la habitacion hasta el punto
 
-        //comprobamos que esté 
     }
 
     public void takeDamage( string colliderTag, Enemy enemy)
@@ -198,24 +207,30 @@ public class GameManager : MonoBehaviour
     public void OpenSecretDoor(FRoomDoor secretDoorobj, Collider2D doorCollider)
     {
         //abrir la puerta con la colision y su adyacente
-        secretDoorobj.OpenSecretDoor();
-        var currentDirection = GameManager.instance.currentRoom.GetDirectionByDoor(doorCollider.gameObject);
-        
+        var currentDirection = GameManager.instance.currentRoom.GetDirectionByDoor(doorCollider.transform.parent.gameObject);
+        var currentRoomDoors = currentRoom.GetDoorsByDirection(currentDirection);
+        foreach (var currentRoomDoor in currentRoomDoors)
+        {
+            currentRoom.OpenSecretDoor(currentRoomDoor.GetComponent<FRoomDoor>());
+        }
 
-        //localizamos la habitacion adyacente para abrir las puertas adyacentes
-        var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
-        adjSecretDoor.OpenSecretDoor();
+        ////localizamos la habitacion adyacente para abrir las puertas adyacentes
+        //var adjSecretDoor = GameManager.instance.currentRoom.GetAdjacentSecretDoor(currentDirection);
+        //currentRoom.OpenSecretDoor(adjSecretDoor);
+        //adjSecretDoor.OpenSecretDoor();
 
         //Se desactiva el collider de la habitacion actual para localizar la contigua
         GameManager.instance.currentRoom.DisableColliderRoom();
         var adjRoom = GameManager.instance.GetAdjacentRoom(secretDoorobj.transform, currentDirection);
         GameManager.instance.currentRoom.EnableColliderRoom();
-        LevelGeneration.doorDirection adjDoorDirecion = GameManager.instance.GetReversalDoorDirection(currentDirection);
-        var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
-        foreach (var adDoor in adjDoors)
-        {
-            adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
-        }
+
+        //LevelGeneration.doorDirection adjDoorDirecion = GameManager.instance.GetReversalDoorDirection(currentDirection);
+        //var adjDoors = adjRoom.GetDoorsByDirection(adjDoorDirecion);
+        //foreach (var adDoor in adjDoors)
+        //{
+        //    adjRoom.OpenSecretDoor(adDoor.GetComponent<FRoomDoor>());
+        //    //adDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
+        //}
 
         Debug.Log("Se ha abierto una puerta secreta.");
     }
@@ -253,6 +268,37 @@ public class GameManager : MonoBehaviour
             return null;
     }
 
+
+    private void UpdateCurrentRoom(Player _player, LevelGeneration.doorDirection _doorDirection)
+    {
+        Vector2 rayCastDirection = Vector2.zero;
+        switch (_doorDirection)
+        {
+            case LevelGeneration.doorDirection.down:
+                rayCastDirection = Vector2.down;
+                break;
+            case LevelGeneration.doorDirection.up:
+                rayCastDirection = Vector2.up;
+                break;
+            case LevelGeneration.doorDirection.left:
+                rayCastDirection = Vector2.left;
+                break;
+            case LevelGeneration.doorDirection.right:
+                rayCastDirection = Vector2.right;
+                break;
+
+        }
+        RaycastHit2D hit = Physics2D.Raycast(_player.transform.position, rayCastDirection, 4f, layer_mask_wall);
+        if (hit.collider.tag == "RoomCollider")
+        {
+            //Debug.DrawLine(transform.position, hit.collider.transform.position, Color.green, Time.deltaTime, true);
+            //1º devolver que habitacion es
+            GameObject roomCollider = hit.collider.gameObject;
+            //2º update setCurrentBoard
+            currentRoom.EnableColliderRoom();
+            currentRoom = roomCollider.transform.parent.gameObject.GetComponent<BoardRoom>();
+        }
+    }
     private void UpdateCurrentRoom( Player _player, LevelGeneration.doorDirection _doorDirection, bool backwards)
     {
         Vector2 rayCastDirection = Vector2.zero;

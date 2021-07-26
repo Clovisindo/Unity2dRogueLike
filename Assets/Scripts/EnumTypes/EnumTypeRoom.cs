@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.EnumTypes
 {
-    public enum EnumTypeDoors
+    public enum EnumTypeRoom
     {
         none,
-        entrance,
-        exit,
-        secret
+        Main,
+        Secundary,
+        Secret
     }
 }

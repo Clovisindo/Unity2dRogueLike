@@ -18,6 +18,8 @@ TagManager:
   - Door
   - FRoomDoor
   - PickAxe
+  - SecretDoor
+  - NoDoor
   layers:
   - Default
   - TransparentFX

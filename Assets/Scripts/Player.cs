@@ -229,16 +229,25 @@ public class Player : MonoBehaviour
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" && playerExitCollision == false)
         {
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(false);
+            GameManager.instance.ChangeLevel(roomDirection);
 
         }
 
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Entrance" && playerExitCollision == false)
         {
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);//no es la puerta es el collider
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(true);
+            GameManager.instance.ChangeLevel(roomDirection);
+
+        }
+        if (other.tag == "SecretDoor" && playerExitCollision == false)
+        {
+            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
+            playerExitCollision = true;
+            GameManager.instance.ChangeLevel(roomDirection);
 
         }
     }
@@ -248,14 +257,15 @@ public class Player : MonoBehaviour
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit" )
         {
-            //GameManager.instance.currentRoom.EnableChangeEventColliderExitRoom();
             playerExitCollision = false;
         }
-
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Entrance" )
         {
-            //GameManager.instance.currentRoom.EnableChangeEventColliderEntranceRoom();
+            playerExitCollision = false;
+        }
+        if (other.tag == "SecretDoor")
+        {
             playerExitCollision = false;
         }
     }
