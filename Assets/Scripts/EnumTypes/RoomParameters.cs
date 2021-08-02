@@ -31,7 +31,11 @@ namespace Assets.Scripts.EnumTypes
             typeRoom = TypeRoom;
             roomGenerated = RoomGenerated;
         }
-
+        /// <summary>
+        /// Asigna un nueva puerta al diccionario de puertas
+        /// </summary>
+        /// <param name="currentDoorDirection"></param>
+        /// <param name="newTypeDoor"></param>
         public void SetDoorTypeByDirection(LevelGeneration.doorDirection currentDoorDirection, EnumTypeDoor newTypeDoor )
         {
             roomDoors[currentDoorDirection] = newTypeDoor;

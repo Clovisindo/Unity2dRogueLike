@@ -24,7 +24,6 @@ public class BoardRoom : MonoBehaviour
     private BoxCollider2D[] changeRoomsEventColliderExit;
     private BoxCollider2D[] changeRoomsEventColliderNoDoor;
     private BoxCollider2D[] changeRoomsEventColliderSecretDoor;
-    private BoxCollider2D[] changeRoomsEventColliderSecondaryDoor;
 
     private FRoomDoor[] roomDoor;
     private Dictionary<GameObject, doorDirection> DctDoors = new Dictionary<GameObject, doorDirection>();
@@ -39,8 +38,6 @@ public class BoardRoom : MonoBehaviour
 
     internal void PauseRoom()
     {
-        // en bucle repasar todos los enemigos y poner el bool de paused
-
         //implementar algo de puzzles
         foreach (var enemy in enemiesRoom)
         {
@@ -50,8 +47,6 @@ public class BoardRoom : MonoBehaviour
 
     internal void ReStartRoom()
     {
-        // en bucle repasar todos los enemigos y quitar el bool de paused
-
         //implementar algo de puzzles
         foreach (var enemy in enemiesRoom)
         {
@@ -70,7 +65,9 @@ public class BoardRoom : MonoBehaviour
     {
         RoomComplete = false;
     }
-
+    /// <summary>
+    /// Carga los colliders de la habitacion agrupados por tipo
+    /// </summary>
     internal void SetParametersRoom()
     {
         changeRoomsEventColliderEntrance = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "Entrance");
@@ -83,12 +80,8 @@ public class BoardRoom : MonoBehaviour
 
         changeRoomsEventColliderSecretDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor");
         if (changeRoomsEventColliderSecretDoor != null) { foreach (var eventColliderExit in changeRoomsEventColliderExit) { eventColliderExit.enabled = false;}}
-        //changeRoomsEventColliderSecondaryDoor = Helper.FindComponentsInChildsWithTag<BoxCollider2D>(DctDoors1.Keys.ToArray(), "SecretDoor2");
-        //if (changeRoomsEventColliderSecondaryDoor != null) { changeRoomsEventColliderSecondaryDoor.enabled = false; }
 
         roomDoor = Helper.FindComponentsInChildWithTag<FRoomDoor>(this.transform.gameObject, "FRoomDoor");
-        //colliderDetector = GameObject.FindGameObjectWithTag("RoomCollider").GetComponent<BoxCollider2D>();
-
     }
     /// <summary>
     /// Log de la generacion de puertas
@@ -102,21 +95,21 @@ public class BoardRoom : MonoBehaviour
         {
             Debug.Log(" Puerta de direccion : "  + roomDoor.Key + " definida como tipo " + roomDoor.Value);
         }
-        //Recorrer los colliders y FRoomDoor
-        //foreach (var door in roomDoor)
-        //{
-        //    Debug.Log(" Parametros de puerta" + door.name + door.IsSecretDoor + door.isNotDoor + door.tag);
-        //}
     }
-
+    /// <summary>
+    /// Obtenemos la direccion de una puerta de la habitacion
+    /// </summary>
+    /// <param name="currentDoor"></param>
+    /// <returns></returns>
     public doorDirection GetDirectionByDoor( GameObject currentDoor)
     {
-        ////ToDo: arreglar que le pasemos en la llamada el objeto directamente, no las transformaciones del parent, pues a veces venimos desde objetos distintos
-        //var test = DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).ToList();
-
         return DctDoors1.Where(d => d.Key == currentDoor).Select(d => d.Value).FirstOrDefault();
     }
-
+    /// <summary>
+    /// Obtenemos las puertas de la habitacion para una direccion
+    /// </summary>
+    /// <param name="currentDirection"></param>
+    /// <returns></returns>
     public IEnumerable<GameObject> GetDoorsByDirection(doorDirection currentDirection)
     {
         return DctDoors1.Where(d => d.Value == currentDirection).Select(d => d.Key).ToList();
@@ -130,14 +123,18 @@ public class BoardRoom : MonoBehaviour
         var doorsToUpdate = GetDoorsByDirection(currentDoorDirection);
         foreach (var doorToUpdate in doorsToUpdate)
         {
-          var doorCollider = doorToUpdate.GetComponentsInChildren<BoxCollider2D>().Where(t => t.tag != "Door").FirstOrDefault();
+          var doorCollider = doorToUpdate.GetComponentsInChildren<BoxCollider2D>().Where(t => t.tag != "Door").FirstOrDefault();//"Door" es el objeto padre ignorar
             if (doorCollider != null)//en una de las puertas no hay collider
             {
                 doorCollider.tag = GetTagDoorByType(currentTypeDoor);
             }
         }
     }
-
+    /// <summary>
+    /// Obtener tag por tipo de puerta
+    /// </summary>
+    /// <param name="typeDoor"></param>
+    /// <returns></returns>
     public string GetTagDoorByType ( EnumTypeDoor typeDoor)
     {
         string tag = null;
@@ -195,40 +192,10 @@ public class BoardRoom : MonoBehaviour
             }
         }
     }
-
-    public FRoomDoor GetAdjacentSecretDoor(doorDirection currentDirection)
-    {
-        //buscamos la otra puerta todavia activa
-        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
-        d.Key.GetComponent<FRoomDoor>().IsClosed).Select(d => d.Key).FirstOrDefault();
-
-        if (secretDoor != null)
-        {
-            return secretDoor.GetComponent<FRoomDoor>();
-        }
-        else
-        {
-            Debug.Log(" No se encuentra la otra puerta secreta.");
-            return null;
-        }
-    }
-
-    public void OpenAdjSecretDoor(doorDirection currentDirection)
-    {
-        //buscamos la otra puerta todavia activa
-        var secretDoor = DctDoors1.Where(d => d.Value == currentDirection && d.Key.GetComponent<FRoomDoor>().IsSecretDoor &&
-        d.Key.GetComponent<FRoomDoor>().IsClosed).Select( d => d.Key).FirstOrDefault();
-
-        if (secretDoor != null)
-        {
-            secretDoor.GetComponent<FRoomDoor>().OpenSecretDoor();
-        }
-        else
-        {
-            Debug.Log(" No se encuentra la otra puerta secreta.");
-        }
-    }
-
+    /// <summary>
+    ///Abre las puertas de la habitacion por finalizar el evento
+    ///Si es una habitacion secreta, abre las puertas secretas
+    /// </summary>
     internal void OpenDoor()
     {
         foreach (var door in roomDoor)
@@ -246,7 +213,10 @@ public class BoardRoom : MonoBehaviour
         EnableChangeEventColliderEntranceRoom();
         EnableChangeEventColliderExitRoom();
     }
-
+    /// <summary>
+    /// Abre la puerta secreta con FRoomDoor
+    /// </summary>
+    /// <param name="FroomDoor"></param>
     internal void OpenSecretDoor(FRoomDoor FroomDoor)
     {
         FroomDoor.OpenSecretDoor();
@@ -278,42 +248,11 @@ public class BoardRoom : MonoBehaviour
 
         DisableChangeEventColliderSecretRoom();
     }
-
     /// <summary>
-    /// Return clossed == true
+    /// Obtenemos la posicion del jugador en la habitacion segun la puerta de entrada
     /// </summary>
+    /// <param name="_doorDirection"></param>
     /// <returns></returns>
-    internal bool CheckDoorStatus()//debug
-    {
-       return roomDoor[0].CheckDoorIsClosed();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    /// <summary>
-    /// En cada nueva iteracion con la habitacion actual, actualizamos esta informacion
-    /// </summary>
-    /// <param name="entrance"></param>
-    /// <param name="exit"></param>
-    public void SetEntranceExitDoor ( bool backwards)
-    {
-        if (!backwards)//sentido original
-        {
-            entranceDoor = entranceDirection;
-            exitDoor = exitDirection;
-        }
-        else //sentido contrario
-        {
-            entranceDoor = exitDirection;
-            exitDoor = entranceDirection;
-        }
-      
-    }
-
     public Vector2 GetRespawnPositionPlayer (LevelGeneration.doorDirection _doorDirection)
     {
         Vector2 respawnPosition = Vector2.zero;
@@ -336,7 +275,7 @@ public class BoardRoom : MonoBehaviour
         return respawnPosition;
     }
     /// <summary>
-    /// 
+    /// invoca a los enemigos en las posiciones correspondientes
     /// </summary>
     /// <param name="initPositionsEnemy">array de posiciones de spawn</param>
     /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>

@@ -10,7 +10,6 @@ public class FRoomDoor : MonoBehaviour
     public bool isSecretDoor = false;
     public bool isNotDoor = false;
     private bool isClosed = true;
-    private BoxCollider2D colliderDoor;
 
     public bool IsSecretDoor { get => isSecretDoor; set => isSecretDoor = value; }
     public bool IsClosed { get => isClosed; set => isClosed = value; }
@@ -19,17 +18,6 @@ public class FRoomDoor : MonoBehaviour
     void Awake()
     {
         _doors = Utilities.GetChildsObject(this.gameObject.transform, "Door");
-        if (IsSecretDoor)
-        {
-            colliderDoor = Utilities.GetChildObject(this.gameObject.transform, "Door").GetComponent<BoxCollider2D>();
-        }
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
     }
 
     public void OpenDoor()
@@ -88,25 +76,5 @@ public class FRoomDoor : MonoBehaviour
             //sonido de puerta
             SoundManager.instance.PlaySingle(doorSound);
         }
-    }
-    /// <summary>
-    /// Desactiva la puerta correspondiente
-    /// </summary>
-    public void DisableDoor()
-    {
-        foreach (var _door in _doors)
-        {
-            _door.SetActive(false);
-        }
-    }
-
-    //public LevelGeneration.doorDirection GetDoorDirection()
-    //{
-    //    return _doors[0].doo
-    //}
-
-    public bool CheckDoorIsClosed()
-    {
-        return _doors[0].activeSelf;
     }
 }

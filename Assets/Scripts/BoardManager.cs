@@ -22,23 +22,16 @@ public class BoardManager : MonoBehaviour
 
     public int columns = 16;                                         //Number of columns in our game board.
     public int rows = 8;                                            //Number of rows in our game board.
-    //public Count wallCount = new Count(5, 9);                       //Lower and upper limit for our random number of walls per level.
-    //public Count foodCount = new Count(1, 5);                       //Lower and upper limit for our random number of food items per level.
-    //public GameObject exit;                                         //Prefab to spawn for exit.
     public GameObject[] floorTiles;                                 //Array of floor prefabs.
-    //public GameObject[] wallTiles;                                  //Array of wall prefabs.
-    //public GameObject[] foodTiles;                                  //Array of food prefabs.
-    //public GameObject[] enemyTiles;                                 //Array of enemy prefabs.
     public GameObject[] outerWallFrontTiles;                             //Array of outer tile prefabs.
     public GameObject outerWallSideLeftTiles;                             //Array of outer tile prefabs.
     public GameObject outerWallSideRightTiles;                             //Array of outer tile prefabs.
-    //public GameObject[] outerWallTopTiles;                             //Array of outer tile prefabs.
     public List<GameObject> exitTiles = new List<GameObject>();
     public GameObject rightChangeRoomCollider;
     public GameObject roomDoorLeftRight;
     public GameObject roomDoorUpDown;
+    
     private GameObject roomDoor;
-
     private doorDirection? currentDirectionDoor = null;
 
     public GameObject wallCornerTopLeft;                                // prefab corner wall
@@ -46,15 +39,13 @@ public class BoardManager : MonoBehaviour
     public GameObject wallCornerBottomRight;                                // prefab corner wall
     public GameObject wallCornerBottomLeft;                                // prefab corner wall
 
-
-    private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
-    private List<Vector3> gridPositions = new List<Vector3>();	//A list of possible locations to place tiles.
     private Quaternion angleExitCollider;
     private Quaternion angleExitDoor;
 
     public BoardRoom prefabBoardRoom;
-    private BoardRoom generatedBoardRoom;
     public GameObject prefabRoomCollider;
+    
+    private BoardRoom generatedBoardRoom;
     private GameObject roomCollider;
     private GameObject colliderExit;
     private GameObject colliderEntrance;
@@ -67,17 +58,18 @@ public class BoardManager : MonoBehaviour
     private bool isExtraDoor = false;
     private bool isCreatedExtraDoor = false;
     
-
-
     private int index = 1;
     private float movColliderX;
     private float movColliderY;
-   
+
     /// <summary>
     /// Sobrecarga para crear una habitacion instancia a una posicion determinada
     /// </summary>
-    /// <param name="currentRoomPosition"></param>
-   public BoardRoom BoardSetup(Vector3 currentRoomPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor)
+    /// <param name="currentRoomPosition"> posicion inicial de instancia </param>
+    /// <param name="previousSideRoom"> direccion puerta "entrada" </param>
+    /// <param name="nextSideDoor"> direccion puerta "salida" </param>
+    /// <returns></returns>
+    public BoardRoom BoardSetup(Vector3 currentRoomPosition, doorDirection? previousSideRoom, doorDirection? nextSideDoor)
     {
         //Instantiate Board and set boardHolder to its transform.
         //GameObject board = new GameObject("Board");
@@ -247,9 +239,7 @@ public class BoardManager : MonoBehaviour
                         toInstantiate = outerWallSideRightTiles;
                     }
                 }
-
-                //Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-                
+                //instanciar la puerta correspondiente
                 if (isExit)
                 {
                     GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
@@ -258,11 +248,8 @@ public class BoardManager : MonoBehaviour
                         colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderExit.tag = "Exit";
                         isCreatedExit = true;
-                        //colliderExit.transform.SetParent(generatedBoardRoom.transform);
                         colliderExit.transform.SetParent(exitRoomDoor.transform);
                     }
-                    //girar si es de izquierdas o de derechas
-                    
                     isExit = false;
                     exitRoomDoor.transform.SetParent(generatedBoardRoom.transform);
                     generatedBoardRoom.DctDoors1.Add(exitRoomDoor, currentDirectionDoor.Value);
@@ -275,7 +262,6 @@ public class BoardManager : MonoBehaviour
                         colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderEntrance.tag = "Entrance";
                         isCreatedEntrance = true;
-                        //colliderEntrance.transform.SetParent(generatedBoardRoom.transform);
                         colliderEntrance.transform.SetParent(entranceRoomDoor.transform);
                     }
                     isEntrance = false;
@@ -290,7 +276,6 @@ public class BoardManager : MonoBehaviour
                         colliderExtraDoor = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderExtraDoor.tag = "NoDoor";
                         isCreatedExtraDoor = true;
-                        //colliderExtraDoor.transform.SetParent(generatedBoardRoom.transform);
                         colliderExtraDoor.transform.SetParent(entranceRoomDoor.transform);
                     }
                     isExtraDoor = false;
@@ -302,10 +287,8 @@ public class BoardManager : MonoBehaviour
                     }
                 }
                 
-                GameObject instance =
-                    Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+                GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-                //Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
                 instance.transform.SetParent(generatedBoardRoom.transform);
             }
         }
@@ -320,7 +303,6 @@ public class BoardManager : MonoBehaviour
         {
             generatedBoardRoom.InitialEntranceDirection = (doorDirection)previousSideRoom;
         }
-
         //Asignamos las variables necesarios
         generatedBoardRoom.SetParametersRoom();
 
