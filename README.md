@@ -81,7 +81,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## Sobre el projecto
+## Sobre el proyecto
 
 Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar todo el ciclo de desarrollo de principio a fin de un videojuego. El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
