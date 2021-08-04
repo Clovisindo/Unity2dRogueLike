@@ -53,6 +53,12 @@ Inicio este proyecto personal de aprendizaje en Unity, con objetivo de trabajar 
 El genero a explorar es el roguelike, en la experiencia mas pequeña posible, pero poder practicar y diseñar mecanicas de este genero de forma práctica.
 
 
+<!-- Diagrama de sistemas -->
+## Diagrama de sistemas
+Esquema de como se comunican los distintos sistemas entre si en el loop del juego.
+![image](https://user-images.githubusercontent.com/4136363/128236435-6176c978-d328-41c2-ada0-4522c3532a47.png)
+
+
 <!-- Diagrama de clases -->
 ## Diagrama de clases
 Resumen de las funciones realizadas en el proyecto
@@ -81,6 +87,8 @@ Clase abstracta que implementa metodos para implementar armas especificas.
 Controles de uso del arma, con ataque normal y especial.
 Ataque direcional.
 
+*Nueva herramienta para abrir puertas secretas
+
 Armas implementadas: espadón, espada de caballero , escudo de caballero, martillo gigante.
 
 ![image](https://user-images.githubusercontent.com/4136363/112748203-90be1f00-8fba-11eb-8f0d-64bdd4e546d6.png)
@@ -90,7 +98,7 @@ Armas implementadas: espadón, espada de caballero , escudo de caballero, martil
 
 <!-- Projectile.cs -->
 ### Projectile.cs
-Implementa el comportamiento de disparar un projectil al objeto.
+Implementa el comportamiento de disparar un projectil al objetivo.
 Al contacto con el jugador, notifica a los sistemas necesarios para aplicar el daño y destruir el projectil.
 Pendiente cambiarlo a una clase abstracta si se implementa en mas tipos de objetos especificos.
 
@@ -130,23 +138,26 @@ Orco guerrero: carga en dirección al jugador.
 <!-- BoardManager.cs -->
 ### BoardManager.cs
 Clase que gestiona la creación de cada habitación casilla por casilla.
-Ademas de generar un modelo basico de habitacion ractangular rodeada de paredes, genera las puertas de entrada y salida que se le indica a la hora de crear la habitación.
+Ademas de generar un modelo basico de habitacion ractangular rodeada de paredes, genera las puertas de entrada y salida(camino principal) que se le indica a la hora de crear la habitación.
+
+*El camino secundario se actualiza después de esta primera instancia, por lo tanto las puertas que no se definan, quedan instanciadas como "NoDoor" y posteriormente se puede parametrizar para ser funcionales.
 ![image](https://user-images.githubusercontent.com/4136363/112749360-2315f100-8fc2-11eb-9159-53465696d409.png)
 
 
 <!-- GameManager.cs -->
 ### GameManager.cs
-Implementa distintas funciones de comunicación entre los distintos sistemas del juego.
+Implementa distintas funciones de comunicación entre los sistemas del juego.
 Carga y gestiona las habitaciones generadas:
-cambiar la habitacion actual
-generar los enemigos o puzzles en cada habitación
-cambio de habitación al cruzar puertas( cambia la camara , mueve al jugador , activa los enemigos o eventos de esa habitación.
-Comprueba cuando han muerto todos los enemigos y abre las puertas de la habitación.
+Cambiar la habitacion actual(BoardRoom)
+Generar los enemigos o puzzles en cada habitación(EventRoomController)
+Cambio de habitación al cruzar puertas( cambia la camara , mueve al jugador , activa los enemigos o eventos de esa habitación).
+Comprueba cuando han muerto todos los enemigos y abre las puertas de la habitación(BoardRoom y FRoomDoor).
 
 <!-- LevelGeneration.cs -->
 ### LevelGeneration.cs
 Genera las habitaciones del nivel de forma aleatoria.
 Al ir generando cada habitación, se asigna en que dirección va a estar la siguiente, y se le pasa esa información al BoardManager para instanciar cada caso.
+En cada paso, y decidido por unos parametros previos, comprueba si es posible crear una habitación como camino secundario, y guarda esto para instanciarlo al acabar de generar el camino principal.
 ![image](https://user-images.githubusercontent.com/4136363/112749390-62444200-8fc2-11eb-806b-81567c7d7ff3.png)
 
 
@@ -154,10 +165,10 @@ Al ir generando cada habitación, se asigna en que dirección va a estar la sigu
 ### BoardRoom.cs
 Cuando se instancia una habitacion en el BoardManager, se genera una instancia de esta clase.
 Gestiona y controla todo lo que incluye la habitación.
-Pausar o empezar las rutinas de los enemigos.
+Pausar o empezar las rutinas de los enemigos(EventRoomController).
 Controlar cuando se completa la habitación para abrir las puertas.
 Asignacion de entrada y salida segun el sentido en el que este moviendose el jugador.
-Invocar los enemigos.
+Invocar los enemigos(EventRoomController).
 Dar la posicion donde aparece el jugador.
 
 
@@ -180,10 +191,13 @@ Actualmente estan integrados palancas, botones, enemigos ocultos, pociones, fuen
 ![image](https://user-images.githubusercontent.com/4136363/112749644-f06cf800-8fc3-11eb-8874-585121623a5a.png)
 ![image](https://user-images.githubusercontent.com/4136363/112749647-f8c53300-8fc3-11eb-8eb1-9042901d21db.png)
 
+<!-- FRoomDoor.cs -->
+### FRoomDoor.cs
+Clase que gestiona los objetos que conforman el conjunto de cada puerta, para unificar y simplicar todas las funciones de puertas (abrir,cerrar,actualizar) como sus parametros (tipo de puerta, etc).
 
 <!-- SoundManager.cs -->
 ### SoundManager.cs
-Clase para con los metodos necesarios para implementar sonidos y musica al juego.
+Clase con los metodos necesarios para implementar sonidos y musica al juego.
 
 <!-- Utilities.cs -->
 ### Utilities.cs
