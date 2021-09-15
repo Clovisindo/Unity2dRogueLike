@@ -69,7 +69,7 @@ public abstract class Weapon : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    resetWeapon();
+                    //resetWeapon();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
                     //Debug.Log("ataque arma!");
@@ -80,7 +80,7 @@ public abstract class Weapon : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    resetWeapon();
+                    //resetWeapon();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
                     //Debug.Log("ataque arma!");
@@ -100,7 +100,7 @@ public abstract class Weapon : MonoBehaviour
     void EndAnimation()
     {
         isAttacking = false;
-        resetWeapon();
+        //resetWeapon();
         weaponAnimator.SetTrigger("Attacking");
 
     }
@@ -142,6 +142,17 @@ public abstract class Weapon : MonoBehaviour
     public virtual void setIsAttacking()
     {
         isAttacking = true;
+    }
+
+    public virtual void EnableColliderAttack()
+    {
+        weaponCollider.isTrigger = true;
+        weaponCollider.enabled = true;
+    }
+    public virtual void DisableColliderAttack()
+    {
+        weaponCollider.isTrigger = false;
+        weaponCollider.enabled = false;
     }
 
     public virtual void SpecialAttack()
