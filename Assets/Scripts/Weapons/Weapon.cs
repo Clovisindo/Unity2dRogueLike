@@ -85,7 +85,6 @@ public abstract class Weapon : MonoBehaviour
                     timeBtwAttack = startTimeBtwAttack;
                     //Debug.Log("ataque arma!");
                 }
-               
             }
         }
         else

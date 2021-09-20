@@ -60,9 +60,9 @@ public class Player : MonoBehaviour
         //no casteamos el arma en concreto hasta asignarla en currentWeapon
         switch (_enumWeapon)
         {
-            case EnumWeapons.GreatSword:
-                currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
-                break;
+            //case EnumWeapons.GreatSword:
+            //    currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
+            //    break;
             case EnumWeapons.GreatHammer:
                 currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
                 break;
