@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
-        SetCurrentWeapon(EnumWeapons.GreatSword);
+        SetCurrentWeapon(EnumWeapons.KnightSword);
         //SetCurrentWeapon(EnumWeapons.KnightShield);
         currentWeapon.gameObject.SetActive(true);
     }
