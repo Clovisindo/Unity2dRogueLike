@@ -524,6 +524,10 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 7088460159479385035, guid: 33e98a5f1814d584590e92672d642fa0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7088460159479385037, guid: 33e98a5f1814d584590e92672d642fa0, type: 3}
       propertyPath: m_Name
       value: Knight_sword
