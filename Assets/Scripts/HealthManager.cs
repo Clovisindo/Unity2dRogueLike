@@ -11,6 +11,7 @@ public class HealthManager : MonoBehaviour
     public Canvas UICanvas;
 
     public Image[] hearts;
+    [SerializeField]private Image weaponFrame;
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
@@ -27,12 +28,13 @@ public class HealthManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        weaponFrame = GameObject.FindGameObjectWithTag("weaponFrame").GetComponent<Image>();
         //UICanvas = GameObject.FindObjectOfType<Canvas>();
         //foreach (var heartImage in hearts)
         //{
         //    Instantiate(heartImage, UICanvas.transform, false);
         //}
-        
+
 
         Init();
 
@@ -104,6 +106,11 @@ public class HealthManager : MonoBehaviour
     //    Init();
     //}
 
+
+    public void UpdateWeaponFrame( Sprite newSpriteFrame)
+    {
+        weaponFrame.sprite = newSpriteFrame;
+    }
     public void UpdateUI(int _health)
     {
         health = _health;

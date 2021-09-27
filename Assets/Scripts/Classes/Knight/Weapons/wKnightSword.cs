@@ -5,7 +5,7 @@ using UnityEngine;
 public class wKnightSword : Weapon
 {
     int damage = 1;
-    
+
 
     public wKnightSword()
     {

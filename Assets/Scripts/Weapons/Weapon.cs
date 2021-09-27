@@ -19,6 +19,9 @@ public abstract class Weapon : MonoBehaviour
 
     public float moveX;
     public float moveY;
+    [SerializeField] private Sprite weaponSprite;
+
+    public Sprite WeaponSprite { get => weaponSprite; set => weaponSprite = value; }
 
     // Start is called before the first frame update
     protected virtual void Awake()

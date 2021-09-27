@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
         Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
     }
 

@@ -20,6 +20,7 @@ TagManager:
   - PickAxe
   - SecretDoor
   - NoDoor
+  - weaponFrame
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,7 @@ MonoBehaviour:
   startTimeBtwAttack: 1.383
   moveX: 0
   moveY: 0
+  weaponSprite: {fileID: 21300000, guid: 257c6324f1692a8458c103273e20b8e5, type: 3}
 --- !u!95 &172536528523299106
 Animator:
   serializedVersion: 3
@@ -53,6 +54,7 @@ MonoBehaviour:
   startTimeBtwAttack: 1.383
   moveX: 0
   moveY: 0
+  weaponSprite: {fileID: 0}
 --- !u!114 &8085819841055852416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,6 +72,7 @@ MonoBehaviour:
   startTimeBtwAttack: 1.383
   moveX: 0
   moveY: 0
+  weaponSprite: {fileID: 21300000, guid: d8749d2a3a837434398eed0805978319, type: 3}
 --- !u!1 &7122026578067257506
 GameObject:
   m_ObjectHideFlags: 0

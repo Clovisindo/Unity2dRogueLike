@@ -50,6 +50,7 @@ MonoBehaviour:
   - {fileID: 7332091096345988519, guid: 3efdb20f3c7ccc94ca292f3eb0a081fe, type: 3}
   - {fileID: 2830924649509186122, guid: dca67587864947946b7c7a40c1fd2335, type: 3}
   - {fileID: 7593942585743764025, guid: ff9ac7f6a5917814aa886809e08ce9fd, type: 3}
+  weaponFrame: {fileID: 0}
   fullHeart: {fileID: 21300000, guid: 12e13389d73645c42b35ebe4cd3933b8, type: 3}
   halfHeart: {fileID: 21300000, guid: e9d1e98ef8d78874c8cbaaa80fd8f917, type: 3}
   emptyHeart: {fileID: 21300000, guid: ee2d51c86d04c62479e27f381f88c54b, type: 3}
