@@ -30,7 +30,7 @@ public class wGreatSword : Weapon
         weaponAnimator.SetTrigger("SpecialAttack");
     }
 
-    internal override void ActiveSpecialParryAtk()
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

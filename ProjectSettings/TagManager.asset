@@ -21,6 +21,8 @@ TagManager:
   - SecretDoor
   - NoDoor
   - weaponFrame
+  - EquipFrame
+  - EquipFrameText
   layers:
   - Default
   - TransparentFX

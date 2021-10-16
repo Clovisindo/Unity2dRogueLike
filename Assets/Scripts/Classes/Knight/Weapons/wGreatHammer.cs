@@ -29,7 +29,7 @@ public class wGreatHammer : Weapon
         weaponAnimator.SetTrigger("SpecialAttack");
     }
 
-    internal override void ActiveSpecialParryAtk()
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

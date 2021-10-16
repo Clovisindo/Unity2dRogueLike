@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class HealthManager : MonoBehaviour
 
     public Image[] hearts;
     [SerializeField]private Image weaponFrame;
+    [SerializeField] private Image equipFrame;
+    [SerializeField] private Text equipFrameText;
     public Sprite fullHeart;
     public Sprite halfHeart;
     public Sprite emptyHeart;
@@ -29,6 +32,8 @@ public class HealthManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         weaponFrame = GameObject.FindGameObjectWithTag("weaponFrame").GetComponent<Image>();
+        equipFrame = GameObject.FindGameObjectWithTag("EquipFrame").GetComponent<Image>();//ToDo: implementar mas equipo
+        equipFrameText = GameObject.FindGameObjectWithTag("EquipFrameText").GetComponent<Text>();
         //UICanvas = GameObject.FindObjectOfType<Canvas>();
         //foreach (var heartImage in hearts)
         //{
@@ -110,6 +115,10 @@ public class HealthManager : MonoBehaviour
     public void UpdateWeaponFrame( Sprite newSpriteFrame)
     {
         weaponFrame.sprite = newSpriteFrame;
+    }
+    public void UpdateEquipUses(int equipmentUses)
+    {
+        equipFrameText.text = (equipmentUses).ToString();
     }
     public void UpdateUI(int _health)
     {

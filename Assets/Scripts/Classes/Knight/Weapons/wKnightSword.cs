@@ -28,10 +28,16 @@ public class wKnightSword : Weapon
     {
         Debug.Log("ataque especial espada de caballero.");
         weaponAnimator.SetTrigger("SpecialAttack");
+        base.SpecialAttack();
     }
 
-    internal override void ActiveSpecialParryAtk()
-    {
-        specialParryAttack = true;
-    }
+    //internal override void ActiveSpecialParryAtk()
+    //{
+    //    specialParryAttack = true;
+    //}
+
+    //internal override void DisableSpecialParryAtk()
+    //{
+    //    specialParryAttack = false;
+    //}
 }

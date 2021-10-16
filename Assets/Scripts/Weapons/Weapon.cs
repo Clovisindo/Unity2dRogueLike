@@ -72,21 +72,18 @@ public abstract class Weapon : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    //resetWeapon();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
-                    //Debug.Log("ataque arma!");
                     SpecialAttack();
-                    specialParryAttack = false;
+                    //specialParryAttack = false;
+                    DisableSpecialParryAtk();
                 }
                 else
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    //resetWeapon();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
-                    //Debug.Log("ataque arma!");
                 }
             }
         }
@@ -107,7 +104,7 @@ public abstract class Weapon : MonoBehaviour
 
     }
 
-    internal abstract void ActiveSpecialParryAtk();
+  
 
     /// <summary>
     /// Semaforo de activar o desactivar el arma
@@ -160,6 +157,16 @@ public abstract class Weapon : MonoBehaviour
     public virtual void SpecialAttack()
     {
         Debug.Log(" ataque especial por defecto.");
+        GameManager.instance.player.DisableParryAttack();
+    }
+
+    public virtual void ActiveSpecialParryAtk()
+    {
+        specialParryAttack = true;
+    }
+    public virtual void DisableSpecialParryAtk()
+    {
+        specialParryAttack = false;
     }
 }
 

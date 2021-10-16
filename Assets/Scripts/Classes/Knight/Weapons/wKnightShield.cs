@@ -5,6 +5,7 @@ using UnityEngine;
 public class wKnightShield : Weapon
 {
     int damage = 0;
+    bool parryBehaviour = false;
     Player playerClass;
     
 
@@ -50,7 +51,7 @@ public class wKnightShield : Weapon
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" && isAttacking)
+        if (other.tag == "Enemy" && isAttacking && !parryBehaviour)
         {
             Parry();
         }
@@ -70,17 +71,17 @@ public class wKnightShield : Weapon
         weaponAnimator.SetFloat("moveY", moveY);
     }
 
-    public  void Block()
-    {
-        Debug.Log("Bloqueas el ataque.");
-        //weaponAnimator.SetTrigger("SpecialAttack");
-    }
+    //public  void Block()
+    //{
+    //    Debug.Log("Bloqueas el ataque.");
+    //    //weaponAnimator.SetTrigger("SpecialAttack");
+    //}
 
     public  void Parry()
     {
+        ActiveParryBehaviour();
         Debug.Log("Devuelve el golpe!");
         //weaponAnimator.SetTrigger("SpecialAttack");
-
         //activamos el ataque especial del jugador cuando hace parry
         playerClass.ActiveSpecialParryAtk();
     }
@@ -91,6 +92,18 @@ public class wKnightShield : Weapon
         isAttacking = true;
     }
 
+    public void ActiveParryBehaviour()
+    {
+        parryBehaviour = true;
+    }
+    public void DisableParryBehaviour()
+    {
+        parryBehaviour = false;
+    }
+
+    /// <summary>
+    /// al acabar la animacion desactiva el escudo
+    /// </summary>
     public void UnequipShield()
     {
         playerClass.UnEquipShieldBlock();
@@ -98,7 +111,7 @@ public class wKnightShield : Weapon
         weaponAnimator.SetTrigger("Attacking");
     }
 
-    internal override void ActiveSpecialParryAtk()
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

@@ -7,6 +7,7 @@ namespace Assets.Scripts.Weapons
     public class wPickAxe : Weapon
     {
         public bool pickAxeCollision = false;
+        private int pickAxeUses = 3;
 
         public wPickAxe()
         {
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Weapons
 
             player = GameObject.FindGameObjectWithTag("Player");
             playerAnimator = player.GetComponent<Animator>();
+            HealthManager.instance.UpdateEquipUses(pickAxeUses);
         }
 
         protected override void ProcessInputs()
@@ -30,28 +32,15 @@ namespace Assets.Scripts.Weapons
             if (timeBtwAttack <= 0)
             {
                 setDirectionAttack();
-                if (Input.GetKey(KeyCode.C))
+                if (Input.GetKey(KeyCode.C) && pickAxeUses > 0)
                 {
-                    if (specialParryAttack)
-                    {
-                        SoundManager.instance.PlaySingle(weaponSwin);
-                        isAttacking = true;
-                        resetWeapon();
-                        weaponAnimator.SetTrigger("Attacking");
-                        timeBtwAttack = startTimeBtwAttack;
-                        //Debug.Log("ataque arma!");
-                        SpecialAttack();
-                        specialParryAttack = false;
-                    }
-                    else
-                    {
-                        SoundManager.instance.PlaySingle(weaponSwin);
-                        isAttacking = true;
-                        resetWeapon();
-                        weaponAnimator.SetTrigger("Attacking");
-                        timeBtwAttack = startTimeBtwAttack;
-                        //Debug.Log("ataque arma!");
-                    }
+                    SoundManager.instance.PlaySingle(weaponSwin);
+                    isAttacking = true;
+                    resetWeapon();
+                    weaponAnimator.SetTrigger("Attacking");
+                    timeBtwAttack = startTimeBtwAttack;
+                    pickAxeUses--;
+                    HealthManager.instance.UpdateEquipUses(pickAxeUses);
                 }
             }
             else
@@ -79,9 +68,9 @@ namespace Assets.Scripts.Weapons
             weaponAnimator.SetTrigger("SpecialAttack");
         }
 
-        internal override void ActiveSpecialParryAtk()
+        public override void ActiveSpecialParryAtk()
         {
-            specialParryAttack = true;
+            //specialParryAttack = true;
         }
 
 
