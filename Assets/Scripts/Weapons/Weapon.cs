@@ -72,11 +72,11 @@ public abstract class Weapon : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    weaponAnimator.SetTrigger("Attacking");
+                    weaponAnimator.SetTrigger("Counter");
                     timeBtwAttack = startTimeBtwAttack;
                     SpecialAttack();
                     //specialParryAttack = false;
-                    DisableSpecialParryAtk();
+                   
                 }
                 else
                 {
@@ -100,8 +100,17 @@ public abstract class Weapon : MonoBehaviour
     {
         isAttacking = false;
         //resetWeapon();
-        weaponAnimator.SetTrigger("Attacking");
-
+        
+        if (specialParryAttack)
+        {
+            weaponAnimator.SetTrigger("Counter");
+            DisableSpecialParryAtk();
+            GameManager.instance.player.DisableParryAttack();
+        }
+        else
+        {
+            weaponAnimator.SetTrigger("Attacking");
+        }
     }
 
   
@@ -157,7 +166,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void SpecialAttack()
     {
         Debug.Log(" ataque especial por defecto.");
-        GameManager.instance.player.DisableParryAttack();
+        
     }
 
     public virtual void ActiveSpecialParryAtk()

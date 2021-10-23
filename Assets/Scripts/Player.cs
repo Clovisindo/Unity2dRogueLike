@@ -385,7 +385,6 @@ public class Player : MonoBehaviour
     {
         //1º Desactivar el gameobject del escudo
         currentShield.gameObject.SetActive(false);
-
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)

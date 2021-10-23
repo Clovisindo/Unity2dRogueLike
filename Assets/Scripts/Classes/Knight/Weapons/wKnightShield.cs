@@ -27,27 +27,9 @@ public class wKnightShield : Weapon
         playerAnimator = player.GetComponent<Animator>();
     }
 
-    //protected override void  ProcessInputs()
-    //{
-    //    //Cooldown entre ataques para permitir spamear
-    //    if (timeBtwAttack <= 0)
-    //    {
-    //        setDirectionAttack();
-    //        if (Input.GetKey(KeyCode.Space))
-    //        {
-    //            SoundManager.instance.PlaySingle(weaponSwin);
-    //            isAttacking = true;
-    //            resetWeapon();
-    //            weaponAnimator.SetTrigger("Attacking");
-    //            timeBtwAttack = startTimeBtwAttack;
-    //            Debug.Log("escudo");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        timeBtwAttack -= Time.deltaTime;
-    //    }
-    //}
+    protected override void ProcessInputs()
+    {
+    }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
@@ -106,9 +88,9 @@ public class wKnightShield : Weapon
     /// </summary>
     public void UnequipShield()
     {
-        playerClass.UnEquipShieldBlock();
-        isAttacking = false;
         weaponAnimator.SetTrigger("Attacking");
+        isAttacking = false;
+        playerClass.UnEquipShieldBlock();
     }
 
     public override void ActiveSpecialParryAtk()
