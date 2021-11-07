@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class wKnightShield : Weapon
 {
-    int damage = 0;
     bool parryBehaviour = false;
     Player playerClass;
     

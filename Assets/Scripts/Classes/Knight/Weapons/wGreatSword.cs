@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class wGreatSword : Weapon
 {
-
-    int damage = 2;
-
-
     public wGreatSword()
     {
         startTimeBtwAttack = 0.83f;

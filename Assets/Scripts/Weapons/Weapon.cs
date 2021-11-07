@@ -13,6 +13,10 @@ public abstract class Weapon : MonoBehaviour
     protected bool isAttacking = false;
     protected bool specialParryAttack = false;
 
+    protected int damage = 1;
+    protected float knockbackDistance = 1;// fuerza y cantidad de desplazamiento
+    protected float knockbackSpeed = 1;//velocidad a la que ocurre el empuje
+
     public AudioClip weaponSwin;
     [SerializeField] public float timeBtwAttack;
     [SerializeField] public float startTimeBtwAttack;
@@ -46,7 +50,7 @@ public abstract class Weapon : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>());
+            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(),damage, knockbackDistance, knockbackSpeed);
             //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
             //{
             //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());

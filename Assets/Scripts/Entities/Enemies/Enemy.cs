@@ -12,13 +12,14 @@ public abstract class Enemy : MonoBehaviour
 
     //Override properties
     [SerializeField]
-    protected float speed;
+    protected float speed = 0.5f;
     [SerializeField]
     protected float minRange;
     [SerializeField]
     protected  float maxRange;
     [SerializeField]
     private EnumTypeEnemies typeEnemy;
+    protected Rigidbody2D rb;
     protected BoxCollider2D collider;
 
 
@@ -41,6 +42,7 @@ public abstract class Enemy : MonoBehaviour
 
     //const stats
     protected const float inmuneTime = 2.0f;
+    protected float knockbackResistence = 1;
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
     private bool isPaused = false;
@@ -51,11 +53,12 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
+        rb = this.GetComponent<Rigidbody2D>();
         collider = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
+    protected virtual void Update()
     {
         if (!isPaused)
         {
@@ -94,6 +97,18 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    protected IEnumerator KnockbackBehaviour(float knockbackDistance, float knockbackSpeed, Transform obj)
+    {
+        Vector2 difference = (transform.position - obj.position).normalized * knockbackDistance;
+        Vector3 positionKB = new Vector3(transform.position.x + difference.x , transform.position.y + difference.y );
+
+        while (Vector3.Distance(transform.position, positionKB) > 0.5f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2( transform.position.x  + difference.x, transform.position.y + difference.y), knockbackSpeed/10 * Time.deltaTime);
+        }
+        yield return null;
+    }
+
     protected abstract void EnemyBehaviour();
 
     protected virtual void FollowPlayer()
@@ -124,12 +139,13 @@ public abstract class Enemy : MonoBehaviour
     {
         return enemyAttack;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, float knockbackDistance, float knockbackSpeed)
     {
         //TODO: animator trigger HURT
         enemyCurrentHealth -= damage;
         healthBar.SetHealth(enemyCurrentHealth);
         passingTime = 0;
+        StartCoroutine(KnockbackBehaviour(knockbackDistance * knockbackResistence, knockbackSpeed * knockbackResistence, GameManager.instance.player.transform));
     }
     public bool checkIsInmune()
     {

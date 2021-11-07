@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class wKnightSword : Weapon
 {
-    int damage = 1;
-
 
     public wKnightSword()
     {
         startTimeBtwAttack = 1.383f;
+        damage = 1;
+        knockbackDistance = 2;
+        knockbackSpeed = 1f;
     }
 
     // Start is called before the first frame update

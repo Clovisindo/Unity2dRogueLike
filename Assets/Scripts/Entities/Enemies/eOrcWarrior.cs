@@ -26,6 +26,7 @@ public class eOrcWarrior : Enemy
         layerMaskWall = LayerMask.NameToLayer("Wall");
         TypeEnemy = EnumTypeEnemies.strong;
         collider = this.GetComponent<BoxCollider2D>();
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame

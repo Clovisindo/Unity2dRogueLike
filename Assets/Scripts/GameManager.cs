@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 30;
         if (instance == null)
         {
             instance = this;
@@ -115,11 +115,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void takeDamage( string colliderTag, Enemy enemy)
+    public void takeDamage( string colliderTag, Enemy enemy, int weaponDamage, float weaponKBDistance, float weaponKBSpeed)
     {
         if (enemy.tag == colliderTag && (!enemy.checkIsInmune()))
         {
-            enemy.TakeDamage(1);// TODO: weaponDagame
+            enemy.TakeDamage(weaponDamage, weaponKBDistance,weaponKBSpeed);
         }
     }
 
