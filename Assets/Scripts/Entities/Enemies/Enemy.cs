@@ -40,12 +40,19 @@ public abstract class Enemy : MonoBehaviour
     protected float moveX;
     protected float moveY;
 
+    protected Vector2 positionEndKnockback = default;
+
+    private float distanceKnockback = 0;
+    private float kbDistance = 1;
+    private float kbSpeed = 1;
+
     //const stats
     protected const float inmuneTime = 2.0f;
     protected float knockbackResistence = 1;
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
     private bool isPaused = false;
+    private bool CheckKknockback = false;
 
     //Enemigos habitacion
     public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
@@ -64,6 +71,15 @@ public abstract class Enemy : MonoBehaviour
         {
             EnemyBehaviour();
             InmuneBehaviour();
+            if (CheckKknockback)
+            {
+                CheckKknockback = KnockbackBehaviour(kbDistance * knockbackResistence, kbSpeed * knockbackResistence, GameManager.instance.player.transform);
+            }
+            else
+            {
+                distanceKnockback = 0;
+            }
+
             if (CheckIsDeath())
             {
                 DestroyEnemy(this);
@@ -96,17 +112,32 @@ public abstract class Enemy : MonoBehaviour
             enemyInmune = false;
         }
     }
-
-    protected IEnumerator KnockbackBehaviour(float knockbackDistance, float knockbackSpeed, Transform obj)
+    /// <summary>
+    /// Aplica un empuje al enemigo en un intervalo de tiempo
+    /// </summary>
+    /// <param name="knockbackDistance"> distancia de desplazamiento</param>
+    /// <param name="knockbackSpeed"> velocidad</param>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    protected bool KnockbackBehaviour(float knockbackDistance, float knockbackSpeed, Transform obj)
     {
         Vector2 difference = (transform.position - obj.position).normalized * knockbackDistance;
-        Vector3 positionKB = new Vector3(transform.position.x + difference.x , transform.position.y + difference.y );
+       
+        if (positionEndKnockback == default){positionEndKnockback = new Vector3(transform.position.x + difference.x, transform.position.y + difference.y);}
 
-        while (Vector3.Distance(transform.position, positionKB) > 0.5f)
+        if (distanceKnockback <= knockbackDistance)//moviendo frame a frame
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2( transform.position.x  + difference.x, transform.position.y + difference.y), knockbackSpeed/10 * Time.deltaTime);
+            Vector2 currentPositionKB = Vector2.Lerp(transform.position, new Vector2(transform.position.x + difference.x,
+                transform.position.y + difference.y), knockbackSpeed * 2 * Time.deltaTime);// speed(1) * 2 es lo minimo de velocidad que queremos
+            distanceKnockback += Vector3.Distance(transform.position, currentPositionKB);
+            transform.position = currentPositionKB;
+            return true;
         }
-        yield return null;
+        else
+        {
+            positionEndKnockback = default;//fin knockback
+            return false;
+        }
     }
 
     protected abstract void EnemyBehaviour();
@@ -145,7 +176,9 @@ public abstract class Enemy : MonoBehaviour
         enemyCurrentHealth -= damage;
         healthBar.SetHealth(enemyCurrentHealth);
         passingTime = 0;
-        StartCoroutine(KnockbackBehaviour(knockbackDistance * knockbackResistence, knockbackSpeed * knockbackResistence, GameManager.instance.player.transform));
+        CheckKknockback = true;
+        kbDistance = knockbackDistance;
+        kbSpeed = knockbackSpeed;
     }
     public bool checkIsInmune()
     {

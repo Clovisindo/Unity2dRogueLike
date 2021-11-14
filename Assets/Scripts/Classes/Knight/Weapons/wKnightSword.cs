@@ -9,7 +9,7 @@ public class wKnightSword : Weapon
     {
         startTimeBtwAttack = 1.383f;
         damage = 1;
-        knockbackDistance = 2;
+        knockbackDistance = 1;
         knockbackSpeed = 1f;
     }
 
