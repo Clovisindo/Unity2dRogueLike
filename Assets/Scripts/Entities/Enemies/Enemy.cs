@@ -69,7 +69,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!isPaused)
         {
-            EnemyBehaviour();
+            
             InmuneBehaviour();
             if (CheckKknockback)
             {
@@ -77,6 +77,7 @@ public abstract class Enemy : MonoBehaviour
             }
             else
             {
+                EnemyBehaviour();
                 distanceKnockback = 0;
             }
 
