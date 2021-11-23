@@ -174,6 +174,7 @@ MonoBehaviour:
   enemyCurrentHealth: 8
   healthBar: {fileID: 4926788827814056705}
   enemyAttack: 2
+  playerHit: {fileID: 8300000, guid: 13c58d18c7371da42bcd30621cd7aa0a, type: 3}
   minAtkRange: 1
   maxAtkRange: 3
   orcSpecialAtk: {fileID: 8300000, guid: 3fa3fe5dff1e5774580d9106abb205e2, type: 3}

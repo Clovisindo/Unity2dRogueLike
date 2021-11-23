@@ -303,6 +303,7 @@ MonoBehaviour:
   enemyCurrentHealth: 2
   healthBar: {fileID: 5064631040047351948}
   enemyAttack: 1
+  playerHit: {fileID: 8300000, guid: 357259a699ef295418144a419e4d42c6, type: 3}
   enemyShot: {fileID: 5275145618026941675, guid: 3fd30cfebb90f1143bd59cacd00c5a74, type: 3}
   shotPoint: {fileID: 6951439418197502300}
   timeBtwShots: 0

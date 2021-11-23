@@ -34,6 +34,9 @@ public abstract class Enemy : MonoBehaviour
     //Attack
     [SerializeField]
     protected  int enemyAttack;
+    [SerializeField]
+    protected AudioClip playerHit;
+
 
     //movement
     protected bool isMoving = false;
@@ -176,6 +179,7 @@ public abstract class Enemy : MonoBehaviour
         //TODO: animator trigger HURT
         enemyCurrentHealth -= damage;
         healthBar.SetHealth(enemyCurrentHealth);
+        SoundManager.instance.PlaySingle(playerHit);
         passingTime = 0;
         CheckKknockback = true;
         kbDistance = knockbackDistance;
