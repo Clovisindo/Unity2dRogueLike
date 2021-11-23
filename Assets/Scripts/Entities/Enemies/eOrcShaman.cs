@@ -27,6 +27,7 @@ public class eOrcShaman : Enemy
         timeBtwShots = startTimeBtwShots;
         TypeEnemy = EnumTypeEnemies.mid;
         collider = this.GetComponent<BoxCollider2D>();
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     protected override void EnemyBehaviour()

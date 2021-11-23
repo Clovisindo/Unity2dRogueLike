@@ -17,6 +17,7 @@ public class eMimic : Enemy
         HPBarobject = Utilities.GetChildObject(this.transform, "healthBar");
         TypeEnemy = EnumTypeEnemies.strong;
         collider = this.GetComponent<BoxCollider2D>();
+        rb = this.GetComponent<Rigidbody2D>();
     }
 
     protected override void EnemyBehaviour()

@@ -13,12 +13,19 @@ public abstract class Weapon : MonoBehaviour
     protected bool isAttacking = false;
     protected bool specialParryAttack = false;
 
+    protected int damage = 1;
+    protected float knockbackDistance = 1;// fuerza y cantidad de desplazamiento
+    protected float knockbackSpeed = 1;//velocidad a la que ocurre el empuje
+
     public AudioClip weaponSwin;
     [SerializeField] public float timeBtwAttack;
     [SerializeField] public float startTimeBtwAttack;
 
     public float moveX;
     public float moveY;
+    [SerializeField] private Sprite weaponSprite;
+
+    public Sprite WeaponSprite { get => weaponSprite; set => weaponSprite = value; }
 
     // Start is called before the first frame update
     protected virtual void Awake()
@@ -43,7 +50,7 @@ public abstract class Weapon : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>());
+            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(),damage, knockbackDistance, knockbackSpeed);
             //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
             //{
             //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());
@@ -69,23 +76,19 @@ public abstract class Weapon : MonoBehaviour
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    resetWeapon();
-                    weaponAnimator.SetTrigger("Attacking");
+                    weaponAnimator.SetTrigger("Counter");
                     timeBtwAttack = startTimeBtwAttack;
-                    //Debug.Log("ataque arma!");
                     SpecialAttack();
-                    specialParryAttack = false;
+                    //specialParryAttack = false;
+                   
                 }
                 else
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
                     isAttacking = true;
-                    resetWeapon();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
-                    //Debug.Log("ataque arma!");
                 }
-               
             }
         }
         else
@@ -100,12 +103,21 @@ public abstract class Weapon : MonoBehaviour
     void EndAnimation()
     {
         isAttacking = false;
-        resetWeapon();
-        weaponAnimator.SetTrigger("Attacking");
-
+        //resetWeapon();
+        
+        if (specialParryAttack)
+        {
+            weaponAnimator.SetTrigger("Counter");
+            DisableSpecialParryAtk();
+            GameManager.instance.player.DisableParryAttack();
+        }
+        else
+        {
+            weaponAnimator.SetTrigger("Attacking");
+        }
     }
 
-    internal abstract void ActiveSpecialParryAtk();
+  
 
     /// <summary>
     /// Semaforo de activar o desactivar el arma
@@ -144,9 +156,30 @@ public abstract class Weapon : MonoBehaviour
         isAttacking = true;
     }
 
+    public virtual void EnableColliderAttack()
+    {
+        weaponCollider.isTrigger = true;
+        weaponCollider.enabled = true;
+    }
+    public virtual void DisableColliderAttack()
+    {
+        weaponCollider.isTrigger = false;
+        weaponCollider.enabled = false;
+    }
+
     public virtual void SpecialAttack()
     {
         Debug.Log(" ataque especial por defecto.");
+        
+    }
+
+    public virtual void ActiveSpecialParryAtk()
+    {
+        specialParryAttack = true;
+    }
+    public virtual void DisableSpecialParryAtk()
+    {
+        specialParryAttack = false;
     }
 }
 

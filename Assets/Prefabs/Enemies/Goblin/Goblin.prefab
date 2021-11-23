@@ -272,6 +272,7 @@ MonoBehaviour:
   enemyCurrentHealth: 3
   healthBar: {fileID: 3571478172382010570}
   enemyAttack: 1
+  playerHit: {fileID: 8300000, guid: f6ed74c54ab1c6948b52653d0c97e00c, type: 3}
 --- !u!1001 &4285206033137218125
 PrefabInstance:
   m_ObjectHideFlags: 0

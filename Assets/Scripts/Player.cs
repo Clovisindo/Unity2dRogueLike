@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
-        SetCurrentWeapon(EnumWeapons.GreatSword);
+        SetCurrentWeapon(EnumWeapons.KnightSword);
         //SetCurrentWeapon(EnumWeapons.KnightShield);
         currentWeapon.gameObject.SetActive(true);
     }
@@ -60,9 +60,9 @@ public class Player : MonoBehaviour
         //no casteamos el arma en concreto hasta asignarla en currentWeapon
         switch (_enumWeapon)
         {
-            case EnumWeapons.GreatSword:
-                currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
-                break;
+            //case EnumWeapons.GreatSword:
+            //    currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
+            //    break;
             case EnumWeapons.GreatHammer:
                 currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
                 break;
@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
             default:
                 break;
         }
+        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
         Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
     }
 
@@ -82,6 +83,15 @@ public class Player : MonoBehaviour
     {
         currentWeapon.ActiveSpecialParryAtk();
         //se activa la bandera para que el proximo ataque sea el counter del parry
+    }
+    /// <summary>
+    /// Desactivar el funcionamiento de parry escudo hasta que hagas otro block
+    /// </summary>
+    public void DisableParryAttack()
+    {
+        currentShield.DisableColliderAttack();
+        currentShield.GetComponent<wKnightShield>().DisableParryBehaviour();
+        //se desactiva la bandera para que el proximo ataque sea el counter del parry
     }
 
     private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
@@ -375,7 +385,6 @@ public class Player : MonoBehaviour
     {
         //1º Desactivar el gameobject del escudo
         currentShield.gameObject.SetActive(false);
-
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)

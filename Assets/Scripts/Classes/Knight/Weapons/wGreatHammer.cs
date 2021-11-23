@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class wGreatHammer : Weapon
 {
-    int damage = 2;
-    
-
     public wGreatHammer()
     {
         startTimeBtwAttack = 1.383f;
+        damage = 2;
+        knockbackDistance = 2;
+        knockbackSpeed = 0.5f;
     }
 
       void Start()
@@ -29,7 +29,7 @@ public class wGreatHammer : Weapon
         weaponAnimator.SetTrigger("SpecialAttack");
     }
 
-    internal override void ActiveSpecialParryAtk()
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

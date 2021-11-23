@@ -272,6 +272,7 @@ MonoBehaviour:
   enemyCurrentHealth: 3
   healthBar: {fileID: 7431429041753606744}
   enemyAttack: 2
+  playerHit: {fileID: 8300000, guid: 2b5d28b8bda522345b17b320bac86327, type: 3}
   timeBtwCharge: 4
   startTimeBtwCharge: 0
   attackRange: 5

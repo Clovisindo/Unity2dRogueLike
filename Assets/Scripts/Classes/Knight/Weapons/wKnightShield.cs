@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class wKnightShield : Weapon
 {
-    int damage = 0;
+    bool parryBehaviour = false;
     Player playerClass;
     
 
@@ -26,31 +26,13 @@ public class wKnightShield : Weapon
         playerAnimator = player.GetComponent<Animator>();
     }
 
-    //protected override void  ProcessInputs()
-    //{
-    //    //Cooldown entre ataques para permitir spamear
-    //    if (timeBtwAttack <= 0)
-    //    {
-    //        setDirectionAttack();
-    //        if (Input.GetKey(KeyCode.Space))
-    //        {
-    //            SoundManager.instance.PlaySingle(weaponSwin);
-    //            isAttacking = true;
-    //            resetWeapon();
-    //            weaponAnimator.SetTrigger("Attacking");
-    //            timeBtwAttack = startTimeBtwAttack;
-    //            Debug.Log("escudo");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        timeBtwAttack -= Time.deltaTime;
-    //    }
-    //}
+    protected override void ProcessInputs()
+    {
+    }
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" && isAttacking)
+        if (other.tag == "Enemy" && isAttacking && !parryBehaviour)
         {
             Parry();
         }
@@ -70,17 +52,17 @@ public class wKnightShield : Weapon
         weaponAnimator.SetFloat("moveY", moveY);
     }
 
-    public  void Block()
-    {
-        Debug.Log("Bloqueas el ataque.");
-        //weaponAnimator.SetTrigger("SpecialAttack");
-    }
+    //public  void Block()
+    //{
+    //    Debug.Log("Bloqueas el ataque.");
+    //    //weaponAnimator.SetTrigger("SpecialAttack");
+    //}
 
     public  void Parry()
     {
+        ActiveParryBehaviour();
         Debug.Log("Devuelve el golpe!");
         //weaponAnimator.SetTrigger("SpecialAttack");
-
         //activamos el ataque especial del jugador cuando hace parry
         playerClass.ActiveSpecialParryAtk();
     }
@@ -91,14 +73,26 @@ public class wKnightShield : Weapon
         isAttacking = true;
     }
 
-    public void UnequipShield()
+    public void ActiveParryBehaviour()
     {
-        playerClass.UnEquipShieldBlock();
-        isAttacking = false;
-        weaponAnimator.SetTrigger("Attacking");
+        parryBehaviour = true;
+    }
+    public void DisableParryBehaviour()
+    {
+        parryBehaviour = false;
     }
 
-    internal override void ActiveSpecialParryAtk()
+    /// <summary>
+    /// al acabar la animacion desactiva el escudo
+    /// </summary>
+    public void UnequipShield()
+    {
+        weaponAnimator.SetTrigger("Attacking");
+        isAttacking = false;
+        playerClass.UnEquipShieldBlock();
+    }
+
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

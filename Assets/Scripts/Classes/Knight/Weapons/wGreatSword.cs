@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class wGreatSword : Weapon
 {
-
-    int damage = 2;
-
-
     public wGreatSword()
     {
         startTimeBtwAttack = 0.83f;
@@ -30,7 +26,7 @@ public class wGreatSword : Weapon
         weaponAnimator.SetTrigger("SpecialAttack");
     }
 
-    internal override void ActiveSpecialParryAtk()
+    public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
     }

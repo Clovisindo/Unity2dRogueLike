@@ -32,6 +32,7 @@ namespace Assets.Scripts.Entities.Enemies
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
             TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
+            rb = this.GetComponent<Rigidbody2D>();
         }
 
         protected override void EnemyBehaviour()

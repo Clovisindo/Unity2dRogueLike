@@ -12,13 +12,14 @@ public abstract class Enemy : MonoBehaviour
 
     //Override properties
     [SerializeField]
-    protected float speed;
+    protected float speed = 0.5f;
     [SerializeField]
     protected float minRange;
     [SerializeField]
     protected  float maxRange;
     [SerializeField]
     private EnumTypeEnemies typeEnemy;
+    protected Rigidbody2D rb;
     protected BoxCollider2D collider;
 
 
@@ -33,17 +34,28 @@ public abstract class Enemy : MonoBehaviour
     //Attack
     [SerializeField]
     protected  int enemyAttack;
+    [SerializeField]
+    protected AudioClip playerHit;
+
 
     //movement
     protected bool isMoving = false;
     protected float moveX;
     protected float moveY;
 
+    protected Vector2 positionEndKnockback = default;
+
+    private float distanceKnockback = 0;
+    private float kbDistance = 1;
+    private float kbSpeed = 1;
+
     //const stats
     protected const float inmuneTime = 2.0f;
+    protected float knockbackResistence = 1;
     protected float passingTime = inmuneTime;
     protected bool enemyInmune = false;
     private bool isPaused = false;
+    private bool CheckKknockback = false;
 
     //Enemigos habitacion
     public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
@@ -51,16 +63,27 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
+        rb = this.GetComponent<Rigidbody2D>();
         collider = this.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    protected virtual void FixedUpdate()
+    protected virtual void Update()
     {
         if (!isPaused)
         {
-            EnemyBehaviour();
+            
             InmuneBehaviour();
+            if (CheckKknockback)
+            {
+                CheckKknockback = KnockbackBehaviour(kbDistance * knockbackResistence, kbSpeed * knockbackResistence, GameManager.instance.player.transform);
+            }
+            else
+            {
+                EnemyBehaviour();
+                distanceKnockback = 0;
+            }
+
             if (CheckIsDeath())
             {
                 DestroyEnemy(this);
@@ -91,6 +114,33 @@ public abstract class Enemy : MonoBehaviour
         {
             collider.enabled = true;
             enemyInmune = false;
+        }
+    }
+    /// <summary>
+    /// Aplica un empuje al enemigo en un intervalo de tiempo
+    /// </summary>
+    /// <param name="knockbackDistance"> distancia de desplazamiento</param>
+    /// <param name="knockbackSpeed"> velocidad</param>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    protected bool KnockbackBehaviour(float knockbackDistance, float knockbackSpeed, Transform obj)
+    {
+        Vector2 difference = (transform.position - obj.position).normalized * knockbackDistance;
+       
+        if (positionEndKnockback == default){positionEndKnockback = new Vector3(transform.position.x + difference.x, transform.position.y + difference.y);}
+
+        if (distanceKnockback <= knockbackDistance)//moviendo frame a frame
+        {
+            Vector2 currentPositionKB = Vector2.Lerp(transform.position, new Vector2(transform.position.x + difference.x,
+                transform.position.y + difference.y), knockbackSpeed * 2 * Time.deltaTime);// speed(1) * 2 es lo minimo de velocidad que queremos
+            distanceKnockback += Vector3.Distance(transform.position, currentPositionKB);
+            transform.position = currentPositionKB;
+            return true;
+        }
+        else
+        {
+            positionEndKnockback = default;//fin knockback
+            return false;
         }
     }
 
@@ -124,12 +174,16 @@ public abstract class Enemy : MonoBehaviour
     {
         return enemyAttack;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, float knockbackDistance, float knockbackSpeed)
     {
         //TODO: animator trigger HURT
         enemyCurrentHealth -= damage;
         healthBar.SetHealth(enemyCurrentHealth);
+        SoundManager.instance.PlaySingle(playerHit);
         passingTime = 0;
+        CheckKknockback = true;
+        kbDistance = knockbackDistance;
+        kbSpeed = knockbackSpeed;
     }
     public bool checkIsInmune()
     {

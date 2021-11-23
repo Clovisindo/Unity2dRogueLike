@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class wKnightSword : Weapon
 {
-    int damage = 1;
-    
 
     public wKnightSword()
     {
         startTimeBtwAttack = 1.383f;
+        damage = 1;
+        knockbackDistance = 1;
+        knockbackSpeed = 1f;
     }
 
     // Start is called before the first frame update
@@ -28,10 +29,16 @@ public class wKnightSword : Weapon
     {
         Debug.Log("ataque especial espada de caballero.");
         weaponAnimator.SetTrigger("SpecialAttack");
+        base.SpecialAttack();
     }
 
-    internal override void ActiveSpecialParryAtk()
-    {
-        specialParryAttack = true;
-    }
+    //internal override void ActiveSpecialParryAtk()
+    //{
+    //    specialParryAttack = true;
+    //}
+
+    //internal override void DisableSpecialParryAtk()
+    //{
+    //    specialParryAttack = false;
+    //}
 }
