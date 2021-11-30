@@ -32,16 +32,16 @@ namespace Assets.Scripts.Weapons
             if (timeBtwAttack <= 0)
             {
                 setDirectionAttack();
-                if (Input.GetKey(KeyCode.C) && pickAxeUses > 0)
-                {
-                    SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
-                    resetWeapon();
-                    weaponAnimator.SetTrigger("Attacking");
-                    timeBtwAttack = startTimeBtwAttack;
-                    pickAxeUses--;
-                    HealthManager.instance.UpdateEquipUses(pickAxeUses);
-                }
+                //if (Input.GetKey(KeyCode.C) && pickAxeUses > 0)
+                //{
+                //    SoundManager.instance.PlaySingle(weaponSwin);
+                //    isAttacking = true;
+                //    resetWeapon();
+                //    weaponAnimator.SetTrigger("Attacking");
+                //    timeBtwAttack = startTimeBtwAttack;
+                //    pickAxeUses--;
+                //    HealthManager.instance.UpdateEquipUses(pickAxeUses);
+                //}
             }
             else
             {

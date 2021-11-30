@@ -2,8 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +18,15 @@ public class Player : MonoBehaviour
     private float movementSpeed;
     public float moveX;
     public float moveY;
+
+    //inputactions
+    Playerinputactions inputAction;
+    bool changeWeapon;
+
+    //move
+    Vector2 movementInput;
+    //attack action
+    Vector2 attackPosition;
 
     public float MOVEMENT_BASE_SPEED = 3.0f;
     public int playerHealth = 3;
@@ -40,7 +48,9 @@ public class Player : MonoBehaviour
     private bool specialUtility = false;
 
     private bool falling = false;
-   
+
+    public Vector2 AttackPosition { get => attackPosition; set => attackPosition = value; }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +63,10 @@ public class Player : MonoBehaviour
         SetCurrentWeapon(EnumWeapons.KnightSword);
         //SetCurrentWeapon(EnumWeapons.KnightShield);
         currentWeapon.gameObject.SetActive(true);
+        inputAction = new Playerinputactions();
+        inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+        inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
+        inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeapon = ctx.ReadValueAsButton();
     }
 
     private void SetCurrentWeapon(EnumWeapons _enumWeapon)
@@ -122,8 +136,8 @@ public class Player : MonoBehaviour
 
     void ProcessInputs()
     {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
+        moveX = movementInput.x;
+        moveY = movementInput.y;
         movementDirection = new Vector2(moveX, moveY);
 
         animator.SetFloat("moveX", moveX);
@@ -146,7 +160,7 @@ public class Player : MonoBehaviour
         if (timeBtwChangeWeapon <= 0)
         {
             //change weapon
-            if (Input.GetKey(KeyCode.T))
+            if (changeWeapon)
             {
                 ChangeWeapon();
                 timeBtwChangeWeapon = startTimeBtwChangeWeapon;
@@ -161,12 +175,12 @@ public class Player : MonoBehaviour
         //activar bloqueo del escudo
         if (timeBtwBlocks <= 0)
         {
-            //change weapon
-            if (Input.GetKey(KeyCode.Q))
-            {
-                EquipShieldBlock();
-                timeBtwBlocks = startTimeBtwBlocks;
-            }
+            ////change weapon
+            //if (Input.GetKey(KeyCode.Q))
+            //{
+            //    EquipShieldBlock();
+            //    timeBtwBlocks = startTimeBtwBlocks;
+            //}
         }
         else
         {

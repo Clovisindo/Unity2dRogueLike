@@ -70,26 +70,26 @@ public abstract class Weapon : MonoBehaviour
         if (timeBtwAttack <= 0)
         {
             setDirectionAttack();
-            if (Input.GetKey(KeyCode.Space))
-            {
-                if (specialParryAttack)
-                {
-                    SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
-                    weaponAnimator.SetTrigger("Counter");
-                    timeBtwAttack = startTimeBtwAttack;
-                    SpecialAttack();
-                    //specialParryAttack = false;
+            //if (Input.GetKey(KeyCode.Space))
+            //{
+            //    if (specialParryAttack)
+            //    {
+            //        SoundManager.instance.PlaySingle(weaponSwin);
+            //        isAttacking = true;
+            //        weaponAnimator.SetTrigger("Counter");
+            //        timeBtwAttack = startTimeBtwAttack;
+            //        SpecialAttack();
+            //        //specialParryAttack = false;
                    
-                }
-                else
-                {
-                    SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
-                    weaponAnimator.SetTrigger("Attacking");
-                    timeBtwAttack = startTimeBtwAttack;
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        SoundManager.instance.PlaySingle(weaponSwin);
+            //        isAttacking = true;
+            //        weaponAnimator.SetTrigger("Attacking");
+            //        timeBtwAttack = startTimeBtwAttack;
+            //    }
+            //}
         }
         else
         {
@@ -144,8 +144,8 @@ public abstract class Weapon : MonoBehaviour
     /// </summary>
     protected virtual void setDirectionAttack()
     {
-        moveX = playerAnimator.GetFloat("moveX");
-        moveY = playerAnimator.GetFloat("moveY");
+        moveX = player.GetComponent<Player>().AttackPosition.x; // playerAnimator.GetFloat("moveX");
+        moveY = player.GetComponent<Player>().AttackPosition.y;
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
