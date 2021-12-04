@@ -21,7 +21,8 @@ public class Player : MonoBehaviour
 
     //inputactions
     Playerinputactions inputAction;
-    bool changeWeapon;
+    bool changeWeaponPressed;
+    bool changeWeaponReleased;
 
     //move
     Vector2 movementInput;
@@ -53,7 +54,7 @@ public class Player : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
@@ -66,7 +67,8 @@ public class Player : MonoBehaviour
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
         inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
-        inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeapon = ctx.ReadValueAsButton();
+        inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
+        inputAction.Playercontrols.Changeweapon.canceled += ctx => changeWeaponReleased = true;
     }
 
     private void SetCurrentWeapon(EnumWeapons _enumWeapon)
@@ -160,10 +162,11 @@ public class Player : MonoBehaviour
         if (timeBtwChangeWeapon <= 0)
         {
             //change weapon
-            if (changeWeapon)
+            if (changeWeaponPressed)
             {
                 ChangeWeapon();
                 timeBtwChangeWeapon = startTimeBtwChangeWeapon;
+                changeWeaponPressed = false;
             }
            
         }
@@ -176,11 +179,11 @@ public class Player : MonoBehaviour
         if (timeBtwBlocks <= 0)
         {
             ////change weapon
-            //if (Input.GetKey(KeyCode.Q))
-            //{
-            //    EquipShieldBlock();
-            //    timeBtwBlocks = startTimeBtwBlocks;
-            //}
+            if (Input.GetKey(KeyCode.Q))
+            {
+                EquipShieldBlock();
+                timeBtwBlocks = startTimeBtwBlocks;
+            }
         }
         else
         {
@@ -445,10 +448,12 @@ public class Player : MonoBehaviour
         return null;
     }
 
-   
-
-
-
-
-
+    private void OnEnable()
+    {
+        inputAction.Enable();
+    }
+    private void OnDisable()
+    {
+        inputAction.Disable();
+    }
 }

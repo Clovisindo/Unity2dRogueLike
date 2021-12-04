@@ -70,26 +70,26 @@ public abstract class Weapon : MonoBehaviour
         if (timeBtwAttack <= 0)
         {
             setDirectionAttack();
-            //if (Input.GetKey(KeyCode.Space))
-            //{
-            //    if (specialParryAttack)
-            //    {
-            //        SoundManager.instance.PlaySingle(weaponSwin);
-            //        isAttacking = true;
-            //        weaponAnimator.SetTrigger("Counter");
-            //        timeBtwAttack = startTimeBtwAttack;
-            //        SpecialAttack();
-            //        //specialParryAttack = false;
-                   
-            //    }
-            //    else
-            //    {
-            //        SoundManager.instance.PlaySingle(weaponSwin);
-            //        isAttacking = true;
-            //        weaponAnimator.SetTrigger("Attacking");
-            //        timeBtwAttack = startTimeBtwAttack;
-            //    }
-            //}
+            if (Input.GetKey(KeyCode.Space))
+            {
+                if (specialParryAttack)
+                {
+                    SoundManager.instance.PlaySingle(weaponSwin);
+                    isAttacking = true;
+                    weaponAnimator.SetTrigger("Counter");
+                    timeBtwAttack = startTimeBtwAttack;
+                    SpecialAttack();
+                    //specialParryAttack = false;
+
+                }
+                else
+                {
+                    SoundManager.instance.PlaySingle(weaponSwin);
+                    isAttacking = true;
+                    weaponAnimator.SetTrigger("Attacking");
+                    timeBtwAttack = startTimeBtwAttack;
+                }
+            }
         }
         else
         {
