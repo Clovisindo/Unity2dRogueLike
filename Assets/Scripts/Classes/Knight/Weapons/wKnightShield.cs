@@ -50,8 +50,8 @@ public class wKnightShield : Weapon
 
     protected override void setDirectionAttack()
     {
-        moveX = playerAnimator.GetFloat("moveX");
-        moveY = playerAnimator.GetFloat("moveY");
+        moveX = attackPosition.x;
+        moveY = attackPosition.y;
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
