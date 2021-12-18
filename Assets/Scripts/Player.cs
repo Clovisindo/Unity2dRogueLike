@@ -22,12 +22,12 @@ public class Player : MonoBehaviour
     //inputactions
     Playerinputactions inputAction;
     bool changeWeaponPressed;
-    bool changeWeaponReleased;
+    bool EquipShieldPressed;
+    bool attackWeaponPressed;
 
     //move
     Vector2 movementInput;
-    //attack action
-    Vector2 attackPosition;
+    
 
     public float MOVEMENT_BASE_SPEED = 3.0f;
     public int playerHealth = 3;
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
 
     private bool falling = false;
 
-    public Vector2 AttackPosition { get => attackPosition; set => attackPosition = value; }
+    
 
 
     // Start is called before the first frame update
@@ -66,9 +66,12 @@ public class Player : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
+        
+
+        //action buttons
         inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
-        inputAction.Playercontrols.Changeweapon.canceled += ctx => changeWeaponReleased = true;
+        inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
+        inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
     private void SetCurrentWeapon(EnumWeapons _enumWeapon)
@@ -178,11 +181,11 @@ public class Player : MonoBehaviour
         //activar bloqueo del escudo
         if (timeBtwBlocks <= 0)
         {
-            ////change weapon
-            if (Input.GetKey(KeyCode.Q))
+            if (EquipShieldPressed)
             {
                 EquipShieldBlock();
                 timeBtwBlocks = startTimeBtwBlocks;
+                EquipShieldPressed = false;
             }
         }
         else

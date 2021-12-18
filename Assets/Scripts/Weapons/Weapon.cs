@@ -25,6 +25,13 @@ public abstract class Weapon : MonoBehaviour
     public float moveY;
     [SerializeField] private Sprite weaponSprite;
 
+    //inputactions
+    protected Playerinputactions inputAction;
+    protected bool attackWeaponPressed;
+    //attack action
+    protected Vector2 attackPosition;
+
+    public Vector2 AttackPosition { get => attackPosition; set => attackPosition = value; }
     public Sprite WeaponSprite { get => weaponSprite; set => weaponSprite = value; }
 
     // Start is called before the first frame update
@@ -36,6 +43,11 @@ public abstract class Weapon : MonoBehaviour
         //weaponCollider = weapon.GetComponent<BoxCollider2D>();
         //weaponAnimator = weapon.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
+
+        //action buttons
+        inputAction = new Playerinputactions();
+        inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
+        inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
 
     }
 
@@ -70,7 +82,7 @@ public abstract class Weapon : MonoBehaviour
         if (timeBtwAttack <= 0)
         {
             setDirectionAttack();
-            if (Input.GetKey(KeyCode.Space))
+            if (attackWeaponPressed)
             {
                 if (specialParryAttack)
                 {
@@ -89,6 +101,7 @@ public abstract class Weapon : MonoBehaviour
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
                 }
+                attackWeaponPressed = false;
             }
         }
         else
@@ -144,8 +157,8 @@ public abstract class Weapon : MonoBehaviour
     /// </summary>
     protected virtual void setDirectionAttack()
     {
-        moveX = player.GetComponent<Player>().AttackPosition.x; // playerAnimator.GetFloat("moveX");
-        moveY = player.GetComponent<Player>().AttackPosition.y;
+        moveX = attackPosition.x; // playerAnimator.GetFloat("moveX");
+        moveY = attackPosition.y;
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
@@ -180,6 +193,15 @@ public abstract class Weapon : MonoBehaviour
     public virtual void DisableSpecialParryAtk()
     {
         specialParryAttack = false;
+    }
+
+    private void OnEnable()
+    {
+        inputAction.Enable();
+    }
+    private void OnDisable()
+    {
+        inputAction.Disable();
     }
 }
 

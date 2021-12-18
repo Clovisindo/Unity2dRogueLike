@@ -24,6 +24,11 @@ public class wKnightShield : Weapon
         player = GameObject.FindGameObjectWithTag("Player");
         playerClass = player.GetComponent<Player>();
         playerAnimator = player.GetComponent<Animator>();
+
+        //action buttons
+        inputAction = new Playerinputactions();
+        inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
+        inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
     protected override void ProcessInputs()
