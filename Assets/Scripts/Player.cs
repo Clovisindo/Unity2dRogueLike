@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     private float timeBtwChangeWeapon;
     private float startTimeBtwChangeWeapon = 0.5f;
 
+    private float timeBtwEquipShield;
+    private float startTimeBtwEquipShield = 3f;
+
     private float timeBtwBlocks;
     private float startTimeBtwBlocks = 1f;
     private bool specialParryAttack = false;
@@ -71,6 +74,7 @@ public class Player : MonoBehaviour
         //action buttons
         inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
         inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
+        inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
@@ -178,20 +182,41 @@ public class Player : MonoBehaviour
             timeBtwChangeWeapon -= Time.deltaTime;
         }
 
-        //activar bloqueo del escudo
-        if (timeBtwBlocks <= 0)
+        //Equipar escudo
+        if (timeBtwEquipShield <= 0)
         {
+            //change weapon
             if (EquipShieldPressed)
             {
                 EquipShieldBlock();
-                timeBtwBlocks = startTimeBtwBlocks;
-                EquipShieldPressed = false;
             }
+            if(!EquipShieldPressed)
+            {
+                UnEquipShieldBlock();
+                timeBtwEquipShield = startTimeBtwEquipShield;
+                //EquipShieldPressed = false;
+            }
+
         }
         else
         {
-            timeBtwBlocks -= Time.deltaTime;
+            timeBtwEquipShield -= Time.deltaTime;
         }
+
+        ////activar bloqueo del escudo
+        //if (timeBtwBlocks <= 0)
+        //{
+        //    if (EquipShieldPressed)
+        //    {
+        //        EquipShieldBlock();
+        //        timeBtwBlocks = startTimeBtwBlocks;
+        //        EquipShieldPressed = false;
+        //    }
+        //}
+        //else
+        //{
+        //    timeBtwBlocks -= Time.deltaTime;
+        //}
 
         ////herramienta util
         //if (timeBtwChangeUtility <= 0)
@@ -392,11 +417,14 @@ public class Player : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
     }
 
-    private void EquipShieldBlock()
+    public void EquipShieldBlock()
     {
         //1º activar gameobject escudo
         currentShield.gameObject.SetActive(true);
-        currentShield.setIsAttacking();
+
+        currentWeapon.gameObject.SetActive(false);
+        HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
+        //currentShield.setIsAttacking();
         // esto se queda activo durante unos segundos y se llama al desequipar escudo
         //usamos la animacion y se invoca al acabar el UnEquip
     }
@@ -405,6 +433,8 @@ public class Player : MonoBehaviour
     {
         //1º Desactivar el gameobject del escudo
         currentShield.gameObject.SetActive(false);
+        currentWeapon.gameObject.SetActive(true);
+        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)

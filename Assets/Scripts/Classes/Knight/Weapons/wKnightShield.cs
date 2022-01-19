@@ -1,12 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class wKnightShield : Weapon
 {
     bool parryBehaviour = false;
     Player playerClass;
-    
+
+
+    private float timeBtwBlocks;
+    private float startTimeBtwBlocks = 1f;
+    //private bool specialParryAttack = false;
+    bool EquipShieldPressed;
+
 
     public wKnightShield()
     {
@@ -29,6 +33,8 @@ public class wKnightShield : Weapon
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
+        //inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
+        //inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
     }
 
     protected override void ProcessInputs()
@@ -45,7 +51,23 @@ public class wKnightShield : Weapon
 
     void FixedUpdate()
     {
-        setDirectionAttack();
+     //activar bloqueo del escudo
+        if (timeBtwBlocks <= 0)
+        {
+            setDirectionAttack();
+            if (attackWeaponPressed)
+            {
+                setIsAttacking();
+                //player.GetComponent<Player>().EquipShieldBlock();
+                timeBtwBlocks = startTimeBtwBlocks;
+                //EquipShieldPressed = false;
+            }
+            attackWeaponPressed = false;
+        }
+        else
+        {
+            timeBtwBlocks -= Time.deltaTime;
+        }
     }
 
     protected override void setDirectionAttack()
@@ -55,6 +77,14 @@ public class wKnightShield : Weapon
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
+        if (moveX != 0 || moveY != 0)
+        {
+            attackWeaponPressed = true;
+        }
+        else
+        {
+            attackWeaponPressed = false;
+        }
     }
 
     //public  void Block()
@@ -63,7 +93,7 @@ public class wKnightShield : Weapon
     //    //weaponAnimator.SetTrigger("SpecialAttack");
     //}
 
-    public  void Parry()
+    public void Parry()
     {
         ActiveParryBehaviour();
         Debug.Log("Devuelve el golpe!");
@@ -71,8 +101,8 @@ public class wKnightShield : Weapon
         //activamos el ataque especial del jugador cuando hace parry
         playerClass.ActiveSpecialParryAtk();
     }
-    
-        public override void setIsAttacking()
+
+    public override void setIsAttacking()
     {
         weaponAnimator.SetTrigger("Attacking");
         isAttacking = true;
@@ -92,13 +122,22 @@ public class wKnightShield : Weapon
     /// </summary>
     public void UnequipShield()
     {
-        weaponAnimator.SetTrigger("Attacking");
+        //weaponAnimator.SetTrigger("Attacking");
         isAttacking = false;
-        playerClass.UnEquipShieldBlock();
+        //playerClass.UnEquipShieldBlock();
     }
 
     public override void ActiveSpecialParryAtk()
     {
         specialParryAttack = true;
+    }
+
+    private void OnEnable()
+    {
+        inputAction.Enable();
+    }
+    private void OnDisable()
+    {
+        inputAction.Disable();
     }
 }

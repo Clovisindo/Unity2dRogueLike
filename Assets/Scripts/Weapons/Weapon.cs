@@ -47,7 +47,7 @@ public abstract class Weapon : MonoBehaviour
         //action buttons
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
-        inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
+        //inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
 
     }
 
@@ -62,11 +62,11 @@ public abstract class Weapon : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(),damage, knockbackDistance, knockbackSpeed);
+            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(), damage, knockbackDistance, knockbackSpeed);
             //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
             //{
             //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());
-                
+
             //}
             //else
             //{
@@ -76,7 +76,7 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    protected virtual void  ProcessInputs()
+    protected virtual void ProcessInputs()
     {
         //Cooldown entre ataques para permitir spamear
         if (timeBtwAttack <= 0)
@@ -117,7 +117,7 @@ public abstract class Weapon : MonoBehaviour
     {
         isAttacking = false;
         //resetWeapon();
-        
+
         if (specialParryAttack)
         {
             weaponAnimator.SetTrigger("Counter");
@@ -130,7 +130,7 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-  
+
 
     /// <summary>
     /// Semaforo de activar o desactivar el arma
@@ -162,6 +162,15 @@ public abstract class Weapon : MonoBehaviour
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
+        if (moveX != 0 || moveY != 0)
+        {
+            attackWeaponPressed = true;
+        }
+        else
+        {
+            attackWeaponPressed = false;
+        }
+
     }
 
     public virtual void setIsAttacking()
@@ -183,7 +192,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void SpecialAttack()
     {
         Debug.Log(" ataque especial por defecto.");
-        
+
     }
 
     public virtual void ActiveSpecialParryAtk()
@@ -205,4 +214,3 @@ public abstract class Weapon : MonoBehaviour
     }
 }
 
- 
