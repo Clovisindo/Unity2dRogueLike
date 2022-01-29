@@ -108,6 +108,14 @@ public class GameManager : MonoBehaviour
         //arrancamos los enemigos en esta habitacion
         currentRoom.ReStartRoom();
     }
+    /// <summary>
+    /// Cambia al jugador de habitacion
+    /// </summary>
+    /// <param name="doorActivated">puerta activada</param>
+    public void MovePlayerToRoom(GameObject doorActivated)
+    {
+        GameManager.instance.ChangeLevel(currentRoom.GetDirectionByDoor(doorActivated));
+    }
 
     internal void CheckInsideBoundaries(Vector3 nextPosition)//ToDo:
     {

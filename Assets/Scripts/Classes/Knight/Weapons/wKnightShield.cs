@@ -8,13 +8,15 @@ public class wKnightShield : Weapon
 
     private float timeBtwBlocks;
     private float startTimeBtwBlocks = 1f;
+    
     //private bool specialParryAttack = false;
     bool EquipShieldPressed;
 
+    
 
     public wKnightShield()
     {
-        isAttacking = false;
+        IsAttacking = false;
         startTimeBtwAttack = 1.383f;
     }
 
@@ -43,7 +45,7 @@ public class wKnightShield : Weapon
 
     protected override void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" && isAttacking && !parryBehaviour)
+        if (other.tag == "Enemy" && IsAttacking && !parryBehaviour)
         {
             Parry();
         }
@@ -52,11 +54,12 @@ public class wKnightShield : Weapon
     void FixedUpdate()
     {
      //activar bloqueo del escudo
-        if (timeBtwBlocks <= 0)
+        if (timeBtwBlocks <= 0 && !CheckWeaponAttacking())
         {
             setDirectionAttack();
             if (attackWeaponPressed)
             {
+                this.FirstAttack = true;
                 setIsAttacking();
                 //player.GetComponent<Player>().EquipShieldBlock();
                 timeBtwBlocks = startTimeBtwBlocks;
@@ -105,7 +108,8 @@ public class wKnightShield : Weapon
     public override void setIsAttacking()
     {
         weaponAnimator.SetTrigger("Attacking");
-        isAttacking = true;
+        IsAttacking = true;
+        GameManager.instance.player.CurrentWeaponAttacking = true;
     }
 
     public void ActiveParryBehaviour()
@@ -123,8 +127,13 @@ public class wKnightShield : Weapon
     public void UnequipShield()
     {
         //weaponAnimator.SetTrigger("Attacking");
-        isAttacking = false;
-        //playerClass.UnEquipShieldBlock();
+        //isAttacking = false;
+        //GameManager.instance.player.CurrentWeaponAttacking = false;
+        if (!IsAttacking)
+        {
+            playerClass.UnEquipShieldBlock();
+        }
+        
     }
 
     public override void ActiveSpecialParryAtk()

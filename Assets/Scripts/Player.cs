@@ -41,19 +41,14 @@ public class Player : MonoBehaviour
     private float startTimeBtwChangeWeapon = 0.5f;
 
     private float timeBtwEquipShield;
-    private float startTimeBtwEquipShield = 3f;
-
-    private float timeBtwBlocks;
-    private float startTimeBtwBlocks = 1f;
-    private bool specialParryAttack = false;
-
-    private float timeBtwChangeUtility;
-    private float startTimeBtwChangeUtility = 2f;
-    private bool specialUtility = false;
+    private float startTimeBtwEquipShield = 5.0f;
 
     private bool falling = false;
+    private bool currentWeaponAttacking = false;
 
-    
+    public bool CurrentWeaponAttacking { get => currentWeaponAttacking; set => currentWeaponAttacking = value; }
+
+
 
 
     // Start is called before the first frame update
@@ -65,7 +60,6 @@ public class Player : MonoBehaviour
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
         SetCurrentWeapon(EnumWeapons.KnightSword);
-        //SetCurrentWeapon(EnumWeapons.KnightShield);
         currentWeapon.gameObject.SetActive(true);
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
@@ -83,17 +77,11 @@ public class Player : MonoBehaviour
         //no casteamos el arma en concreto hasta asignarla en currentWeapon
         switch (_enumWeapon)
         {
-            //case EnumWeapons.GreatSword:
-            //    currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
-            //    break;
             case EnumWeapons.GreatHammer:
                 currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
                 break;
             case EnumWeapons.KnightSword:
                 currentWeapon = (wKnightSword)GetWeaponByTag(_enumWeapon);
-                break;
-            case EnumWeapons.KnightShield:
-                currentShield = (wKnightShield)GetWeaponByTag(_enumWeapon);
                 break;
             default:
                 break;
@@ -101,11 +89,12 @@ public class Player : MonoBehaviour
         HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
         Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
     }
-
+    /// <summary>
+    /// se activa la bandera para que el proximo ataque sea el counter del parry
+    /// </summary>
     internal void ActiveSpecialParryAtk()
     {
         currentWeapon.ActiveSpecialParryAtk();
-        //se activa la bandera para que el proximo ataque sea el counter del parry
     }
     /// <summary>
     /// Desactivar el funcionamiento de parry escudo hasta que hagas otro block
@@ -114,7 +103,6 @@ public class Player : MonoBehaviour
     {
         currentShield.DisableColliderAttack();
         currentShield.GetComponent<wKnightShield>().DisableParryBehaviour();
-        //se desactiva la bandera para que el proximo ataque sea el counter del parry
     }
 
     private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
@@ -123,10 +111,6 @@ public class Player : MonoBehaviour
         {
             if (weapon.tag == _enumWeapon.ToString())
             {
-                if (weapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
-                {
-                    continue;
-                }
                 return weapon.GetComponent<Weapon>();
             }
         }
@@ -168,7 +152,6 @@ public class Player : MonoBehaviour
         //cambiar de arma
         if (timeBtwChangeWeapon <= 0)
         {
-            //change weapon
             if (changeWeaponPressed)
             {
                 ChangeWeapon();
@@ -185,54 +168,20 @@ public class Player : MonoBehaviour
         //Equipar escudo
         if (timeBtwEquipShield <= 0)
         {
-            //change weapon
-            if (EquipShieldPressed)
+            if (EquipShieldPressed && !currentShield.gameObject.activeSelf)
             {
                 EquipShieldBlock();
             }
-            if(!EquipShieldPressed)
+            if (currentShield.gameObject.activeSelf && (!EquipShieldPressed) && (!currentShield.FirstAttack))
             {
                 UnEquipShieldBlock();
                 timeBtwEquipShield = startTimeBtwEquipShield;
-                //EquipShieldPressed = false;
             }
-
         }
         else
         {
             timeBtwEquipShield -= Time.deltaTime;
         }
-
-        ////activar bloqueo del escudo
-        //if (timeBtwBlocks <= 0)
-        //{
-        //    if (EquipShieldPressed)
-        //    {
-        //        EquipShieldBlock();
-        //        timeBtwBlocks = startTimeBtwBlocks;
-        //        EquipShieldPressed = false;
-        //    }
-        //}
-        //else
-        //{
-        //    timeBtwBlocks -= Time.deltaTime;
-        //}
-
-        ////herramienta util
-        //if (timeBtwChangeUtility <= 0)
-        //{
-        //    //change weapon
-        //    if (Input.GetKey(KeyCode.C))
-        //    {
-        //        ChangeWeapon();
-        //        timeBtwChangeUtility = startTimeBtwChangeUtility;
-        //    }
-
-        //}
-        //else
-        //{
-        //    timeBtwChangeUtility -= Time.deltaTime;
-        //}
     }
 
    
@@ -248,9 +197,7 @@ public class Player : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -261,9 +208,7 @@ public class Player : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -281,45 +226,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Exit" && playerExitCollision == false)
+        if ((other.tag == "Exit" || other.tag == "Entrance" || other.tag == "SecretDoor" ) && playerExitCollision == false)//collider puerta activada
         {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
-        }
-
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Entrance" && playerExitCollision == false)
-        {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);//no es la puerta es el collider
-            playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
-        }
-        if (other.tag == "SecretDoor" && playerExitCollision == false)
-        {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
-            playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
+            GameManager.instance.MovePlayerToRoom(other.transform.parent.gameObject);
         }
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
         //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Exit" )
-        {
-            playerExitCollision = false;
-        }
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Entrance" )
-        {
-            playerExitCollision = false;
-        }
-        if (other.tag == "SecretDoor")
+        if (other.tag == "Exit" || other.tag == "Entrance" || other.tag == "SecretDoor")
         {
             playerExitCollision = false;
         }
@@ -344,7 +262,6 @@ public class Player : MonoBehaviour
     public void UpdatePositionlevel(Vector2 respawnPosition)
     {
         transform.position = respawnPosition;
-        //playerExitCollision = false;
     }
 
     public void PlayerStartFalling()
@@ -419,22 +336,18 @@ public class Player : MonoBehaviour
 
     public void EquipShieldBlock()
     {
-        //1º activar gameobject escudo
         currentShield.gameObject.SetActive(true);
-
         currentWeapon.gameObject.SetActive(false);
         HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
-        //currentShield.setIsAttacking();
-        // esto se queda activo durante unos segundos y se llama al desequipar escudo
-        //usamos la animacion y se invoca al acabar el UnEquip
+        currentShield.FirstAttack = false;
     }
 
     public void UnEquipShieldBlock()
     {
-        //1º Desactivar el gameobject del escudo
         currentShield.gameObject.SetActive(false);
         currentWeapon.gameObject.SetActive(true);
         HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
+        timeBtwEquipShield = startTimeBtwEquipShield;
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)
