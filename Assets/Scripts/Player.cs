@@ -67,6 +67,7 @@ public class Player : MonoBehaviour
 
         //action buttons
         inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
+        inputAction.Playercontrols.Changeweapon.canceled += ctx => changeWeaponPressed = false;
         inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
         inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
@@ -152,13 +153,16 @@ public class Player : MonoBehaviour
         //cambiar de arma
         if (timeBtwChangeWeapon <= 0)
         {
-            if (changeWeaponPressed)
+            if (changeWeaponPressed && currentWeapon.CheckIsIddleAnim())//!currentWeapon.IsAttacking)
             {
                 ChangeWeapon();
                 timeBtwChangeWeapon = startTimeBtwChangeWeapon;
                 changeWeaponPressed = false;
             }
-           
+            if (!changeWeaponPressed)
+            {
+                changeWeaponPressed = false;
+            }
         }
         else
         {
@@ -168,11 +172,11 @@ public class Player : MonoBehaviour
         //Equipar escudo
         if (timeBtwEquipShield <= 0)
         {
-            if (EquipShieldPressed && !currentShield.gameObject.activeSelf)
+            if (EquipShieldPressed && !currentShield.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())//!currentWeapon.IsAttacking)
             {
                 EquipShieldBlock();
             }
-            if (currentShield.gameObject.activeSelf && (!EquipShieldPressed) && (!currentShield.FirstAttack))
+            if (currentShield.gameObject.activeSelf && (!EquipShieldPressed) && (currentShield.CheckIsIddleAnim()))
             {
                 UnEquipShieldBlock();
                 timeBtwEquipShield = startTimeBtwEquipShield;
@@ -247,6 +251,11 @@ public class Player : MonoBehaviour
     {
         playerHealth += modifyHealth;
         UpdatePlayerHealth();
+    }
+
+    public bool PlayerAttackActivate()
+    {
+        return currentShield.CheckIsIddleAnim();
     }
 
     public void TakeDamage(int _damage)

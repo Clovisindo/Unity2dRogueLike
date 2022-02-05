@@ -54,7 +54,7 @@ public class wKnightShield : Weapon
     void FixedUpdate()
     {
      //activar bloqueo del escudo
-        if (timeBtwBlocks <= 0 && !CheckWeaponAttacking())
+        if (timeBtwBlocks <= 0 && !CheckWeaponAttacking() && GameManager.instance.player.PlayerAttackActivate())
         {
             setDirectionAttack();
             if (attackWeaponPressed)
@@ -129,7 +129,7 @@ public class wKnightShield : Weapon
         //weaponAnimator.SetTrigger("Attacking");
         //isAttacking = false;
         //GameManager.instance.player.CurrentWeaponAttacking = false;
-        if (!IsAttacking)
+        if (!IsAttacking && CheckIsIddleAnim())
         {
             playerClass.UnEquipShieldBlock();
         }
@@ -140,6 +140,7 @@ public class wKnightShield : Weapon
     {
         specialParryAttack = true;
     }
+
 
     private void OnEnable()
     {

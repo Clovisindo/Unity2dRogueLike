@@ -40,18 +40,12 @@ public abstract class Weapon : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Awake()
     {
-        //weapon = GameObject.FindGameObjectWithTag("Weapon");
         player = GameObject.FindGameObjectWithTag("Player");
-        //weaponRenderer = weapon.GetComponent<SpriteRenderer>();
-        //weaponCollider = weapon.GetComponent<BoxCollider2D>();
-        //weaponAnimator = weapon.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
 
         //action buttons
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
-        //inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
-
     }
 
     // Update is called once per frame
@@ -66,16 +60,6 @@ public abstract class Weapon : MonoBehaviour
             GameObject enemyColl = other.gameObject;
             other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
             GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(), damage, knockbackDistance, knockbackSpeed);
-            //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
-            //{
-            //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());
-
-            //}
-            //else
-            //{
-            //    //other.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-            //}
-
         }
     }
 
@@ -95,8 +79,6 @@ public abstract class Weapon : MonoBehaviour
                     weaponAnimator.SetTrigger("Counter");
                     timeBtwAttack = startTimeBtwAttack;
                     SpecialAttack();
-                    //specialParryAttack = false;
-
                 }
                 else
                 {
@@ -122,7 +104,6 @@ public abstract class Weapon : MonoBehaviour
     {
         IsAttacking = false;
         GameManager.instance.player.CurrentWeaponAttacking = false;
-        //resetWeapon();
 
         if (specialParryAttack)
         {
@@ -136,26 +117,10 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-
-
-    /// <summary>
-    /// Semaforo de activar o desactivar el arma
-    /// </summary>
-    protected void resetWeapon()
+    public virtual bool CheckIsIddleAnim()
     {
-        if (IsAttacking)
-        {
-            weaponCollider.isTrigger = true;
-            weaponCollider.enabled = true;
-            //weaponRenderer.enabled = true;
-        }
-        else
-        {
-            weaponCollider.isTrigger = false;
-            weaponCollider.enabled = false;
-            //weaponRenderer.enabled = false;
-            //weapon.transform.rotation = new Quaternion(0,0,0,0);//ToDo: creo que esto quedó como parche de algo mal generado en las animaciones
-        }
+        return weaponAnimator.GetCurrentAnimatorStateInfo(0).IsTag("idleAnim") 
+            && !(weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
     }
 
     /// <summary>
