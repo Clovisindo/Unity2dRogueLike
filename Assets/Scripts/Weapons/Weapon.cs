@@ -49,7 +49,7 @@ public abstract class Weapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ProcessInputs();
     }
@@ -104,6 +104,7 @@ public abstract class Weapon : MonoBehaviour
     {
         IsAttacking = false;
         GameManager.instance.player.CurrentWeaponAttacking = false;
+        firstAttack = true;
 
         if (specialParryAttack)
         {

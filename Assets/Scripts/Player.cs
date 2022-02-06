@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     private List<Weapon> playerWeapons;
     private Weapon currentWeapon;
     private Weapon currentShield;
+    private Weapon currentPickAxe;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     Playerinputactions inputAction;
     bool changeWeaponPressed;
     bool EquipShieldPressed;
+    bool EquipPickAxePressed;
     bool attackWeaponPressed;
 
     //move
@@ -42,6 +44,9 @@ public class Player : MonoBehaviour
 
     private float timeBtwEquipShield;
     private float startTimeBtwEquipShield = 5.0f;
+
+    private float timeBtwChangeUtility;
+    private float startTimeBtwChangeUtility = 2f;
 
     private bool falling = false;
     private bool currentWeaponAttacking = false;
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour
         inputAction.Playercontrols.Changeweapon.canceled += ctx => changeWeaponPressed = false;
         inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
         inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
+        inputAction.Playercontrols.EquipPickAxe.performed += ctx => EquipPickAxePressed = true;
+        inputAction.Playercontrols.EquipPickAxe.canceled += ctx => EquipPickAxePressed = false;
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
@@ -172,11 +179,11 @@ public class Player : MonoBehaviour
         //Equipar escudo
         if (timeBtwEquipShield <= 0)
         {
-            if (EquipShieldPressed && !currentShield.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())//!currentWeapon.IsAttacking)
+            if (EquipShieldPressed && !currentShield.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())
             {
                 EquipShieldBlock();
             }
-            if (currentShield.gameObject.activeSelf && (!EquipShieldPressed) && (currentShield.CheckIsIddleAnim()))
+            if (currentShield.gameObject.activeSelf && currentShield.CheckIsIddleAnim() && (!EquipShieldPressed || currentShield.FirstAttack) )
             {
                 UnEquipShieldBlock();
                 timeBtwEquipShield = startTimeBtwEquipShield;
@@ -186,9 +193,26 @@ public class Player : MonoBehaviour
         {
             timeBtwEquipShield -= Time.deltaTime;
         }
-    }
 
-   
+        ////herramienta util
+        if (timeBtwChangeUtility <= 0)
+        {
+            //change weapon
+            if (EquipPickAxePressed && !currentPickAxe.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())
+            {
+                EquipPickAxe();
+            }
+            if (currentPickAxe.gameObject.activeSelf && currentPickAxe.CheckIsIddleAnim() && (!EquipPickAxePressed || currentPickAxe.FirstAttack) )
+            {
+                UnEquipPickAxe();
+                timeBtwChangeUtility = startTimeBtwChangeUtility;
+            }
+        }
+        else
+        {
+            timeBtwChangeUtility -= Time.deltaTime;
+        }
+    }
 
     protected void Move()
     {
@@ -230,7 +254,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if ((other.tag == "Exit" || other.tag == "Entrance" || other.tag == "SecretDoor" ) && playerExitCollision == false)//collider puerta activada
+        if ((other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor")) && playerExitCollision == false)//collider puerta activada
         {
             playerExitCollision = true;
             GameManager.instance.MovePlayerToRoom(other.transform.parent.gameObject);
@@ -241,7 +265,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Exit" || other.tag == "Entrance" || other.tag == "SecretDoor")
+        if (other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor"))
         {
             playerExitCollision = false;
         }
@@ -251,11 +275,6 @@ public class Player : MonoBehaviour
     {
         playerHealth += modifyHealth;
         UpdatePlayerHealth();
-    }
-
-    public bool PlayerAttackActivate()
-    {
-        return currentShield.CheckIsIddleAnim();
     }
 
     public void TakeDamage(int _damage)
@@ -310,6 +329,10 @@ public class Player : MonoBehaviour
             {
                 currentShield = tWeapon;
             }
+            if (tWeapon.tag == EnumWeapons.PickAxe.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            {
+                currentPickAxe = tWeapon;
+            }
         }
         return equipedWeapons;
     }
@@ -319,7 +342,7 @@ public class Player : MonoBehaviour
         var _enumWeapons = Utilities.EnumUtil.GetValues<EnumWeapons>();
         foreach (var _enumWeapon in _enumWeapons)
         {
-            if (item.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            if (item.tag == EnumWeapons.KnightShield.ToString() || item.tag == EnumWeapons.PickAxe.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
             {
                 continue;
             }
@@ -345,10 +368,10 @@ public class Player : MonoBehaviour
 
     public void EquipShieldBlock()
     {
-        currentShield.gameObject.SetActive(true);
         currentWeapon.gameObject.SetActive(false);
-        HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
+        currentShield.gameObject.SetActive(true);
         currentShield.FirstAttack = false;
+        HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
     }
 
     public void UnEquipShieldBlock()
@@ -356,7 +379,21 @@ public class Player : MonoBehaviour
         currentShield.gameObject.SetActive(false);
         currentWeapon.gameObject.SetActive(true);
         HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-        timeBtwEquipShield = startTimeBtwEquipShield;
+    }
+
+    public void EquipPickAxe()
+    {
+        currentWeapon.gameObject.SetActive(false);
+        currentPickAxe.gameObject.SetActive(true);
+        currentPickAxe.FirstAttack = false;
+        //HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
+    }
+
+    public void UnEquipPickAxe()
+    {
+        currentPickAxe.gameObject.SetActive(false);
+        currentWeapon.gameObject.SetActive(true);
+        //HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
     }
 
     private EnumWeapons GetEnumWeaponByTag(string weaponTag)
@@ -375,6 +412,9 @@ public class Player : MonoBehaviour
                 break;
             case "KnightShield":
                 _enumWeapon = EnumWeapons.KnightShield;
+                break;
+            case "PickAxe":
+                _enumWeapon = EnumWeapons.PickAxe;
                 break;
             default:
                 _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos

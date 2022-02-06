@@ -71,6 +71,15 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipPickAxe"",
+                    ""type"": ""Button"",
+                    ""id"": ""f664b65b-9f2e-47ff-975a-2bcbdb4c708c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -359,6 +368,28 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b32d1151-83e6-4cd5-8627-176c6f3956b8"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipPickAxe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40255cd2-fc33-49f3-a890-32dc75f09338"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipPickAxe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -372,6 +403,7 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
         m_Playercontrols_Changeweapon = m_Playercontrols.FindAction("Change weapon", throwIfNotFound: true);
         m_Playercontrols_EquipShield = m_Playercontrols.FindAction("EquipShield", throwIfNotFound: true);
         m_Playercontrols_Attack = m_Playercontrols.FindAction("Attack", throwIfNotFound: true);
+        m_Playercontrols_EquipPickAxe = m_Playercontrols.FindAction("EquipPickAxe", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -436,6 +468,7 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Playercontrols_Changeweapon;
     private readonly InputAction m_Playercontrols_EquipShield;
     private readonly InputAction m_Playercontrols_Attack;
+    private readonly InputAction m_Playercontrols_EquipPickAxe;
     public struct PlayercontrolsActions
     {
         private @Playerinputactions m_Wrapper;
@@ -445,6 +478,7 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
         public InputAction @Changeweapon => m_Wrapper.m_Playercontrols_Changeweapon;
         public InputAction @EquipShield => m_Wrapper.m_Playercontrols_EquipShield;
         public InputAction @Attack => m_Wrapper.m_Playercontrols_Attack;
+        public InputAction @EquipPickAxe => m_Wrapper.m_Playercontrols_EquipPickAxe;
         public InputActionMap Get() { return m_Wrapper.m_Playercontrols; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -469,6 +503,9 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnAttack;
+                @EquipPickAxe.started -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnEquipPickAxe;
+                @EquipPickAxe.performed -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnEquipPickAxe;
+                @EquipPickAxe.canceled -= m_Wrapper.m_PlayercontrolsActionsCallbackInterface.OnEquipPickAxe;
             }
             m_Wrapper.m_PlayercontrolsActionsCallbackInterface = instance;
             if (instance != null)
@@ -488,6 +525,9 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @EquipPickAxe.started += instance.OnEquipPickAxe;
+                @EquipPickAxe.performed += instance.OnEquipPickAxe;
+                @EquipPickAxe.canceled += instance.OnEquipPickAxe;
             }
         }
     }
@@ -499,5 +539,6 @@ public partial class @Playerinputactions : IInputActionCollection2, IDisposable
         void OnChangeweapon(InputAction.CallbackContext context);
         void OnEquipShield(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnEquipPickAxe(InputAction.CallbackContext context);
     }
 }

@@ -7,5 +7,6 @@ public enum EnumWeapons
    GreatSword,
    GreatHammer,
    KnightSword,
-   KnightShield
+   KnightShield,
+   PickAxe
 }

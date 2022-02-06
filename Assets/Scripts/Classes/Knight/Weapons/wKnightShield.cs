@@ -35,8 +35,6 @@ public class wKnightShield : Weapon
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
-        //inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
-        //inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
     }
 
     protected override void ProcessInputs()
@@ -54,16 +52,14 @@ public class wKnightShield : Weapon
     void FixedUpdate()
     {
      //activar bloqueo del escudo
-        if (timeBtwBlocks <= 0 && !CheckWeaponAttacking() && GameManager.instance.player.PlayerAttackActivate())
+        if (timeBtwBlocks <= 0 && !CheckWeaponAttacking() && CheckIsIddleAnim())
         {
             setDirectionAttack();
             if (attackWeaponPressed)
             {
-                this.FirstAttack = true;
                 setIsAttacking();
-                //player.GetComponent<Player>().EquipShieldBlock();
                 timeBtwBlocks = startTimeBtwBlocks;
-                //EquipShieldPressed = false;
+                //this.FirstAttack = true;
             }
             attackWeaponPressed = false;
         }
