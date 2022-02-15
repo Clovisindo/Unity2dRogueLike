@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private Animator animator;
     private Transform transform;
@@ -14,6 +14,13 @@ public class Player : MonoBehaviour
     private Weapon currentWeapon;
     private Weapon currentShield;
     private Weapon currentPickAxe;
+
+    //Components
+    [SerializeField]MoveComponent moveComponent;
+    [SerializeField] InmuneComponent inmuneComponent;
+    [SerializeField] ChangeWeaponComponent changeWeaponComponent;
+    [SerializeField] EquipShieldComponent EquipShieldComponent;
+    [SerializeField] ChangeUtilityComponent changeUtilityComponent;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -59,16 +66,14 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
-        SetCurrentWeapon(EnumWeapons.KnightSword);
+        changeWeaponComponent.SetCurrentWeapon(EnumWeapons.KnightSword,ref currentWeapon, playerWeapons);
         currentWeapon.gameObject.SetActive(true);
         inputAction = new Playerinputactions();
         inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-        
 
         //action buttons
         inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
@@ -80,23 +85,29 @@ public class Player : MonoBehaviour
         inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
-    private void SetCurrentWeapon(EnumWeapons _enumWeapon)
+    //inputs
+    void FixedUpdate()
     {
-        //no casteamos el arma en concreto hasta asignarla en currentWeapon
-        switch (_enumWeapon)
+        if (!falling)// no permitir control jugador si esta cayendo
         {
-            case EnumWeapons.GreatHammer:
-                currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
-                break;
-            case EnumWeapons.KnightSword:
-                currentWeapon = (wKnightSword)GetWeaponByTag(_enumWeapon);
-                break;
-            default:
-                break;
+            ProcessInputs();
+            animator.SetFloat("movementSpeed", movementSpeed);
+            rb2D.velocity = moveComponent.Move(rb2D,MOVEMENT_BASE_SPEED);
         }
-        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-        Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
     }
+
+    // --------------------inputs-------------
+    void ProcessInputs()
+    {
+        movementInput = moveComponent.MoveBehaviour(movementInput, animator);
+        playerInmune = inmuneComponent.InmuneBehaviour(ref passingTime,inmuneTime,  playerInmune);
+        changeWeaponComponent.ChangeWeaponBehaviour(ref timeBtwChangeWeapon,startTimeBtwChangeWeapon,ref changeWeaponPressed,ref currentWeapon,playerWeapons);
+        EquipShieldPressed = EquipShieldComponent.EquipShieldBehaviour(ref timeBtwEquipShield,startTimeBtwEquipShield,EquipShieldPressed,currentShield,currentWeapon);
+        EquipPickAxePressed = changeUtilityComponent.ChangeUtilityBehaviour(ref timeBtwChangeUtility,startTimeBtwChangeUtility,EquipPickAxePressed,currentPickAxe,currentWeapon);
+    }
+
+    //-----------------armas-----------------
+
     /// <summary>
     /// se activa la bandera para que el proximo ataque sea el counter del parry
     /// </summary>
@@ -111,206 +122,6 @@ public class Player : MonoBehaviour
     {
         currentShield.DisableColliderAttack();
         currentShield.GetComponent<wKnightShield>().DisableParryBehaviour();
-    }
-
-    private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
-    {
-        foreach (var weapon in playerWeapons)
-        {
-            if (weapon.tag == _enumWeapon.ToString())
-            {
-                return weapon.GetComponent<Weapon>();
-            }
-        }
-        return null;
-    }
-
-    void FixedUpdate()
-    {
-        if (!falling)// no permitir control jugador si esta cayendo
-        {
-            ProcessInputs();
-            animator.SetFloat("movementSpeed", movementSpeed);
-            Move();
-        }
-    }
-
-    void ProcessInputs()
-    {
-        moveX = movementInput.x;
-        moveY = movementInput.y;
-        movementDirection = new Vector2(moveX, moveY);
-
-        animator.SetFloat("moveX", moveX);
-        animator.SetFloat("moveY", moveY);
-
-        movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
-        movementDirection.Normalize();
-
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            playerInmune = true;
-        }
-        else
-        {
-            playerInmune = false;
-        }
-
-        //cambiar de arma
-        if (timeBtwChangeWeapon <= 0)
-        {
-            if (changeWeaponPressed && currentWeapon.CheckIsIddleAnim())//!currentWeapon.IsAttacking)
-            {
-                ChangeWeapon();
-                timeBtwChangeWeapon = startTimeBtwChangeWeapon;
-                changeWeaponPressed = false;
-            }
-            if (!changeWeaponPressed)
-            {
-                changeWeaponPressed = false;
-            }
-        }
-        else
-        {
-            timeBtwChangeWeapon -= Time.deltaTime;
-        }
-
-        //Equipar escudo
-        if (timeBtwEquipShield <= 0)
-        {
-            if (EquipShieldPressed && !currentShield.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())
-            {
-                EquipShieldBlock();
-            }
-            if (currentShield.gameObject.activeSelf && currentShield.CheckIsIddleAnim() && (!EquipShieldPressed || currentShield.FirstAttack) )
-            {
-                UnEquipShieldBlock();
-                timeBtwEquipShield = startTimeBtwEquipShield;
-            }
-        }
-        else
-        {
-            timeBtwEquipShield -= Time.deltaTime;
-        }
-
-        ////herramienta util
-        if (timeBtwChangeUtility <= 0)
-        {
-            //change weapon
-            if (EquipPickAxePressed && !currentPickAxe.gameObject.activeSelf && currentWeapon.CheckIsIddleAnim())
-            {
-                EquipPickAxe();
-            }
-            if (currentPickAxe.gameObject.activeSelf && currentPickAxe.CheckIsIddleAnim() && (!EquipPickAxePressed || currentPickAxe.FirstAttack) )
-            {
-                UnEquipPickAxe();
-                timeBtwChangeUtility = startTimeBtwChangeUtility;
-            }
-        }
-        else
-        {
-            timeBtwChangeUtility -= Time.deltaTime;
-        }
-    }
-
-    protected void Move()
-    {
-        rb2D.velocity = movementDirection * movementSpeed * MOVEMENT_BASE_SPEED;
-    }
-
-    private void OnCollisionEnter2D (Collision2D other)
-    {
-        if (other.gameObject.tag == "Enemy"  && !playerInmune)
-        {
-            GameObject enemyColl = other.gameObject;
-            animator.SetTrigger("Hurt");
-            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            passingTime = 0;
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Enemy" && !playerInmune)
-        {
-            GameObject enemyColl = other.gameObject;
-            animator.SetTrigger("Hurt");
-            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            passingTime = 0;
-        }
-    }
-
-    private void OnCollisionStay2D(CircleCollider2D other)
-    {
-        if (other.gameObject.tag == "Enemy" && !playerInmune)
-        {
-            //ataque especial del ogro
-            Debug.Log("Ataque en area del Ogro.");
-        }
-    }
-
-
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if ((other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor")) && playerExitCollision == false)//collider puerta activada
-        {
-            playerExitCollision = true;
-            GameManager.instance.MovePlayerToRoom(other.transform.parent.gameObject);
-        }
-    }
-
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor"))
-        {
-            playerExitCollision = false;
-        }
-    }
-
-    private void SetPlayerHealth(int modifyHealth)
-    {
-        playerHealth += modifyHealth;
-        UpdatePlayerHealth();
-    }
-
-    public void TakeDamage(int _damage)
-    {
-        SetPlayerHealth(-_damage);
-        UpdatePlayerHealth();
-    }
-    public void UpdatePlayerHealth()
-    {
-        HealthManager.instance.UpdateUI(playerHealth);
-    }
-
-    public void UpdatePositionlevel(Vector2 respawnPosition)
-    {
-        transform.position = respawnPosition;
-    }
-
-    public void PlayerStartFalling()
-    {
-        if (!falling)
-        {
-            falling = true;
-            animator.SetTrigger("falling");
-        }
-    }
-
-    public void EndFallinPlayerAnim()
-    {
-        if (falling)
-        {
-            falling = false;
-            //reseteamos la posicion inicial del jugador
-            this.transform.position = GameManager.instance.ini_Player.transform.position;
-            this.TakeDamage(1);
-        }
-       
     }
 
     private List<Weapon> GetWeapons()
@@ -348,99 +159,106 @@ public class Player : MonoBehaviour
             }
             if (_enumWeapon.ToString() == item.tag)
             {
-                
+
                 return true;
             }
         }
         return false;
     }
 
-    private void ChangeWeapon()
+    //---------------colisiones------------------
+    private void OnCollisionEnter2D (Collision2D other)
     {
-        // current weapon disable
-        currentWeapon.gameObject.SetActive(false);
-        //Get next weapon
-        var nextWeapon = GetNextWeapon(currentWeapon.tag);
-        SetCurrentWeapon(GetEnumWeaponByTag(nextWeapon.tag));
-        //enable current weapon
-        currentWeapon.gameObject.SetActive(true);
-    }
-
-    public void EquipShieldBlock()
-    {
-        currentWeapon.gameObject.SetActive(false);
-        currentShield.gameObject.SetActive(true);
-        currentShield.FirstAttack = false;
-        HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
-    }
-
-    public void UnEquipShieldBlock()
-    {
-        currentShield.gameObject.SetActive(false);
-        currentWeapon.gameObject.SetActive(true);
-        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-    }
-
-    public void EquipPickAxe()
-    {
-        currentWeapon.gameObject.SetActive(false);
-        currentPickAxe.gameObject.SetActive(true);
-        currentPickAxe.FirstAttack = false;
-        //HealthManager.instance.UpdateWeaponFrame(currentShield.WeaponSprite);
-    }
-
-    public void UnEquipPickAxe()
-    {
-        currentPickAxe.gameObject.SetActive(false);
-        currentWeapon.gameObject.SetActive(true);
-        //HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-    }
-
-    private EnumWeapons GetEnumWeaponByTag(string weaponTag)
-    {
-        EnumWeapons _enumWeapon;
-        switch (weaponTag)
+        if (other.gameObject.tag == "Enemy"  && !playerInmune)
         {
-            case "GreatSword":
-                _enumWeapon = EnumWeapons.GreatSword;
-                break;
-            case "GreatHammer":
-                _enumWeapon = EnumWeapons.GreatHammer;
-                break;
-            case "KnightSword":
-                _enumWeapon = EnumWeapons.KnightSword;
-                break;
-            case "KnightShield":
-                _enumWeapon = EnumWeapons.KnightShield;
-                break;
-            case "PickAxe":
-                _enumWeapon = EnumWeapons.PickAxe;
-                break;
-            default:
-                _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos
-                break;
+            GameObject enemyColl = other.gameObject;
+            animator.SetTrigger("Hurt");
+            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
+            passingTime = 0;
         }
-        return _enumWeapon;
     }
 
-    private Weapon GetNextWeapon(string currentWeaponTag)
+    private void OnCollisionStay2D(Collision2D other)
     {
-        for (int i = 0; i < playerWeapons.Count; i++)
+        if (other.gameObject.tag == "Enemy" && !playerInmune)
         {
-            if (playerWeapons[i].tag == currentWeaponTag)
-            {
-                if ((i + 1) >= playerWeapons.Count)
-                {
-                    return playerWeapons[0].GetComponent<Weapon>();
-                }
-                else
-                {
-                    return playerWeapons[i + 1].GetComponent<Weapon>();//controlar esto para que de la vuelta
-                }
-               
-            }
+            GameObject enemyColl = other.gameObject;
+            animator.SetTrigger("Hurt");
+            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
+            passingTime = 0;
         }
-        return null;
+    }
+
+    private void OnCollisionStay2D(CircleCollider2D other)
+    {
+        if (other.gameObject.tag == "Enemy" && !playerInmune)
+        {
+            //ataque especial del ogro
+            Debug.Log("Ataque en area del Ogro.");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if ((other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor")) && playerExitCollision == false)//collider puerta activada
+        {
+            playerExitCollision = true;
+            GameManager.instance.MovePlayerToRoom(other.transform.parent.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        //Check if the tag of the trigger collided with is Exit.
+        if (other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor"))
+        {
+            playerExitCollision = false;
+        }
+    }
+
+    //--------------------vida----------------------
+    private void SetPlayerHealth(int modifyHealth)
+    {
+        playerHealth += modifyHealth;
+        UpdatePlayerHealth();
+    }
+
+    public void TakeDamage(int _damage)
+    {
+        SetPlayerHealth(-_damage);
+        UpdatePlayerHealth();
+    }
+    public void UpdatePlayerHealth()
+    {
+        HealthManager.instance.UpdateUI(playerHealth);
+    }
+
+
+    //-------------- gameManager---------------
+    public void UpdatePositionlevel(Vector2 respawnPosition)
+    {
+        transform.position = respawnPosition;
+    }
+
+    public void PlayerStartFalling()
+    {
+        if (!falling)
+        {
+            falling = true;
+            animator.SetTrigger("falling");
+        }
+    }
+
+    public void EndFallinPlayerAnim()
+    {
+        if (falling)
+        {
+            falling = false;
+            //reseteamos la posicion inicial del jugador
+            this.transform.position = GameManager.instance.ini_Player.transform.position;
+            this.TakeDamage(1);
+        }
+       
     }
 
     private void OnEnable()
