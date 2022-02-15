@@ -9,12 +9,13 @@ namespace Assets.Scripts.Weapons
         public bool pickAxeCollision = false;
         private int pickAxeUses = 3;
 
+
         public wPickAxe()
         {
             startTimeBtwAttack = 1.383f;
         }
 
-        void Start()
+        protected override void Awake()
         {
             weapon = GameObject.FindGameObjectWithTag("PickAxe");
             weaponRenderer = weapon.GetComponent<SpriteRenderer>();
@@ -24,24 +25,30 @@ namespace Assets.Scripts.Weapons
             player = GameObject.FindGameObjectWithTag("Player");
             playerAnimator = player.GetComponent<Animator>();
             HealthManager.instance.UpdateEquipUses(pickAxeUses);
+            //action buttons
+            inputAction = new Playerinputactions();
+            inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
+            inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
         }
 
         protected override void ProcessInputs()
         {
             //Cooldown entre ataques para permitir spamear
-            if (timeBtwAttack <= 0)
+            if (timeBtwAttack <= 0 && !CheckWeaponAttacking() && CheckIsIddleAnim())
             {
                 setDirectionAttack();
-                if (Input.GetKey(KeyCode.C) && pickAxeUses > 0)
+                if (attackWeaponPressed && pickAxeUses > 0)
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
-                    resetWeapon();
+                    //isAttacking = true;
+                    //resetWeapon();
+                    setIsAttacking();
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
                     pickAxeUses--;
                     HealthManager.instance.UpdateEquipUses(pickAxeUses);
                 }
+                attackWeaponPressed = false;
             }
             else
             {
@@ -73,7 +80,14 @@ namespace Assets.Scripts.Weapons
             //specialParryAttack = true;
         }
 
-
+        private void OnEnable()
+        {
+            inputAction.Enable();
+        }
+        private void OnDisable()
+        {
+            inputAction.Disable();
+        }
 
 
     }

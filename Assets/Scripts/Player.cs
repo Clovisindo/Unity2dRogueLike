@@ -1,24 +1,42 @@
-﻿using System;
+﻿using Assets.Scripts.Components;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private Animator animator;
     private Transform transform;
     private List<Weapon> playerWeapons;
     private Weapon currentWeapon;
     private Weapon currentShield;
+    private Weapon currentPickAxe;
+
+    //Components
+    [SerializeField]MoveComponent moveComponent;
+    [SerializeField] InmuneComponent inmuneComponent;
+    [SerializeField] ChangeWeaponComponent changeWeaponComponent;
+    [SerializeField] EquipShieldComponent EquipShieldComponent;
+    [SerializeField] ChangeUtilityComponent changeUtilityComponent;
 
     private Vector2 movementDirection;
     private float movementSpeed;
     public float moveX;
     public float moveY;
+
+    //inputactions
+    Playerinputactions inputAction;
+    bool changeWeaponPressed;
+    bool EquipShieldPressed;
+    bool EquipPickAxePressed;
+    bool attackWeaponPressed;
+
+    //move
+    Vector2 movementInput;
+    
 
     public float MOVEMENT_BASE_SPEED = 3.0f;
     public int playerHealth = 3;
@@ -31,58 +49,71 @@ public class Player : MonoBehaviour
     private float timeBtwChangeWeapon;
     private float startTimeBtwChangeWeapon = 0.5f;
 
-    private float timeBtwBlocks;
-    private float startTimeBtwBlocks = 1f;
-    private bool specialParryAttack = false;
+    private float timeBtwEquipShield;
+    private float startTimeBtwEquipShield = 5.0f;
 
     private float timeBtwChangeUtility;
     private float startTimeBtwChangeUtility = 2f;
-    private bool specialUtility = false;
 
     private bool falling = false;
-   
+    private bool currentWeaponAttacking = false;
+
+    public bool CurrentWeaponAttacking { get => currentWeaponAttacking; set => currentWeaponAttacking = value; }
+
+
+
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        boxCollider = GetComponent<BoxCollider2D>();
         rb2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         transform = GetComponent<Transform>();
         playerWeapons = GetWeapons();
-        SetCurrentWeapon(EnumWeapons.KnightSword);
-        //SetCurrentWeapon(EnumWeapons.KnightShield);
+        changeWeaponComponent.SetCurrentWeapon(EnumWeapons.KnightSword,ref currentWeapon, playerWeapons);
         currentWeapon.gameObject.SetActive(true);
+        inputAction = new Playerinputactions();
+        inputAction.Playercontrols.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
+
+        //action buttons
+        inputAction.Playercontrols.Changeweapon.performed += ctx => changeWeaponPressed = true;
+        inputAction.Playercontrols.Changeweapon.canceled += ctx => changeWeaponPressed = false;
+        inputAction.Playercontrols.EquipShield.performed += ctx => EquipShieldPressed = true;
+        inputAction.Playercontrols.EquipShield.canceled += ctx => EquipShieldPressed = false;
+        inputAction.Playercontrols.EquipPickAxe.performed += ctx => EquipPickAxePressed = true;
+        inputAction.Playercontrols.EquipPickAxe.canceled += ctx => EquipPickAxePressed = false;
+        inputAction.Playercontrols.Attack.performed += ctx => attackWeaponPressed = true;
     }
 
-    private void SetCurrentWeapon(EnumWeapons _enumWeapon)
+    //inputs
+    void FixedUpdate()
     {
-        //no casteamos el arma en concreto hasta asignarla en currentWeapon
-        switch (_enumWeapon)
+        if (!falling)// no permitir control jugador si esta cayendo
         {
-            //case EnumWeapons.GreatSword:
-            //    currentWeapon = (wGreatSword)GetWeaponByTag(_enumWeapon);
-            //    break;
-            case EnumWeapons.GreatHammer:
-                currentWeapon = (wGreatHammer)GetWeaponByTag(_enumWeapon);
-                break;
-            case EnumWeapons.KnightSword:
-                currentWeapon = (wKnightSword)GetWeaponByTag(_enumWeapon);
-                break;
-            case EnumWeapons.KnightShield:
-                currentShield = (wKnightShield)GetWeaponByTag(_enumWeapon);
-                break;
-            default:
-                break;
+            ProcessInputs();
+            animator.SetFloat("movementSpeed", movementSpeed);
+            rb2D.velocity = moveComponent.Move(rb2D,MOVEMENT_BASE_SPEED);
         }
-        HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-        Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
     }
 
+    // --------------------inputs-------------
+    void ProcessInputs()
+    {
+        movementInput = moveComponent.MoveBehaviour(movementInput, animator);
+        playerInmune = inmuneComponent.InmuneBehaviour(ref passingTime,inmuneTime,  playerInmune);
+        changeWeaponComponent.ChangeWeaponBehaviour(ref timeBtwChangeWeapon,startTimeBtwChangeWeapon,ref changeWeaponPressed,ref currentWeapon,playerWeapons);
+        EquipShieldPressed = EquipShieldComponent.EquipShieldBehaviour(ref timeBtwEquipShield,startTimeBtwEquipShield,EquipShieldPressed,currentShield,currentWeapon);
+        EquipPickAxePressed = changeUtilityComponent.ChangeUtilityBehaviour(ref timeBtwChangeUtility,startTimeBtwChangeUtility,EquipPickAxePressed,currentPickAxe,currentWeapon);
+    }
+
+    //-----------------armas-----------------
+
+    /// <summary>
+    /// se activa la bandera para que el proximo ataque sea el counter del parry
+    /// </summary>
     internal void ActiveSpecialParryAtk()
     {
         currentWeapon.ActiveSpecialParryAtk();
-        //se activa la bandera para que el proximo ataque sea el counter del parry
     }
     /// <summary>
     /// Desactivar el funcionamiento de parry escudo hasta que hagas otro block
@@ -91,121 +122,58 @@ public class Player : MonoBehaviour
     {
         currentShield.DisableColliderAttack();
         currentShield.GetComponent<wKnightShield>().DisableParryBehaviour();
-        //se desactiva la bandera para que el proximo ataque sea el counter del parry
     }
 
-    private Weapon GetWeaponByTag(EnumWeapons _enumWeapon)
+    private List<Weapon> GetWeapons()
     {
-        foreach (var weapon in playerWeapons)
+        List<Weapon> tempWeapons = Utilities.getAllChildsObject<Weapon>(this.transform);
+        List<Weapon> equipedWeapons = new List<Weapon>();
+
+
+        foreach (var tWeapon in tempWeapons)
         {
-            if (weapon.tag == _enumWeapon.ToString())
+            if (CheckIsWeapon(tWeapon))
             {
-                if (weapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
-                {
-                    continue;
-                }
-                return weapon.GetComponent<Weapon>();
+                equipedWeapons.Add(tWeapon);
+            }
+            if (tWeapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            {
+                currentShield = tWeapon;
+            }
+            if (tWeapon.tag == EnumWeapons.PickAxe.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
+            {
+                currentPickAxe = tWeapon;
             }
         }
-        return null;
+        return equipedWeapons;
     }
 
-    void FixedUpdate()
+    private bool CheckIsWeapon(Weapon item)
     {
-        if (!falling)// no permitir control jugador si esta cayendo
+        var _enumWeapons = Utilities.EnumUtil.GetValues<EnumWeapons>();
+        foreach (var _enumWeapon in _enumWeapons)
         {
-            ProcessInputs();
-            animator.SetFloat("movementSpeed", movementSpeed);
-            Move();
-        }
-    }
-
-    void ProcessInputs()
-    {
-        moveX = Input.GetAxisRaw("Horizontal");
-        moveY = Input.GetAxisRaw("Vertical");
-        movementDirection = new Vector2(moveX, moveY);
-
-        animator.SetFloat("moveX", moveX);
-        animator.SetFloat("moveY", moveY);
-
-        movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
-        movementDirection.Normalize();
-
-        if (passingTime < inmuneTime)
-        {
-            passingTime += Time.deltaTime;
-            playerInmune = true;
-        }
-        else
-        {
-            playerInmune = false;
-        }
-
-        //cambiar de arma
-        if (timeBtwChangeWeapon <= 0)
-        {
-            //change weapon
-            if (Input.GetKey(KeyCode.T))
+            if (item.tag == EnumWeapons.KnightShield.ToString() || item.tag == EnumWeapons.PickAxe.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
             {
-                ChangeWeapon();
-                timeBtwChangeWeapon = startTimeBtwChangeWeapon;
+                continue;
             }
-           
-        }
-        else
-        {
-            timeBtwChangeWeapon -= Time.deltaTime;
-        }
-
-        //activar bloqueo del escudo
-        if (timeBtwBlocks <= 0)
-        {
-            //change weapon
-            if (Input.GetKey(KeyCode.Q))
+            if (_enumWeapon.ToString() == item.tag)
             {
-                EquipShieldBlock();
-                timeBtwBlocks = startTimeBtwBlocks;
+
+                return true;
             }
         }
-        else
-        {
-            timeBtwBlocks -= Time.deltaTime;
-        }
-
-        ////herramienta util
-        //if (timeBtwChangeUtility <= 0)
-        //{
-        //    //change weapon
-        //    if (Input.GetKey(KeyCode.C))
-        //    {
-        //        ChangeWeapon();
-        //        timeBtwChangeUtility = startTimeBtwChangeUtility;
-        //    }
-
-        //}
-        //else
-        //{
-        //    timeBtwChangeUtility -= Time.deltaTime;
-        //}
+        return false;
     }
 
-   
-
-    protected void Move()
-    {
-        rb2D.velocity = movementDirection * movementSpeed * MOVEMENT_BASE_SPEED;
-    }
-
+    //---------------colisiones------------------
     private void OnCollisionEnter2D (Collision2D other)
     {
         if (other.gameObject.tag == "Enemy"  && !playerInmune)
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -216,9 +184,7 @@ public class Player : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            //restamos vida al jugador
             SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
-            //UpdatePlayerHealth();
             passingTime = 0;
         }
     }
@@ -232,54 +198,25 @@ public class Player : MonoBehaviour
         }
     }
 
-
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Exit" && playerExitCollision == false)
+        if ((other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor")) && playerExitCollision == false)//collider puerta activada
         {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
             playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
-        }
-
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Entrance" && playerExitCollision == false)
-        {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);//no es la puerta es el collider
-            playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
-        }
-        if (other.tag == "SecretDoor" && playerExitCollision == false)
-        {
-            var roomDirection = GameManager.instance.currentRoom.GetDirectionByDoor(other.transform.parent.gameObject);
-            playerExitCollision = true;
-            GameManager.instance.ChangeLevel(roomDirection);
-
+            GameManager.instance.MovePlayerToRoom(other.transform.parent.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Exit" )
-        {
-            playerExitCollision = false;
-        }
-        //Check if the tag of the trigger collided with is Exit.
-        if (other.tag == "Entrance" )
-        {
-            playerExitCollision = false;
-        }
-        if (other.tag == "SecretDoor")
+        if (other.CompareTag("Exit") || other.CompareTag("Entrance") || other.CompareTag("SecretDoor"))
         {
             playerExitCollision = false;
         }
     }
 
+    //--------------------vida----------------------
     private void SetPlayerHealth(int modifyHealth)
     {
         playerHealth += modifyHealth;
@@ -296,10 +233,11 @@ public class Player : MonoBehaviour
         HealthManager.instance.UpdateUI(playerHealth);
     }
 
+
+    //-------------- gameManager---------------
     public void UpdatePositionlevel(Vector2 respawnPosition)
     {
         transform.position = respawnPosition;
-        //playerExitCollision = false;
     }
 
     public void PlayerStartFalling()
@@ -323,118 +261,12 @@ public class Player : MonoBehaviour
        
     }
 
-    private List<Weapon> GetWeapons()
+    private void OnEnable()
     {
-        List<Weapon> tempWeapons = Utilities.getAllChildsObject<Weapon>(this.transform);
-        List<Weapon> equipedWeapons = new List<Weapon>();
-
-
-        foreach (var tWeapon in tempWeapons)
-        {
-            if (CheckIsWeapon(tWeapon))
-            {
-                equipedWeapons.Add(tWeapon);
-            }
-            if (tWeapon.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
-            {
-                currentShield = tWeapon;
-            }
-        }
-        return equipedWeapons;
+        inputAction.Enable();
     }
-
-    private bool CheckIsWeapon(Weapon item)
+    private void OnDisable()
     {
-        var _enumWeapons = Utilities.EnumUtil.GetValues<EnumWeapons>();
-        foreach (var _enumWeapon in _enumWeapons)
-        {
-            if (item.tag == EnumWeapons.KnightShield.ToString())//ToDo: no esta bien gestionado el tener el escudo en las armas
-            {
-                continue;
-            }
-            if (_enumWeapon.ToString() == item.tag)
-            {
-                
-                return true;
-            }
-        }
-        return false;
+        inputAction.Disable();
     }
-
-    private void ChangeWeapon()
-    {
-        // current weapon disable
-        currentWeapon.gameObject.SetActive(false);
-        //Get next weapon
-        var nextWeapon = GetNextWeapon(currentWeapon.tag);
-        SetCurrentWeapon(GetEnumWeaponByTag(nextWeapon.tag));
-        //enable current weapon
-        currentWeapon.gameObject.SetActive(true);
-    }
-
-    private void EquipShieldBlock()
-    {
-        //1º activar gameobject escudo
-        currentShield.gameObject.SetActive(true);
-        currentShield.setIsAttacking();
-        // esto se queda activo durante unos segundos y se llama al desequipar escudo
-        //usamos la animacion y se invoca al acabar el UnEquip
-    }
-
-    public void UnEquipShieldBlock()
-    {
-        //1º Desactivar el gameobject del escudo
-        currentShield.gameObject.SetActive(false);
-    }
-
-    private EnumWeapons GetEnumWeaponByTag(string weaponTag)
-    {
-        EnumWeapons _enumWeapon;
-        switch (weaponTag)
-        {
-            case "GreatSword":
-                _enumWeapon = EnumWeapons.GreatSword;
-                break;
-            case "GreatHammer":
-                _enumWeapon = EnumWeapons.GreatHammer;
-                break;
-            case "KnightSword":
-                _enumWeapon = EnumWeapons.KnightSword;
-                break;
-            case "KnightShield":
-                _enumWeapon = EnumWeapons.KnightShield;
-                break;
-            default:
-                _enumWeapon = EnumWeapons.GreatHammer;//ToDo: controlar nulos
-                break;
-        }
-        return _enumWeapon;
-    }
-
-    private Weapon GetNextWeapon(string currentWeaponTag)
-    {
-        for (int i = 0; i < playerWeapons.Count; i++)
-        {
-            if (playerWeapons[i].tag == currentWeaponTag)
-            {
-                if ((i + 1) >= playerWeapons.Count)
-                {
-                    return playerWeapons[0].GetComponent<Weapon>();
-                }
-                else
-                {
-                    return playerWeapons[i + 1].GetComponent<Weapon>();//controlar esto para que de la vuelta
-                }
-               
-            }
-        }
-        return null;
-    }
-
-   
-
-
-
-
-
 }

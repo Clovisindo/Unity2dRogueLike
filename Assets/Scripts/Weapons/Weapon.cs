@@ -10,7 +10,7 @@ public abstract class Weapon : MonoBehaviour
     protected GameObject player;
     protected Animator playerAnimator;
 
-    protected bool isAttacking = false;
+    private bool isAttacking = false;
     protected bool specialParryAttack = false;
 
     protected int damage = 1;
@@ -25,22 +25,31 @@ public abstract class Weapon : MonoBehaviour
     public float moveY;
     [SerializeField] private Sprite weaponSprite;
 
+    //inputactions
+    protected Playerinputactions inputAction;
+    protected bool attackWeaponPressed;
+    //attack action
+    protected Vector2 attackPosition;
+    private bool firstAttack = false;
+
+    public Vector2 AttackPosition { get => attackPosition; set => attackPosition = value; }
     public Sprite WeaponSprite { get => weaponSprite; set => weaponSprite = value; }
+    public bool IsAttacking { get => isAttacking; set => isAttacking = value; }
+    public bool FirstAttack { get => firstAttack; set => firstAttack = value; }
 
     // Start is called before the first frame update
     protected virtual void Awake()
     {
-        //weapon = GameObject.FindGameObjectWithTag("Weapon");
         player = GameObject.FindGameObjectWithTag("Player");
-        //weaponRenderer = weapon.GetComponent<SpriteRenderer>();
-        //weaponCollider = weapon.GetComponent<BoxCollider2D>();
-        //weaponAnimator = weapon.GetComponent<Animator>();
         playerAnimator = player.GetComponent<Animator>();
 
+        //action buttons
+        inputAction = new Playerinputactions();
+        inputAction.Playercontrols.AttackDirection.performed += ctx => AttackPosition = ctx.ReadValue<Vector2>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ProcessInputs();
     }
@@ -50,45 +59,36 @@ public abstract class Weapon : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             other.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(),damage, knockbackDistance, knockbackSpeed);
-            //if (enemyColl.GetComponent<Enemy>().CheckIsDeath())
-            //{
-            //    GameManager.instance.DestroyEnemy(enemyColl.GetComponent<Enemy>());
-                
-            //}
-            //else
-            //{
-            //    //other.gameObject.GetComponent<BoxCollider2D>().enabled = true;
-            //}
-
+            GameManager.instance.takeDamage(other.tag, other.gameObject.GetComponent<Enemy>(), damage, knockbackDistance, knockbackSpeed);
         }
     }
 
-    protected virtual void  ProcessInputs()
+    protected virtual void ProcessInputs()
     {
         //Cooldown entre ataques para permitir spamear
-        if (timeBtwAttack <= 0)
+        if (timeBtwAttack <= 0 && !CheckWeaponAttacking())
         {
             setDirectionAttack();
-            if (Input.GetKey(KeyCode.Space))
+            if (attackWeaponPressed)
             {
                 if (specialParryAttack)
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
+                    IsAttacking = true;
+                    GameManager.instance.player.CurrentWeaponAttacking = true;
                     weaponAnimator.SetTrigger("Counter");
                     timeBtwAttack = startTimeBtwAttack;
                     SpecialAttack();
-                    //specialParryAttack = false;
-                   
                 }
                 else
                 {
                     SoundManager.instance.PlaySingle(weaponSwin);
-                    isAttacking = true;
+                    IsAttacking = true;
+                    GameManager.instance.player.CurrentWeaponAttacking = true;
                     weaponAnimator.SetTrigger("Attacking");
                     timeBtwAttack = startTimeBtwAttack;
                 }
+                attackWeaponPressed = false;
             }
         }
         else
@@ -102,9 +102,10 @@ public abstract class Weapon : MonoBehaviour
     /// </summary>
     void EndAnimation()
     {
-        isAttacking = false;
-        //resetWeapon();
-        
+        IsAttacking = false;
+        GameManager.instance.player.CurrentWeaponAttacking = false;
+        firstAttack = true;
+
         if (specialParryAttack)
         {
             weaponAnimator.SetTrigger("Counter");
@@ -117,26 +118,10 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-  
-
-    /// <summary>
-    /// Semaforo de activar o desactivar el arma
-    /// </summary>
-    protected void resetWeapon()
+    public virtual bool CheckIsIddleAnim()
     {
-        if (isAttacking)
-        {
-            weaponCollider.isTrigger = true;
-            weaponCollider.enabled = true;
-            //weaponRenderer.enabled = true;
-        }
-        else
-        {
-            weaponCollider.isTrigger = false;
-            weaponCollider.enabled = false;
-            //weaponRenderer.enabled = false;
-            //weapon.transform.rotation = new Quaternion(0,0,0,0);//ToDo: creo que esto quedó como parche de algo mal generado en las animaciones
-        }
+        return weaponAnimator.GetCurrentAnimatorStateInfo(0).IsTag("idleAnim") 
+            && !(weaponAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1);
     }
 
     /// <summary>
@@ -144,16 +129,26 @@ public abstract class Weapon : MonoBehaviour
     /// </summary>
     protected virtual void setDirectionAttack()
     {
-        moveX = playerAnimator.GetFloat("moveX");
-        moveY = playerAnimator.GetFloat("moveY");
+        moveX = attackPosition.x; // playerAnimator.GetFloat("moveX");
+        moveY = attackPosition.y;
 
         weaponAnimator.SetFloat("moveX", moveX);
         weaponAnimator.SetFloat("moveY", moveY);
+        if (moveX != 0 || moveY != 0)
+        {
+            attackWeaponPressed = true;
+        }
+        else
+        {
+            attackWeaponPressed = false;
+        }
+
     }
 
     public virtual void setIsAttacking()
     {
-        isAttacking = true;
+        IsAttacking = true;
+        GameManager.instance.player.CurrentWeaponAttacking = true;
     }
 
     public virtual void EnableColliderAttack()
@@ -170,7 +165,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void SpecialAttack()
     {
         Debug.Log(" ataque especial por defecto.");
-        
+
     }
 
     public virtual void ActiveSpecialParryAtk()
@@ -181,6 +176,19 @@ public abstract class Weapon : MonoBehaviour
     {
         specialParryAttack = false;
     }
+
+    public virtual bool CheckWeaponAttacking()
+    {
+        return GameManager.instance.player.CurrentWeaponAttacking;
+    }
+
+    private void OnEnable()
+    {
+        inputAction.Enable();
+    }
+    private void OnDisable()
+    {
+        inputAction.Disable();
+    }
 }
 
- 
