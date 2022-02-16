@@ -14,7 +14,7 @@ public class fFountain : fFloorMechanic
 
     private void ActivateEffect()//ToDo: cambiar esto no esta bien implementado
     {
-        GameManager.instance.player.playerHealth += 1;
+        GameManager.instance.player.PlayerHealth += 1;
         GameManager.instance.player.UpdatePlayerHealth();
     }
 }

@@ -36,15 +36,15 @@ public class Player : MonoBehaviour
 
     //move
     Vector2 movementInput;
-    
 
-    public float MOVEMENT_BASE_SPEED = 3.0f;
-    public int playerHealth = 3;
+
+    [SerializeField] private float MOVEMENT_BASE_SPEED = 5f;
+    [SerializeField] private int playerHealth = 3;
     private const float inmuneTime = 2.0f;
     private float passingTime = inmuneTime;
     private bool playerInmune = false;
-    public bool playerExitCollision = false;
-    public bool playerEntranceCollision = false;
+    private bool playerExitCollision = false;
+    private bool playerEntranceCollision = false;
 
     private float timeBtwChangeWeapon;
     private float startTimeBtwChangeWeapon = 0.5f;
@@ -59,6 +59,7 @@ public class Player : MonoBehaviour
     private bool currentWeaponAttacking = false;
 
     public bool CurrentWeaponAttacking { get => currentWeaponAttacking; set => currentWeaponAttacking = value; }
+    public int PlayerHealth { get => playerHealth; set => playerHealth = value; }
 
 
 

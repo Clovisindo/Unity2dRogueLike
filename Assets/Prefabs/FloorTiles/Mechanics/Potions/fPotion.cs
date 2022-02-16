@@ -16,7 +16,7 @@ public class fPotion : fFloorMechanic
     {
         if (!HealthManager.instance.IsMaxHealth())
         {
-            GameManager.instance.player.playerHealth += 1;
+            GameManager.instance.player.PlayerHealth += 1;
             GameManager.instance.player.UpdatePlayerHealth();
             Destroy(gameObject);
             Debug.Log("Pocion bebida.");
