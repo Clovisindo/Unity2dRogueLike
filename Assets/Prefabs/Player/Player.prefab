@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2965597674117239229}
   - component: {fileID: 5292541407943191769}
   - component: {fileID: 8397531985684289202}
+  - component: {fileID: 6494512356502603337}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -178,12 +179,11 @@ MonoBehaviour:
   changeWeaponComponent: {fileID: 2965597674117239229}
   EquipShieldComponent: {fileID: 5292541407943191769}
   changeUtilityComponent: {fileID: 8397531985684289202}
+  flashDamageComponent: {fileID: 6494512356502603337}
   moveX: 0
   moveY: 0
   MOVEMENT_BASE_SPEED: 5
   playerHealth: 3
-  playerExitCollision: 0
-  playerEntranceCollision: 0
 --- !u!114 &7907738774756230013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +244,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3995cee98827a174082384c2747ad2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6494512356502603337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122026578067257506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7592efe8ced992e4584c813001a3222b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 4a257c5dcff3dd94c956b7e2848a0ef7, type: 2}
+  duration: 0.1
 --- !u!1001 &1637898351631327320
 PrefabInstance:
   m_ObjectHideFlags: 0
