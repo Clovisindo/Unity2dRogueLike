@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] ChangeWeaponComponent changeWeaponComponent;
     [SerializeField] EquipShieldComponent EquipShieldComponent;
     [SerializeField] ChangeUtilityComponent changeUtilityComponent;
+    [SerializeField] FlashDamageComponent flashDamageComponent;
 
     private Vector2 movementDirection;
     private float movementSpeed;
@@ -174,7 +175,7 @@ public class Player : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
+            TakeDamage(-enemyColl.GetComponent<Enemy>().GetAttack());
             passingTime = 0;
         }
     }
@@ -185,7 +186,7 @@ public class Player : MonoBehaviour
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
-            SetPlayerHealth(- enemyColl.GetComponent<Enemy>().GetAttack());
+            TakeDamage(-enemyColl.GetComponent<Enemy>().GetAttack());
             passingTime = 0;
         }
     }
@@ -227,7 +228,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int _damage)
     {
         SetPlayerHealth(-_damage);
-        UpdatePlayerHealth();
+        flashDamageComponent.Flash(Color.red);
     }
     public void UpdatePlayerHealth()
     {

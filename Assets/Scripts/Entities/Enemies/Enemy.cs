@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Scripts;
 using Assets.Scripts.EnumTypes;
 using System;
+using Assets.Scripts.Components;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public abstract class Enemy : MonoBehaviour
     protected Rigidbody2D rb;
     protected BoxCollider2D collider;
 
+    //Components
+    [SerializeField] FlashDamageComponent flashDamageComponent;
 
     //health
     [SerializeField]
@@ -180,6 +183,7 @@ public abstract class Enemy : MonoBehaviour
         enemyCurrentHealth -= damage;
         healthBar.SetHealth(enemyCurrentHealth);
         SoundManager.instance.PlaySingle(playerHit);
+        flashDamageComponent.Flash(Color.white);
         passingTime = 0;
         CheckKknockback = true;
         kbDistance = knockbackDistance;

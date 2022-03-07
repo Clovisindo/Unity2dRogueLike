@@ -128,6 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -334,6 +335,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &928708342668952033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +367,7 @@ GameObject:
   - component: {fileID: 8699067076776563715}
   - component: {fileID: 2812248238616750533}
   - component: {fileID: 812820469}
+  - component: {fileID: 8798770288914175032}
   m_Layer: 8
   m_Name: Mimic
   m_TagString: Enemy
@@ -499,6 +502,7 @@ MonoBehaviour:
   minRange: 1
   maxRange: 5
   typeEnemy: 3
+  flashDamageComponent: {fileID: 8798770288914175032}
   enemyMaxHealth: 2
   enemyCurrentHealth: 2
   healthBar: {fileID: 2492183457719030734}
@@ -525,3 +529,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &8798770288914175032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8699067076776563716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7592efe8ced992e4584c813001a3222b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashMaterial: {fileID: 2100000, guid: 4a257c5dcff3dd94c956b7e2848a0ef7, type: 2}
+  duration: 0.1
