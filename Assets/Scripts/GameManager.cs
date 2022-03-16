@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         levelGenerationScript = GetComponent<LevelGeneration>();
         eventRoomController = GetComponent<EventRoomController>();
@@ -262,5 +261,27 @@ public class GameManager : MonoBehaviour
         }
 
         return newPositionCamera;
+    }
+
+    public void DefeatEndGame()
+    {
+        LoadReMenuScene();
+    }
+    public void VictoryEndGame(bool finalBossDefeated)
+    {
+        if (finalBossDefeated)
+        {
+            LoadVictoryScene();
+        }
+    }
+    private void LoadReMenuScene()
+    {
+        LoaderSceneScript.triggerMenu(2);
+        //menuManager.triggerMenu(2);
+    }
+    private void LoadVictoryScene()
+    {
+        LoaderSceneScript.triggerMenu(3);
+        //menuManager.triggerMenu(3);
     }
 }

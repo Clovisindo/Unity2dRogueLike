@@ -92,10 +92,19 @@ public class Player : MonoBehaviour
     {
         if (!falling)// no permitir control jugador si esta cayendo
         {
+            CheckStatusPlayer();
             ProcessInputs();
             animator.SetFloat("movementSpeed", movementSpeed);
             rb2D.velocity = moveComponent.Move(rb2D,MOVEMENT_BASE_SPEED);
         }
+    }
+
+    private void CheckStatusPlayer()
+    {
+        if (PlayerHealth <= 0)
+        {
+            GameManager.instance.DefeatEndGame();
+        };
     }
 
     // --------------------inputs-------------
@@ -227,7 +236,7 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int _damage)
     {
-        SetPlayerHealth(-_damage);
+        SetPlayerHealth(_damage);
         flashDamageComponent.Flash(Color.red);
     }
     public void UpdatePlayerHealth()

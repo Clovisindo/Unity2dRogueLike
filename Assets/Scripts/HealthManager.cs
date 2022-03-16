@@ -30,7 +30,6 @@ public class HealthManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
         weaponFrame = GameObject.FindGameObjectWithTag("weaponFrame").GetComponent<Image>();
         equipFrame = GameObject.FindGameObjectWithTag("EquipFrame").GetComponent<Image>();//ToDo: implementar mas equipo
         equipFrameText = GameObject.FindGameObjectWithTag("EquipFrameText").GetComponent<Text>();

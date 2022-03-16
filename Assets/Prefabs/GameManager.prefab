@@ -88,8 +88,6 @@ MonoBehaviour:
   rightChangeRoomCollider: {fileID: 6223185180155930022, guid: e809cb2be4873f1489a0ba90d0806e0d, type: 3}
   roomDoorLeftRight: {fileID: 724822624253237629, guid: f2140001de4b29e4d9f7d8fa7bb661ff, type: 3}
   roomDoorUpDown: {fileID: 3196276114130933081, guid: e11268db266a8064cb47714a73663ef2, type: 3}
-  roomSecretDoorLeftRight: {fileID: 4074521679253195773, guid: 74ac178f0ab78294b9f85759c9ea1876, type: 3}
-  roomSecretDoorUpDown: {fileID: 8139811145568675067, guid: 42ef3a70bd2924144a7de0c745119bfd, type: 3}
   wallCornerTopLeft: {fileID: 6660753506950693226, guid: 1ae61f88f675bc244ae0e94f9bfd5472, type: 3}
   wallCornerTopRight: {fileID: 3297531888238195791, guid: 2bf73bfc895b8674ebd1d881f4b6f5b5, type: 3}
   wallCornerBottomRight: {fileID: 778436437792382701, guid: d8562b0ba3adc0341a65256206a9a781, type: 3}
@@ -131,6 +129,7 @@ MonoBehaviour:
   startTimeBTwRoom: 0.25
   minX: -1.5
   maxX: 54
+  minY: 0
   maxY: -30
 --- !u!114 &2032361823
 MonoBehaviour:
