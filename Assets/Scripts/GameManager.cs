@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour
 
     public void DefeatEndGame()
     {
-        LoadReMenuScene();
+        LoadGameOverScene();
     }
     public void VictoryEndGame(bool finalBossDefeated)
     {
@@ -277,11 +277,14 @@ public class GameManager : MonoBehaviour
     private void LoadReMenuScene()
     {
         LoaderSceneScript.triggerMenu(2);
-        //menuManager.triggerMenu(2);
     }
     private void LoadVictoryScene()
     {
         LoaderSceneScript.triggerMenu(3);
-        //menuManager.triggerMenu(3);
+    }
+
+    private void LoadGameOverScene()
+    {
+        LoaderSceneScript.triggerMenu(4);
     }
 }

@@ -18,7 +18,10 @@ public static class LoaderSceneScript
 				SceneManager.LoadScene("MainMenuScene");
 				break;
 			case (3):
-				SceneManager.LoadScene("");
+				SceneManager.LoadScene("VictoryMenuScene");
+				break;
+			case (4):
+				SceneManager.LoadScene("GameOverMenuScene");
 				break;
 		}
 	}
