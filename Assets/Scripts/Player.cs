@@ -93,10 +93,19 @@ public class Player : MonoBehaviour
         if (!falling)// no permitir control jugador si esta cayendo
         {
             CheckStatusPlayer();
+            CheckStatusLevel();
             ProcessInputs();
             animator.SetFloat("movementSpeed", movementSpeed);
             rb2D.velocity = moveComponent.Move(rb2D,MOVEMENT_BASE_SPEED);
         }
+    }
+
+    private void CheckStatusLevel()
+    {
+        if (PlayerHealth <= 0)
+        {
+            GameManager.instance.DefeatEndGame();
+        };
     }
 
     private void CheckStatusPlayer()

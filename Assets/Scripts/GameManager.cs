@@ -267,12 +267,9 @@ public class GameManager : MonoBehaviour
     {
         LoadGameOverScene();
     }
-    public void VictoryEndGame(bool finalBossDefeated)
+    public void VictoryEndGame()
     {
-        if (finalBossDefeated)
-        {
             LoadVictoryScene();
-        }
     }
     private void LoadReMenuScene()
     {
