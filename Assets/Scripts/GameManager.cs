@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+using EnumScene = LoaderSceneScript.Scene;
 
 public class GameManager : MonoBehaviour
 {
@@ -273,15 +270,15 @@ public class GameManager : MonoBehaviour
     }
     private void LoadReMenuScene()
     {
-        LoaderSceneScript.triggerMenu(2);
+        LoaderSceneScript.LoadScene(EnumScene.MainMenuScene);
     }
     private void LoadVictoryScene()
     {
-        LoaderSceneScript.triggerMenu(3);
+        LoaderSceneScript.LoadScene(EnumScene.VictoryMenuScene);
     }
 
     private void LoadGameOverScene()
     {
-        LoaderSceneScript.triggerMenu(4);
+        LoaderSceneScript.LoadScene(EnumScene.GameOverMenuScene);
     }
 }
