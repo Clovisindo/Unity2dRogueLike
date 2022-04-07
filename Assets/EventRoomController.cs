@@ -39,7 +39,6 @@ public class EventRoomController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
         //currentRoom = GameManager.instance.currentRoom;
         //InitRoom();//ToDo: DEBUG
     }

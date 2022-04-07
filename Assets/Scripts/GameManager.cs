@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
+using EnumScene = LoaderSceneScript.Scene;
 
 public class GameManager : MonoBehaviour
 {
@@ -45,7 +42,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
         boardScript = GetComponent<BoardManager>();
         levelGenerationScript = GetComponent<LevelGeneration>();
         eventRoomController = GetComponent<EventRoomController>();
@@ -262,5 +258,27 @@ public class GameManager : MonoBehaviour
         }
 
         return newPositionCamera;
+    }
+
+    public void DefeatEndGame()
+    {
+        LoadGameOverScene();
+    }
+    public void VictoryEndGame()
+    {
+            LoadVictoryScene();
+    }
+    private void LoadReMenuScene()
+    {
+        LoaderSceneScript.LoadScene(EnumScene.MainMenuScene);
+    }
+    private void LoadVictoryScene()
+    {
+        LoaderSceneScript.LoadScene(EnumScene.VictoryMenuScene);
+    }
+
+    private void LoadGameOverScene()
+    {
+        LoaderSceneScript.LoadScene(EnumScene.GameOverMenuScene);
     }
 }

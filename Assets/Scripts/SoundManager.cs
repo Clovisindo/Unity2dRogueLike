@@ -18,8 +18,6 @@ public class SoundManager : MonoBehaviour
             instance = this;
         else if (instance != null)
             Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void PlaySingle(AudioClip clip)

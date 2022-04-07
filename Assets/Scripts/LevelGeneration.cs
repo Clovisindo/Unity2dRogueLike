@@ -78,6 +78,12 @@ public class LevelGeneration : MonoBehaviour
             ListRoomsCreated.Add(startPosRoom.position, currentRoomParam);
         }
     }
+
+    internal static void ActivateVictoryScene()
+    {
+        GameManager.instance.VictoryEndGame();
+    }
+
     /// <summary>
     /// Primera vuelta genera el camino principal en Move()
     /// Segunda vuelta crea las habitaciones adiconales InitOptionalRooms()

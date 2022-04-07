@@ -20,6 +20,8 @@ public abstract class Enemy : MonoBehaviour
     protected  float maxRange;
     [SerializeField]
     private EnumTypeEnemies typeEnemy;
+    [SerializeField]
+    private bool finalBoss = false;
     protected Rigidbody2D rb;
     protected BoxCollider2D collider;
 
@@ -101,6 +103,10 @@ public abstract class Enemy : MonoBehaviour
         {
             GameManager.instance.currentRoom.OpenDoor();
             GameManager.instance.currentRoom.RoomComplete = true;
+        }
+        if (finalBoss)
+        {
+            LevelGeneration.ActivateVictoryScene();
         }
         Destroy(gameObject);
     }
