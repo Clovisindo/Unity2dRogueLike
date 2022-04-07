@@ -125,6 +125,7 @@ public abstract class Enemy : MonoBehaviour
             enemyInmune = false;
         }
     }
+
     /// <summary>
     /// Aplica un empuje al enemigo en un intervalo de tiempo
     /// </summary>

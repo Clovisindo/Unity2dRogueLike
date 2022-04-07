@@ -180,6 +180,8 @@ MonoBehaviour:
   EquipShieldComponent: {fileID: 5292541407943191769}
   changeUtilityComponent: {fileID: 8397531985684289202}
   flashDamageComponent: {fileID: 6494512356502603337}
+  HitSound: {fileID: 8300000, guid: f90832b9abc21144f97cef32101abddc, type: 3}
+  GameOverSound: {fileID: 8300000, guid: 6ba80a1daa5a0a84c8b738d935e58fcb, type: 3}
   moveX: 0
   moveY: 0
   MOVEMENT_BASE_SPEED: 5

@@ -270,6 +270,7 @@ MonoBehaviour:
   minRange: 3
   maxRange: 8
   typeEnemy: 1
+  finalBoss: 0
   flashDamageComponent: {fileID: 2604754130223512652}
   enemyMaxHealth: 3
   enemyCurrentHealth: 3

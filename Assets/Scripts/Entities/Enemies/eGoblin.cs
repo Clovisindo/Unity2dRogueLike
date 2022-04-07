@@ -6,6 +6,11 @@ namespace Assets.Scripts.Entities.Enemies
 {
     class eGoblin : Enemy
     {
+        bool attackRelease = false;
+        private float timeBtwAttacks;
+        private float startTimeBtwAttacks = 5.0f;
+        const float minRangeNoAtk = 3;
+        const float minRangeAtk = 0;
 
         protected override void Awake()
         {
@@ -16,6 +21,8 @@ namespace Assets.Scripts.Entities.Enemies
             TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
+            
+
         }
 
         protected override void EnemyBehaviour()
@@ -33,17 +40,37 @@ namespace Assets.Scripts.Entities.Enemies
                 //goRespawn();
             }
 
-            //if (passingTime < inmuneTime)
-            //{
-            //    passingTime += Time.deltaTime;
-            //    enemyInmune = true;
+            if (timeBtwAttacks <= 0)
+            {
+                attackRelease = false;
+                minRange = minRangeAtk;
+            }
+            else
+            {
+                timeBtwAttacks -= Time.deltaTime;
+            }
 
-            //}
-            //else
-            //{
-            //    enemyInmune = false;
-            //}
+        }
 
+        //---------------colisiones------------------
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player" && !attackRelease)
+            {
+                minRange = minRangeNoAtk;
+                timeBtwAttacks = startTimeBtwAttacks;
+                attackRelease = true;
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player" && !attackRelease)
+            {
+                minRange = minRangeNoAtk;
+                timeBtwAttacks = startTimeBtwAttacks;
+                attackRelease = true;
+            }
         }
 
     }
