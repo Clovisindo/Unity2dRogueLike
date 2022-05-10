@@ -24,6 +24,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected override void Awake()
         {
+            base.Awake();
             animator = GetComponent<Animator>();
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;

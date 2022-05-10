@@ -44,9 +44,11 @@ public class BoardManager : MonoBehaviour
 
     public BoardRoom prefabBoardRoom;
     public GameObject prefabRoomCollider;
-    
+    public GameObject prefabRoomColliderInner;
+
     private BoardRoom generatedBoardRoom;
     private GameObject roomCollider;
+    //private GameObject roomColliderInner;
     private GameObject colliderExit;
     private GameObject colliderEntrance;
     private GameObject colliderExtraDoor;
@@ -79,12 +81,15 @@ public class BoardManager : MonoBehaviour
         isCreatedExit = false;
         generatedBoardRoom = null;
         roomCollider = null;
+        //roomColliderInner = null;
         generatedBoardRoom = Instantiate(prefabBoardRoom, new Vector3(0,0,0), Quaternion.identity);
         generatedBoardRoom.name = "BoardRoom_" + index.ToString();
         index++;
         roomCollider = Instantiate(prefabRoomCollider, new Vector3(0, 0, 0), Quaternion.identity);
+        //roomColliderInner = Instantiate(prefabRoomColliderInner, new Vector3(0, 0, 0), Quaternion.identity);
 
         roomCollider.transform.SetParent(generatedBoardRoom.transform);
+        //roomColliderInner.transform.SetParent(generatedBoardRoom.transform);
 
         generatedBoardRoom.colliderDetector = roomCollider.GetComponent<BoxCollider2D>();
 

@@ -50,13 +50,13 @@ public class LevelGeneration : MonoBehaviour
         currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secundary, false));
         currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secret, false));
         currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secundary, false));
-        
+
 
         //set tipo habitacion
         ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
         ListRoomsCreated[transform.position].RoomGenerated = true;
         ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
-        
+
 
         BoardRoom initialBoardRoom = GameManager.instance.boardScript.BoardSetup(transform.position, null, nextDirectionDoor);// TODO: arreglar que no inicie en estatico la primera habitacion
         //ListRoomsCreated.Add(transform.position, currentRoomParam);
@@ -64,7 +64,7 @@ public class LevelGeneration : MonoBehaviour
         UpdateCurrentRoomParameters(ListRoomsCreated);
         GameManager.instance.SetCurrentRoomBoard(initialBoardRoom);
 
-       
+
     }
 
     /// <summary>

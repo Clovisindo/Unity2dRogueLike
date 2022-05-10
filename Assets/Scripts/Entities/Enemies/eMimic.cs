@@ -10,6 +10,7 @@ public class eMimic : Enemy
 
     protected override void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;

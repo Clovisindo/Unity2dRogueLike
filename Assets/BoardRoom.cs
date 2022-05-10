@@ -20,6 +20,10 @@ public class BoardRoom : MonoBehaviour
 
     public BoxCollider2D colliderDetector;
 
+    //LevelBoundaries
+    private Vector2 screenBoundsMax;
+    private Vector2 screenBoundsMin;
+
     private BoxCollider2D[] changeRoomsEventColliderEntrance;
     private BoxCollider2D[] changeRoomsEventColliderExit;
     private BoxCollider2D[] changeRoomsEventColliderNoDoor;
@@ -35,6 +39,8 @@ public class BoardRoom : MonoBehaviour
     public bool RoomComplete { get; internal set; }
     public Dictionary<GameObject, doorDirection> DctDoors1 { get => DctDoors; set => DctDoors = value; }//Contiene los objetos FRoomDoor
     public RoomParameters RoomParameters { get => roomParameters; set => roomParameters = value; }
+    public Vector2 ScreenBoundsMax { get => screenBoundsMax; set => screenBoundsMax = value; }
+    public Vector2 ScreenBoundsMin { get => screenBoundsMin; set => screenBoundsMin = value; }
 
     internal void PauseRoom()
     {
@@ -64,6 +70,10 @@ public class BoardRoom : MonoBehaviour
     void Start()
     {
         RoomComplete = false;
+        Collider2D colliderRoomInner = Helper.FindComponentInChildWithTag<Collider2D>(this.gameObject,"RoomColliderInner");
+
+        ScreenBoundsMax = new Vector2(colliderRoomInner.bounds.max.x, colliderRoomInner.bounds.max.y);
+        ScreenBoundsMin = new Vector2(colliderRoomInner.bounds.min.x, colliderRoomInner.bounds.min.y);
     }
     /// <summary>
     /// Carga los colliders de la habitacion agrupados por tipo

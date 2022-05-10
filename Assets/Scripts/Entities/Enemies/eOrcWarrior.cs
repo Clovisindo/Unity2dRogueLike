@@ -19,6 +19,7 @@ public class eOrcWarrior : Enemy
     // Start is called before the first frame update
     protected override void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;
@@ -44,16 +45,6 @@ public class eOrcWarrior : Enemy
             animator.SetBool("isMoving", isMoving);
             //goRespawn();
         }
-
-        //if (passingTime < inmuneTime)
-        //{
-        //    passingTime += Time.deltaTime;
-        //    enemyInmune = true;
-        //}
-        //else
-        //{
-        //    enemyInmune = false;
-        //}
 
         //cd de la carga
         if (timeBtwCharge <= 0 && !isCharging)

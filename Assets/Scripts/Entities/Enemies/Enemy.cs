@@ -42,6 +42,12 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     protected AudioClip playerHit;
 
+    //LevelBoundaries
+    //protected Vector2 screenBoundsMax;
+    //protected Vector2 screenBoundsMin;
+    protected float objectWidth;
+    protected float objectHeight;
+
 
     //movement
     protected bool isMoving = false;
@@ -61,6 +67,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool enemyInmune = false;
     private bool isPaused = false;
     private bool CheckKknockback = false;
+    public bool changeFollowingPath = false;
 
     //Enemigos habitacion
     public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
@@ -70,6 +77,12 @@ public abstract class Enemy : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         collider = this.GetComponent<BoxCollider2D>();
+
+        //screenBoundsMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        //screenBoundsMin = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z));
+        objectWidth = collider.bounds.size.x / 2;
+        objectHeight = collider.bounds.size.y / 2;
+
     }
 
     // Update is called once per frame
@@ -163,6 +176,24 @@ public abstract class Enemy : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
 
+    protected virtual Vector3 CheckBoundariesMovement()
+    {
+        Vector3 viewPos = transform.position;
+        Vector2 screenBoundsMin = GameManager.instance.currentRoom.ScreenBoundsMin;
+        Vector2 screenBoundsMax = GameManager.instance.currentRoom.ScreenBoundsMax;
+        viewPos.x = Mathf.Clamp(viewPos.x, screenBoundsMin.x + objectWidth , screenBoundsMax.x);
+        viewPos.y = Mathf.Clamp(viewPos.y, screenBoundsMin.y + objectHeight  , screenBoundsMax.y );
+        
+        if (transform.position != viewPos)
+        {
+            changeFollowingPath = false;
+            return viewPos;
+        }
+        else
+        {
+            return Vector3.zero;
+        }
+    }
     public void goRespawn()
     {
         //transform.position = Vector3.MoveTowards(transform.position, home)

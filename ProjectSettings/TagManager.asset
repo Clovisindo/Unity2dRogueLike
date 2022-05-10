@@ -23,6 +23,7 @@ TagManager:
   - weaponFrame
   - EquipFrame
   - EquipFrameText
+  - RoomColliderInner
   layers:
   - Default
   - TransparentFX
