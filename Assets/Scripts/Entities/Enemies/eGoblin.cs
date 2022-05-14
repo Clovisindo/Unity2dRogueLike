@@ -11,15 +11,15 @@ namespace Assets.Scripts.Entities.Enemies
         float randMoveX;
         float randMoveY;
 
-        bool attackRelease = false;
-        private float timeBtwAttacks;
-        private float startTimeBtwAttacks = 5.0f;
-        const float minRangeNoAtk = 1;
-        const float minRangeAtk = 0;
+        //bool attackRelease = false;
+        //private float timeBtwAttacks;
+        //private float startTimeBtwAttacks = 5.0f;
+        //const float minRangeNoAtk = 1;
+        //const float minRangeAtk = 0;
 
-        const float totalTimeFollowing = 5f;
-        float passingTimeFollowing = totalTimeFollowing;
-       
+        //const float totalTimeFollowing = 5f;
+        //float passingTimeFollowing = totalTimeFollowing;
+
 
         protected override void Awake()
         {
@@ -38,71 +38,29 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected override void EnemyBehaviour()
         {
-            if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
-            {
-                FollowPlayer();
-                isMoving = true;
-                animator.SetBool("isMoving", isMoving);
-            }
-            else
-            {
-                isMoving = false;
-                animator.SetBool("isMoving", isMoving);
-                //goRespawn();
-            }
-
-            if (timeBtwAttacks <= 0)
-            {
-                attackRelease = false;
-                minRange = minRangeAtk;
-            }
-            else
-            {
-                timeBtwAttacks -= Time.deltaTime;
-            }
-
-            if (changeFollowingPath)
-            {
-                if (passingTimeFollowing < totalTimeFollowing)
-                {
-                    passingTimeFollowing += Time.deltaTime;
-                }
-                else
-                {
-                    changeFollowingPath = false;
-                }
-            }
+            MovementEnemyBehaviour();
+            AttackRangeBehaviour();
+            ChangePathBehaviour();
         }
+
+
+
         protected override void FollowPlayer()
         {
-            animator.SetFloat("moveX", (target.position.x - transform.position.x));// esto para devolver a la animacion donde mirar??
-            animator.SetFloat("moveY", (target.position.y - transform.position.y));
-
+            SetAnimatorMovement();
             playerPosition = target.transform.position;
-            if (changeFollowingPath)
-            {
-                GenerateRandomMove(ref playerPosition);
-                transform.position = Vector3.MoveTowards(transform.position, playerPosition *(-1), speed * Time.deltaTime);
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, playerPosition, speed * Time.deltaTime);
-            }
-            //aplicar checkboundaries
-            var tempPosition = CheckBoundariesMovement();
-            if (tempPosition != Vector3.zero)
-            {
-                transform.position = tempPosition;
-            }
+
+            if (changeFollowingPath) { GenerateRandomMove(ref playerPosition); }
+
+            transform.position = Vector3.MoveTowards(transform.position, changeFollowingPath ? playerPosition * (-1) : playerPosition,
+                speed * Time.deltaTime);
         }
 
         private void GenerateRandomMove(ref Vector3 playerPosition)
         {
-            randMoveX = Random.Range(0f, 0.8f);
-            randMoveY = Random.Range(0f, 0.8f);
-            playerPosition.x += randMoveX;
-            playerPosition.y += randMoveY;
-            //check no salirse de los bordes
+            playerPosition.x += Random.Range(0f, 0.8f);
+            playerPosition.y += Random.Range(0f, 0.8f);
+            CheckBoundariesMovement();
         }
 
         //---------------colisiones------------------
@@ -110,11 +68,7 @@ namespace Assets.Scripts.Entities.Enemies
         {
             if (other.gameObject.tag == "Player" && !attackRelease)
             {
-                minRange = minRangeNoAtk;
-                changeFollowingPath = true;
-                passingTimeFollowing = 0f;
-                timeBtwAttacks = startTimeBtwAttacks;
-                attackRelease = true;
+                base.ReleaseAfterAtkBehaviour();
             }
         }
 
@@ -122,13 +76,8 @@ namespace Assets.Scripts.Entities.Enemies
         {
             if (other.gameObject.tag == "Player" && !attackRelease)
             {
-                minRange = minRangeNoAtk;
-                changeFollowingPath = true;
-                passingTimeFollowing = 0f;
-                timeBtwAttacks = startTimeBtwAttacks;
-                attackRelease = true;
+                base.ReleaseAfterAtkBehaviour();
             }
         }
-
     }
 }
