@@ -112,9 +112,9 @@ Gestion de muerte de enemigos y comunicar el cambio a los demas sistemas.
 Gestión de vida, recibir daño y inmunidad despues de un golpe durante un tiempo.
 Enemigos implementados actualmente:
 
-Mimico: un cofre que al acercarte se descubre como un enemigo. 
+Mimico: un cofre que al acercarte se descubre como un enemigo, si el jugador se aleja demasiado, vuelve a la posicion de inicio y vuelve a ser un cofre. 
 
-Goblin: pequeña y rapida criatura que persigue al jugador para atacarle en corta distancia. 
+Goblin: pequeña y rapida criatura que persigue al jugador para atacarle en corta distancia, una vez impacta, se aleja de él un tiempo para volver. 
 
 Ogro: enemigo grande y lento que golpea en area. 
 
