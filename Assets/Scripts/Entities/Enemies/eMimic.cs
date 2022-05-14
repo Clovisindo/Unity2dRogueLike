@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class eMimic : Enemy
 {
     protected bool mimicActivated = false;
     protected GameObject HPBarobject;
+    
 
     protected override void Awake()
     {
@@ -33,20 +35,17 @@ public class eMimic : Enemy
             }
             else
             {
-                isMoving = false;
-                animator.SetBool("isMoving", isMoving);
-                //goRespawn();
+                GoRespawn();
+                CheckResetMimic();
             }
+        }
+    }
 
-            //if (passingTime < inmuneTime)
-            //{
-            //    passingTime += Time.deltaTime;
-            //    enemyInmune = true;
-            //}
-            //else
-            //{
-            //    enemyInmune = false;
-            //}
+    private void CheckResetMimic()
+    {
+        if (transform.position == respawnPosition)
+        {
+            DeactivateMimic();
         }
     }
 
@@ -67,5 +66,13 @@ public class eMimic : Enemy
         mimicActivated = true;
         animator.SetTrigger("Activate");
         HPBarobject.SetActive(true);
+    }
+    private void DeactivateMimic()
+    {
+        mimicActivated = false;
+        animator.SetTrigger("Activate");
+        HPBarobject.SetActive(false);
+        isMoving = false;
+        animator.SetBool("isMoving", isMoving);
     }
 }

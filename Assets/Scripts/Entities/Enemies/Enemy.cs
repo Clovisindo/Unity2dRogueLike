@@ -55,6 +55,7 @@ public abstract class Enemy : MonoBehaviour
     protected float moveY;
 
     protected Vector2 positionEndKnockback = default;
+    protected Vector3 respawnPosition;
 
     private float distanceKnockback = 0;
     private float kbDistance = 1;
@@ -86,6 +87,7 @@ public abstract class Enemy : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         collider = this.GetComponent<BoxCollider2D>();
+        respawnPosition = transform.position;
 
         //screenBoundsMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         //screenBoundsMin = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z));
@@ -182,6 +184,12 @@ public abstract class Enemy : MonoBehaviour
     {
         SetAnimatorMovement();
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+    }
+
+    protected virtual void GoRespawn()
+    {
+        SetAnimatorMovement();
+        transform.position = Vector3.MoveTowards(transform.position, respawnPosition, speed * Time.deltaTime);
     }
 
     protected virtual void MovementEnemyBehaviour()
