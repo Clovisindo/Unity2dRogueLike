@@ -25,6 +25,11 @@ public class eMimic : Enemy
 
     protected override void EnemyBehaviour()
     {
+        MovementEnemyBehaviour();
+    }
+
+    protected override void MovementEnemyBehaviour()
+    {
         if (mimicActivated)
         {
             if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)

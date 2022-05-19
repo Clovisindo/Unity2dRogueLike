@@ -89,8 +89,6 @@ public abstract class Enemy : MonoBehaviour
         collider = this.GetComponent<BoxCollider2D>();
         respawnPosition = transform.position;
 
-        //screenBoundsMax = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        //screenBoundsMin = Camera.main.ScreenToWorldPoint(new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z));
         objectWidth = collider.bounds.size.x / 2;
         objectHeight = collider.bounds.size.y / 2;
 

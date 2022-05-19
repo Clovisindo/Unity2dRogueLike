@@ -38,69 +38,49 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected override void EnemyBehaviour()
         {
-            if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
-            {
-                FollowPlayer();
-                isMoving = true;
-                animator.SetBool("isMoving", isMoving);
-            }
-            else
-            {
-                isMoving = false;
-                animator.SetBool("isMoving", isMoving);
-                //goRespawn();
-            }
+            MovementEnemyBehaviour();
+            SpecialAttackBehaviour();
+        }
 
-            //ataque especial si esta cerca
+        private void SpecialAttackBehaviour()
+        {
             if (Vector3.Distance(target.position, transform.position) <= maxAtkRange && Vector3.Distance(target.position, transform.position) >= minAtkRange)
             {
                 if (timeBtwAttacks <= 0 && specialAttacking == false)
                 {
-                    specialAttacking = true;
                     attackOgre();
-                    timeBtwAttacks = startTimeBtwAttacks;
-                    //specialAttacking = false;
                 }
                 else
                 {
-                    timeBtwAttacks -= Time.deltaTime;
-                    if (timeBtwAttacks <= 0)
-                    {
-                        specialAttacking = false;
-                    }
+                    CheckBtwnAttacks();
                 }
             }
-            else if(specialAttacking)
+            else if (specialAttacking)
             {
-                timeBtwAttacks -= Time.deltaTime;
-                if (timeBtwAttacks <= 0)
-                {
-                    specialAttacking = false;
-                }
+                CheckBtwnAttacks();
             }
-
-            //if (passingTime < inmuneTime)
-            //{
-            //    passingTime += Time.deltaTime;
-            //    enemyInmune = true;
-            //}
-            //else
-            //{
-            //    enemyInmune = false;
-            //}
         }
 
+        private void CheckBtwnAttacks()
+        {
+            timeBtwAttacks -= Time.deltaTime;
+            if (timeBtwAttacks <= 0)
+            {
+                specialAttacking = false;
+            }
+        }
         private void attackOgre()
         {
+            specialAttacking = true;
             rangeAttackCollider.enabled = true;
             //ataque especial del ogro
             SoundManager.instance.PlaySingle(orcSpecialAtk);
 
             //animacion ataque
             //animator.SetTrigger("AttackOgre");
+            timeBtwAttacks = startTimeBtwAttacks;
         }
 
-        //colision de ataque especial
         protected void OnTriggerStay2D(Collider2D other)
         {
             if (other.tag == "Player")
