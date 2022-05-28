@@ -12,8 +12,8 @@ namespace Assets.Scripts.Entities.Enemies
         [SerializeField]
         protected float maxAtkRange;
 
-        private float timeBtwAttacks;
-        private float startTimeBtwAttacks = 2f;
+        
+        
         private GameObject attackCollider;
         private CircleCollider2D rangeAttackCollider;
 
@@ -34,6 +34,7 @@ namespace Assets.Scripts.Entities.Enemies
             TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
+            startTimeBtwAttacks = 2f;
         }
 
         protected override void EnemyBehaviour()
