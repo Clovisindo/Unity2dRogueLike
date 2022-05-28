@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 5276872805636333375}
   - component: {fileID: 3549069607504243530}
   - component: {fileID: 3925568578465635944}
+  - component: {fileID: 1109019031816104369}
   m_Layer: 8
   m_Name: Orc_Warrior
   m_TagString: Enemy
@@ -270,14 +271,17 @@ MonoBehaviour:
   minRange: 2
   maxRange: 7
   typeEnemy: 3
+  finalBoss: 0
   flashDamageComponent: {fileID: 3925568578465635944}
   enemyMaxHealth: 3
   enemyCurrentHealth: 3
   healthBar: {fileID: 7431429041753606744}
   enemyAttack: 2
   playerHit: {fileID: 8300000, guid: 2b5d28b8bda522345b17b320bac86327, type: 3}
+  changeFollowingPath: 0
   timeBtwCharge: 4
   startTimeBtwCharge: 0
+  shootComponent: {fileID: 1109019031816104369}
   attackRange: 5
   whatIsSolid:
     serializedVersion: 2
@@ -298,6 +302,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 4a257c5dcff3dd94c956b7e2848a0ef7, type: 2}
   duration: 0.1
+--- !u!114 &1109019031816104369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455235114680343274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9569e9194964d9e43aa5ce5c72c77743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7911084019563619551
 PrefabInstance:
   m_ObjectHideFlags: 0
