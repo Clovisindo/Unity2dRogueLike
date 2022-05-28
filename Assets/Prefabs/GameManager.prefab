@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4884799697277178399}
   - component: {fileID: 9138923659496423887}
   - component: {fileID: 1212537152}
-  - component: {fileID: 2032361823}
   - component: {fileID: -5785441729688871315}
   m_Layer: 0
   m_Name: GameManager
@@ -94,6 +93,7 @@ MonoBehaviour:
   wallCornerBottomLeft: {fileID: 8377274554508819579, guid: 769a0414dd5e4a042a9e65ab40b11317, type: 3}
   prefabBoardRoom: {fileID: 1298217483989259380, guid: 76ddd723753a69b439bc05b78e40bc14, type: 3}
   prefabRoomCollider: {fileID: 625974624356211910, guid: 81505525bff1fa5499195ed2c51fb653, type: 3}
+  prefabRoomColliderInner: {fileID: 404355431856831652, guid: c1cfc042c5187ff4e91f4581cdb994c5, type: 3}
 --- !u!114 &1212537152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,28 +131,6 @@ MonoBehaviour:
   maxX: 54
   minY: 0
   maxY: -30
---- !u!114 &2032361823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3217760998152101640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165fd06f299a29c4eb399bbec9ca66d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entranceDirection: 0
-  exitDirection: 0
-  respawnUp: {fileID: 0}
-  respawnDown: {fileID: 0}
-  respawnLeft: {fileID: 0}
-  respawnRight: {fileID: 0}
-  colliderDetector: {fileID: 0}
-  enemiesRoom: []
-  entranceDoor: 0
-  exitDoor: 0
 --- !u!114 &-5785441729688871315
 MonoBehaviour:
   m_ObjectHideFlags: 0

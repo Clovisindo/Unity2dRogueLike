@@ -6,9 +6,24 @@ namespace Assets.Scripts.Entities.Enemies
 {
     class eGoblin : Enemy
     {
+        Vector3 playerPosition;
+
+        float randMoveX;
+        float randMoveY;
+
+        //bool attackRelease = false;
+        //private float timeBtwAttacks;
+        //private float startTimeBtwAttacks = 5.0f;
+        //const float minRangeNoAtk = 1;
+        //const float minRangeAtk = 0;
+
+        //const float totalTimeFollowing = 5f;
+        //float passingTimeFollowing = totalTimeFollowing;
+
 
         protected override void Awake()
         {
+            base.Awake();
             animator = GetComponent<Animator>();
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
@@ -16,35 +31,53 @@ namespace Assets.Scripts.Entities.Enemies
             TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
+            minRange = minRangeAtk;
+
+           
         }
 
         protected override void EnemyBehaviour()
         {
-            if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
-            {
-                FollowPlayer();
-                isMoving = true;
-                animator.SetBool("isMoving", isMoving);
-            }
-            else
-            {
-                isMoving = false;
-                animator.SetBool("isMoving", isMoving);
-                //goRespawn();
-            }
-
-            //if (passingTime < inmuneTime)
-            //{
-            //    passingTime += Time.deltaTime;
-            //    enemyInmune = true;
-
-            //}
-            //else
-            //{
-            //    enemyInmune = false;
-            //}
-
+            MovementEnemyBehaviour();
+            AttackRangeBehaviour();
+            ChangePathBehaviour();
         }
 
+
+
+        protected override void FollowPlayer()
+        {
+            SetAnimatorMovement();
+            playerPosition = target.transform.position;
+
+            if (changeFollowingPath) { GenerateRandomMove(ref playerPosition); }
+
+            transform.position = Vector3.MoveTowards(transform.position, changeFollowingPath ? playerPosition * (-1) : playerPosition,
+                speed * Time.deltaTime);
+        }
+
+        private void GenerateRandomMove(ref Vector3 playerPosition)
+        {
+            playerPosition.x += Random.Range(0f, 0.8f);
+            playerPosition.y += Random.Range(0f, 0.8f);
+            CheckBoundariesMovement();
+        }
+
+        //---------------colisiones------------------
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player" && !attackRelease)
+            {
+                base.ReleaseAfterAtkBehaviour();
+            }
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player" && !attackRelease)
+            {
+                base.ReleaseAfterAtkBehaviour();
+            }
+        }
     }
 }

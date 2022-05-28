@@ -42,6 +42,12 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField]
     protected AudioClip playerHit;
 
+    //LevelBoundaries
+    //protected Vector2 screenBoundsMax;
+    //protected Vector2 screenBoundsMin;
+    protected float objectWidth;
+    protected float objectHeight;
+
 
     //movement
     protected bool isMoving = false;
@@ -49,6 +55,7 @@ public abstract class Enemy : MonoBehaviour
     protected float moveY;
 
     protected Vector2 positionEndKnockback = default;
+    protected Vector3 respawnPosition;
 
     private float distanceKnockback = 0;
     private float kbDistance = 1;
@@ -61,6 +68,16 @@ public abstract class Enemy : MonoBehaviour
     protected bool enemyInmune = false;
     private bool isPaused = false;
     private bool CheckKknockback = false;
+    public bool changeFollowingPath = false;
+
+    protected bool attackRelease = false;
+    protected float timeBtwAttacks;
+    protected float startTimeBtwAttacks = 5.0f;
+    protected const float minRangeNoAtk = 1;
+    protected const float minRangeAtk = 0;
+
+    protected const float totalTimeFollowing = 5f;
+    protected float passingTimeFollowing = totalTimeFollowing;
 
     //Enemigos habitacion
     public EnumTypeEnemies TypeEnemy { get => typeEnemy; set => typeEnemy = value; }
@@ -70,6 +87,11 @@ public abstract class Enemy : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody2D>();
         collider = this.GetComponent<BoxCollider2D>();
+        respawnPosition = transform.position;
+
+        objectWidth = collider.bounds.size.x / 2;
+        objectHeight = collider.bounds.size.y / 2;
+
     }
 
     // Update is called once per frame
@@ -125,6 +147,7 @@ public abstract class Enemy : MonoBehaviour
             enemyInmune = false;
         }
     }
+
     /// <summary>
     /// Aplica un empuje al enemigo en un intervalo de tiempo
     /// </summary>
@@ -157,11 +180,85 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void FollowPlayer()
     {
-        animator.SetFloat("moveX", (target.position.x - transform.position.x));// esto para devolver a la animacion donde mirar??
-        animator.SetFloat("moveY", (target.position.y - transform.position.y));
+        SetAnimatorMovement();
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
     }
 
+    protected virtual void GoRespawn()
+    {
+        SetAnimatorMovement();
+        transform.position = Vector3.MoveTowards(transform.position, respawnPosition, speed * Time.deltaTime);
+    }
+
+    protected virtual void MovementEnemyBehaviour()
+    {
+        if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange)
+        {
+            FollowPlayer();
+            isMoving = true;
+            animator.SetBool("isMoving", isMoving);
+        }
+        else
+        {
+            isMoving = false;
+            animator.SetBool("isMoving", isMoving);
+        }
+    }
+
+    protected virtual void AttackRangeBehaviour()
+    {
+        if (timeBtwAttacks <= 0)
+        {
+            attackRelease = false;
+            minRange = minRangeAtk;
+        }
+        else
+        {
+            timeBtwAttacks -= Time.deltaTime;
+        }
+    }
+
+    protected virtual void ChangePathBehaviour()
+    {
+        if (changeFollowingPath)
+        {
+            if (passingTimeFollowing < totalTimeFollowing)
+            {
+                passingTimeFollowing += Time.deltaTime;
+            }
+            else
+            {
+                changeFollowingPath = false;
+            }
+        }
+    }
+
+    protected virtual void ReleaseAfterAtkBehaviour()
+    {
+        minRange = minRangeNoAtk;
+        changeFollowingPath = true;
+        passingTimeFollowing = 0f;
+        timeBtwAttacks = startTimeBtwAttacks;
+        attackRelease = true;
+    }
+
+    /// <summary>
+    /// Evita salir de los bordes
+    /// </summary>
+    protected virtual void CheckBoundariesMovement()
+    {
+        Vector3 viewPos = transform.position;
+        Vector2 screenBoundsMin = GameManager.instance.currentRoom.ScreenBoundsMin;
+        Vector2 screenBoundsMax = GameManager.instance.currentRoom.ScreenBoundsMax;
+        viewPos.x = Mathf.Clamp(viewPos.x, screenBoundsMin.x + objectWidth , screenBoundsMax.x);
+        viewPos.y = Mathf.Clamp(viewPos.y, screenBoundsMin.y + objectHeight  , screenBoundsMax.y );
+        
+        if (transform.position != viewPos)
+        {
+            changeFollowingPath = false;
+            transform.position =  viewPos;
+        }
+    }
     public void goRespawn()
     {
         //transform.position = Vector3.MoveTowards(transform.position, home)
@@ -203,6 +300,12 @@ public abstract class Enemy : MonoBehaviour
         else{
             return false;
         }
+    }
+
+    protected void SetAnimatorMovement()
+    {
+        animator.SetFloat("moveX", (target.position.x - transform.position.x));
+        animator.SetFloat("moveY", (target.position.y - transform.position.y));
     }
     
 }

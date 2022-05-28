@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 776369864388963008}
   - component: {fileID: 5521768628887793396}
   - component: {fileID: 3697767429733657138}
+  - component: {fileID: -1787644712223439328}
   m_Layer: 8
   m_Name: Orc Shaman
   m_TagString: Enemy
@@ -299,20 +300,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   minRange: 1
-  maxRange: 8
+  maxRange: 4
   typeEnemy: 2
+  finalBoss: 0
   flashDamageComponent: {fileID: 3697767429733657138}
   enemyMaxHealth: 2
   enemyCurrentHealth: 2
   healthBar: {fileID: 5064631040047351948}
   enemyAttack: 1
   playerHit: {fileID: 8300000, guid: 357259a699ef295418144a419e4d42c6, type: 3}
+  changeFollowingPath: 0
   enemyShot: {fileID: 5275145618026941675, guid: 3fd30cfebb90f1143bd59cacd00c5a74, type: 3}
   shotPoint: {fileID: 6951439418197502300}
   timeBtwShots: 0
   startTimeBtwShots: 3
   attackRange: 10
   webForce: 60
+  shootComponent: {fileID: -1787644712223439328}
   offset: 5
   whatIsSolid:
     serializedVersion: 2
@@ -331,6 +335,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashMaterial: {fileID: 2100000, guid: 4a257c5dcff3dd94c956b7e2848a0ef7, type: 2}
   duration: 0.1
+--- !u!114 &-1787644712223439328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114547486566535449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9569e9194964d9e43aa5ce5c72c77743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5521768627484075531
 PrefabInstance:
   m_ObjectHideFlags: 0

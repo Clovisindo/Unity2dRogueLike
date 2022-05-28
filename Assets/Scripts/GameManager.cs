@@ -113,12 +113,6 @@ public class GameManager : MonoBehaviour
         GameManager.instance.ChangeLevel(currentRoom.GetDirectionByDoor(doorActivated));
     }
 
-    internal void CheckInsideBoundaries(Vector3 nextPosition)//ToDo:
-    {
-       // hacemos un raycast desde el centro de la habitacion hasta el punto
-
-    }
-
     public void takeDamage( string colliderTag, Enemy enemy, int weaponDamage, float weaponKBDistance, float weaponKBSpeed)
     {
         if (enemy.tag == colliderTag && (!enemy.checkIsInmune()))

@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     [SerializeField] ChangeUtilityComponent changeUtilityComponent;
     [SerializeField] FlashDamageComponent flashDamageComponent;
 
+    [SerializeField] protected AudioClip HitSound;
+    [SerializeField] protected AudioClip GameOverSound;
+
     private Vector2 movementDirection;
     private float movementSpeed;
     public float moveX;
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
     private float startTimeBtwChangeUtility = 2f;
 
     private bool falling = false;
+    private bool death = false;
     private bool currentWeaponAttacking = false;
 
     public bool CurrentWeaponAttacking { get => currentWeaponAttacking; set => currentWeaponAttacking = value; }
@@ -90,29 +94,22 @@ public class Player : MonoBehaviour
     //inputs
     void FixedUpdate()
     {
-        if (!falling)// no permitir control jugador si esta cayendo
+        CheckStatusPlayer();
+        if (!falling && !death)// no permitir control jugador si esta cayendo o en animacion de muerte
         {
-            CheckStatusPlayer();
-            CheckStatusLevel();
             ProcessInputs();
             animator.SetFloat("movementSpeed", movementSpeed);
             rb2D.velocity = moveComponent.Move(rb2D,MOVEMENT_BASE_SPEED);
         }
     }
 
-    private void CheckStatusLevel()
-    {
-        if (PlayerHealth <= 0)
-        {
-            GameManager.instance.DefeatEndGame();
-        };
-    }
-
     private void CheckStatusPlayer()
     {
-        if (PlayerHealth <= 0)
+        if (PlayerHealth <= 0 && !death)
         {
-            GameManager.instance.DefeatEndGame();
+            animator.SetTrigger("death");
+            SoundManager.instance.PlaySingle(GameOverSound);
+            death = true;
         };
     }
 
@@ -189,7 +186,7 @@ public class Player : MonoBehaviour
     //---------------colisiones------------------
     private void OnCollisionEnter2D (Collision2D other)
     {
-        if (other.gameObject.tag == "Enemy"  && !playerInmune)
+        if (other.gameObject.tag == "Enemy"  && !playerInmune && !death)
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
@@ -200,7 +197,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (other.gameObject.tag == "Enemy" && !playerInmune)
+        if (other.gameObject.tag == "Enemy" && !playerInmune && !death)
         {
             GameObject enemyColl = other.gameObject;
             animator.SetTrigger("Hurt");
@@ -211,7 +208,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay2D(CircleCollider2D other)
     {
-        if (other.gameObject.tag == "Enemy" && !playerInmune)
+        if (other.gameObject.tag == "Enemy" && !playerInmune && !death)
         {
             //ataque especial del ogro
             Debug.Log("Ataque en area del Ogro.");
@@ -247,6 +244,7 @@ public class Player : MonoBehaviour
     {
         SetPlayerHealth(_damage);
         flashDamageComponent.Flash(Color.red);
+        SoundManager.instance.PlaySingle(HitSound);
     }
     public void UpdatePlayerHealth()
     {
@@ -279,6 +277,15 @@ public class Player : MonoBehaviour
             this.TakeDamage(1);
         }
        
+    }
+
+    public void EndDeathPlayerAnim()
+    {
+        if (death)
+        {
+            GameManager.instance.DefeatEndGame();
+        }
+
     }
 
     private void OnEnable()

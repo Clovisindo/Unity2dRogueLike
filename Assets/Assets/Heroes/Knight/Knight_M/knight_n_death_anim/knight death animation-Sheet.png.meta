@@ -1,37 +1,25 @@
 fileFormatVersion: 2
-guid: bc7f9a4be040ed341880a123fd308e49
+guid: 15faadbf37e09bd4e89ec791733dd33c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 570259632528318494
-    second: hammer hit right-Sheet_0
+      213: -5504278593129539307
+    second: knight death animation-Sheet_0
   - first:
-      213: 1902721053376299578
-    second: hammer hit right-Sheet_1
+      213: 2765491517579801253
+    second: knight death animation-Sheet_1
   - first:
-      213: 430291451051137733
-    second: hammer hit right-Sheet_2
+      213: -580905319733113647
+    second: knight death animation-Sheet_2
   - first:
-      213: 2507955319060562221
-    second: hammer hit right-Sheet_3
+      213: 7626850302174658724
+    second: knight death animation-Sheet_3
   - first:
-      213: 1934396027557037633
-    second: hammer hit right-Sheet_0
+      213: -6196670989187228813
+    second: knight death animation-Sheet_4
   - first:
-      213: 613991927100327193
-    second: hammer hit right-Sheet_1
-  - first:
-      213: -544791457496971439
-    second: hammer hit right-Sheet_2
-  - first:
-      213: -7554288309117639036
-    second: hammer hit right-Sheet_3
-  - first:
-      213: -2395442621085193519
-    second: hammer hit right-Sheet_4
-  - first:
-      213: 4213969409579344247
-    second: hammer hit right-Sheet_5
+      213: -1660290664381278069
+    second: knight death animation-Sheet_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -76,7 +64,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 200
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -118,43 +106,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -169,13 +133,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hammer hit right-Sheet_0
+      name: knight death animation-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -183,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 146c67d20fa58da10800000000000000
-      internalID: 1934396027557037633
+      spriteID: 5191abf48cfdc93b0800000000000000
+      internalID: -5504278593129539307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer hit right-Sheet_1
+      name: knight death animation-Sheet_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 16
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,20 +168,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 915c5c59766558800800000000000000
-      internalID: 613991927100327193
+      spriteID: 5a233be02eff06620800000000000000
+      internalID: 2765491517579801253
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer hit right-Sheet_2
+      name: knight death animation-Sheet_2
       rect:
         serializedVersion: 2
-        x: 192
+        x: 32
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,20 +189,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 157c93b4e038078f0800000000000000
-      internalID: -544791457496971439
+      spriteID: 1dc4c2180b530f7f0800000000000000
+      internalID: -580905319733113647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer hit right-Sheet_3
+      name: knight death animation-Sheet_3
       rect:
         serializedVersion: 2
-        x: 288
+        x: 48
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,20 +210,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4862824aec6c92790800000000000000
-      internalID: -7554288309117639036
+      spriteID: 4a08338e0f308d960800000000000000
+      internalID: 7626850302174658724
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer hit right-Sheet_4
+      name: knight death animation-Sheet_4
       rect:
         serializedVersion: 2
-        x: 384
+        x: 64
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,20 +231,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dae262b0ada1ced0800000000000000
-      internalID: -2395442621085193519
+      spriteID: 37bd6831190010aa0800000000000000
+      internalID: -6196670989187228813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hammer hit right-Sheet_5
+      name: knight death animation-Sheet_5
       rect:
         serializedVersion: 2
-        x: 480
+        x: 80
         y: 0
-        width: 96
-        height: 80
+        width: 16
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -288,8 +252,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 771e658f9d60b7a30800000000000000
-      internalID: 4213969409579344247
+      spriteID: b8818a5ff6675f8e0800000000000000
+      internalID: -1660290664381278069
       vertices: []
       indices: 
       edges: []

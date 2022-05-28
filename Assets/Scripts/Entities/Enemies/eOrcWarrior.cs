@@ -1,12 +1,14 @@
 ﻿using Assets.Scripts;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Components;
 using UnityEngine;
 
 public class eOrcWarrior : Enemy
 {
     public float timeBtwCharge;
     public float startTimeBtwCharge;
+
+    //Components
+    [SerializeField] ShootCastComponent shootComponent;
 
     public float attackRange;
     [SerializeField] public const float ChargeForce = 3;
@@ -19,6 +21,7 @@ public class eOrcWarrior : Enemy
     // Start is called before the first frame update
     protected override void Awake()
     {
+        base.Awake();
         animator = GetComponent<Animator>();
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;
@@ -32,48 +35,17 @@ public class eOrcWarrior : Enemy
     // Update is called once per frame
     protected override void EnemyBehaviour()
     {
-        if (Vector3.Distance(target.position, transform.position) <= maxRange && Vector3.Distance(target.position, transform.position) >= minRange && !isCharging)
-        {
-            FollowPlayer();
-            isMoving = true;
-            animator.SetBool("isMoving", isMoving);
-        }
-        else
-        {
-            isMoving = false;
-            animator.SetBool("isMoving", isMoving);
-            //goRespawn();
-        }
+        MovementEnemyBehaviour();
+        ChargeBehaviour();
+    }
 
-        //if (passingTime < inmuneTime)
-        //{
-        //    passingTime += Time.deltaTime;
-        //    enemyInmune = true;
-        //}
-        //else
-        //{
-        //    enemyInmune = false;
-        //}
-
-        //cd de la carga
+    private void ChargeBehaviour()
+    {
         if (timeBtwCharge <= 0 && !isCharging)
         {
-            //raycast si hay vision del jugador
-            Vector3 directionRay = (GameManager.instance.player.transform.position - transform.position).normalized;
-            RaycastHit2D hitVision = Physics2D.Raycast(transform.position + (directionRay * 1), directionRay, attackRange, whatIsSolid);
-
-            //debug
-            Debug.DrawRay(transform.position + (directionRay * 1), directionRay * attackRange, Color.green, 0.1f);
-
-            if (hitVision.collider != null)
-            {
-                if (hitVision.collider.CompareTag("Player"))
-                {
-                    timeBtwCharge = startTimeBtwCharge;
-                    directionCharge = directionRay;
-                    isCharging = true;
-                }
-            }
+            var directionAndRayCast = shootComponent.EnemyAimWithDirection(attackRange,whatIsSolid);
+            shootComponent.CheckCollisionAndCharge(directionAndRayCast.HitVision,ref timeBtwCharge, startTimeBtwCharge,
+                directionAndRayCast.DirectionCast ,ref directionCharge,ref isCharging);
         }
         else
         {
