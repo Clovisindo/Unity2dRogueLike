@@ -2,24 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Entities.Enemies
-{
-    class eGoblin : Enemy
+    public class eGoblin : Enemy
     {
         Vector3 playerPosition;
-
+        public override string name => "eGoblin";
         float randMoveX;
         float randMoveY;
-
-        //bool attackRelease = false;
-        //private float timeBtwAttacks;
-        //private float startTimeBtwAttacks = 5.0f;
-        //const float minRangeNoAtk = 1;
-        //const float minRangeAtk = 0;
-
-        //const float totalTimeFollowing = 5f;
-        //float passingTimeFollowing = totalTimeFollowing;
-
 
         protected override void Awake()
         {
@@ -28,7 +16,6 @@ namespace Assets.Scripts.Entities.Enemies
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
-            TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
             minRange = minRangeAtk;
@@ -80,4 +67,3 @@ namespace Assets.Scripts.Entities.Enemies
             }
         }
     }
-}

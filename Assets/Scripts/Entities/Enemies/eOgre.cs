@@ -12,8 +12,8 @@ namespace Assets.Scripts.Entities.Enemies
         [SerializeField]
         protected float maxAtkRange;
 
-        
-        
+
+        public override string name => "eOgre";
         private GameObject attackCollider;
         private CircleCollider2D rangeAttackCollider;
 
@@ -31,7 +31,6 @@ namespace Assets.Scripts.Entities.Enemies
             healthBar.SetMaxHealth(enemyMaxHealth);
             attackCollider = Utilities.FindObjectWithTag(this.transform,"EnemyAttackRange");
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
-            TypeEnemy = EnumTypeEnemies.weak;
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
             startTimeBtwAttacks = 2f;

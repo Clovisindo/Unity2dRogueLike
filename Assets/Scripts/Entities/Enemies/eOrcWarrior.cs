@@ -7,6 +7,8 @@ public class eOrcWarrior : Enemy
     public float timeBtwCharge;
     public float startTimeBtwCharge;
 
+    public override string name => "eOrcWarrior";
+
     //Components
     [SerializeField] ShootCastComponent shootComponent;
 
@@ -27,7 +29,6 @@ public class eOrcWarrior : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         layerMaskWall = LayerMask.NameToLayer("Wall");
-        TypeEnemy = EnumTypeEnemies.strong;
         collider = this.GetComponent<BoxCollider2D>();
         rb = this.GetComponent<Rigidbody2D>();
     }

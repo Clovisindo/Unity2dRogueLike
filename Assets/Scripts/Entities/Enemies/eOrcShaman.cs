@@ -8,6 +8,8 @@ public class eOrcShaman : Enemy
     public GameObject enemyShot;
     public Transform shotPoint;
 
+    public override string name => "eOrcShaman";
+
     public float timeBtwShots;
     public float startTimeBtwShots;
     public float attackRange;
@@ -27,7 +29,6 @@ public class eOrcShaman : Enemy
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
         timeBtwShots = startTimeBtwShots;
-        TypeEnemy = EnumTypeEnemies.mid;
         collider = this.GetComponent<BoxCollider2D>();
         rb = this.GetComponent<Rigidbody2D>();
     }
