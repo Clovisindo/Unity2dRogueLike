@@ -81,7 +81,7 @@ public class EventRoomController : MonoBehaviour
                 break;
             case TypesRoom.puzzzle:
                 //set posiciones objetos puzzle/diseño
-                SetSpawnPuzzle();
+                SpawnfPiecesRoom(currentRoom);
                 break;
         }
     }
@@ -102,11 +102,12 @@ public class EventRoomController : MonoBehaviour
 
     private void SpawnEnemiesRoom((BoardRoom value, int i) currentRoom)
     {
-        //foreach (var enemyParameter in listLevelParameters[currentRoom.i].GetEnemies())
-        //{
-        //    enemies.Add(enemyParameter);
-        //}
         currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
+    }
+
+    private void SpawnfPiecesRoom((BoardRoom value, int i) currentRoom)
+    {
+        currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
     }
 
     //pausar la partida

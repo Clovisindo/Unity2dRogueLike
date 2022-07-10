@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class fFountain : fFloorMechanic
 {
+    public override string name => "fountain";
+
     protected override void ActivateMechanic()
     {
         //sonido de trampa

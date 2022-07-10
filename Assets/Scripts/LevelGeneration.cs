@@ -47,13 +47,13 @@ public class LevelGeneration : MonoBehaviour
         nextRoomDirection = 1;
 
         //ToDo:Carga dinamica
-        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secundary, false));
-        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secret, false));
-        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.Secundary, false));
+        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.secundary, false));
+        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.secret, false));
+        currentLevelParameters.Add(new LevelParameters(EnumTypeRoom.secundary, false));
 
 
         //set tipo habitacion
-        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
+        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
         ListRoomsCreated[transform.position].RoomGenerated = true;
         ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
 
@@ -173,7 +173,7 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
-                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
+                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
                     ListRoomsCreated[transform.position].RoomGenerated = true;
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(previousRoomDirection), EnumTypeDoor.entrance);
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
@@ -226,7 +226,7 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
-                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
+                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
                     ListRoomsCreated[transform.position].RoomGenerated = true;
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(previousRoomDirection), EnumTypeDoor.entrance);
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
@@ -265,7 +265,7 @@ public class LevelGeneration : MonoBehaviour
 
                     //1º creamos los RoomParameters
                     //RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Main, true);
-                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.Main;
+                    ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
                     ListRoomsCreated[transform.position].RoomGenerated = true;
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(previousRoomDirection), EnumTypeDoor.entrance);
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
@@ -314,13 +314,13 @@ public class LevelGeneration : MonoBehaviour
     {
         (Vector3, RoomParameters) newSecRoom;
 
-        if (nextTypeRoom == EnumTypeRoom.Secundary)
+        if (nextTypeRoom == EnumTypeRoom.secundary)
         {
             newSecRoom = CreateSecondaryRoom((doorDirection)nextSecDoorDirec);
             AddNewSecRoomCreated(newSecRoom, (doorDirection)nextSecDoorDirec, nextTypeRoom);
 
         }
-        else if (nextTypeRoom == EnumTypeRoom.Secret)
+        else if (nextTypeRoom == EnumTypeRoom.secret)
         {
             newSecRoom = CreateSecretRoom((doorDirection)nextSecDoorDirec);
             AddNewSecRoomCreated(newSecRoom, (doorDirection)nextSecDoorDirec, nextTypeRoom);
@@ -351,13 +351,13 @@ public class LevelGeneration : MonoBehaviour
         EnumTypeDoor rTypeDoor = EnumTypeDoor.none;
         switch (typeRoom)
         {
-            case EnumTypeRoom.Main:
+            case EnumTypeRoom.main:
                 rTypeDoor = EnumTypeDoor.entrance;
                 break;
-            case EnumTypeRoom.Secundary:
+            case EnumTypeRoom.secundary:
                 rTypeDoor = EnumTypeDoor.entrance;
                 break;
-            case EnumTypeRoom.Secret:
+            case EnumTypeRoom.secret:
                 rTypeDoor = EnumTypeDoor.secret;
                 break;
         }
@@ -396,7 +396,7 @@ public class LevelGeneration : MonoBehaviour
 
         Vector3 nextSecRoomPosition = GetNextPositionRoom(currentRoom.transform, nextSecDirectionDoor);
 
-        RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Secundary, false);
+        RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.secundary, false);
         currentRoomParam.SetDoorTypeByDirection(invNextDirectionDoor, EnumTypeDoor.entrance);
 
         return (nextSecRoomPosition, currentRoomParam);
@@ -410,7 +410,7 @@ public class LevelGeneration : MonoBehaviour
 
         Vector3 nextSecretRoomPosition = GetNextPositionRoom(currentRoom.transform, nextSecretDirectionDoor);
 
-        RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Secret, false);
+        RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.secret, false);
         currentRoomParam.SetDoorTypeByDirection(invNextDirectionDoor, EnumTypeDoor.secret);
 
         return (nextSecretRoomPosition, currentRoomParam);

@@ -7,8 +7,8 @@ using System;
 using Assets.Scripts.Components;
 
 
-
-    public abstract class Enemy : MonoBehaviour
+[System.Serializable]
+public abstract class Enemy : MonoBehaviour
     {
         protected Animator animator;
         protected Transform target;

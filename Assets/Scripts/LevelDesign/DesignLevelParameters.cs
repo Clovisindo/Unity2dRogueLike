@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.LevelDesign
 {
+    [System.Serializable]
     public class DesignLevelParameters
     {
-        private EnumTypeRoom typeRoom;
+        public EnumTypeRoom typeRoom;
+        public EnumDificultyRoom dificultyRoom;
+        public EnumTagRoom tagRoom;
+
+        public string[] enemiesJson;
+        public string[] puzzlesJson;
 
         private List<Enemy> arrayEnemies;
         private List<fFloorMechanic> arrayPuzzlePieces;
@@ -20,7 +26,18 @@ namespace Assets.Scripts.LevelDesign
             arrayPuzzlePieces = new List<fFloorMechanic>();
         }
 
-        public void SetTypeRoomParameter( EnumTypeRoom newTypeRoom)
+        public DesignLevelParameters(DesignLevelParameters newDesignLD)
+        {
+            typeRoom = newDesignLD.typeRoom;
+            dificultyRoom = newDesignLD.dificultyRoom;
+            tagRoom = newDesignLD.tagRoom;
+            enemiesJson = newDesignLD.enemiesJson;
+            puzzlesJson = newDesignLD.puzzlesJson;
+            arrayEnemies = new List<Enemy>();
+            arrayPuzzlePieces = new List<fFloorMechanic>();
+        }
+
+        public void SetTypeRoomParameter(EnumTypeRoom newTypeRoom)
         {
             typeRoom = newTypeRoom;
         }

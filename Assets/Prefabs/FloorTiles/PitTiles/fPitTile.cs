@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class fPitTile : fFloorMechanic
 {
+    public override string name => "pitTile";
+
     protected override void ActivateMechanic()
     {
         //sonido de trampa

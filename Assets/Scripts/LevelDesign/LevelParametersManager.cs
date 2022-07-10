@@ -1,8 +1,9 @@
-﻿using Assets.Scripts.Entities.Enemies;
+﻿using Assets.Scripts.LevelDesign;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 
@@ -16,7 +17,15 @@ namespace Assets.Scripts.LevelDesign
 
         private Dictionary<string, Type> enemiesByName;
         private FactoryConfigLevelParameters factoryConfig;
+        private string[] fileEnemiesPrmts;
+        private string[] fileFPiecesPrmts;
+        List<DesignLevelParameters> loadFileLevelDesign;
 
+        private string CONFIG_FOLDER ;
+        private static readonly string ENEMIES_CONFIGFILE = "enemies";
+        private static readonly string PUZZLES_CONFIGFILE = "puzzles";
+        private static readonly string LDPRESETS_CONFIGFILE = "LevelDesignPresets";
+        private const string SAVE_EXTENSION = ".json";
 
         public LevelParametersManager()
         {
@@ -34,52 +43,126 @@ namespace Assets.Scripts.LevelDesign
             }
 
             factoryConfig = this.GetComponent<FactoryConfigLevelParameters>();
+            CONFIG_FOLDER = Application.dataPath + "/Levels/";
         }
 
-        private string[] LoadFileLevelParameters()
+        private void LoadFileLevelParameters()
         {
-            //cargar la lista de parametros del fichero
-            return new string[] { "eGoblin", "eMimic" };
-
+            //ToDo:cargar sobre la lista de la clase UNA UNICA LISTA
+            //fileEnemiesPrmts = LoadEnemiesConfigFile();
+            //fileFPiecesPrmts = new string[] { "blueButton", "potion" };
+            loadFileLevelDesign = LoadLDPresetsConfigFile();
         }
+
+        private string[] LoadEnemiesConfigFile()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(CONFIG_FOLDER);
+            FileInfo configFile = directoryInfo.GetFiles(ENEMIES_CONFIGFILE + SAVE_EXTENSION).First();
+
+            string t = File.ReadAllText(configFile.FullName);
+            List<DesignLevelParameters> t1 = JsonConvert.DeserializeObject<List<DesignLevelParameters>>(t);
+
+            return new string[] { "eGoblin", "eMimic" };
+        }
+
+        private List<DesignLevelParameters> LoadLDPresetsConfigFile()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(CONFIG_FOLDER);
+            FileInfo configFile = directoryInfo.GetFiles(LDPRESETS_CONFIGFILE + SAVE_EXTENSION).First();
+
+            string presetsJson = File.ReadAllText(configFile.FullName);
+            return JsonConvert.DeserializeObject<List<DesignLevelParameters>>(presetsJson);
+        }
+
+
 
         public List<DesignLevelParameters> SetDesignParametersRooms(BoardRoom[] rooms)
         {
-            List<DesignLevelParameters> currentLevelDesign = new List<DesignLevelParameters>();
+            List<DesignLevelParameters> RoomsLevelDesign = new List<DesignLevelParameters>();
+            DesignLevelParameters currentLevelDesign;
+            LoadFileLevelParameters();
 
             for (int i = 0; i < rooms.Length; i++)
             {
-                var fileLevelParameters = LoadFileLevelParameters();
-                
                 var currentTypeRoom = rooms[i].RoomParameters.TypeRoom;
+                
+                //decir que parametros vamos a cargar para ese nivel
+                currentLevelDesign = GetRoomLevelDesign(currentTypeRoom);
+                
                 switch (currentTypeRoom)
                 {
                     case EnumTypes.EnumTypeRoom.none:
                         break;
-                    case EnumTypes.EnumTypeRoom.Main:
-                        currentLevelDesign.Add(SetCombatRoom(fileLevelParameters));
+                    case EnumTypes.EnumTypeRoom.main:
+                        SetCombatRoom(currentLevelDesign);
                         break;
-                    case EnumTypes.EnumTypeRoom.Secundary:
+                    case EnumTypes.EnumTypeRoom.secundary:
+                        SetPuzzleRoom(currentLevelDesign);
                         break;
-                    case EnumTypes.EnumTypeRoom.Secret:
+                    case EnumTypes.EnumTypeRoom.secret:
+                        SetPuzzleRoom(currentLevelDesign);//ToDo
                         break;
                     default:
                         break;
                 }
+                RoomsLevelDesign.Add(currentLevelDesign);
             }
-            return currentLevelDesign;
+            return RoomsLevelDesign;
         }
 
-        private DesignLevelParameters SetCombatRoom(string[] fileLevelParameters)
+        private DesignLevelParameters GetRoomLevelDesign(EnumTypes.EnumTypeRoom typeRoom)
         {
-            DesignLevelParameters DLParameters = new DesignLevelParameters();
-
-            foreach (var fileLevelParameter in fileLevelParameters)
+            switch (typeRoom)
             {
-                DLParameters.AddEnemy(factoryConfig.GetEnemyPrefabByName(fileLevelParameter));
+                case EnumTypes.EnumTypeRoom.main:
+                    return GetRoomLDCombat();
+                case EnumTypes.EnumTypeRoom.secundary:
+                    return GetRoomLDPuzzle();
+                case EnumTypes.EnumTypeRoom.secret:
+                    return GetRoomLDPuzzle();//ToDo: especial
             }
+            throw new Exception("Tipo habitacion no soportado");
+        }
 
-            return DLParameters;
+        private DesignLevelParameters GetRoomLDCombat()
+        {
+            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main).First());
+        }
+
+        private DesignLevelParameters GetRoomLDPuzzle()
+        {
+            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).First());
+        }
+
+        private void SetCombatRoom(DesignLevelParameters DLParameters)
+        {
+            foreach (var enemyJson in DLParameters.enemiesJson)
+            {
+                DLParameters.AddEnemy(factoryConfig.GetEnemyPrefabByName(enemyJson));
+            }
+        }
+
+        private void SetPuzzleRoom(DesignLevelParameters DLParameters)
+        {
+            foreach (var puzzleJson in DLParameters.puzzlesJson)
+            {
+                DLParameters.AddPuzzlePiece(factoryConfig.GetfPiecePrefabByName(puzzleJson));
+            }
+        }
+
+        private void testSaveJson()
+        {
+            DesignLevelParameters t2 = new DesignLevelParameters();
+            t2.typeRoom = EnumTypes.EnumTypeRoom.main;
+            t2.dificultyRoom = EnumTypes.EnumDificultyRoom.easy;
+            t2.tagRoom = EnumTypes.EnumTagRoom.tipoA;
+            t2.enemiesJson = new string[] { "eGoblin", "eMimic" };
+            t2.enemiesJson = new string[] { "blueButton", "potion" };
+
+            DesignLevelParameters[] t3 = new DesignLevelParameters[] { t2, t2 };
+
+            string json1 = JsonConvert.SerializeObject(t3);
+            File.WriteAllText(CONFIG_FOLDER + "save1_" + "." + SAVE_EXTENSION, json1);
         }
     }
 }

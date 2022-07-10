@@ -3,22 +3,22 @@
 
 public class fBlueButton : fFloorMechanic
 {
+    public override string name => "blueButton";
 
     protected override void ActivateMechanic()
     {
         //sonido de trampa
         SoundManager.instance.PlaySingle(trapSound);
 
-        //ActivateEffect();
+        ActivateEffect();
 
         //se activa la animacion
         animator.SetTrigger("Activate");
     }
 
-    //private void ActivateEffect()
-    //{
-    //    throw new NotImplementedException();
-    //}
+    private void ActivateEffect()
+    {
+    }
 
     /// <summary>
     /// Se llama desde el gestor de animaciones
