@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.LevelDesign;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,18 +11,11 @@ namespace Assets.Scripts.LevelDesign
     public class LevelParametersManager: MonoBehaviour
     {
         public static LevelParametersManager instance = null;
-        int level = 1;
 
-
-        private Dictionary<string, Type> enemiesByName;
         private FactoryConfigLevelParameters factoryConfig;
-        private string[] fileEnemiesPrmts;
-        private string[] fileFPiecesPrmts;
         List<DesignLevelParameters> loadFileLevelDesign;
 
         private string CONFIG_FOLDER ;
-        private static readonly string ENEMIES_CONFIGFILE = "enemies";
-        private static readonly string PUZZLES_CONFIGFILE = "puzzles";
         private static readonly string LDPRESETS_CONFIGFILE = "LevelDesignPresets";
         private const string SAVE_EXTENSION = ".json";
 
@@ -48,21 +40,7 @@ namespace Assets.Scripts.LevelDesign
 
         private void LoadFileLevelParameters()
         {
-            //ToDo:cargar sobre la lista de la clase UNA UNICA LISTA
-            //fileEnemiesPrmts = LoadEnemiesConfigFile();
-            //fileFPiecesPrmts = new string[] { "blueButton", "potion" };
             loadFileLevelDesign = LoadLDPresetsConfigFile();
-        }
-
-        private string[] LoadEnemiesConfigFile()
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(CONFIG_FOLDER);
-            FileInfo configFile = directoryInfo.GetFiles(ENEMIES_CONFIGFILE + SAVE_EXTENSION).First();
-
-            string t = File.ReadAllText(configFile.FullName);
-            List<DesignLevelParameters> t1 = JsonConvert.DeserializeObject<List<DesignLevelParameters>>(t);
-
-            return new string[] { "eGoblin", "eMimic" };
         }
 
         private List<DesignLevelParameters> LoadLDPresetsConfigFile()
@@ -74,8 +52,6 @@ namespace Assets.Scripts.LevelDesign
             return JsonConvert.DeserializeObject<List<DesignLevelParameters>>(presetsJson);
         }
 
-
-
         public List<DesignLevelParameters> SetDesignParametersRooms(BoardRoom[] rooms)
         {
             List<DesignLevelParameters> RoomsLevelDesign = new List<DesignLevelParameters>();
@@ -85,8 +61,6 @@ namespace Assets.Scripts.LevelDesign
             for (int i = 0; i < rooms.Length; i++)
             {
                 var currentTypeRoom = rooms[i].RoomParameters.TypeRoom;
-                
-                //decir que parametros vamos a cargar para ese nivel
                 currentLevelDesign = GetRoomLevelDesign(currentTypeRoom);
                 
                 switch (currentTypeRoom)
@@ -126,12 +100,12 @@ namespace Assets.Scripts.LevelDesign
 
         private DesignLevelParameters GetRoomLDCombat()
         {
-            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main).First());
+            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main).First());//ToDo: reglas
         }
 
         private DesignLevelParameters GetRoomLDPuzzle()
         {
-            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).First());
+            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).First());//ToDo: reglas
         }
 
         private void SetCombatRoom(DesignLevelParameters DLParameters)

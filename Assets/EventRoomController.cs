@@ -15,9 +15,6 @@ public class EventRoomController : MonoBehaviour
     private List<Transform> currentInitPositionsEnemy;
     [SerializeField] private GameObject[] InitPositionsPuzzle;
 
-    [SerializeField]private Enemy[] enemiesPrefab;
-    private List<Enemy> enemies = new List<Enemy>();
-    [SerializeField]private GameObject[] puzzles;
     public enum TypesRoom { empty, battle, puzzzle };
 
     public TypesRoom currentTypeRoom = TypesRoom.empty;
@@ -25,9 +22,6 @@ public class EventRoomController : MonoBehaviour
 
     private List<DesignLevelParameters> listLevelParameters;
 
-    //[SerializeField] private int quantityWeakEnemies;
-    //[SerializeField] private int quantityMidEnemies;
-    //[SerializeField] private int quantityStrongEnemies;
     public Dictionary<string, int> TypeQtyEnemies = new Dictionary<string, int>();
 
 
@@ -42,8 +36,6 @@ public class EventRoomController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //currentRoom = GameManager.instance.currentRoom;
-        //InitRoom();//ToDo: DEBUG
     }
 
     public void InitRoomsDungeonLevel(BoardRoom[] listRooms)
@@ -55,8 +47,6 @@ public class EventRoomController : MonoBehaviour
             InitRoom(room);
             room.value.PauseRoom();
         }
-
-
         // asignar la primera habitacion como inicial
         currentRoom = listRooms[0];
         currentRoom.ReStartRoom();
@@ -76,11 +66,9 @@ public class EventRoomController : MonoBehaviour
                 SetEmptyRoom();
                 break;
             case TypesRoom.battle:
-                //set posiciones enemigos para el nivel
                 SpawnEnemiesRoom(currentRoom);
                 break;
             case TypesRoom.puzzzle:
-                //set posiciones objetos puzzle/diseño
                 SpawnfPiecesRoom(currentRoom);
                 break;
         }

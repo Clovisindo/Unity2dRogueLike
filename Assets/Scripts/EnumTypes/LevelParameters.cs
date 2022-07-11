@@ -11,7 +11,6 @@ namespace Assets.Scripts.EnumTypes
         EnumTypeRoom typeRoom;
         bool roomGenerated;
 
-
         public EnumTypeRoom TypeRoom { get => typeRoom; set => typeRoom = value; }
         public bool RoomGenerated { get => roomGenerated; set => roomGenerated = value; }
 
