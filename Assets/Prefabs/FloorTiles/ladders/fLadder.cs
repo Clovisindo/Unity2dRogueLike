@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class fLadder : fFloorMechanic
 {
+    public override string name => "ladder";
+
     protected override void ActivateMechanic()
     {
         //sonido de trampa

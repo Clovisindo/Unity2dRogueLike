@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5303926364555892721}
   - component: {fileID: 5303926364555892720}
   - component: {fileID: 5303926364555892725}
-  - component: {fileID: 5303926364555892724}
+  - component: {fileID: -6933040127717860133}
   m_Layer: 8
   m_Name: Button_red
   m_TagString: Untagged
@@ -152,7 +152,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5303926364555892724
+--- !u!114 &-6933040127717860133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5303926364555892735}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c3d38a102110646a79e891bc4f5b70, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ffbdfae1f016af498dc29703b3c3b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trapSound: {fileID: 0}

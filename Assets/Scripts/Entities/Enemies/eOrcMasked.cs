@@ -8,6 +8,9 @@ public class eOrcMasked : Enemy
 {
     Vector3 playerPosition;
 
+    public override string name => "eOrcMasked";
+
+
     float randMoveX;
     float randMoveY;
     new const float totalTimeFollowing = 1f;
@@ -22,7 +25,6 @@ public class eOrcMasked : Enemy
         target = FindObjectOfType<Player>().transform;
         enemyCurrentHealth = enemyMaxHealth;
         healthBar.SetMaxHealth(enemyMaxHealth);
-        TypeEnemy = EnumTypeEnemies.mid;
         collider = this.GetComponent<BoxCollider2D>();
         rb = this.GetComponent<Rigidbody2D>();
 

@@ -34,6 +34,8 @@ public class BoardRoom : MonoBehaviour
 
     public List<Enemy> enemiesRoom;
 
+    public List<fFloorMechanic> fPiecesRoom;
+
     public LevelGeneration.doorDirection InitialExitDirection { get => exitDirection; set => exitDirection = value; }
     public LevelGeneration.doorDirection InitialEntranceDirection { get => entranceDirection; set => entranceDirection = value; }
     public bool RoomComplete { get; internal set; }
@@ -212,7 +214,7 @@ public class BoardRoom : MonoBehaviour
         {
             door.OpenDoor();
         }
-        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        if (roomParameters.TypeRoom == EnumTypeRoom.secret)
         {
             var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
             foreach (var secretDoor in secretDoors)
@@ -240,7 +242,7 @@ public class BoardRoom : MonoBehaviour
         {
             door.CloseDoor();
         }
-        if (roomParameters.TypeRoom == EnumTypeRoom.Secret)
+        if (roomParameters.TypeRoom == EnumTypeRoom.secret)
         {
             var secretDoors = roomDoor.Where(f => f.IsSecretDoor);
             foreach (var secretDoor in secretDoors)
@@ -291,9 +293,6 @@ public class BoardRoom : MonoBehaviour
     /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
     internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
     {
-        //Transform[] arrayPositions = initPositionsEnemy.ToArray();
-        //GameObject emptyObject = Instantiate(new GameObject(), this.transform.position, Quaternion.identity);
-        //recorremos la lista de enemigos e instanciamos y añadimos a la clase 
         int i = 0;
 
         foreach (var enemy in enemies)
@@ -305,6 +304,23 @@ public class BoardRoom : MonoBehaviour
             Enemy currentEnemy = Instantiate(enemy, positionEnemy.transform.position, Quaternion.identity);
             enemiesRoom.Add(currentEnemy);
             currentEnemy.transform.SetParent(this.transform);
+            i++;
+        }
+    }
+
+    internal void InvokeFPieces(List<Transform> initPositionsEnemy, List<fFloorMechanic> fPieces)
+    {
+        int i = 0;
+
+        foreach (var fPiece in fPieces)
+        {
+            //emptyObject.transform.SetParent(this.transform);
+            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
+            positionEnemy.SetParent(this.transform);
+            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
+            fFloorMechanic currentFPiece = Instantiate(fPiece, positionEnemy.transform.position, Quaternion.identity);
+            fPiecesRoom.Add(currentFPiece);
+            currentFPiece.transform.SetParent(this.transform);
             i++;
         }
     }

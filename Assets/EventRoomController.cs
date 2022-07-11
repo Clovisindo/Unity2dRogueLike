@@ -6,6 +6,7 @@ using UnityEngine;
 using Assets.Scripts;
 using Random = UnityEngine.Random;
 using System.Reflection;
+using Assets.Scripts.LevelDesign;
 
 public class EventRoomController : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class EventRoomController : MonoBehaviour
 
     public TypesRoom currentTypeRoom = TypesRoom.empty;
     public BoardRoom currentRoom;
+
+    private List<DesignLevelParameters> listLevelParameters;
 
     //[SerializeField] private int quantityWeakEnemies;
     //[SerializeField] private int quantityMidEnemies;
@@ -45,10 +48,12 @@ public class EventRoomController : MonoBehaviour
 
     public void InitRoomsDungeonLevel(BoardRoom[] listRooms)
     {
-        foreach (var room in listRooms)
+        listLevelParameters = GameManager.instance.levelParametersManager.SetDesignParametersRooms(listRooms);
+
+        foreach (var room in listRooms.Select((value, i) => (value, i)))
         {
             InitRoom(room);
-            room.PauseRoom();
+            room.value.PauseRoom();
         }
 
 
@@ -60,10 +65,10 @@ public class EventRoomController : MonoBehaviour
     /// <summary>
     /// Se inicializa una habitacion
     /// </summary>
-    private void InitRoom(BoardRoom currentRoom)
+    private void InitRoom((BoardRoom value, int i) currentRoom)
     {
         currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
-        SetTypeCurrentRoom();//ToDo:
+        SetTypeCurrentRoom(currentRoom.value);
 
         switch (currentTypeRoom)
         {
@@ -72,76 +77,37 @@ public class EventRoomController : MonoBehaviour
                 break;
             case TypesRoom.battle:
                 //set posiciones enemigos para el nivel
-                SetSpawnEnemies(currentRoom);
+                SpawnEnemiesRoom(currentRoom);
                 break;
             case TypesRoom.puzzzle:
                 //set posiciones objetos puzzle/diseño
-                SetSpawnPuzzle();
+                SpawnfPiecesRoom(currentRoom);
                 break;
         }
     }
-    private void SetTypeCurrentRoom()
+    private void SetTypeCurrentRoom(BoardRoom currentRoom)
     {
-        currentTypeRoom = TypesRoom.battle;
+        currentTypeRoom = (TypesRoom)currentRoom.RoomParameters.TypeRoom;//ToDo: no es el mismo tipo
     }
 
     private void SetEmptyRoom()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void SetSpawnPuzzle()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
-    private void SetSpawnEnemies(BoardRoom currentRoom)
+    private void SpawnEnemiesRoom((BoardRoom value, int i) currentRoom)
     {
-        //var typesMonster = Assembly.GetAssembly(typeof(EnumTypeEnemies)).GetTypes().Where(currentType => currentType.IsSubclassOf(typeof(EnumTypeEnemies)));
-        //asignar cantidad de enemigos
-        SetQtyEnemies();
-        enemies.Clear();
-
-        //recorrer bucle por tipo de enemigo
-        foreach (var typeEnemy in Enum.GetNames(typeof(EnumTypeEnemies)))
-        {
-            if (typeEnemy != "none")
-            {
-                //el metodo será general pasandole la cantidad de enemigos a generar y el tipo de enemigos
-                SpawnTypeEnemies(typeEnemy);
-            }
-           
-        }
-        //primero elegir la cantidad de enemigos en la formula y luego buscar el array de posiciones que coincida con esa cantidad y sus variantes
-        currentRoom.InvokeEnemies(currentInitPositionsEnemy, enemies);//ToDo: gestionar cantidad de enemigos y el array de posiciones previamente e incluso el tipo de enemigos
+        currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
     }
 
-    private void SetQtyEnemies()//ToDo: hacer dinamico
+    private void SpawnfPiecesRoom((BoardRoom value, int i) currentRoom)
     {
-        //ToDo: esto es temporal, hacer dinamico
-        if (TypeQtyEnemies.Count == 0)
-        {
-            TypeQtyEnemies.Add(EnumTypeEnemies.weak.ToString(), 2);
-            TypeQtyEnemies.Add(EnumTypeEnemies.mid.ToString(), 2);
-            TypeQtyEnemies.Add(EnumTypeEnemies.strong.ToString(), 1);
-        }
-        
-    }
-
-    private void SpawnTypeEnemies(string _typeEnemy)
-    {
-       
-        int _quantityTypeEnem = TypeQtyEnemies[_typeEnemy];//asignamos la cantidad segun el tipo de monstruo
-
-        var listCurrentTypeEnemies = enemiesPrefab.Where(e => e.TypeEnemy.ToString() == _typeEnemy.ToString()).ToList();
-        //Invocamos enemigos de tipo determinado de la lista, hasta cumplir la cantidad del nivel
-        if (listCurrentTypeEnemies.Count > 0)
-        {
-            for (int i = 0; i < _quantityTypeEnem; i++)
-            {
-                enemies.Add(listCurrentTypeEnemies[Random.Range(0, listCurrentTypeEnemies.Count - 1)]);
-            }
-        }
+        currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
     }
 
     //pausar la partida

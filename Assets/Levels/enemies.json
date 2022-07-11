@@ -1,0 +1,40 @@
+[
+
+	{
+		"typeRoom": "main",
+		"dificultyRoom": "easy",
+		"tagRoom": "tipoA",
+		"enemiesJson": [ "eGoblin", "eMimic" ],
+		"puzzlesJson": null,
+		"arrayEnemies": null,
+		"arrayPuzzlePieces": null
+	},
+	{
+		"typeRoom": "main",
+		"dificultyRoom": "easy",
+		"tagRoom": "tipoA",
+		"enemiesJson": [ "eGoblin", "eMimic" ],
+		"puzzlesJson": null,
+		"arrayEnemies": null,
+		"arrayPuzzlePieces": null
+	},
+	{
+		"typeRoom": "secundary",
+		"dificultyRoom": "easy",
+		"tagRoom": "tipoA",
+		"enemiesJson": null,
+		"puzzlesJson": [ "blueButton", "potion" ],
+		"arrayEnemies": null,
+		"arrayPuzzlePieces": null
+	},
+	{
+		"typeRoom": "secundary",
+		"dificultyRoom": "easy",
+		"tagRoom": "tipoA",
+		"enemiesJson": null,
+		"puzzlesJson": [ "blueButton", "potion" ],
+		"arrayEnemies": null,
+		"arrayPuzzlePieces": null
+	}
+
+]

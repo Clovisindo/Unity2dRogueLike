@@ -1,0 +1,17 @@
+[
+  
+  {
+    "typeRoom": 1,
+    "dificultyRoom": 0,
+    "tagRoom": 0,
+    "enemiesJson": [ "blueButton", "potion" ],
+    "puzzlesJson": null
+  },
+  {
+    "typeRoom": 1,
+    "dificultyRoom": 0,
+    "tagRoom": 0,
+    "enemiesJson": [ "blueButton", "potion" ],
+    "puzzlesJson": null
+  }
+]

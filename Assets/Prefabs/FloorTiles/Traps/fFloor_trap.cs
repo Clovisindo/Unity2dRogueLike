@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class fFloor_trap : fFloorMechanic
 {
+    public override string name => "floorTrap";
 
     protected override  void ActivateMechanic()
     {

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Scripts.EnumTypes
+﻿namespace Assets.Scripts.EnumTypes
 {
+    [System.Serializable]
     public enum EnumTypeRoom
     {
         none,
-        Main,
-        Secundary,
-        Secret
+        main,
+        secundary,
+        secret
     }
 }

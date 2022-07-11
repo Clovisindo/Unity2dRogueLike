@@ -3,6 +3,8 @@
 
 public class fSwitchRed : fFloorMechanic
 {
+    public override string name => "switchRed";
+
     protected override void ActivateMechanic()
     {
         //sonido de trampa

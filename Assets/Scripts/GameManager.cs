@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.LevelDesign;
+using UnityEngine;
 using EnumScene = LoaderSceneScript.Scene;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public BoardManager boardScript;
     public LevelGeneration levelGenerationScript;
     public EventRoomController eventRoomController;
+    public LevelParametersManager levelParametersManager;
     public Player player;
     public Enemy enemy;
     private BoardRoom[] boardRooms;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
         boardScript = GetComponent<BoardManager>();
         levelGenerationScript = GetComponent<LevelGeneration>();
         eventRoomController = GetComponent<EventRoomController>();
+        levelParametersManager = GetComponent<LevelParametersManager>();
         gameCamera = GameObject.FindGameObjectWithTag("MainCamera");
         layer_mask_wall = LayerMask.GetMask("ColliderRoomDetector");
 

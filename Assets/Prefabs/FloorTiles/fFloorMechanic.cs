@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public abstract class fFloorMechanic : MonoBehaviour
 {
     protected Animator animator;
     [SerializeField] protected AudioClip trapSound;
+
+    public abstract string name { get; }
 
     protected const float rechargeTime = 2.0f;
     protected float passingTime = rechargeTime;
