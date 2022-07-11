@@ -60,6 +60,11 @@ public class BoardRoom : MonoBehaviour
         {
             enemy.IsPaused = false;
         }
+
+        if (RoomParameters.TypeRoom == EnumTypeRoom.secundary  || RoomParameters.TypeRoom == EnumTypeRoom.secret)
+        {
+            this.OpenDoor();
+        }
     }
 
     public  LevelGeneration.doorDirection entranceDoor;
