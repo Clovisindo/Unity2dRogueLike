@@ -15,6 +15,10 @@ namespace Assets.Scripts.LevelDesign
         private FactoryConfigLevelParameters factoryConfig;
         List<DesignLevelParameters> loadFileLevelDesign;
 
+        int countEasyEnm = 0;
+        int countMedEnm = 0;
+        int countHardEnm = 0;
+
         private string CONFIG_FOLDER ;
         private static readonly string LDPRESETS_CONFIGFILE = "LevelDesignPresets";
         private const string SAVE_EXTENSION = ".json";
@@ -100,7 +104,37 @@ namespace Assets.Scripts.LevelDesign
 
         private DesignLevelParameters GetRoomLDCombat()
         {
-            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main).First());//ToDo: reglas
+            List<DesignLevelParameters> designElements = new List<DesignLevelParameters>();
+
+            designElements = SetFileLevelDesignByDificulty();
+            countEasyEnm++;
+            return new DesignLevelParameters(designElements.ElementAt(UnityEngine.Random.Range(0, designElements.Count)));
+        }
+
+        private List<DesignLevelParameters> SetFileLevelDesignByDificulty()
+        {
+            List<DesignLevelParameters> designElements;
+            switch (countEasyEnm)
+            {
+                case 0:
+                case 1:
+                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.easy);
+                    break;
+                case 2:
+                case 3:
+                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.medium);
+                    break;
+                default:
+                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.hard);
+                    break;
+            }
+            return designElements;
+        }
+
+        private List<DesignLevelParameters> GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom dificultyRoom)
+        {
+            return loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main
+            && l.dificultyRoom == dificultyRoom).ToList();
         }
 
         private DesignLevelParameters GetRoomLDPuzzle()
