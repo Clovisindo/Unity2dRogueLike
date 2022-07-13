@@ -5,7 +5,12 @@
     {
         tipoA,
         tipoB,
-        tipoC
+        tipoC, 
+        potionsTreasure,
+        switches,
+        buttons,
+        fountain,
+        traps
     }
 }
 

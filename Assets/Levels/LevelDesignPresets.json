@@ -76,7 +76,7 @@
     "typeRoom": "main",
     "dificultyRoom": "hard",
     "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcShaman","eMimic" ],
+    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcShaman", "eMimic" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
     "arrayPuzzlePieces": null
@@ -84,20 +84,46 @@
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
+    "tagRoom": "potionsTreasure",
     "enemiesJson": null,
-    "puzzlesJson": [ "blueButton", "potion" ],
+    "puzzlesJson": [ "potion", "chest" ],
     "arrayEnemies": null,
     "arrayPuzzlePieces": null
   },
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
+    "tagRoom": "switches",
     "enemiesJson": null,
-    "puzzlesJson": [ "blueButton", "potion" ],
+    "puzzlesJson": [ "switchRed", "switchRed" ],
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "secundary",
+    "dificultyRoom": "easy",
+    "tagRoom": "buttons",
+    "enemiesJson": null,
+    "puzzlesJson": [ "redButton", "blueButton" ],
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "secundary",
+    "dificultyRoom": "easy",
+    "tagRoom": "fountain",
+    "enemiesJson": null,
+    "puzzlesJson": [ "fountain", "blueButton" ],
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "secundary",
+    "dificultyRoom": "easy",
+    "tagRoom": "traps",
+    "enemiesJson": null,
+    "puzzlesJson": [ "pitTile", "floorTrap" ],
     "arrayEnemies": null,
     "arrayPuzzlePieces": null
   }
-
 ]
