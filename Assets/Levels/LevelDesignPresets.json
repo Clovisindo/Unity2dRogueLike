@@ -4,7 +4,7 @@
     "typeRoom": "main",
     "dificultyRoom": "easy",
     "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eMimic" ],
+    "enemiesJson": [ "eGoblin", "eGoblin" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
     "arrayPuzzlePieces": null
@@ -13,7 +13,70 @@
     "typeRoom": "main",
     "dificultyRoom": "easy",
     "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eMimic" ],
+    "enemiesJson": [ "eGoblin", "eOrcWarrior" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "easy",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOrcWarrior", "eOrcWarrior" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "medium",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOgre", "eOrcMasked" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "medium",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOrcShaman", "eOrcMasked" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "medium",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcWarrior" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "hard",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcMasked" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "hard",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOgre", "eOrcShaman", "eOrcShaman" ],
+    "puzzlesJson": null,
+    "arrayEnemies": null,
+    "arrayPuzzlePieces": null
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "hard",
+    "tagRoom": "tipoA",
+    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcShaman","eMimic" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
     "arrayPuzzlePieces": null
