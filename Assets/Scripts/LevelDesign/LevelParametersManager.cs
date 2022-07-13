@@ -137,9 +137,11 @@ namespace Assets.Scripts.LevelDesign
             && l.dificultyRoom == dificultyRoom).ToList();
         }
 
+
         private DesignLevelParameters GetRoomLDPuzzle()
         {
-            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).First());//ToDo: reglas
+            int count = loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).ToList().Count();
+            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).ElementAt(UnityEngine.Random.Range(0,count)));
         }
 
         private void SetCombatRoom(DesignLevelParameters DLParameters)
