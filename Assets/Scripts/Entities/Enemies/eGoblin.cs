@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Assets.Scripts.Entities.Enemies
+{
     public class eGoblin : Enemy
     {
         Vector3 playerPosition;
         public override string name => "eGoblin";
         float randMoveX;
         float randMoveY;
+
+        public eGoblin()
+        { }
 
         protected override void Awake()
         {
@@ -20,7 +25,7 @@ using UnityEngine;
             rb = this.GetComponent<Rigidbody2D>();
             minRange = minRangeAtk;
 
-           
+
         }
 
         protected override void EnemyBehaviour()
@@ -67,3 +72,4 @@ using UnityEngine;
             }
         }
     }
+}

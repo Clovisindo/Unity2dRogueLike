@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Entities.Enemies;
+using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {

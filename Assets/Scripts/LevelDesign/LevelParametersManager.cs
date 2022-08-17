@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.Entities.Enemies;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
+using SerializableVector = Assets.Utilities.SerializableStructs.SerializableVector3;
 
 
 namespace Assets.Scripts.LevelDesign
@@ -14,6 +17,7 @@ namespace Assets.Scripts.LevelDesign
 
         private FactoryConfigLevelParameters factoryConfig;
         List<DesignLevelParameters> loadFileLevelDesign;
+        List<EntitySpawnPos> loadFileEntitySpawn;
 
         int countEasyEnm = 0;
         int countMedEnm = 0;
@@ -21,6 +25,7 @@ namespace Assets.Scripts.LevelDesign
 
         private string CONFIG_FOLDER ;
         private static readonly string LDPRESETS_CONFIGFILE = "LevelDesignPresets";
+        private static readonly string SPAWNPOS_CONFIGFILE = "EntitySpawnPresets";
         private const string SAVE_EXTENSION = ".json";
 
         public LevelParametersManager()
@@ -40,6 +45,7 @@ namespace Assets.Scripts.LevelDesign
 
             factoryConfig = this.GetComponent<FactoryConfigLevelParameters>();
             CONFIG_FOLDER = Application.dataPath + "/Levels/";
+            //testSaveJson();
         }
 
         private void LoadFileLevelParameters()
@@ -72,13 +78,13 @@ namespace Assets.Scripts.LevelDesign
                     case EnumTypes.EnumTypeRoom.none:
                         break;
                     case EnumTypes.EnumTypeRoom.main:
-                        SetCombatRoom(currentLevelDesign);
+                        SetRoomDesign(currentLevelDesign);
                         break;
                     case EnumTypes.EnumTypeRoom.secundary:
-                        SetPuzzleRoom(currentLevelDesign);
+                        SetRoomDesign(currentLevelDesign);
                         break;
                     case EnumTypes.EnumTypeRoom.secret:
-                        SetPuzzleRoom(currentLevelDesign);//ToDo
+                        SetRoomDesign(currentLevelDesign);//ToDo
                         break;
                     default:
                         break;
@@ -144,20 +150,25 @@ namespace Assets.Scripts.LevelDesign
             return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).ElementAt(UnityEngine.Random.Range(0,count)));
         }
 
-        private void SetCombatRoom(DesignLevelParameters DLParameters)
+        private void SetRoomDesign(DesignLevelParameters DLParameters)
         {
-            foreach (var enemyJson in DLParameters.enemiesJson)
+            if (DLParameters.enemiesJson != null)
             {
-                DLParameters.AddEnemy(factoryConfig.GetEnemyPrefabByName(enemyJson));
+                foreach (var enemyJson in DLParameters.enemiesJson.Select((value, i) => new { i, value }))
+                {
+                    var enemy = factoryConfig.GetEnemyPrefabByName(enemyJson.value);
+                    DLParameters.AddEnemy(enemy);
+                }
             }
-        }
-
-        private void SetPuzzleRoom(DesignLevelParameters DLParameters)
-        {
-            foreach (var puzzleJson in DLParameters.puzzlesJson)
+            if (DLParameters.puzzlesJson != null)
             {
-                DLParameters.AddPuzzlePiece(factoryConfig.GetfPiecePrefabByName(puzzleJson));
+                foreach (var puzzleJson in DLParameters.puzzlesJson.Select((value, i) => new { i, value }))
+                {
+                    var piece = factoryConfig.GetfPiecePrefabByName(puzzleJson.value);
+                    DLParameters.AddPuzzlePiece(piece);
+                }
             }
+            
         }
 
         private void testSaveJson()
@@ -165,14 +176,31 @@ namespace Assets.Scripts.LevelDesign
             DesignLevelParameters t2 = new DesignLevelParameters();
             t2.typeRoom = EnumTypes.EnumTypeRoom.main;
             t2.dificultyRoom = EnumTypes.EnumDificultyRoom.easy;
-            t2.tagRoom = EnumTypes.EnumTagRoom.tipoA;
+            t2.tagRoom = EnumTypes.EnumTagRoom.enemies;
             t2.enemiesJson = new string[] { "eGoblin", "eMimic" };
             t2.enemiesJson = new string[] { "blueButton", "potion" };
+            t2.arrayEnemiesPos = new List<SerializableVector> { new SerializableVector(1, 2, 3), new SerializableVector(3, 4, 5) };
+            t2.arrayPuzzlePiecesPos = new List<SerializableVector> { new SerializableVector(1, 2, 3), new SerializableVector(5, 6, 7) };
 
             DesignLevelParameters[] t3 = new DesignLevelParameters[] { t2, t2 };
 
             string json1 = JsonConvert.SerializeObject(t3);
             File.WriteAllText(CONFIG_FOLDER + "save1_" + "." + SAVE_EXTENSION, json1);
+
+            //EntitySpawnPos t2 = new EntitySpawnPos();
+            //t2.tagRoom = EnumTagRoom.potionsTreasure;
+            //t2.arrayPositionsEnemies = new SerializableVector[] {new SerializableVector(1,2,3), new SerializableVector(3, 4, 5) };
+            //t2.arrayPositionsPieces = new SerializableVector[] { new SerializableVector(1, 2, 3), new SerializableVector(5, 6, 7) };
+            //t2.countEnemies = 2;
+            //t2.countPieces = 2;
+
+            //EntitySpawnPos[] t3 = new EntitySpawnPos[] { t2, t2 };
+
+            //string json1 = JsonConvert.SerializeObject(t3,Formatting.Indented, new JsonSerializerSettings
+            //{
+            //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            //});
+            //File.WriteAllText(CONFIG_FOLDER + "save1_" + "." + SAVE_EXTENSION, json1);
         }
     }
 }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Assets.Scripts;
-using Random = UnityEngine.Random;
-using System.Reflection;
 using Assets.Scripts.LevelDesign;
+using Utilities = Assets.Utilities.Utilities;
 
 public class EventRoomController : MonoBehaviour
 {
@@ -21,6 +17,7 @@ public class EventRoomController : MonoBehaviour
     public BoardRoom currentRoom;
 
     private List<DesignLevelParameters> listLevelParameters;
+    private List<EntitySpawnPos> listSpawnPos;
 
     public Dictionary<string, int> TypeQtyEnemies = new Dictionary<string, int>();
 
@@ -66,10 +63,10 @@ public class EventRoomController : MonoBehaviour
                 SetEmptyRoom();
                 break;
             case TypesRoom.battle:
-                SpawnEnemiesRoom(currentRoom);
+                SpawnEntitiesRoom(currentRoom);
                 break;
             case TypesRoom.puzzzle:
-                SpawnfPiecesRoom(currentRoom);
+                SpawnEntitiesRoom(currentRoom);
                 break;
         }
     }
@@ -86,6 +83,26 @@ public class EventRoomController : MonoBehaviour
     private void SetSpawnPuzzle()
     {
         //throw new NotImplementedException();
+    }
+
+    private void SpawnEntitiesRoom((BoardRoom value, int i) currentRoom)
+    {
+        int countEnemies = listLevelParameters[currentRoom.i].GetEnemies().Count;
+        int countPieces = listLevelParameters[currentRoom.i].GetPuzzlePieces().Count;
+        
+        if (countEnemies > 0)
+        {
+            currentInitPositionsEnemy.Clear();
+            currentInitPositionsEnemy = listLevelParameters[currentRoom.i].GetTransformEnemyPositions();
+            currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
+        }
+        if (countPieces > 0)
+        {
+            currentInitPositionsEnemy.Clear();
+            currentInitPositionsEnemy = listLevelParameters[currentRoom.i].GetTransformPiecePositions();
+            currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
+        }
+        
     }
 
     private void SpawnEnemiesRoom((BoardRoom value, int i) currentRoom)

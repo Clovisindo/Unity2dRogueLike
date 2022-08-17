@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.LevelDesign;
+﻿using Assets.Scripts.Entities.Enemies;
+using Assets.Scripts.LevelDesign;
 using UnityEngine;
 using EnumScene = LoaderSceneScript.Scene;
 

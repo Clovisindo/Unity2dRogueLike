@@ -1,14 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Components;
+using System.Xml.Linq;
 using UnityEngine;
-using Assets.Scripts;
-using Assets.Scripts.EnumTypes;
-using System;
-using Assets.Scripts.Components;
+using Enemy = Assets.Scripts.Entities.Enemies.Enemy;
 
-
-[System.Serializable]
-public abstract class Enemy : MonoBehaviour
+namespace Assets.Scripts.Entities.Enemies
+{
+    [System.Serializable]
+    public abstract class Enemy : MonoBehaviour
     {
         protected Animator animator;
         protected Transform target;
@@ -57,7 +55,7 @@ public abstract class Enemy : MonoBehaviour
         protected float moveY;
 
         protected Vector2 positionEndKnockback = default;
-        protected Vector3 respawnPosition;
+        private Vector3 respawnPosition;
 
         private float distanceKnockback = 0;
         private float kbDistance = 1;
@@ -82,15 +80,18 @@ public abstract class Enemy : MonoBehaviour
         protected float passingTimeFollowing = totalTimeFollowing;
 
 
-    //Enemigos habitacion
+        //Enemigos habitacion
         public bool IsPaused { get => isPaused; set => isPaused = value; }
 
+
+        public Enemy()
+        { }
 
         protected virtual void Awake()
         {
             rb = this.GetComponent<Rigidbody2D>();
             collider = this.GetComponent<BoxCollider2D>();
-            respawnPosition = transform.position;
+            respawnPosition = Vector3.zero;
 
             objectWidth = collider.bounds.size.x / 2;
             objectHeight = collider.bounds.size.y / 2;
@@ -279,6 +280,16 @@ public abstract class Enemy : MonoBehaviour
             }
         }
 
+        public virtual void UpdateRespawnPosition(Vector3 newPos)
+        {
+            this.respawnPosition = newPos;
+        }
+
+        public Vector3 GetRespawnPosition()
+        {
+            return this.respawnPosition;
+        }
+
         public int GetAttack()
         {
             return enemyAttack;
@@ -314,4 +325,4 @@ public abstract class Enemy : MonoBehaviour
         }
 
     }
-
+}

@@ -3,14 +3,16 @@
     [System.Serializable]
     public enum EnumTagRoom
     {
-        tipoA,
-        tipoB,
-        tipoC, 
         potionsTreasure,
         switches,
         buttons,
         fountain,
-        traps
+        enemies,
+        traps,
+        treasures,
+        key,
+        mimics,
+        unknown
     }
 }
 

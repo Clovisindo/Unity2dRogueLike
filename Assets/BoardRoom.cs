@@ -1,10 +1,12 @@
-﻿using Assets.Scripts.EnumTypes;
+﻿using Assets.Scripts.Entities.Enemies;
+using Assets.Scripts.EnumTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static LevelGeneration;
+using Helper = Assets.Utilities.Helper;
 
 public class BoardRoom : MonoBehaviour
 {
@@ -302,6 +304,7 @@ public class BoardRoom : MonoBehaviour
 
         foreach (var enemy in enemies)
         {
+            //initPositionsEnemy[i].transform.position = enemy.GetRespawnPosition();
             //emptyObject.transform.SetParent(this.transform);
             Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
             positionEnemy.SetParent(this.transform);
@@ -319,6 +322,7 @@ public class BoardRoom : MonoBehaviour
 
         foreach (var fPiece in fPieces)
         {
+            initPositionsEnemy[i].transform.position = fPiece.RespawnPosition;
             //emptyObject.transform.SetParent(this.transform);
             Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
             positionEnemy.SetParent(this.transform);

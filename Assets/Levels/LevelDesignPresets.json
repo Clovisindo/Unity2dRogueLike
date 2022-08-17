@@ -3,83 +3,190 @@
   {
     "typeRoom": "main",
     "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eGoblin" ],
-    "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
-  },
-  {
-    "typeRoom": "main",
-    "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eOrcWarrior" ],
-    "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
-  },
-  {
-    "typeRoom": "main",
-    "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOrcWarrior", "eOrcWarrior" ],
-    "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eGoblin",
+      "eGoblin"
+    ],
+    "puzzlesJson": [
+      "fountain"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 9.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.476,
+        "y": 7.413,
+        "z": -1.57735991
+      }
+    ]
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOgre", "eOrcMasked" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOrcShaman", "eOrcMasked" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcWarrior" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      },
+      {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 8.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcMasked" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      },
+      {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 8.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOgre", "eOrcShaman", "eOrcShaman" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      },
+      {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 8.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
+    "tagRoom": "enemies",
     "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcShaman", "eMimic" ],
     "puzzlesJson": null,
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      },
+      {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 8.0
+      },
+      {
+        "x": 6.0,
+        "y": 7.0,
+        "z": 8.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "secundary",
@@ -88,7 +195,20 @@
     "enemiesJson": null,
     "puzzlesJson": [ "potion", "chest" ],
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos":null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
@@ -97,7 +217,20 @@
     "enemiesJson": null,
     "puzzlesJson": [ "switchRed", "switchRed" ],
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
@@ -106,7 +239,20 @@
     "enemiesJson": null,
     "puzzlesJson": [ "redButton", "blueButton" ],
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
@@ -115,7 +261,20 @@
     "enemiesJson": null,
     "puzzlesJson": [ "fountain", "blueButton" ],
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
@@ -124,6 +283,19 @@
     "enemiesJson": null,
     "puzzlesJson": [ "pitTile", "floorTrap" ],
     "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayPuzzlePieces": null,
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 1.0,
+        "y": 2.0,
+        "z": 3.0
+      },
+      {
+        "x": 3.0,
+        "y": 4.0,
+        "z": 5.0
+      }
+    ]
   }
 ]
