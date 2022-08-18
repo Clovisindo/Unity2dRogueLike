@@ -301,33 +301,21 @@ public class BoardRoom : MonoBehaviour
     internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
     {
         int i = 0;
-
         foreach (var enemy in enemies)
         {
-            //initPositionsEnemy[i].transform.position = enemy.GetRespawnPosition();
-            //emptyObject.transform.SetParent(this.transform);
-            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
-            positionEnemy.SetParent(this.transform);
-            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
-            Enemy currentEnemy = Instantiate(enemy, positionEnemy.transform.position, Quaternion.identity);
+            Enemy currentEnemy = Instantiate(enemy, transform.TransformPoint(initPositionsEnemy[i].transform.position), Quaternion.identity);
             enemiesRoom.Add(currentEnemy);
             currentEnemy.transform.SetParent(this.transform);
             i++;
         }
     }
 
-    internal void InvokeFPieces(List<Transform> initPositionsEnemy, List<fFloorMechanic> fPieces)
+    internal void InvokeFPieces(List<Transform> initPositionsPiece, List<fFloorMechanic> fPieces)
     {
         int i = 0;
-
         foreach (var fPiece in fPieces)
         {
-            initPositionsEnemy[i].transform.position = fPiece.RespawnPosition;
-            //emptyObject.transform.SetParent(this.transform);
-            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
-            positionEnemy.SetParent(this.transform);
-            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
-            fFloorMechanic currentFPiece = Instantiate(fPiece, positionEnemy.transform.position, Quaternion.identity);
+            fFloorMechanic currentFPiece = Instantiate(fPiece, transform.TransformPoint(initPositionsPiece[i].transform.position), Quaternion.identity);
             fPiecesRoom.Add(currentFPiece);
             currentFPiece.transform.SetParent(this.transform);
             i++;

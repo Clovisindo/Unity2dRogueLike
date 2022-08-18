@@ -11,13 +11,9 @@ public class EventRoomController : MonoBehaviour
     private List<Transform> currentInitPositionsEnemy;
     [SerializeField] private GameObject[] InitPositionsPuzzle;
 
-    public enum TypesRoom { empty, battle, puzzzle };
-
-    public TypesRoom currentTypeRoom = TypesRoom.empty;
     public BoardRoom currentRoom;
 
     private List<DesignLevelParameters> listLevelParameters;
-    private List<EntitySpawnPos> listSpawnPos;
 
     public Dictionary<string, int> TypeQtyEnemies = new Dictionary<string, int>();
 
@@ -55,24 +51,23 @@ public class EventRoomController : MonoBehaviour
     private void InitRoom((BoardRoom value, int i) currentRoom)
     {
         currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
-        SetTypeCurrentRoom(currentRoom.value);
+        //SetTypeCurrentRoom(currentRoom.value);
 
-        switch (currentTypeRoom)
+        switch (currentRoom.value.RoomParameters.TypeRoom)
         {
-            case TypesRoom.empty:
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.none:
                 SetEmptyRoom();
                 break;
-            case TypesRoom.battle:
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.main:
                 SpawnEntitiesRoom(currentRoom);
                 break;
-            case TypesRoom.puzzzle:
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.secundary:
                 SpawnEntitiesRoom(currentRoom);
+                break;
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.secret:
+                SetEmptyRoom();
                 break;
         }
-    }
-    private void SetTypeCurrentRoom(BoardRoom currentRoom)
-    {
-        currentTypeRoom = (TypesRoom)currentRoom.RoomParameters.TypeRoom;//ToDo: no es el mismo tipo
     }
 
     private void SetEmptyRoom()
@@ -105,16 +100,6 @@ public class EventRoomController : MonoBehaviour
         
     }
 
-    private void SpawnEnemiesRoom((BoardRoom value, int i) currentRoom)
-    {
-        currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
-    }
-
-    private void SpawnfPiecesRoom((BoardRoom value, int i) currentRoom)
-    {
-        currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
-    }
-
     //pausar la partida
     public void PauseRoom(BoardRoom _boardRoom)
     {
@@ -125,5 +110,5 @@ public class EventRoomController : MonoBehaviour
     {
         _boardRoom.ReStartRoom();
     }
-    
+
 }
