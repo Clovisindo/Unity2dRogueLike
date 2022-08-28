@@ -298,24 +298,24 @@ public class BoardRoom : MonoBehaviour
     /// </summary>
     /// <param name="initPositionsEnemy">array de posiciones de spawn</param>
     /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
-    internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
+    internal void InvokeEnemies(List<Vector3> initPositionsEnemy, List<Enemy> enemies)
     {
         int i = 0;
         foreach (var enemy in enemies)
         {
-            Enemy currentEnemy = Instantiate(enemy, transform.TransformPoint(initPositionsEnemy[i].transform.position), Quaternion.identity);
+            Enemy currentEnemy = Instantiate(enemy, transform.TransformPoint(initPositionsEnemy[i]), Quaternion.identity);
             enemiesRoom.Add(currentEnemy);
             currentEnemy.transform.SetParent(this.transform);
             i++;
         }
     }
 
-    internal void InvokeFPieces(List<Transform> initPositionsPiece, List<fFloorMechanic> fPieces)
+    internal void InvokeFPieces(List<Vector3> initPositionsPiece, List<fFloorMechanic> fPieces)
     {
         int i = 0;
         foreach (var fPiece in fPieces)
         {
-            fFloorMechanic currentFPiece = Instantiate(fPiece, transform.TransformPoint(initPositionsPiece[i].transform.position), Quaternion.identity);
+            fFloorMechanic currentFPiece = Instantiate(fPiece, transform.TransformPoint(initPositionsPiece[i]), Quaternion.identity);
             fPiecesRoom.Add(currentFPiece);
             currentFPiece.transform.SetParent(this.transform);
             i++;

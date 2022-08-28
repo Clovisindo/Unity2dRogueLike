@@ -8,8 +8,9 @@ public class EventRoomController : MonoBehaviour
 {
     public static EventRoomController instance = null;
     [SerializeField] private GameObject[] InitPositionsEnemy;
-    private List<Transform> currentInitPositionsEnemy;
+    private List<Vector3> currentInitPositionsEnemy;
     [SerializeField] private GameObject[] InitPositionsPuzzle;
+    private List<Vector3> currentInitPositionsPuzzle;
 
     public BoardRoom currentRoom;
 
@@ -50,8 +51,8 @@ public class EventRoomController : MonoBehaviour
     /// </summary>
     private void InitRoom((BoardRoom value, int i) currentRoom)
     {
-        currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
-        //SetTypeCurrentRoom(currentRoom.value);
+        //currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
+        ////SetTypeCurrentRoom(currentRoom.value);
 
         switch (currentRoom.value.RoomParameters.TypeRoom)
         {
@@ -87,15 +88,15 @@ public class EventRoomController : MonoBehaviour
         
         if (countEnemies > 0)
         {
-            currentInitPositionsEnemy.Clear();
             currentInitPositionsEnemy = listLevelParameters[currentRoom.i].GetTransformEnemyPositions();
             currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
+            currentInitPositionsEnemy.Clear();
         }
         if (countPieces > 0)
         {
-            currentInitPositionsEnemy.Clear();
-            currentInitPositionsEnemy = listLevelParameters[currentRoom.i].GetTransformPiecePositions();
-            currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
+            currentInitPositionsPuzzle = listLevelParameters[currentRoom.i].GetTransformPiecePositions();
+            currentRoom.value.InvokeFPieces(currentInitPositionsPuzzle, listLevelParameters[currentRoom.i].GetPuzzlePieces());
+            currentInitPositionsPuzzle.Clear();
         }
         
     }

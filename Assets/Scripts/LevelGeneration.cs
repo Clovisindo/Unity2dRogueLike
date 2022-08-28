@@ -374,7 +374,6 @@ public class LevelGeneration : MonoBehaviour
 
         currentRoom.RoomParameters = currentRoomParameters;
         currentRoom.UpdateDoorsByParameters(currentRoomParameters.RoomDoors);
-        currentRoom.LogCurrentRoom(currentRoomParameters);
         
     }
   

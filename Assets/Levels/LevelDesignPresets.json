@@ -326,7 +326,7 @@
   },
   {
     "typeRoom": "secundary",
-    "dificultyRoom": "hard",
+    "dificultyRoom": "medium",
     "tagRoom": "mimics",
     "enemiesJson": [
       "eMimic"
@@ -337,6 +337,37 @@
     "arrayEnemiesPos": [
       {
         "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secundary",
+    "dificultyRoom": "hard",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic",
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 4.0,
         "y": 5.0,
         "z": 0.0
       }

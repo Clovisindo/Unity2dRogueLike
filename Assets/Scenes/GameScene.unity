@@ -1755,21 +1755,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978a510dbe95eff4daa5599c4dbb9b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeRoom: 1
+  typeRoom: 2
   dificultyRoom: 1
-  tagRoom: 5
+  tagRoom: 8
   enemies:
   - {fileID: 6382684585103001407, guid: 4c3038f19ce7a3644947f9aac5499f75, type: 3}
   - {fileID: 3549069607504243530, guid: de19d66477bf9814cb418a215497fbcd, type: 3}
-  pieces:
-  - {fileID: 2586293261711707786, guid: f48df9c159bfcda45a110767289d6d43, type: 3}
-  - {fileID: 2586293261711707786, guid: f48df9c159bfcda45a110767289d6d43, type: 3}
+  pieces: []
   enemiesPosition:
   - {fileID: 7715448278469223883}
   - {fileID: 7715448278786036376}
-  piecePosition:
-  - {fileID: 1938487331}
-  - {fileID: 191232561}
+  piecePosition: []
 --- !u!4 &2008091987
 Transform:
   m_ObjectHideFlags: 0

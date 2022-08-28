@@ -3,6 +3,7 @@ using Assets.Scripts.EnumTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static Assets.Utilities.SerializableStructs;
 
@@ -84,28 +85,29 @@ namespace Assets.Scripts.LevelDesign
             return arrayPuzzlePiecesPos[index];
         }
 
-        public List<Transform> GetTransformEnemyPositions()
+        public List<Vector3> GetTransformEnemyPositions()
         {
-            List<Transform> list = new List<Transform>();
+            List<Vector3> list = new List<Vector3>();
             foreach (var enemyPosSV3 in arrayEnemiesPos)
             {
-                GameObject t1 = new GameObject() ;
-                t1.transform.position = (Vector3)enemyPosSV3;
-                list.Add(t1.transform);
+                list.Add((Vector3)enemyPosSV3);
             }
             return list;
         }
 
-        public List<Transform> GetTransformPiecePositions()
+        public List<Vector3> GetTransformPiecePositions()
         {
-            List<Transform> list = new List<Transform>();
+            List<Vector3> list = new List<Vector3>();
             foreach (var piecePosSV3 in arrayPuzzlePiecesPos)
             {
-                GameObject t1 = new GameObject();
-                t1.transform.position = (Vector3)piecePosSV3;
-                list.Add(t1.transform);
+                list.Add((Vector3)piecePosSV3);
             }
             return list;
+        }
+
+        public static List<DesignLevelParameters> GetDLParamsByFilter(List<DesignLevelParameters> listDLparam, EnumTypeRoom typeRoom, EnumDificultyRoom dificultyRoom)
+        {
+            return listDLparam.Where( d => d.typeRoom == typeRoom && d.dificultyRoom == dificultyRoom ).ToList();
         }
     }
 }
