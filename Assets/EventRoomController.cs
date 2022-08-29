@@ -98,7 +98,35 @@ public class EventRoomController : MonoBehaviour
             currentRoom.value.InvokeFPieces(currentInitPositionsPuzzle, listLevelParameters[currentRoom.i].GetPuzzlePieces());
             currentInitPositionsPuzzle.Clear();
         }
-        
+        LogCurrentRoom(listLevelParameters[currentRoom.i], currentRoom.value);
+    }
+
+    public void LogCurrentRoom(DesignLevelParameters roomParameters, BoardRoom currentRoom)
+    {
+        Debug.Log(" Habitación " + currentRoom.name + " generada, de tipo : " + roomParameters.typeRoom +
+            " dificultad : " + roomParameters.dificultyRoom +
+            " y clase : " + roomParameters.tagRoom +
+            ".");
+        if (roomParameters.enemiesJson != null)
+        {
+            string logEnemies = "Enemigos invocados : ";
+            foreach (var roomEnemy in roomParameters.enemiesJson)
+            {
+                logEnemies += roomEnemy + ",";
+            }
+            Debug.Log(logEnemies + ".");
+        }
+
+        if (roomParameters.puzzlesJson != null)
+        {
+            string logPieces = "Piezas invocadas : ";
+            foreach (var roomPiece in roomParameters.puzzlesJson)
+            {
+                logPieces += roomPiece + ",";
+            }
+            Debug.Log(logPieces + ".");
+        }
+
     }
 
     //pausar la partida
