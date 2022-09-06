@@ -98,6 +98,8 @@ namespace Assets.Scripts.LevelDesign
         {
             switch (typeRoom)
             {
+                case EnumTypes.EnumTypeRoom.none:
+                    return null;
                 case EnumTypes.EnumTypeRoom.main:
                     return GetRoomLDByParameters(typeRoom);
                 case EnumTypes.EnumTypeRoom.secundary:

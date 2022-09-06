@@ -35,7 +35,6 @@ public class EventRoomController : MonoBehaviour
     public void InitRoomsDungeonLevel(BoardRoom[] listRooms)
     {
         listLevelParameters = GameManager.instance.levelParametersManager.SetDesignParametersRooms(listRooms);
-
         foreach (var room in listRooms.Select((value, i) => (value, i)))
         {
             InitRoom(room);
@@ -51,9 +50,6 @@ public class EventRoomController : MonoBehaviour
     /// </summary>
     private void InitRoom((BoardRoom value, int i) currentRoom)
     {
-        //currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
-        ////SetTypeCurrentRoom(currentRoom.value);
-
         switch (currentRoom.value.RoomParameters.TypeRoom)
         {
             case Assets.Scripts.EnumTypes.EnumTypeRoom.none:

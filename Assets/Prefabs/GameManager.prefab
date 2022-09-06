@@ -133,7 +133,7 @@ MonoBehaviour:
   minX: -1.5
   maxX: 54
   minY: 0
-  maxY: -30
+  maxY: -30.75
 --- !u!114 &-5785441729688871315
 MonoBehaviour:
   m_ObjectHideFlags: 0

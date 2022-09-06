@@ -52,7 +52,7 @@ public class LevelGeneration : MonoBehaviour
 
 
         //set tipo habitacion
-        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
+        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.none;
         ListRoomsCreated[transform.position].RoomGenerated = true;
         ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
 
