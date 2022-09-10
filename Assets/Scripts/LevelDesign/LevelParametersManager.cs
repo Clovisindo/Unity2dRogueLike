@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Entities.Enemies;
+using Assets.Scripts.EnumTypes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -105,18 +106,9 @@ namespace Assets.Scripts.LevelDesign
                 case EnumTypes.EnumTypeRoom.secundary:
                     return GetRoomLDByParameters(typeRoom);
                 case EnumTypes.EnumTypeRoom.secret:
-                    return GetRoomLDPuzzle();//ToDo: especial
+                    return GetRoomLDByParameters(typeRoom);
             }
             throw new Exception("Tipo habitacion no soportado");
-        }
-
-        private DesignLevelParameters GetRoomLDCombat()
-        {
-            List<DesignLevelParameters> designElements = new List<DesignLevelParameters>();
-
-            designElements = SetFileLevelDesignByDificulty();
-            countEasyEnm++;
-            return new DesignLevelParameters(designElements.ElementAt(UnityEngine.Random.Range(0, designElements.Count)));
         }
 
         private DesignLevelParameters GetRoomLDByParameters(EnumTypes.EnumTypeRoom typeRoom)
@@ -132,26 +124,6 @@ namespace Assets.Scripts.LevelDesign
             return new DesignLevelParameters(designElements.ElementAt(UnityEngine.Random.Range(0, designElements.Count)));
         }
 
-        private List<DesignLevelParameters> SetFileLevelDesignByDificulty()
-        {
-            List<DesignLevelParameters> designElements;
-            switch (countEasyEnm)
-            {
-                case 0:
-                case 1:
-                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.easy);
-                    break;
-                case 2:
-                case 3:
-                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.medium);
-                    break;
-                default:
-                    designElements = GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom.hard);
-                    break;
-            }
-            return designElements;
-        }
-
         private EnumTypes.EnumDificultyRoom SetDificultyByCount()
         {
             int random = UnityEngine.Random.Range(0, 101);
@@ -163,15 +135,22 @@ namespace Assets.Scripts.LevelDesign
         {
             var listDLParam = DesignLevelParameters.GetDLParamsByFilter(loadFileLevelDesign,typeRoom, dificultyRoom);
 
-            int random = EnumTypes.TypeTagRoom.GetTagRoomByRandomRange(listDLParam);
-            //ToDo: a medida que se repitan habitaciones, añadir modificador al random para que escale mas la dificultad
-            return EnumTypes.TypeTagRoom.types.Where(d => d.TypeRange.min <= random && d.TypeRange.max >= random).First().EnumTagRoom;
+            if (listDLParam.Count != 0)
+            {
+                int random = EnumTypes.TypeTagRoom.GetTagRoomByRandomRange(listDLParam);
+                //ToDo: a medida que se repitan habitaciones, añadir modificador al random para que escale mas la dificultad
+                return EnumTypes.TypeTagRoom.types.Where(d => d.TypeRange.min <= random && d.TypeRange.max >= random).First().EnumTagRoom;
+            }
+            else
+            {
+                LogErrorParams(typeRoom,dificultyRoom);
+                return EnumTagRoom.unknown;
+            }
         }
 
-        private List<DesignLevelParameters> GetFileLevelDesignByDificulty(EnumTypes.EnumDificultyRoom dificultyRoom)
+        private void LogErrorParams(EnumTypeRoom typeRoom, EnumDificultyRoom dificultyRoom)
         {
-            return loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.main
-            && l.dificultyRoom == dificultyRoom).ToList();
+            Debug.Log("No hay parametros para el set de habitacion: " + typeRoom.ToString() + " y " + dificultyRoom.ToString());
         }
 
         private List<DesignLevelParameters> GetFileLevelDesignByParameters(EnumTypes.EnumTypeRoom typeRoom, EnumTypes.EnumDificultyRoom dificultyRoom,
@@ -179,12 +158,6 @@ namespace Assets.Scripts.LevelDesign
         {
             return loadFileLevelDesign.Where(l => l.typeRoom == typeRoom
             && l.dificultyRoom == dificultyRoom && l.tagRoom == tagRoom).ToList();
-        }
-
-        private DesignLevelParameters GetRoomLDPuzzle()
-        {
-            int count = loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).ToList().Count();
-            return new DesignLevelParameters(loadFileLevelDesign.Where(l => l.typeRoom == EnumTypes.EnumTypeRoom.secundary).ElementAt(UnityEngine.Random.Range(0,count)));
         }
 
         private void SetRoomDesign(DesignLevelParameters DLParameters)

@@ -53,7 +53,7 @@ public class EventRoomController : MonoBehaviour
         switch (currentRoom.value.RoomParameters.TypeRoom)
         {
             case Assets.Scripts.EnumTypes.EnumTypeRoom.none:
-                SetEmptyRoom();
+                SetEmptyRoom(currentRoom);
                 break;
             case Assets.Scripts.EnumTypes.EnumTypeRoom.main:
                 SpawnEntitiesRoom(currentRoom);
@@ -62,20 +62,16 @@ public class EventRoomController : MonoBehaviour
                 SpawnEntitiesRoom(currentRoom);
                 break;
             case Assets.Scripts.EnumTypes.EnumTypeRoom.secret:
-                SetEmptyRoom();
+                SpawnEntitiesRoom(currentRoom);
                 break;
         }
     }
 
-    private void SetEmptyRoom()
+    private void SetEmptyRoom((BoardRoom value, int i) currentRoom)
     {
-        //throw new NotImplementedException();
+        Debug.Log(" habitacion vacia en " + currentRoom.value.name);
     }
 
-    private void SetSpawnPuzzle()
-    {
-        //throw new NotImplementedException();
-    }
 
     private void SpawnEntitiesRoom((BoardRoom value, int i) currentRoom)
     {

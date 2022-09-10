@@ -7,7 +7,7 @@
       "eGoblin",
       "eGoblin"
     ],
-    "puzzlesJson":null,
+    "puzzlesJson": null,
     "arrayEnemiesPos": [
       {
         "x": 9.0,
@@ -368,6 +368,81 @@
       },
       {
         "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
+    "dificultyRoom": "easy",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
+    "dificultyRoom": "medium",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
+    "dificultyRoom": "hard",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
         "y": 5.0,
         "z": 0.0
       }

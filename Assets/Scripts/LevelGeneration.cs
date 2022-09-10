@@ -115,7 +115,7 @@ public class LevelGeneration : MonoBehaviour
     /// </summary>
     private void InitOptinalRooms()
     {
-        foreach (var room in ListRoomsCreated)
+         foreach (var room in ListRoomsCreated)
         {
             if (room.Value.RoomGenerated == false && room.Value.TypeRoom != EnumTypeRoom.none)
             {

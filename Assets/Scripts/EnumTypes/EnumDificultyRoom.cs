@@ -31,21 +31,6 @@ namespace Assets.Scripts.EnumTypes
             this.enumDificultyRoom = enumDificultyRoom;
             this.typeRange = new EnumTypeRange(minProbRange, maxProbRange);
         }
-
-
-        //public TypeDificultyRoom GetParamDificulty(EnumDificultyRoom dificultyRoom)
-        //{
-        //    switch (dificultyRoom)
-        //    {
-        //        case EnumDificultyRoom.easy:
-        //            return new TypeDificultyRoom(EnumDificultyRoom.easy, 0, 50);
-        //        case EnumDificultyRoom.medium:
-        //            return new TypeDificultyRoom(EnumDificultyRoom.medium, 51, 80);
-        //        case EnumDificultyRoom.hard:
-        //            return new TypeDificultyRoom(EnumDificultyRoom.hard, 91, 100);
-        //    }
-        //    return null;
-        //}
     }
 
 }
