@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.EnumTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -31,6 +32,12 @@ public class LevelGeneration : MonoBehaviour
     //boundaries map generator
     public float minX;
     public float maxX;
+
+    public float layer1Y;
+    public float layer2Y;
+    public float layer3Y;
+    public float layer4Y;
+
     public float minY;
     public float maxY;
     private bool stopGeneration = false;
@@ -481,6 +488,7 @@ public class LevelGeneration : MonoBehaviour
                 {
                     nextActiveDirection = activeDirections[UnityEngine.Random.Range(0, activeDirections.Count)];
                     validRoom = CheckNextActiveDirection(nextActiveDirection);
+                    validRoom = CheckNotBottomLine(nextActiveDirection);
                     if (!validRoom)
                     {
                         activeDirections.Remove((doorDirection)nextActiveDirection);//si no es valida la borramos de la lista
@@ -503,6 +511,17 @@ public class LevelGeneration : MonoBehaviour
             return null;
         }
     }
+
+    private bool CheckNotBottomLine(doorDirection nextActiveDirection)
+    {
+        if (this.transform.position.y == layer3Y && nextActiveDirection == doorDirection.down)
+        {
+            Debug.Log("intento de secundary room que cierra el camino principal.");
+            return false;
+        }
+            return true;
+    }
+
     /// <summary>
     /// Comprueba si la habitacion en la siguiente direccion ya ha sido creada
     /// </summary>
@@ -513,7 +532,7 @@ public class LevelGeneration : MonoBehaviour
         BoardRoom currentRoom = rooms[rooms.Count - 1];
         Vector3 nextActivePosition = GetNextActivePosition(currentRoom.transform, nextActiveDirection);
 
-        if (ListRoomsCreated[nextActivePosition].TypeRoom == EnumTypeRoom.none){return true;}
+        if (ListRoomsCreated[nextActivePosition].TypeRoom == EnumTypeRoom.none ){return true;}
         else{return false;}
     }
 

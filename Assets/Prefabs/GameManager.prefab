@@ -132,6 +132,10 @@ MonoBehaviour:
   startTimeBTwRoom: 0.25
   minX: -1.5
   maxX: 54
+  layer1Y: 0
+  layer2Y: 10.3
+  layer3Y: 20.5
+  layer4Y: 30.8
   minY: 0
   maxY: -30.75
 --- !u!114 &-5785441729688871315

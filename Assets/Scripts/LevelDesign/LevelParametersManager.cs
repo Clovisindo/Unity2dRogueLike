@@ -18,11 +18,13 @@ namespace Assets.Scripts.LevelDesign
 
         private FactoryConfigLevelParameters factoryConfig;
         List<DesignLevelParameters> loadFileLevelDesign;
-        List<EntitySpawnPos> loadFileEntitySpawn;
+        private CountRoomsParam countRoomParam;
 
         int countEasyEnm = 0;
         int countMedEnm = 0;
         int countHardEnm = 0;
+
+        float dificultModifier = 0.0f;
 
         private string CONFIG_FOLDER ;
         private static readonly string LDPRESETS_CONFIGFILE = "LevelDesignPresets";
@@ -46,6 +48,7 @@ namespace Assets.Scripts.LevelDesign
 
             factoryConfig = this.GetComponent<FactoryConfigLevelParameters>();
             CONFIG_FOLDER = Application.dataPath + "/Levels/";
+            countRoomParam = new CountRoomsParam();
             //testSaveJson();
         }
 
@@ -73,6 +76,7 @@ namespace Assets.Scripts.LevelDesign
             {
                 var currentTypeRoom = rooms[i].RoomParameters.TypeRoom;
                 currentLevelDesign = GetRoomLevelDesign(currentTypeRoom);
+                SetDificultyModifier(currentLevelDesign);
                 
                 switch (currentTypeRoom)
                 {
@@ -95,6 +99,25 @@ namespace Assets.Scripts.LevelDesign
             return RoomsLevelDesign;
         }
 
+        private void SetDificultyModifier(DesignLevelParameters roomDesign)
+        {
+            //sumar a los contadores cuantas habitaciones de dificultad / tipo / tag se han generado
+            if (roomDesign == null)
+            {
+                roomDesign = new DesignLevelParameters();
+                roomDesign.dificultyRoom = EnumDificultyRoom.easy;
+                roomDesign.typeRoom = EnumTypeRoom.none;
+            }
+
+            countRoomParam.SetDificultByCount(roomDesign.dificultyRoom);
+            countRoomParam.SetTypeRoomByCount(roomDesign.typeRoom);
+            countRoomParam.SetTagRoomByCount(roomDesign.tagRoom);
+
+            dificultModifier = countRoomParam.SetModifierDificulty();
+        }
+
+      
+
         private DesignLevelParameters GetRoomLevelDesign(EnumTypes.EnumTypeRoom typeRoom)
         {
             switch (typeRoom)
@@ -115,7 +138,7 @@ namespace Assets.Scripts.LevelDesign
         {
             List<DesignLevelParameters> designElements = new List<DesignLevelParameters>();
 
-            var typeDificultyRoom = SetDificultyByCount();
+            var typeDificultyRoom = SetDificulty();
             var typeTagRoom = SetTagRoomByCount(typeRoom, typeDificultyRoom);
             //countEasyEnm++;
 
@@ -124,11 +147,12 @@ namespace Assets.Scripts.LevelDesign
             return new DesignLevelParameters(designElements.ElementAt(UnityEngine.Random.Range(0, designElements.Count)));
         }
 
-        private EnumTypes.EnumDificultyRoom SetDificultyByCount()
+        private EnumTypes.EnumDificultyRoom SetDificulty()
         {
-            int random = UnityEngine.Random.Range(0, 101);
-            //ToDo: a medida que se repitan habitaciones, añadir modificador al random para que escale mas la dificultad
-            return EnumTypes.TypeDificultyRoom.types.Where( d => d.TypeRange.min <= random && d.TypeRange.max >= random).First().EnumDificultyRoom;
+            float random = countRoomParam.CalculateDificultPlusModifier(dificultModifier);
+
+            return EnumTypes.TypeDificultyRoom.types.Where( d => d.TypeRange.min <= random  
+            && d.TypeRange.max >= random).First().EnumDificultyRoom;
         }
 
         private EnumTypes.EnumTagRoom SetTagRoomByCount(EnumTypes.EnumTypeRoom typeRoom, EnumTypes.EnumDificultyRoom dificultyRoom)
@@ -137,6 +161,11 @@ namespace Assets.Scripts.LevelDesign
 
             if (listDLParam.Count != 0)
             {
+                var nextTagRoom = countRoomParam.CheckIfNextTagRoomByCount();
+                if (nextTagRoom != null)
+                {
+                    return nextTagRoom.Value;
+                }
                 int random = EnumTypes.TypeTagRoom.GetTagRoomByRandomRange(listDLParam);
                 //ToDo: a medida que se repitan habitaciones, añadir modificador al random para que escale mas la dificultad
                 return EnumTypes.TypeTagRoom.types.Where(d => d.TypeRange.min <= random && d.TypeRange.max >= random).First().EnumTagRoom;
