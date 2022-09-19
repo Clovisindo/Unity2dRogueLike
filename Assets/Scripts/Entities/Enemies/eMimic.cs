@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities = Assets.Utilities.Utilities;
 
 
-
+namespace Assets.Scripts.Entities.Enemies
+{
     public class eMimic : Enemy
     {
         protected bool mimicActivated = false;
@@ -20,7 +22,7 @@ using UnityEngine;
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
-            HPBarobject = Utilities.GetChildObject(this.transform, "healthBar");
+            HPBarobject = Utilities.Utilities.GetChildObject(this.transform, "healthBar");
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
         }
@@ -50,7 +52,7 @@ using UnityEngine;
 
         private void CheckResetMimic()
         {
-            if (transform.position == respawnPosition)
+            if (transform.position == this.GetRespawnPosition())
             {
                 DeactivateMimic();
             }
@@ -84,3 +86,4 @@ using UnityEngine;
         }
     }
 
+}

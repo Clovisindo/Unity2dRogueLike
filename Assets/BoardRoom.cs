@@ -1,10 +1,12 @@
-﻿using Assets.Scripts.EnumTypes;
+﻿using Assets.Scripts.Entities.Enemies;
+using Assets.Scripts.EnumTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using static LevelGeneration;
+using Helper = Assets.Utilities.Helper;
 
 public class BoardRoom : MonoBehaviour
 {
@@ -296,34 +298,24 @@ public class BoardRoom : MonoBehaviour
     /// </summary>
     /// <param name="initPositionsEnemy">array de posiciones de spawn</param>
     /// <param name="enemies">lista de enemigos generada por EventRoomCollide</param>
-    internal void InvokeEnemies(List<Transform> initPositionsEnemy, List<Enemy> enemies)
+    internal void InvokeEnemies(List<Vector3> initPositionsEnemy, List<Enemy> enemies)
     {
         int i = 0;
-
         foreach (var enemy in enemies)
         {
-            //emptyObject.transform.SetParent(this.transform);
-            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
-            positionEnemy.SetParent(this.transform);
-            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
-            Enemy currentEnemy = Instantiate(enemy, positionEnemy.transform.position, Quaternion.identity);
+            Enemy currentEnemy = Instantiate(enemy, transform.TransformPoint(initPositionsEnemy[i]), Quaternion.identity);
             enemiesRoom.Add(currentEnemy);
             currentEnemy.transform.SetParent(this.transform);
             i++;
         }
     }
 
-    internal void InvokeFPieces(List<Transform> initPositionsEnemy, List<fFloorMechanic> fPieces)
+    internal void InvokeFPieces(List<Vector3> initPositionsPiece, List<fFloorMechanic> fPieces)
     {
         int i = 0;
-
         foreach (var fPiece in fPieces)
         {
-            //emptyObject.transform.SetParent(this.transform);
-            Transform positionEnemy = Instantiate(initPositionsEnemy[i], this.transform.position, Quaternion.identity);
-            positionEnemy.SetParent(this.transform);
-            positionEnemy.transform.position = transform.TransformPoint(initPositionsEnemy[i].transform.position);
-            fFloorMechanic currentFPiece = Instantiate(fPiece, positionEnemy.transform.position, Quaternion.identity);
+            fFloorMechanic currentFPiece = Instantiate(fPiece, transform.TransformPoint(initPositionsPiece[i]), Quaternion.identity);
             fPiecesRoom.Add(currentFPiece);
             currentFPiece.transform.SetParent(this.transform);
             i++;

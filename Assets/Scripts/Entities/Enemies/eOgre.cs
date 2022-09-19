@@ -2,6 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
+using Utility = Assets.Utilities.Utilities;
 
 namespace Assets.Scripts.Entities.Enemies
 {
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Entities.Enemies
             target = FindObjectOfType<Player>().transform;
             enemyCurrentHealth = enemyMaxHealth;
             healthBar.SetMaxHealth(enemyMaxHealth);
-            attackCollider = Utilities.FindObjectWithTag(this.transform,"EnemyAttackRange");
+            attackCollider = Utility.FindObjectWithTag(this.transform,"EnemyAttackRange");
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
@@ -109,3 +110,4 @@ namespace Assets.Scripts.Entities.Enemies
 
     }
 }
+

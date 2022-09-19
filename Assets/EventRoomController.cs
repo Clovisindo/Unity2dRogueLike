@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Assets.Scripts;
-using Random = UnityEngine.Random;
-using System.Reflection;
 using Assets.Scripts.LevelDesign;
+using Utilities = Assets.Utilities.Utilities;
 
 public class EventRoomController : MonoBehaviour
 {
     public static EventRoomController instance = null;
     [SerializeField] private GameObject[] InitPositionsEnemy;
-    private List<Transform> currentInitPositionsEnemy;
+    private List<Vector3> currentInitPositionsEnemy;
     [SerializeField] private GameObject[] InitPositionsPuzzle;
+    private List<Vector3> currentInitPositionsPuzzle;
 
-    public enum TypesRoom { empty, battle, puzzzle };
-
-    public TypesRoom currentTypeRoom = TypesRoom.empty;
     public BoardRoom currentRoom;
 
     private List<DesignLevelParameters> listLevelParameters;
@@ -41,7 +35,6 @@ public class EventRoomController : MonoBehaviour
     public void InitRoomsDungeonLevel(BoardRoom[] listRooms)
     {
         listLevelParameters = GameManager.instance.levelParametersManager.SetDesignParametersRooms(listRooms);
-
         foreach (var room in listRooms.Select((value, i) => (value, i)))
         {
             InitRoom(room);
@@ -57,45 +50,75 @@ public class EventRoomController : MonoBehaviour
     /// </summary>
     private void InitRoom((BoardRoom value, int i) currentRoom)
     {
-        currentInitPositionsEnemy = Utilities.getAllChildsObject<Transform>(InitPositionsEnemy[0].transform);//ToDo: elegir de forma aleatoria
-        SetTypeCurrentRoom(currentRoom.value);
-
-        switch (currentTypeRoom)
+        switch (currentRoom.value.RoomParameters.TypeRoom)
         {
-            case TypesRoom.empty:
-                SetEmptyRoom();
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.none:
+                SetEmptyRoom(currentRoom);
                 break;
-            case TypesRoom.battle:
-                SpawnEnemiesRoom(currentRoom);
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.main:
+                SpawnEntitiesRoom(currentRoom);
                 break;
-            case TypesRoom.puzzzle:
-                SpawnfPiecesRoom(currentRoom);
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.secundary:
+                SpawnEntitiesRoom(currentRoom);
+                break;
+            case Assets.Scripts.EnumTypes.EnumTypeRoom.secret:
+                SpawnEntitiesRoom(currentRoom);
                 break;
         }
     }
-    private void SetTypeCurrentRoom(BoardRoom currentRoom)
+
+    private void SetEmptyRoom((BoardRoom value, int i) currentRoom)
     {
-        currentTypeRoom = (TypesRoom)currentRoom.RoomParameters.TypeRoom;//ToDo: no es el mismo tipo
+        Debug.Log(" habitacion vacia en " + currentRoom.value.name);
     }
 
-    private void SetEmptyRoom()
+
+    private void SpawnEntitiesRoom((BoardRoom value, int i) currentRoom)
     {
-        //throw new NotImplementedException();
+        int countEnemies = listLevelParameters[currentRoom.i].GetEnemies().Count;
+        int countPieces = listLevelParameters[currentRoom.i].GetPuzzlePieces().Count;
+        
+        if (countEnemies > 0)
+        {
+            currentInitPositionsEnemy = listLevelParameters[currentRoom.i].GetTransformEnemyPositions();
+            currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
+            currentInitPositionsEnemy.Clear();
+        }
+        if (countPieces > 0)
+        {
+            currentInitPositionsPuzzle = listLevelParameters[currentRoom.i].GetTransformPiecePositions();
+            currentRoom.value.InvokeFPieces(currentInitPositionsPuzzle, listLevelParameters[currentRoom.i].GetPuzzlePieces());
+            currentInitPositionsPuzzle.Clear();
+        }
+        LogCurrentRoom(listLevelParameters[currentRoom.i], currentRoom.value);
     }
 
-    private void SetSpawnPuzzle()
+    public void LogCurrentRoom(DesignLevelParameters roomParameters, BoardRoom currentRoom)
     {
-        //throw new NotImplementedException();
-    }
+        Debug.Log(" Habitación " + currentRoom.name + " generada, de tipo : " + roomParameters.typeRoom +
+            " dificultad : " + roomParameters.dificultyRoom +
+            " y clase : " + roomParameters.tagRoom +
+            ".");
+        if (roomParameters.enemiesJson != null)
+        {
+            string logEnemies = "Enemigos invocados : ";
+            foreach (var roomEnemy in roomParameters.enemiesJson)
+            {
+                logEnemies += roomEnemy + ",";
+            }
+            Debug.Log(logEnemies + ".");
+        }
 
-    private void SpawnEnemiesRoom((BoardRoom value, int i) currentRoom)
-    {
-        currentRoom.value.InvokeEnemies(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetEnemies());
-    }
+        if (roomParameters.puzzlesJson != null)
+        {
+            string logPieces = "Piezas invocadas : ";
+            foreach (var roomPiece in roomParameters.puzzlesJson)
+            {
+                logPieces += roomPiece + ",";
+            }
+            Debug.Log(logPieces + ".");
+        }
 
-    private void SpawnfPiecesRoom((BoardRoom value, int i) currentRoom)
-    {
-        currentRoom.value.InvokeFPieces(currentInitPositionsEnemy, listLevelParameters[currentRoom.i].GetPuzzlePieces());
     }
 
     //pausar la partida
@@ -108,5 +131,5 @@ public class EventRoomController : MonoBehaviour
     {
         _boardRoom.ReStartRoom();
     }
-    
+
 }

@@ -128,12 +128,16 @@ MonoBehaviour:
   - {fileID: 7046546046221796652, guid: dcd904271e9830545a188c3d2964e701, type: 3}
   rooms: []
   moveAmountX: 18
-  moveAmountY: 10
+  moveAmountY: 10.25
   startTimeBTwRoom: 0.25
   minX: -1.5
   maxX: 54
+  layer1Y: 0
+  layer2Y: 10.3
+  layer3Y: 20.5
+  layer4Y: 30.8
   minY: 0
-  maxY: -30
+  maxY: -30.75
 --- !u!114 &-5785441729688871315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +153,6 @@ MonoBehaviour:
   InitPositionsEnemy:
   - {fileID: 1930063888734939225, guid: b4f1a5bb1faf96c4d9531eb5df6da495, type: 3}
   InitPositionsPuzzle: []
-  currentTypeRoom: 0
   currentRoom: {fileID: 0}
 --- !u!114 &510019380438362203
 MonoBehaviour:

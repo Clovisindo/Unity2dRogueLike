@@ -1,9 +1,9 @@
 ﻿using Assets.Scripts.EnumTypes;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utilities = Assets.Utilities.Utilities;
 
 
 /// <summary>
@@ -32,6 +32,12 @@ public class LevelGeneration : MonoBehaviour
     //boundaries map generator
     public float minX;
     public float maxX;
+
+    public float layer1Y;
+    public float layer2Y;
+    public float layer3Y;
+    public float layer4Y;
+
     public float minY;
     public float maxY;
     private bool stopGeneration = false;
@@ -53,7 +59,7 @@ public class LevelGeneration : MonoBehaviour
 
 
         //set tipo habitacion
-        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
+        ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.none;
         ListRoomsCreated[transform.position].RoomGenerated = true;
         ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(nextRoomDirection), EnumTypeDoor.entrance);
 
@@ -116,7 +122,7 @@ public class LevelGeneration : MonoBehaviour
     /// </summary>
     private void InitOptinalRooms()
     {
-        foreach (var room in ListRoomsCreated)
+         foreach (var room in ListRoomsCreated)
         {
             if (room.Value.RoomGenerated == false && room.Value.TypeRoom != EnumTypeRoom.none)
             {
@@ -375,7 +381,6 @@ public class LevelGeneration : MonoBehaviour
 
         currentRoom.RoomParameters = currentRoomParameters;
         currentRoom.UpdateDoorsByParameters(currentRoomParameters.RoomDoors);
-        currentRoom.LogCurrentRoom(currentRoomParameters);
         
     }
   
@@ -483,6 +488,7 @@ public class LevelGeneration : MonoBehaviour
                 {
                     nextActiveDirection = activeDirections[UnityEngine.Random.Range(0, activeDirections.Count)];
                     validRoom = CheckNextActiveDirection(nextActiveDirection);
+                    validRoom = CheckNotBottomLine(nextActiveDirection);
                     if (!validRoom)
                     {
                         activeDirections.Remove((doorDirection)nextActiveDirection);//si no es valida la borramos de la lista
@@ -505,6 +511,17 @@ public class LevelGeneration : MonoBehaviour
             return null;
         }
     }
+
+    private bool CheckNotBottomLine(doorDirection nextActiveDirection)
+    {
+        if (this.transform.position.y == layer3Y && nextActiveDirection == doorDirection.down)
+        {
+            Debug.Log("intento de secundary room que cierra el camino principal.");
+            return false;
+        }
+            return true;
+    }
+
     /// <summary>
     /// Comprueba si la habitacion en la siguiente direccion ya ha sido creada
     /// </summary>
@@ -515,7 +532,7 @@ public class LevelGeneration : MonoBehaviour
         BoardRoom currentRoom = rooms[rooms.Count - 1];
         Vector3 nextActivePosition = GetNextActivePosition(currentRoom.transform, nextActiveDirection);
 
-        if (ListRoomsCreated[nextActivePosition].TypeRoom == EnumTypeRoom.none){return true;}
+        if (ListRoomsCreated[nextActivePosition].TypeRoom == EnumTypeRoom.none ){return true;}
         else{return false;}
     }
 

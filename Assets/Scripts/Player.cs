@@ -1,9 +1,9 @@
 ﻿using Assets.Scripts.Components;
-using System;
-using System.Collections;
+using Assets.Scripts.Entities.Enemies;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Utilities = Assets.Utilities.Utilities;
+
 
 public class Player : MonoBehaviour
 {

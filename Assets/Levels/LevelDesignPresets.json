@@ -1,129 +1,458 @@
 ﻿[
-
   {
     "typeRoom": "main",
     "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eGoblin" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eGoblin",
+      "eGoblin"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
-  },
-  {
-    "typeRoom": "main",
-    "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eGoblin", "eOrcWarrior" ],
-    "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
-  },
-  {
-    "typeRoom": "main",
-    "dificultyRoom": "easy",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOrcWarrior", "eOrcWarrior" ],
-    "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 9.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcMasked" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOgre",
+      "eOrcMasked"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOrcShaman", "eOrcMasked" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOrcShaman",
+      "eOrcMasked"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "medium",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcWarrior" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOgre",
+      "eOrcMasked",
+      "eOrcWarrior"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcMasked" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOgre",
+      "eOrcMasked",
+      "eOrcMasked"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcShaman", "eOrcShaman" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOgre",
+      "eOrcShaman",
+      "eOrcShaman"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "main",
     "dificultyRoom": "hard",
-    "tagRoom": "tipoA",
-    "enemiesJson": [ "eOgre", "eOrcMasked", "eOrcShaman", "eMimic" ],
+    "tagRoom": "enemies",
+    "enemiesJson": [
+      "eOgre",
+      "eOrcMasked",
+      "eOrcShaman",
+      "eMimic"
+    ],
     "puzzlesJson": null,
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 3.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      },
+      {
+        "x": 5.0,
+        "y": 6.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": null
   },
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
     "tagRoom": "potionsTreasure",
     "enemiesJson": null,
-    "puzzlesJson": [ "potion", "chest" ],
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "puzzlesJson": [
+      "potion",
+      "chest"
+    ],
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
     "tagRoom": "switches",
     "enemiesJson": null,
-    "puzzlesJson": [ "switchRed", "switchRed" ],
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "puzzlesJson": [
+      "switchRed"
+    ],
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
     "tagRoom": "buttons",
     "enemiesJson": null,
-    "puzzlesJson": [ "redButton", "blueButton" ],
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "puzzlesJson": [
+      "blueButton",
+      "redButton"
+    ],
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "easy",
+    "tagRoom": "fountain",
+    "enemiesJson": null,
+    "puzzlesJson": [
+      "fountain"
+    ],
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 12.0,
+        "y": 8.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
     "dificultyRoom": "easy",
     "tagRoom": "fountain",
     "enemiesJson": null,
-    "puzzlesJson": [ "fountain", "blueButton" ],
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "puzzlesJson": [
+      "fountain"
+    ],
+    "arrayEnemiesPos": null,
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 12.0,
+        "y": 8.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "main",
+    "dificultyRoom": "medium",
+    "tagRoom": "traps",
+    "enemiesJson": [
+      "eOrcMasked",
+      "eOrcWarrior"
+    ],
+    "puzzlesJson": [
+      "floorTrap",
+      "floorTrap"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 12.0,
+        "y": 7.413,
+        "z": 0.0
+      },
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 5.0,
+        "y": 2.0,
+        "z": 0.0
+      },
+      {
+        "x": 7.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "secundary",
+    "dificultyRoom": "medium",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secundary",
+    "dificultyRoom": "hard",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic",
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
     "dificultyRoom": "easy",
-    "tagRoom": "traps",
-    "enemiesJson": null,
-    "puzzlesJson": [ "pitTile", "floorTrap" ],
-    "arrayEnemies": null,
-    "arrayPuzzlePieces": null
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
+    "dificultyRoom": "medium",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
+  },
+  {
+    "typeRoom": "secret",
+    "dificultyRoom": "hard",
+    "tagRoom": "mimics",
+    "enemiesJson": [
+      "eMimic"
+    ],
+    "puzzlesJson": [
+      "potion"
+    ],
+    "arrayEnemiesPos": [
+      {
+        "x": 10.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ],
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      }
+    ]
   }
 ]

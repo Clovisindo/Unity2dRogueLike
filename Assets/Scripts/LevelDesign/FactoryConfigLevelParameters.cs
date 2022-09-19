@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Entities.Enemies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.LevelDesign
                 throw new Exception($"Enemy with id {name} does not exit");
             }
 
-            return enemy;
+            return enemy ;
         }
 
         public fFloorMechanic GetfPiecePrefabByName(string name)

@@ -74,7 +74,6 @@ namespace Assets.Scripts.Components
                     break;
             }
             HealthManager.instance.UpdateWeaponFrame(currentWeapon.WeaponSprite);
-            Debug.Log("Arma cambiada a " + _enumWeapon.ToString());
         }
 
         private Weapon GetWeaponByTag(EnumWeapons _enumWeapon, List<Weapon> playerWeapons)

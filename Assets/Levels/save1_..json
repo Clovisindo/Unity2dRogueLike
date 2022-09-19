@@ -1,17 +1,1 @@
-[
-  
-  {
-    "typeRoom": 1,
-    "dificultyRoom": 0,
-    "tagRoom": 0,
-    "enemiesJson": [ "blueButton", "potion" ],
-    "puzzlesJson": null
-  },
-  {
-    "typeRoom": 1,
-    "dificultyRoom": 0,
-    "tagRoom": 0,
-    "enemiesJson": [ "blueButton", "potion" ],
-    "puzzlesJson": null
-  }
-]
+[{"typeRoom":1,"dificultyRoom":0,"tagRoom":4,"enemiesJson":["blueButton","potion"],"puzzlesJson":null,"arrayEnemiesPos":[{"x":1.0,"y":2.0,"z":3.0},{"x":3.0,"y":4.0,"z":5.0}],"arrayPuzzlePiecesPos":[{"x":1.0,"y":2.0,"z":3.0},{"x":5.0,"y":6.0,"z":7.0}]},{"typeRoom":1,"dificultyRoom":0,"tagRoom":4,"enemiesJson":["blueButton","potion"],"puzzlesJson":null,"arrayEnemiesPos":[{"x":1.0,"y":2.0,"z":3.0},{"x":3.0,"y":4.0,"z":5.0}],"arrayPuzzlePiecesPos":[{"x":1.0,"y":2.0,"z":3.0},{"x":5.0,"y":6.0,"z":7.0}]}]

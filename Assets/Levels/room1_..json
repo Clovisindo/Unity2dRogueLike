@@ -1,0 +1,23 @@
+{
+  "typeRoom": "secundary",
+  "dificultyRoom": "medium",
+  "tagRoom": "mimics",
+  "enemiesJson": [
+    "eOrcMasked",
+    "eOrcWarrior"
+  ],
+  "puzzlesJson": null,
+  "arrayEnemiesPos": [
+    {
+      "x": 12.0,
+      "y": 7.413,
+      "z": 0.0
+    },
+    {
+      "x": 4.0,
+      "y": 5.0,
+      "z": 0.0
+    }
+  ],
+  "arrayPuzzlePiecesPos": null
+}
