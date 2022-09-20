@@ -63,9 +63,10 @@ public class BoardRoom : MonoBehaviour
             enemy.IsPaused = false;
         }
 
-        if (RoomParameters.TypeRoom == EnumTypeRoom.secundary  || RoomParameters.TypeRoom == EnumTypeRoom.secret)
+        if (RoomParameters.TypeRoom == EnumTypeRoom.secundary  || RoomParameters.TypeRoom == EnumTypeRoom.secret ||enemiesRoom.Count == 0)
         {
             this.OpenDoor();
+            this.RoomComplete = true;
         }
     }
 
