@@ -76,7 +76,7 @@ namespace Assets.Scripts.Entities.Enemies
             rangeAttackCollider.enabled = true;
             //ataque especial del ogro
             SoundManager.instance.PlaySingle(orcSpecialAtk);
-
+            FlashColorEffect(Color.white);
             //animacion ataque
             //animator.SetTrigger("AttackOgre");
             timeBtwAttacks = startTimeBtwAttacks;

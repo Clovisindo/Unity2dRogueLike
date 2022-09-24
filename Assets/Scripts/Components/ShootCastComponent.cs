@@ -7,19 +7,22 @@ namespace Assets.Scripts.Components
 {
     public class ShootCastComponent : MonoBehaviour
     {
+        private bool shoot = false;
 
-        public void ShootBehaviour(ref float timeBtwShots, float attackRange, LayerMask whatIsSolid, float startTimeBtwShots, GameObject enemyShot,
+        public bool ShootBehaviour(ref float timeBtwShots, float attackRange, LayerMask whatIsSolid, float startTimeBtwShots, GameObject enemyShot,
             Transform shotPoint, float webForce)
         {
             if (timeBtwShots <= 0)
             {
                 var hitVision = EnemyAim(attackRange, whatIsSolid);
-                CheckCollisionAndShoot(hitVision,ref timeBtwShots, startTimeBtwShots, enemyShot, shotPoint, webForce);
+               shoot = CheckCollisionAndShoot(hitVision,ref timeBtwShots, startTimeBtwShots, enemyShot, shotPoint, webForce);
             }
             else
             {
+                shoot = false;
                 timeBtwShots -= Time.deltaTime;
             }
+            return shoot;
         }
 
         public RaycastHit2D EnemyAim(float attackRange, LayerMask whatIsSolid)
@@ -52,7 +55,7 @@ namespace Assets.Scripts.Components
             return new DirectionChargeParameters(rayCast, directionRay);
         }
 
-        private void CheckCollisionAndShoot(RaycastHit2D hitVision, ref float timeBtwShots, float startTimeBtwShots, GameObject enemyShot,
+        private bool CheckCollisionAndShoot(RaycastHit2D hitVision, ref float timeBtwShots, float startTimeBtwShots, GameObject enemyShot,
             Transform shotPoint, float webForce)
         {
             if (hitVision.collider != null)
@@ -62,8 +65,10 @@ namespace Assets.Scripts.Components
                     timeBtwShots = startTimeBtwShots;
                     shotPoint.rotation = CalculateRotationToTarget();
                     InstantiateShoot(enemyShot,shotPoint,webForce);
+                    return true;
                 }
             }
+            return false;
         }
 
         public void CheckCollisionAndCharge(RaycastHit2D hitVision,ref float timeBtwCharge, float startTimeBtwCharge, Vector3 directionRay,

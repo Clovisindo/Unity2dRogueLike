@@ -17,6 +17,8 @@ namespace Assets.Scripts.Entities.Enemies
         public float attackRange;
         public float webForce;
 
+        private bool shoot;
+
         //Components
         [SerializeField] ShootCastComponent shootComponent;
 
@@ -38,6 +40,10 @@ namespace Assets.Scripts.Entities.Enemies
         protected override void EnemyBehaviour()
         {
             MovementEnemyBehaviour();
+            if (shoot)
+            {
+                FlashColorEffect(Color.white);
+            }
 
         }
 
@@ -53,8 +59,9 @@ namespace Assets.Scripts.Entities.Enemies
             {
                 isMoving = false;
                 animator.SetBool("isMoving", isMoving);
-                shootComponent.ShootBehaviour(ref timeBtwShots, attackRange, whatIsSolid, startTimeBtwShots,
+                shoot = shootComponent.ShootBehaviour(ref timeBtwShots, attackRange, whatIsSolid, startTimeBtwShots,
                     enemyShot, shotPoint, webForce);
+                
             }
         }
 
