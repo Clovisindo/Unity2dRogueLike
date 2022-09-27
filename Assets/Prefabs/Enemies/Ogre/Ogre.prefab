@@ -170,13 +170,15 @@ MonoBehaviour:
   speed: 2
   minRange: 2
   maxRange: 5
-  typeEnemy: 1
+  finalBoss: 0
   flashDamageComponent: {fileID: 5742965426635711037}
   enemyMaxHealth: 8
   enemyCurrentHealth: 8
   healthBar: {fileID: 4926788827814056705}
   enemyAttack: 2
   playerHit: {fileID: 8300000, guid: 13c58d18c7371da42bcd30621cd7aa0a, type: 3}
+  isPaused: 0
+  changeFollowingPath: 0
   minAtkRange: 1
   maxAtkRange: 3
   orcSpecialAtk: {fileID: 8300000, guid: 3fa3fe5dff1e5774580d9106abb205e2, type: 3}
@@ -276,7 +278,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &5672024258352006238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,8 +521,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5760275523050331657, guid: fe700de19c3863643ad527c6b2e7e486, type: 3}
+      propertyPath: m_Radius
+      value: 0.25705817
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760275523050331657, guid: fe700de19c3863643ad527c6b2e7e486, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5760275523050331657, guid: fe700de19c3863643ad527c6b2e7e486, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.004066124
       objectReference: {fileID: 0}
     - target: {fileID: 7698690763086834809, guid: fe700de19c3863643ad527c6b2e7e486, type: 3}
       propertyPath: m_LocalScale.x

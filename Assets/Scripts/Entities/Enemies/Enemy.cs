@@ -330,6 +330,5 @@ namespace Assets.Scripts.Entities.Enemies
             animator.SetFloat("moveX", (target.position.x - transform.position.x));
             animator.SetFloat("moveY", (target.position.y - transform.position.y));
         }
-
     }
 }
