@@ -79,6 +79,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected const float totalTimeFollowing = 5f;
         protected float passingTimeFollowing = totalTimeFollowing;
+        protected bool deathAnimation = false;
 
 
         //Enemigos habitacion
@@ -118,7 +119,12 @@ namespace Assets.Scripts.Entities.Enemies
 
                 if (CheckIsDeath())
                 {
-                    DestroyEnemy(this);
+                    if (!deathAnimation)
+                    {
+                        deathAnimation = true;
+                        animator.SetTrigger("Death");
+                    }
+                    
                 }
             }
         }
@@ -329,6 +335,11 @@ namespace Assets.Scripts.Entities.Enemies
         {
             animator.SetFloat("moveX", (target.position.x - transform.position.x));
             animator.SetFloat("moveY", (target.position.y - transform.position.y));
+        }
+
+        protected void EndDeathAnimation()
+        {
+            DestroyEnemy(this);
         }
     }
 }
