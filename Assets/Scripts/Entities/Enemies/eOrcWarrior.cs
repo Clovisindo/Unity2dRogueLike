@@ -21,6 +21,7 @@ namespace Assets.Scripts.Entities.Enemies
         public LayerMask whatIsSolid;
         public bool isCharging = false;
         [SerializeField] private Vector3 directionCharge;
+        private bool chargeEffect;
 
         // Start is called before the first frame update
         protected override void Awake()
@@ -49,6 +50,7 @@ namespace Assets.Scripts.Entities.Enemies
                 var directionAndRayCast = shootComponent.EnemyAimWithDirection(attackRange, whatIsSolid);
                 shootComponent.CheckCollisionAndCharge(directionAndRayCast.HitVision, ref timeBtwCharge, startTimeBtwCharge,
                     directionAndRayCast.DirectionCast, ref directionCharge, ref isCharging);
+                chargeEffect = true;
             }
             else
             {
@@ -57,7 +59,13 @@ namespace Assets.Scripts.Entities.Enemies
 
             if (isCharging)
             {
+                
                 this.GetComponent<Rigidbody2D>().AddRelativeForce(directionCharge * ChargeForce);
+                if (isCharging && chargeEffect)
+                {
+                    FlashColorEffect(Color.white);
+                    chargeEffect = false;
+                }
             }
         }
 

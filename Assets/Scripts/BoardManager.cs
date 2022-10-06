@@ -250,6 +250,7 @@ public class BoardManager : MonoBehaviour
                     GameObject exitRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     if (isCreatedExit && colliderExit == null)
                     {
+                        RecalculateColliderPosition(x, y);
                         colliderExit = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderExit.tag = "Exit";
                         isCreatedExit = true;
@@ -264,6 +265,7 @@ public class BoardManager : MonoBehaviour
                     GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     if (isCreatedEntrance && colliderEntrance == null)
                     {
+                        RecalculateColliderPosition(x, y);
                         colliderEntrance = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderEntrance.tag = "Entrance";
                         isCreatedEntrance = true;
@@ -278,6 +280,7 @@ public class BoardManager : MonoBehaviour
                     GameObject entranceRoomDoor = Instantiate(roomDoor, new Vector3(x, y, 0f), angleExitDoor) as GameObject;
                     if (isCreatedExtraDoor && colliderExtraDoor == null)
                     {
+                        RecalculateColliderPosition(x, y);
                         colliderExtraDoor = Instantiate(rightChangeRoomCollider, new Vector3(x + movColliderX, y + movColliderY, 0f), angleExitCollider) as GameObject;
                         colliderExtraDoor.tag = "NoDoor";
                         isCreatedExtraDoor = true;
@@ -314,4 +317,15 @@ public class BoardManager : MonoBehaviour
         return generatedBoardRoom;
     }
 
+    private void RecalculateColliderPosition(int x, int y)
+    {
+        if (x == 8)
+        {
+            movColliderX = movColliderX - 1;
+        }
+        if (y == 4)
+        {
+            movColliderY = movColliderY - 1;
+        }
+    }
 }

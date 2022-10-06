@@ -34,7 +34,7 @@ namespace Assets.Scripts.Entities.Enemies
             rangeAttackCollider = attackCollider.GetComponent<CircleCollider2D>();
             collider = this.GetComponent<BoxCollider2D>();
             rb = this.GetComponent<Rigidbody2D>();
-            startTimeBtwAttacks = 2f;
+            startTimeBtwAttacks = 5f;
         }
 
         protected override void EnemyBehaviour()
@@ -73,12 +73,11 @@ namespace Assets.Scripts.Entities.Enemies
         private void attackOgre()
         {
             specialAttacking = true;
-            rangeAttackCollider.enabled = true;
             //ataque especial del ogro
             SoundManager.instance.PlaySingle(orcSpecialAtk);
-
+            FlashColorEffect(Color.white);
             //animacion ataque
-            //animator.SetTrigger("AttackOgre");
+            animator.SetTrigger("AttackOgre");
             timeBtwAttacks = startTimeBtwAttacks;
         }
 
@@ -86,27 +85,38 @@ namespace Assets.Scripts.Entities.Enemies
         {
             if (other.tag == "Player")
             {
-                //restamos vida al jugador
+                DisableColliderAttack();
                 GameObject enemyColl = other.gameObject;
-                GameManager.instance.player.TakeDamage(enemyAttack);
-                //ataque especial del ogro
-                Debug.Log("Ataque en area del Ogro.");
-
-                //2º desactivamos el collider del ataque especial
-                rangeAttackCollider.enabled = false;
+                GameManager.instance.player.TakeDamage(-enemyAttack);
             }
         }
 
-        void OnDrawGizmos()
+        protected void EnableColliderAttack()
         {
-            if (specialAttacking)
-            {
-#if UNITY_EDITOR
-                Handles.color = Color.green;
-                Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
-#endif
-            }
+            rangeAttackCollider.enabled = true;
+
         }
+
+        protected void DisableColliderAttack()
+        {
+            rangeAttackCollider.enabled = false;
+
+        }
+        void EndAnimationOgre()
+        {
+            animator.SetTrigger("AttackOgre");
+        }
+
+//        void OnDrawGizmos()
+//        {
+//            if (specialAttacking)
+//            {
+//#if UNITY_EDITOR
+//                Handles.color = Color.green;
+//                Handles.DrawWireDisc(this.transform.position, this.transform.forward, maxAtkRange - minAtkRange);
+//#endif
+//            }
+//        }
 
     }
 }

@@ -186,9 +186,6 @@ public class LevelGeneration : MonoBehaviour
                     //2º se crea la habitacion
                     rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position,GetDoorDirectionByInt(previousRoomDirection) , GetDoorDirectionByInt(nextRoomDirection)));
 
-                    //ListRoomsCreated.Add(transform.position,currentRoomParam);
-                    
-                    //previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
             }
@@ -270,7 +267,6 @@ public class LevelGeneration : MonoBehaviour
                     } while (!CheckNextRoomValid(transform, nextRoomDirection,false));
 
                     //1º creamos los RoomParameters
-                    //RoomParameters currentRoomParam = new RoomParameters(EnumTypeRoom.Main, true);
                     ListRoomsCreated[transform.position].TypeRoom = EnumTypeRoom.main;
                     ListRoomsCreated[transform.position].RoomGenerated = true;
                     ListRoomsCreated[transform.position].SetDoorTypeByDirection((doorDirection)GetDoorDirectionByInt(previousRoomDirection), EnumTypeDoor.entrance);
@@ -278,9 +274,6 @@ public class LevelGeneration : MonoBehaviour
                     //2º se crea la habitacion
                     rooms.Add(GameManager.instance.boardScript.BoardSetup(transform.position, GetDoorDirectionByInt(previousRoomDirection), GetDoorDirectionByInt(nextRoomDirection)));
 
-                    //ListRoomsCreated.Add(transform.position, currentRoomParam);
-
-                    //previousRoomDirection = (int)GetReversalDoorDirection(nextRoomDirection);
                     generateRoomTurn = true;
                 }
             }

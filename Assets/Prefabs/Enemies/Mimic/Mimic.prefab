@@ -501,7 +501,6 @@ MonoBehaviour:
   speed: 1
   minRange: 0
   maxRange: 5
-  typeEnemy: 3
   finalBoss: 0
   flashDamageComponent: {fileID: 8798770288914175032}
   enemyMaxHealth: 2
@@ -509,6 +508,7 @@ MonoBehaviour:
   healthBar: {fileID: 2492183457719030734}
   enemyAttack: 1
   playerHit: {fileID: 8300000, guid: 1f6e1a741a01f8e44b748cc5d11584aa, type: 3}
+  isPaused: 0
   changeFollowingPath: 0
 --- !u!50 &812820469
 Rigidbody2D:

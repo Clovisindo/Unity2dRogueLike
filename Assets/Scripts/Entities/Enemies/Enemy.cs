@@ -66,6 +66,7 @@ namespace Assets.Scripts.Entities.Enemies
         protected float knockbackResistence = 1;
         protected float passingTime = inmuneTime;
         protected bool enemyInmune = false;
+        [SerializeField]
         private bool isPaused = false;
         private bool CheckKknockback = false;
         public bool changeFollowingPath = false;
@@ -78,6 +79,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected const float totalTimeFollowing = 5f;
         protected float passingTimeFollowing = totalTimeFollowing;
+        protected bool deathAnimation = false;
 
 
         //Enemigos habitacion
@@ -117,7 +119,12 @@ namespace Assets.Scripts.Entities.Enemies
 
                 if (CheckIsDeath())
                 {
-                    DestroyEnemy(this);
+                    if (!deathAnimation)
+                    {
+                        deathAnimation = true;
+                        animator.SetTrigger("Death");
+                    }
+                    
                 }
             }
         }
@@ -244,6 +251,7 @@ namespace Assets.Scripts.Entities.Enemies
             passingTimeFollowing = 0f;
             timeBtwAttacks = startTimeBtwAttacks;
             attackRelease = true;
+            FlashColorEffect(Color.white);
         }
 
         /// <summary>
@@ -300,11 +308,16 @@ namespace Assets.Scripts.Entities.Enemies
             enemyCurrentHealth -= damage;
             healthBar.SetHealth(enemyCurrentHealth);
             SoundManager.instance.PlaySingle(playerHit);
-            flashDamageComponent.Flash(Color.white);
+            FlashColorEffect(Color.red);
             passingTime = 0;
             CheckKknockback = true;
             kbDistance = knockbackDistance;
             kbSpeed = knockbackSpeed;
+        }
+
+        protected void FlashColorEffect(Color color)
+        {
+            flashDamageComponent.Flash(color);
         }
         public bool checkIsInmune()
         {
@@ -324,5 +337,9 @@ namespace Assets.Scripts.Entities.Enemies
             animator.SetFloat("moveY", (target.position.y - transform.position.y));
         }
 
+        protected void EndDeathAnimation()
+        {
+            DestroyEnemy(this);
+        }
     }
 }
