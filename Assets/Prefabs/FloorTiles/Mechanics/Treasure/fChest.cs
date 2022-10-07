@@ -7,7 +7,7 @@ public class fChest : fFloorMechanic
     [SerializeField] private GameObject potionPrefab;
     private GameObject potionInstance;
 
-    public override string name => "chest";
+    public override string fName => "chest";
 
     protected override void ActivateMechanic()
     {

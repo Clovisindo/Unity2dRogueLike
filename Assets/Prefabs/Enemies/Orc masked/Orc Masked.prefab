@@ -269,13 +269,14 @@ MonoBehaviour:
   speed: 3
   minRange: 1
   maxRange: 8
-  typeEnemy: 2
+  finalBoss: 0
   flashDamageComponent: {fileID: 6851961718617876374}
   enemyMaxHealth: 3
   enemyCurrentHealth: 3
   healthBar: {fileID: 7163554495047493286}
   enemyAttack: 1
   playerHit: {fileID: 8300000, guid: 3382697d0d0252641af970ddfb8ff777, type: 3}
+  changeFollowingPath: 0
 --- !u!114 &6851961718617876374
 MonoBehaviour:
   m_ObjectHideFlags: 0

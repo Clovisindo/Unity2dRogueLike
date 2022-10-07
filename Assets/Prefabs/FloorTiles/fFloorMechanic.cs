@@ -10,7 +10,7 @@ public abstract class fFloorMechanic : MonoBehaviour
     [SerializeField] protected AudioClip trapSound;
     private Vector3 respawnPosition;
 
-    public abstract string name { get; }
+    public abstract string fName { get; }
     public Vector3 RespawnPosition { get => respawnPosition; set => respawnPosition = value; }
 
     protected const float rechargeTime = 2.0f;

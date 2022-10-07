@@ -28,7 +28,7 @@ namespace Assets.Scripts.LevelDesign
             _idfPieces = new Dictionary<string, fFloorMechanic>();
             foreach (var fPiece in _fPieces)
             {
-                _idfPieces.Add(fPiece.name, fPiece);
+                _idfPieces.Add(fPiece.fName, fPiece);
             }
         }
 

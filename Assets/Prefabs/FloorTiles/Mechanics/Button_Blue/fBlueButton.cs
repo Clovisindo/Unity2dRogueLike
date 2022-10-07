@@ -3,7 +3,7 @@
 
 public class fBlueButton : fFloorMechanic
 {
-    public override string name => "blueButton";
+    public override string fName => "blueButton";
 
     protected override void ActivateMechanic()
     {

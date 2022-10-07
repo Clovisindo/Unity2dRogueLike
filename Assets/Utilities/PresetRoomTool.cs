@@ -99,7 +99,7 @@ public class PresetRoomTool : MonoBehaviour
         List<string> listNames = new List<string>();
         foreach (var piece in pieceList)
         {
-            listNames.Add(piece.name);
+            listNames.Add(piece.fName);
         }
         return listNames.ToArray();
     }
