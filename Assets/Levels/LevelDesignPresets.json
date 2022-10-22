@@ -22,7 +22,13 @@
         "z": 0.0
       }
     ],
-    "arrayPuzzlePiecesPos": null
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "main",
