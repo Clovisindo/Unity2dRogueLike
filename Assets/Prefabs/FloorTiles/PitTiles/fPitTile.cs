@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class fPitTile : fFloorMechanic
 {
-    public override string name => "pitTile";
+    public override string fName => "pitTile";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {

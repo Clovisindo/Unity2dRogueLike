@@ -1,10 +1,10 @@
 {
-  "typeRoom": "secundary",
-  "dificultyRoom": "medium",
-  "tagRoom": "mimics",
+  "typeRoom": "main",
+  "dificultyRoom": "easy",
+  "tagRoom": "enemies",
   "enemiesJson": [
-    "eOrcMasked",
-    "eOrcWarrior"
+    "eGoblin",
+    "eGoblin"
   ],
   "puzzlesJson": null,
   "arrayEnemiesPos": [

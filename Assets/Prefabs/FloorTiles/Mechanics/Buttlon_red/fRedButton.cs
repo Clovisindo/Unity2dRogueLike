@@ -8,7 +8,8 @@ namespace Assets.Prefabs.FloorTiles.Mechanics.Buttlon_red
 {
     internal class fRedButton : fFloorMechanic
     {
-        public override string name => "redButton";
+        public override string fName => "redButton";
+        public override string SubtypeName { get; }
 
         protected override void ActivateMechanic()
         {

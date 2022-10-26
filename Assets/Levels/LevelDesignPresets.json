@@ -7,7 +7,9 @@
       "eGoblin",
       "eGoblin"
     ],
-    "puzzlesJson": null,
+    "puzzlesJson": [
+      "column"
+    ],
     "arrayEnemiesPos": [
       {
         "x": 9.0,
@@ -20,7 +22,13 @@
         "z": 0.0
       }
     ],
-    "arrayPuzzlePiecesPos": null
+    "arrayPuzzlePiecesPos": [
+      {
+        "x": 11.0,
+        "y": 2.0,
+        "z": 0.0
+      }
+    ]
   },
   {
     "typeRoom": "main",
@@ -197,7 +205,8 @@
     "enemiesJson": null,
     "puzzlesJson": [
       "potion",
-      "chest"
+      "chest",
+      "column"
     ],
     "arrayEnemiesPos": null,
     "arrayPuzzlePiecesPos": [
@@ -208,6 +217,11 @@
       },
       {
         "x": 4.0,
+        "y": 5.0,
+        "z": 0.0
+      },
+      {
+        "x": 12.0,
         "y": 5.0,
         "z": 0.0
       }

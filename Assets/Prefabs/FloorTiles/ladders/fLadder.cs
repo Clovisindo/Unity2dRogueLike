@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class fLadder : fFloorMechanic
 {
-    public override string name => "ladder";
+    public override string fName => "ladder";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {

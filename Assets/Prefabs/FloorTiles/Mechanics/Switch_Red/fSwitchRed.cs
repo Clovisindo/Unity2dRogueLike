@@ -3,7 +3,8 @@
 
 public class fSwitchRed : fFloorMechanic
 {
-    public override string name => "switchRed";
+    public override string fName => "switchRed";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {
