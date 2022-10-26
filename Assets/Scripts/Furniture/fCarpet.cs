@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class fCarpet : fFloorMechanic
 {
-    public override string fName => "carpet";
+    public override string fName => "fCarpet";
     [SerializeField]
     public string carpetName;
+    public override string SubtypeName => carpetName;
 
     protected override void Awake()
     {
+        //SubtypeName = carpetName;
     }
 
     protected override void ActivateMechanic()

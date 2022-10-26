@@ -5,6 +5,7 @@ using UnityEngine;
 public class fPotion : fFloorMechanic
 {
     public override string fName => "potion";
+    public override string SubtypeName { get;}
     protected override void ActivateMechanic()
     {
         //sonido de trampa

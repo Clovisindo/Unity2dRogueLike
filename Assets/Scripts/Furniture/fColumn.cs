@@ -6,8 +6,8 @@ public class fColumn : fFloorMechanic
 {
 
     public override string fName => "column";
+    public override string SubtypeName { get;}
 
-    // Start is called before the first frame update
     protected override void Awake()
     {
         

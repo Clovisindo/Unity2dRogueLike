@@ -8,6 +8,7 @@ public class fChest : fFloorMechanic
     private GameObject potionInstance;
 
     public override string fName => "chest";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {

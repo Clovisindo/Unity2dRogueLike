@@ -4,6 +4,7 @@
 public class fBlueButton : fFloorMechanic
 {
     public override string fName => "blueButton";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {

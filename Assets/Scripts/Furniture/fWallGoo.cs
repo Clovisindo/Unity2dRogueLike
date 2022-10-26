@@ -7,6 +7,7 @@ namespace Assets.Scripts.Furniture
     public class fWallGoo : fFloorMechanic
     {
         public override string fName => "wallGoo";
+        public override string SubtypeName { get;}
 
 
         protected override void Awake()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class fFountain : fFloorMechanic
 {
     public override string fName => "fountain";
+    public override string SubtypeName { get;}
 
     protected override void ActivateMechanic()
     {

@@ -557,7 +557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &675852162
 Transform:
   m_ObjectHideFlags: 0
@@ -2212,6 +2212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueCarpetRectangle
       objectReference: {fileID: 0}
+    - target: {fileID: 1084284039556974789, guid: 04e0d81f394520243ae1248a7962edd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1084284039556974791, guid: 04e0d81f394520243ae1248a7962edd8, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -2521,6 +2525,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EdgeLine 1x4
       objectReference: {fileID: 0}
+    - target: {fileID: 6647913880844724426, guid: 3466823b48b6d7f469e9f14c0763243b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6647913880844724427, guid: 3466823b48b6d7f469e9f14c0763243b, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2743,6 +2751,10 @@ PrefabInstance:
     - target: {fileID: 6349118835691117659, guid: f26678ed00865ae479cc1901e2a2dc98, type: 3}
       propertyPath: m_Name
       value: wall(1)_banner_blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349118835691117659, guid: f26678ed00865ae479cc1901e2a2dc98, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f26678ed00865ae479cc1901e2a2dc98, type: 3}

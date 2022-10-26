@@ -9,6 +9,7 @@ namespace Assets.Scripts.Furniture
         public override string fName => "fBanner";
         [SerializeField]
         public string bannerName;
+        public override string SubtypeName => bannerName;
 
         protected override void Awake()
         {
