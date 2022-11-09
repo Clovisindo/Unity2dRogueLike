@@ -30,7 +30,7 @@ public class BoardManager : MonoBehaviour
     public GameObject rightChangeRoomCollider;
     public GameObject roomDoorLeftRight;
     public GameObject roomDoorUpDown;
-    
+
     private GameObject roomDoor;
     private doorDirection? currentDirectionDoor = null;
 
@@ -59,7 +59,7 @@ public class BoardManager : MonoBehaviour
     private bool isCreatedExit = false;
     private bool isExtraDoor = false;
     private bool isCreatedExtraDoor = false;
-    
+
     private int index = 1;
     private float movColliderX;
     private float movColliderY;
@@ -82,7 +82,7 @@ public class BoardManager : MonoBehaviour
         generatedBoardRoom = null;
         roomCollider = null;
         //roomColliderInner = null;
-        generatedBoardRoom = Instantiate(prefabBoardRoom, new Vector3(0,0,0), Quaternion.identity);
+        generatedBoardRoom = Instantiate(prefabBoardRoom, new Vector3(0, 0, 0), Quaternion.identity);
         generatedBoardRoom.name = "BoardRoom_" + index.ToString();
         index++;
         roomCollider = Instantiate(prefabRoomCollider, new Vector3(0, 0, 0), Quaternion.identity);
@@ -92,6 +92,9 @@ public class BoardManager : MonoBehaviour
         //roomColliderInner.transform.SetParent(generatedBoardRoom.transform);
 
         generatedBoardRoom.colliderDetector = roomCollider.GetComponent<BoxCollider2D>();
+
+        //agrupar gerarquia tiles
+        GameObject tileSetRoom = new GameObject("tileSetRoom");
 
         //Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
         for (int x = -1; x < columns + 1; x++)
@@ -120,7 +123,7 @@ public class BoardManager : MonoBehaviour
                 }
                 if ((y == -1 || y == rows) && !((x == -1 && y == -1) || (x == -1 && y == rows) || (x == columns && y == -1) || (x == columns && y == rows))) //rows y que no sea esquina de fila
                 {
-                    if ((x == 7 || x == 8) && y == -1 )
+                    if ((x == 7 || x == 8) && y == -1)
                     {
                         if (nextSideDoor == doorDirection.down)
                         {
@@ -147,7 +150,7 @@ public class BoardManager : MonoBehaviour
                         angleExitDoor = Quaternion.identity;
                         roomDoor = roomDoorUpDown;
                     }
-                    else if ((x == 7 || x == 8) && y == rows )
+                    else if ((x == 7 || x == 8) && y == rows)
                     {
                         if (nextSideDoor == doorDirection.up)
                         {
@@ -291,12 +294,15 @@ public class BoardManager : MonoBehaviour
                         colliderExtraDoor = null;
                     }
                 }
-                
+
                 GameObject instance = Instantiate(toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
 
-                instance.transform.SetParent(generatedBoardRoom.transform);
+                instance.transform.SetParent(tileSetRoom.transform);
             }
         }
+
+        tileSetRoom.transform.SetParent(generatedBoardRoom.transform);
+
         colliderEntrance = null;
         colliderExit = null;
         generatedBoardRoom.transform.position = currentRoomPosition;
